@@ -20,7 +20,7 @@ fake = Faker()
 random.seed(42)
 Faker.seed(42)
 
-OUTPUT_DIR = Path("data/raw")
+OUTPUT_DIR = Path("glassbox/data/raw")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 N_DOCUMENTS = 250
