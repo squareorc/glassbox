@@ -62,6 +62,35 @@ class PIIDetector:
         )
         self.analyzer.registry.add_recognizer(dob_recognizer)
 
+        # Phone number patterns: comprehensive coverage for clinical notes
+        # Covers formatted numbers, extensions, and context-gated raw numbers
+        phone_patterns = [
+            # Formatted numbers with all common separators (parens, dashes, dots, spaces)
+            # + optional extensions (x123, ext. 123, #123)
+            # e.g., (555) 123-4567, 555-123-4567, +1-555-123-4567 ext. 402, 001-286-928-9023x303
+            Pattern(
+                name="phone_formatted_with_ext",
+                regex=r"(?<!\w)(?:\+?1[-.\s]?|001[-.\s]?)?(?:\(\d{3}\)\s?|\d{3}[-.\s])\d{3}[-.\s]\d{4}(?:\s*(?:x|ext\.?|#|extension)\s*\d{1,6})?(?!\w)",
+                score=0.85,
+            ),
+            # Raw 10-digit numbers (e.g., 8135389083) with LOW base score
+            # Context words boost above threshold to avoid false positives on medical codes
+            Pattern(
+                name="phone_raw_10digit_context",
+                regex=r"\b\d{10}\b",
+                score=0.40,  # Below threshold; requires context boost
+            ),
+        ]
+        phone_recognizer = PatternRecognizer(
+            supported_entity="PHONE_NUMBER",
+            patterns=phone_patterns,
+            context=[
+                "phone", "call", "contact", "cell", "tel", "telephone",
+                "mobile", "number", "reached", "dial", "fax", "extension"
+            ],
+        )
+        self.analyzer.registry.add_recognizer(phone_recognizer)
+
     def detect(self, text: str) -> List[Dict[str, Any]]:
         """
         Detect PII entities in text.
