@@ -34,8 +34,8 @@ class PIIDetector:
         """
         # Patient ID recognizers: multiple common formats
         patient_id_patterns = [
-            # Original: 2 letters + 6 digits (e.g., "Bc321819")
-            Pattern(name="patient_id_alpha_numeric", regex=r"\b[A-Za-z]{2}\d{6}\b", score=0.85),
+            # 1-2 letters + 6 digits (e.g., "Bc321819", "P010651")
+            Pattern(name="patient_id_alpha_numeric", regex=r"\b[A-Za-z]{1,2}\d{6}\b", score=0.85),
             # Dash-separated (e.g., "P-123456", "AB-123456")
             Pattern(name="patient_id_dash", regex=r"\b[A-Za-z]{1,2}-\d{6}\b", score=0.85),
             # MRN format (e.g., "MRN0012345", "MRN-12345")

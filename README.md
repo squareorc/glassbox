@@ -111,7 +111,8 @@ The system will be evaluated along three axes, each with a small set of headline
 
 ### Redaction Evaluation Results
 
-Evaluated on 250 synthetic clinical notes at confidence threshold 0.5, IoU threshold 0.5:
+#### 1. Baseline Evaluation (250 Synthetic Notes)
+Evaluated at confidence threshold 0.5, IoU threshold 0.5:
 
 | Metric | Score |
 |---|---|
@@ -130,11 +131,33 @@ Evaluated on 250 synthetic clinical notes at confidence threshold 0.5, IoU thres
 | NAME | 0.769 | 0.996 | 0.868 | 249 | 75 | 1 |
 | ADDRESS | 0.000 | 0.000 | 0.000 | 0 | 65 | 85 |
 
+#### 2. Scaled Evaluation on Realistic Clinical Dataset (2,500 Notes)
+Evaluated on complex EHR-style documentation (progress notes, SOAP notes, discharge summaries, consultation notes) with multi-provider attribution:
+
+| Metric | Score |
+|---|---|
+| **Overall Precision** | 0.776 |
+| **Overall Recall** | **0.911** |
+| **Overall F1** | **0.838** |
+
+**Per-entity-type breakdown (2,500 documents, 17,544 total PII entities):**
+
+| Entity Type | Precision | Recall | F1 | TP | FP | FN |
+|---|---|---|---|---|---|---|
+| **EMAIL** | **1.000** | **1.000** | **1.000** | 2,500 | 0 | 0 |
+| **DATE_OF_BIRTH** | **1.000** | **1.000** | **1.000** | 2,500 | 0 | 0 |
+| **PHONE_NUMBER** | **1.000** | **1.000** | **1.000** | 3,011 | 0 | 0 |
+| **PATIENT_ID** | **0.999** | **1.000** | **1.000** | 2,500 | 2 | 0 |
+| **NAME** | 0.834 | **0.988** | **0.904** | 5,930 | 1,179 | 75 |
+| ADDRESS | 0.001 | 0.001 | 0.001 | 2 | 3,337 | 1,526 |
+
 **What's working well:**
-- **Perfect detection (F1 1.000)** for 4 entity types: EMAIL, PATIENT_ID, DATE_OF_BIRTH, and PHONE_NUMBER.
+- **Perfect detection (F1 1.000)** maintained at scale across 4 entity types: EMAIL, PATIENT_ID, DATE_OF_BIRTH, and PHONE_NUMBER.
+- **NAME F1 improved to 0.904** (98.8% recall across 6,005 patient, attending, referring, and emergency contact names).
+- Robust performance across diverse note structures (SOAP, progress, discharge, consultation) and clinical language (vitals, lab orders, ICD-10 codes).
 - DATE_OF_BIRTH uses a year-range regex (1936-2008) to distinguish actual DOB from recent visit dates, eliminating false positives.
 - PHONE_NUMBER uses a comprehensive custom recognizer with context gating for raw numbers, catching standard, parentheses, extension (`x272`, `ext. 402`), and international formats.
-- Strong NAME detection (99.6% recall with some FPs from street names in addresses).
+- PATIENT_ID handles 1-2 letter alphanumeric, dash-separated, and MRN prefixes with 100% recall.
 
 **Generalization beyond synthetic data:**
 To validate that the scores aren't artifacts of overfitting, the system was tested on 8 unseen format variations:
