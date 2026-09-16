@@ -29,33 +29,36 @@ class PIIDetector:
         """
         Register custom pattern-based recognizers for healthcare-specific PII.
 
-        The synthetic dataset uses Faker's bothify() for patient IDs:
-        two letters + six digits (e.g., "Bc321819", "Km618495").
+        Includes multiple pattern variants to improve generalization beyond
+        the synthetic dataset's specific formats.
         """
-        # Patient ID recognizer: 2 letters + 6 digits
-        patient_id_pattern = Pattern(
-            name="patient_id_pattern",
-            regex=r"\b[A-Za-z]{2}\d{6}\b",
-            score=0.85,
-        )
+        # Patient ID recognizers: multiple common formats
+        patient_id_patterns = [
+            # Original: 2 letters + 6 digits (e.g., "Bc321819")
+            Pattern(name="patient_id_alpha_numeric", regex=r"\b[A-Za-z]{2}\d{6}\b", score=0.85),
+            # Dash-separated (e.g., "P-123456", "AB-123456")
+            Pattern(name="patient_id_dash", regex=r"\b[A-Za-z]{1,2}-\d{6}\b", score=0.85),
+            # MRN format (e.g., "MRN0012345", "MRN-12345")
+            Pattern(name="patient_id_mrn", regex=r"\bMRN[-]?\d{5,7}\b", score=0.85),
+        ]
         patient_id_recognizer = PatternRecognizer(
             supported_entity="PATIENT_ID",
-            patterns=[patient_id_pattern],
+            patterns=patient_id_patterns,
         )
         self.analyzer.registry.add_recognizer(patient_id_recognizer)
 
-        # Date of birth pattern: ISO format YYYY-MM-DD, but only for plausible DOB
-        # (18-90 years ago from current date 2026-09-16)
-        # This avoids flagging recent visit dates as DOB
-        # DOB range: 1936-09-16 to 2008-09-16
-        dob_pattern = Pattern(
-            name="dob_plausible_range",
-            regex=r"\b(19[3-9]\d|20[0][0-8])-\d{2}-\d{2}\b",
-            score=0.85,
-        )
+        # Date of birth patterns: multiple formats
+        dob_patterns = [
+            # ISO format YYYY-MM-DD with plausible DOB range (1936-2008)
+            Pattern(name="dob_iso_plausible", regex=r"\b(19[3-9]\d|20[0][0-8])-\d{2}-\d{2}\b", score=0.85),
+            # MM/DD/YYYY format with plausible years
+            Pattern(name="dob_us_format", regex=r"\b\d{2}/\d{2}/(19[3-9]\d|20[0][0-8])\b", score=0.85),
+            # Written format with context (e.g., "born March 20, 1985", "DOB: March 20, 1985")
+            Pattern(name="dob_written", regex=r"\b(?:born|DOB:?|date of birth:?)\s+[A-Z][a-z]+\s+\d{1,2},?\s+(19[3-9]\d|20[0][0-8])\b", score=0.8),
+        ]
         dob_recognizer = PatternRecognizer(
             supported_entity="DATE_OF_BIRTH",
-            patterns=[dob_pattern],
+            patterns=dob_patterns,
         )
         self.analyzer.registry.add_recognizer(dob_recognizer)
 
