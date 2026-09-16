@@ -1,0 +1,1096 @@
+{"doc_id": "doc_0000", "type": "NAME", "original_value": "Allison Hill", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0000", "type": "PATIENT_ID", "original_value": "Bc321819", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0000", "type": "DATE_OF_BIRTH", "original_value": "2025-11-30", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0000", "type": "PHONE_NUMBER", "original_value": "8135389083", "replacement": "[PHONE_NUMBER]", "start": 179, "end": 189, "score": 0.75}
+{"doc_id": "doc_0001", "type": "DATE_OF_BIRTH", "original_value": "2026-07-14", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0001", "type": "NAME", "original_value": "Monica Herrera", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0001", "type": "PATIENT_ID", "original_value": "Km618495", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0001", "type": "NAME", "original_value": "76483 Cameron Trail", "replacement": "[NAME]", "start": 182, "end": 201, "score": 0.85}
+{"doc_id": "doc_0001", "type": "ADDRESS", "original_value": "East Lydiamouth", "replacement": "[ADDRESS]", "start": 203, "end": 218, "score": 0.85}
+{"doc_id": "doc_0002", "type": "DATE_OF_BIRTH", "original_value": "2026-02-24", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0002", "type": "NAME", "original_value": "Michelle Lewis", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0002", "type": "PATIENT_ID", "original_value": "pV767242", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0002", "type": "NAME", "original_value": "Rice Plaza", "replacement": "[NAME]", "start": 174, "end": 184, "score": 0.85}
+{"doc_id": "doc_0002", "type": "ADDRESS", "original_value": "Danielchester", "replacement": "[ADDRESS]", "start": 195, "end": 208, "score": 0.85}
+{"doc_id": "doc_0003", "type": "NAME", "original_value": "Valerie Gill", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0003", "type": "PATIENT_ID", "original_value": "jx814893", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0003", "type": "DATE_OF_BIRTH", "original_value": "2026-02-18", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0003", "type": "PHONE_NUMBER", "original_value": "001-528-380-9570x15430", "replacement": "[PHONE_NUMBER]", "start": 191, "end": 213, "score": 0.75}
+{"doc_id": "doc_0004", "type": "DATE_OF_BIRTH", "original_value": "2025-07-12", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0004", "type": "NAME", "original_value": "Michael Brooks", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0004", "type": "PATIENT_ID", "original_value": "vb871331", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0004", "type": "NAME", "original_value": "Kristen Valley", "replacement": "[NAME]", "start": 194, "end": 208, "score": 0.85}
+{"doc_id": "doc_0004", "type": "ADDRESS", "original_value": "Leeville", "replacement": "[ADDRESS]", "start": 210, "end": 218, "score": 0.85}
+{"doc_id": "doc_0004", "type": "ADDRESS", "original_value": "TN", "replacement": "[ADDRESS]", "start": 220, "end": 222, "score": 0.85}
+{"doc_id": "doc_0005", "type": "DATE_OF_BIRTH", "original_value": "2025-06-27", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0005", "type": "NAME", "original_value": "Amy Valdez", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0005", "type": "PATIENT_ID", "original_value": "mm106513", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0006", "type": "NAME", "original_value": "Rachel Mitchell", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0006", "type": "DATE_OF_BIRTH", "original_value": "1958-08-23", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0006", "type": "PATIENT_ID", "original_value": "dL872343", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0006", "type": "DATE_OF_BIRTH", "original_value": "2025-03-28", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0006", "type": "EMAIL", "original_value": "larsonemma@example.org", "replacement": "[EMAIL]", "start": 214, "end": 236, "score": 1.0}
+{"doc_id": "doc_0007", "type": "NAME", "original_value": "Matthew Bryant", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0007", "type": "PATIENT_ID", "original_value": "eI107991", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0007", "type": "DATE_OF_BIRTH", "original_value": "2025-09-19", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0007", "type": "PHONE_NUMBER", "original_value": "484.925.1354", "replacement": "[PHONE_NUMBER]", "start": 207, "end": 219, "score": 0.75}
+{"doc_id": "doc_0008", "type": "NAME", "original_value": "Terry Williams", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0008", "type": "DATE_OF_BIRTH", "original_value": "1946-12-28", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0008", "type": "PATIENT_ID", "original_value": "Oq640052", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0008", "type": "DATE_OF_BIRTH", "original_value": "2026-07-26", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0008", "type": "EMAIL", "original_value": "russellwilliams@example.com", "replacement": "[EMAIL]", "start": 226, "end": 253, "score": 1.0}
+{"doc_id": "doc_0009", "type": "NAME", "original_value": "Vanessa Cochran", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0009", "type": "DATE_OF_BIRTH", "original_value": "2007-07-23", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0009", "type": "PATIENT_ID", "original_value": "rk602563", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0009", "type": "DATE_OF_BIRTH", "original_value": "2024-12-08", "replacement": "[DATE_OF_BIRTH]", "start": 102, "end": 112, "score": 0.6}
+{"doc_id": "doc_0009", "type": "EMAIL", "original_value": "emurphy@example.com", "replacement": "[EMAIL]", "start": 213, "end": 232, "score": 1.0}
+{"doc_id": "doc_0010", "type": "DATE_OF_BIRTH", "original_value": "2024-11-15", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0010", "type": "NAME", "original_value": "Cheryl Williams", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0010", "type": "PATIENT_ID", "original_value": "Be608835", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0011", "type": "DATE_OF_BIRTH", "original_value": "2025-08-27", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0011", "type": "NAME", "original_value": "Mackenzie Rogers", "replacement": "[NAME]", "start": 15, "end": 31, "score": 0.85}
+{"doc_id": "doc_0011", "type": "PATIENT_ID", "original_value": "cp343320", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0011", "type": "NAME", "original_value": "72788 Dodson Mills", "replacement": "[NAME]", "start": 188, "end": 206, "score": 0.85}
+{"doc_id": "doc_0012", "type": "NAME", "original_value": "David Walsh", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0012", "type": "PATIENT_ID", "original_value": "Ts873471", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0012", "type": "DATE_OF_BIRTH", "original_value": "2026-04-22", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0012", "type": "PHONE_NUMBER", "original_value": "845.458.1223", "replacement": "[PHONE_NUMBER]", "start": 210, "end": 222, "score": 0.75}
+{"doc_id": "doc_0013", "type": "NAME", "original_value": "Katherine Nelson", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0013", "type": "PATIENT_ID", "original_value": "Di706562", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0013", "type": "DATE_OF_BIRTH", "original_value": "2025-08-27", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0014", "type": "DATE_OF_BIRTH", "original_value": "2026-05-15", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0014", "type": "NAME", "original_value": "Travis Marshall", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0014", "type": "PATIENT_ID", "original_value": "Xk452991", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0014", "type": "NAME", "original_value": "67165 Zimmerman Mews Apt", "replacement": "[NAME]", "start": 186, "end": 210, "score": 0.85}
+{"doc_id": "doc_0014", "type": "ADDRESS", "original_value": "Marshallshire", "replacement": "[ADDRESS]", "start": 217, "end": 230, "score": 0.85}
+{"doc_id": "doc_0015", "type": "NAME", "original_value": "Stephen Sanchez", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0015", "type": "PATIENT_ID", "original_value": "Fu799650", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0015", "type": "DATE_OF_BIRTH", "original_value": "2025-05-30", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0015", "type": "PHONE_NUMBER", "original_value": "(273)554-5494", "replacement": "[PHONE_NUMBER]", "start": 207, "end": 220, "score": 0.75}
+{"doc_id": "doc_0016", "type": "DATE_OF_BIRTH", "original_value": "2024-11-01", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0016", "type": "NAME", "original_value": "Eric Hall", "replacement": "[NAME]", "start": 15, "end": 24, "score": 0.85}
+{"doc_id": "doc_0016", "type": "PATIENT_ID", "original_value": "nV351823", "replacement": "[PATIENT_ID]", "start": 38, "end": 46, "score": 0.85}
+{"doc_id": "doc_0016", "type": "NAME", "original_value": "Harrison Mill", "replacement": "[NAME]", "start": 185, "end": 198, "score": 0.85}
+{"doc_id": "doc_0016", "type": "ADDRESS", "original_value": "Jackton", "replacement": "[ADDRESS]", "start": 200, "end": 207, "score": 0.85}
+{"doc_id": "doc_0017", "type": "NAME", "original_value": "Kenneth Parks Jr.", "replacement": "[NAME]", "start": 8, "end": 25, "score": 0.85}
+{"doc_id": "doc_0017", "type": "DATE_OF_BIRTH", "original_value": "1956-05-06", "replacement": "[DATE_OF_BIRTH]", "start": 32, "end": 42, "score": 0.95}
+{"doc_id": "doc_0017", "type": "PATIENT_ID", "original_value": "WA941318", "replacement": "[PATIENT_ID]", "start": 47, "end": 55, "score": 0.85}
+{"doc_id": "doc_0017", "type": "DATE_OF_BIRTH", "original_value": "2026-06-05", "replacement": "[DATE_OF_BIRTH]", "start": 99, "end": 109, "score": 0.6}
+{"doc_id": "doc_0017", "type": "EMAIL", "original_value": "colleenbaker@example.org", "replacement": "[EMAIL]", "start": 219, "end": 243, "score": 1.0}
+{"doc_id": "doc_0018", "type": "DATE_OF_BIRTH", "original_value": "2025-11-16", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0018", "type": "NAME", "original_value": "David Baker", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0018", "type": "PATIENT_ID", "original_value": "Pj936183", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0018", "type": "ADDRESS", "original_value": "South", "replacement": "[ADDRESS]", "start": 215, "end": 220, "score": 0.85}
+{"doc_id": "doc_0019", "type": "DATE_OF_BIRTH", "original_value": "2024-11-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0019", "type": "NAME", "original_value": "Katherine Davis", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0019", "type": "PATIENT_ID", "original_value": "vA565512", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0019", "type": "NAME", "original_value": "Lake Eric", "replacement": "[NAME]", "start": 212, "end": 221, "score": 0.85}
+{"doc_id": "doc_0020", "type": "NAME", "original_value": "Susan Murray", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0020", "type": "PATIENT_ID", "original_value": "EE274846", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0020", "type": "DATE_OF_BIRTH", "original_value": "2026-06-12", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0020", "type": "PHONE_NUMBER", "original_value": "378.626.3982", "replacement": "[PHONE_NUMBER]", "start": 198, "end": 210, "score": 0.75}
+{"doc_id": "doc_0021", "type": "DATE_OF_BIRTH", "original_value": "2026-08-31", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0021", "type": "NAME", "original_value": "Janet Chase", "replacement": "[NAME]", "start": 20, "end": 31, "score": 0.85}
+{"doc_id": "doc_0021", "type": "PATIENT_ID", "original_value": "QY605766", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0021", "type": "ADDRESS", "original_value": "East Crystalport", "replacement": "[ADDRESS]", "start": 212, "end": 228, "score": 0.85}
+{"doc_id": "doc_0022", "type": "DATE_OF_BIRTH", "original_value": "2025-06-20", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0022", "type": "NAME", "original_value": "Michele Garcia", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0022", "type": "PATIENT_ID", "original_value": "sw240050", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0023", "type": "NAME", "original_value": "Edward Lyons", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0023", "type": "PATIENT_ID", "original_value": "MV064090", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0023", "type": "DATE_OF_BIRTH", "original_value": "2025-08-23", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0023", "type": "PHONE_NUMBER", "original_value": "943.295.3394x2104", "replacement": "[PHONE_NUMBER]", "start": 191, "end": 208, "score": 0.75}
+{"doc_id": "doc_0024", "type": "NAME", "original_value": "Paul Perez", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0024", "type": "DATE_OF_BIRTH", "original_value": "1986-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0024", "type": "PATIENT_ID", "original_value": "qI685160", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0024", "type": "DATE_OF_BIRTH", "original_value": "2025-10-14", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0024", "type": "EMAIL", "original_value": "rose31@example.net", "replacement": "[EMAIL]", "start": 207, "end": 225, "score": 1.0}
+{"doc_id": "doc_0025", "type": "DATE_OF_BIRTH", "original_value": "2024-12-31", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0025", "type": "NAME", "original_value": "Molly Mcclure", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0025", "type": "PATIENT_ID", "original_value": "Sx179640", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0025", "type": "NAME", "original_value": "Maria Plaza", "replacement": "[NAME]", "start": 190, "end": 201, "score": 0.85}
+{"doc_id": "doc_0025", "type": "ADDRESS", "original_value": "New Jason", "replacement": "[ADDRESS]", "start": 203, "end": 212, "score": 0.85}
+{"doc_id": "doc_0026", "type": "DATE_OF_BIRTH", "original_value": "2026-07-11", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0026", "type": "NAME", "original_value": "April Garrison", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0026", "type": "PATIENT_ID", "original_value": "Qb228421", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0026", "type": "ADDRESS", "original_value": "Boonechester", "replacement": "[ADDRESS]", "start": 203, "end": 215, "score": 0.85}
+{"doc_id": "doc_0026", "type": "ADDRESS", "original_value": "TX", "replacement": "[ADDRESS]", "start": 217, "end": 219, "score": 0.85}
+{"doc_id": "doc_0027", "type": "NAME", "original_value": "Bobby Franklin", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0027", "type": "PATIENT_ID", "original_value": "Tu124998", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0027", "type": "DATE_OF_BIRTH", "original_value": "2025-06-14", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0027", "type": "PHONE_NUMBER", "original_value": "(998)547-8961x1836", "replacement": "[PHONE_NUMBER]", "start": 194, "end": 212, "score": 0.75}
+{"doc_id": "doc_0028", "type": "DATE_OF_BIRTH", "original_value": "2025-07-04", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0028", "type": "NAME", "original_value": "Anthony Frye", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0028", "type": "PATIENT_ID", "original_value": "Ud851656", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0028", "type": "ADDRESS", "original_value": "Park Inlet", "replacement": "[ADDRESS]", "start": 184, "end": 194, "score": 0.85}
+{"doc_id": "doc_0028", "type": "ADDRESS", "original_value": "Michaelburgh", "replacement": "[ADDRESS]", "start": 196, "end": 208, "score": 0.85}
+{"doc_id": "doc_0029", "type": "NAME", "original_value": "Mark Johnson", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0029", "type": "PATIENT_ID", "original_value": "kx836675", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0029", "type": "DATE_OF_BIRTH", "original_value": "2024-09-20", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0029", "type": "PHONE_NUMBER", "original_value": "859-991-0229x0147", "replacement": "[PHONE_NUMBER]", "start": 194, "end": 211, "score": 0.75}
+{"doc_id": "doc_0030", "type": "DATE_OF_BIRTH", "original_value": "2025-10-07", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0030", "type": "NAME", "original_value": "Casey James", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0030", "type": "PATIENT_ID", "original_value": "Vc388516", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0030", "type": "ADDRESS", "original_value": "Jeffreyburgh", "replacement": "[ADDRESS]", "start": 209, "end": 221, "score": 0.85}
+{"doc_id": "doc_0031", "type": "NAME", "original_value": "Ricardo Bell", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0031", "type": "DATE_OF_BIRTH", "original_value": "1972-09-21", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0031", "type": "PATIENT_ID", "original_value": "lM231243", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0031", "type": "DATE_OF_BIRTH", "original_value": "2025-08-19", "replacement": "[DATE_OF_BIRTH]", "start": 88, "end": 98, "score": 0.6}
+{"doc_id": "doc_0031", "type": "EMAIL", "original_value": "scottharrison@example.net", "replacement": "[EMAIL]", "start": 198, "end": 223, "score": 1.0}
+{"doc_id": "doc_0032", "type": "DATE_OF_BIRTH", "original_value": "2025-04-29", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0032", "type": "NAME", "original_value": "Rebecca Huang", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0032", "type": "PATIENT_ID", "original_value": "Gj793597", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0032", "type": "ADDRESS", "original_value": "West Christopher", "replacement": "[ADDRESS]", "start": 209, "end": 225, "score": 0.85}
+{"doc_id": "doc_0032", "type": "ADDRESS", "original_value": "TN", "replacement": "[ADDRESS]", "start": 227, "end": 229, "score": 0.85}
+{"doc_id": "doc_0033", "type": "DATE_OF_BIRTH", "original_value": "2025-03-07", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0033", "type": "NAME", "original_value": "Mary Anderson", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0033", "type": "PATIENT_ID", "original_value": "QS148652", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0033", "type": "NAME", "original_value": "Moore Falls", "replacement": "[NAME]", "start": 174, "end": 185, "score": 0.85}
+{"doc_id": "doc_0033", "type": "NAME", "original_value": "Lake Samuel", "replacement": "[NAME]", "start": 187, "end": 198, "score": 0.85}
+{"doc_id": "doc_0033", "type": "ADDRESS", "original_value": "MT", "replacement": "[ADDRESS]", "start": 200, "end": 202, "score": 0.85}
+{"doc_id": "doc_0034", "type": "NAME", "original_value": "Dustin Goodman", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0034", "type": "DATE_OF_BIRTH", "original_value": "1964-08-25", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0034", "type": "PATIENT_ID", "original_value": "mx738347", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0034", "type": "DATE_OF_BIRTH", "original_value": "2025-06-15", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0034", "type": "EMAIL", "original_value": "angela18@example.org", "replacement": "[EMAIL]", "start": 205, "end": 225, "score": 1.0}
+{"doc_id": "doc_0035", "type": "DATE_OF_BIRTH", "original_value": "2026-08-28", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0035", "type": "NAME", "original_value": "Brad Walker", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0035", "type": "NAME", "original_value": "sE515220", "replacement": "[NAME]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0035", "type": "ADDRESS", "original_value": "Jennifer Highway Suite", "replacement": "[ADDRESS]", "start": 198, "end": 220, "score": 0.85}
+{"doc_id": "doc_0035", "type": "ADDRESS", "original_value": "New Robert", "replacement": "[ADDRESS]", "start": 226, "end": 236, "score": 0.85}
+{"doc_id": "doc_0036", "type": "DATE_OF_BIRTH", "original_value": "2024-10-11", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0036", "type": "NAME", "original_value": "Joseph Romero", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0036", "type": "PATIENT_ID", "original_value": "Oy880670", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0036", "type": "ADDRESS", "original_value": "Sarahhaven", "replacement": "[ADDRESS]", "start": 212, "end": 222, "score": 0.85}
+{"doc_id": "doc_0037", "type": "NAME", "original_value": "Donna Atkins", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0037", "type": "PATIENT_ID", "original_value": "zV054156", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0037", "type": "DATE_OF_BIRTH", "original_value": "2026-01-24", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0037", "type": "PHONE_NUMBER", "original_value": "865.427.7584x161", "replacement": "[PHONE_NUMBER]", "start": 195, "end": 211, "score": 0.75}
+{"doc_id": "doc_0038", "type": "DATE_OF_BIRTH", "original_value": "2025-10-30", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0038", "type": "NAME", "original_value": "Brenda Lawson", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0038", "type": "PATIENT_ID", "original_value": "xy702135", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0038", "type": "NAME", "original_value": "USS Fitzgerald", "replacement": "[NAME]", "start": 183, "end": 197, "score": 0.85}
+{"doc_id": "doc_0038", "type": "ADDRESS", "original_value": "FPO", "replacement": "[ADDRESS]", "start": 199, "end": 202, "score": 0.85}
+{"doc_id": "doc_0039", "type": "NAME", "original_value": "David Griffin", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0039", "type": "PATIENT_ID", "original_value": "eC947312", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0039", "type": "DATE_OF_BIRTH", "original_value": "2026-06-23", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0039", "type": "PHONE_NUMBER", "original_value": "(671)455-1884", "replacement": "[PHONE_NUMBER]", "start": 198, "end": 211, "score": 0.75}
+{"doc_id": "doc_0040", "type": "DATE_OF_BIRTH", "original_value": "2026-07-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0040", "type": "NAME", "original_value": "James Love", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0040", "type": "PATIENT_ID", "original_value": "iu786691", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0040", "type": "NAME", "original_value": "Lake Claudia", "replacement": "[NAME]", "start": 198, "end": 210, "score": 0.85}
+{"doc_id": "doc_0041", "type": "DATE_OF_BIRTH", "original_value": "2025-06-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0041", "type": "NAME", "original_value": "Scott Miller", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0041", "type": "PATIENT_ID", "original_value": "Ob943969", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0041", "type": "ADDRESS", "original_value": "Shannonberg", "replacement": "[ADDRESS]", "start": 222, "end": 233, "score": 0.85}
+{"doc_id": "doc_0042", "type": "NAME", "original_value": "Danielle Grimes", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0042", "type": "DATE_OF_BIRTH", "original_value": "1976-02-04", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0042", "type": "PATIENT_ID", "original_value": "FG259532", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0042", "type": "DATE_OF_BIRTH", "original_value": "2024-11-07", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0042", "type": "EMAIL", "original_value": "campbellcarla@example.net", "replacement": "[EMAIL]", "start": 222, "end": 247, "score": 1.0}
+{"doc_id": "doc_0043", "type": "NAME", "original_value": "Pamela Ramirez", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0043", "type": "DATE_OF_BIRTH", "original_value": "1997-03-21", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0043", "type": "PATIENT_ID", "original_value": "xY991216", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0043", "type": "DATE_OF_BIRTH", "original_value": "2025-11-23", "replacement": "[DATE_OF_BIRTH]", "start": 91, "end": 101, "score": 0.6}
+{"doc_id": "doc_0043", "type": "EMAIL", "original_value": "catherinerobertson@example.com", "replacement": "[EMAIL]", "start": 212, "end": 242, "score": 1.0}
+{"doc_id": "doc_0044", "type": "DATE_OF_BIRTH", "original_value": "2025-05-02", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0044", "type": "NAME", "original_value": "Katrina Burns", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0044", "type": "PATIENT_ID", "original_value": "Rh947055", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0044", "type": "NAME", "original_value": "Shaw Ridge Suite", "replacement": "[NAME]", "start": 192, "end": 208, "score": 0.85}
+{"doc_id": "doc_0044", "type": "ADDRESS", "original_value": "New Mark", "replacement": "[ADDRESS]", "start": 214, "end": 222, "score": 0.85}
+{"doc_id": "doc_0044", "type": "ADDRESS", "original_value": "TN", "replacement": "[ADDRESS]", "start": 224, "end": 226, "score": 0.85}
+{"doc_id": "doc_0045", "type": "NAME", "original_value": "Thomas Peterson", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0045", "type": "PATIENT_ID", "original_value": "rJ549733", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0045", "type": "DATE_OF_BIRTH", "original_value": "2026-07-08", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0045", "type": "PHONE_NUMBER", "original_value": "834-843-7575x8441", "replacement": "[PHONE_NUMBER]", "start": 211, "end": 228, "score": 0.75}
+{"doc_id": "doc_0046", "type": "NAME", "original_value": "David Garcia", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0046", "type": "PATIENT_ID", "original_value": "kA571208", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0046", "type": "DATE_OF_BIRTH", "original_value": "2024-12-22", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0047", "type": "NAME", "original_value": "Denise Lamb", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0047", "type": "PATIENT_ID", "original_value": "Vv527420", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0047", "type": "DATE_OF_BIRTH", "original_value": "2026-02-01", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0047", "type": "PHONE_NUMBER", "original_value": "493-929-6685x1612", "replacement": "[PHONE_NUMBER]", "start": 203, "end": 220, "score": 0.75}
+{"doc_id": "doc_0048", "type": "NAME", "original_value": "Teresa Richardson", "replacement": "[NAME]", "start": 0, "end": 17, "score": 0.85}
+{"doc_id": "doc_0048", "type": "PATIENT_ID", "original_value": "VM332727", "replacement": "[PATIENT_ID]", "start": 30, "end": 38, "score": 0.85}
+{"doc_id": "doc_0048", "type": "DATE_OF_BIRTH", "original_value": "2025-11-01", "replacement": "[DATE_OF_BIRTH]", "start": 53, "end": 63, "score": 0.6}
+{"doc_id": "doc_0048", "type": "PHONE_NUMBER", "original_value": "(768)378-3391x878", "replacement": "[PHONE_NUMBER]", "start": 185, "end": 202, "score": 0.75}
+{"doc_id": "doc_0049", "type": "NAME", "original_value": "Megan Parker", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0049", "type": "DATE_OF_BIRTH", "original_value": "1969-07-04", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0049", "type": "PATIENT_ID", "original_value": "ec064039", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0049", "type": "DATE_OF_BIRTH", "original_value": "2026-02-22", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0049", "type": "EMAIL", "original_value": "rbennett@example.net", "replacement": "[EMAIL]", "start": 210, "end": 230, "score": 1.0}
+{"doc_id": "doc_0050", "type": "NAME", "original_value": "James Hall", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0050", "type": "PATIENT_ID", "original_value": "cZ752431", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0050", "type": "DATE_OF_BIRTH", "original_value": "2025-09-12", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0050", "type": "PHONE_NUMBER", "original_value": "+1-269-803-3119x07903", "replacement": "[PHONE_NUMBER]", "start": 185, "end": 206, "score": 0.75}
+{"doc_id": "doc_0051", "type": "NAME", "original_value": "Teresa Powers", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0051", "type": "DATE_OF_BIRTH", "original_value": "1999-06-26", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0051", "type": "PATIENT_ID", "original_value": "yl856624", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0051", "type": "DATE_OF_BIRTH", "original_value": "2025-01-30", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0051", "type": "EMAIL", "original_value": "jonathanrivera@example.org", "replacement": "[EMAIL]", "start": 211, "end": 237, "score": 1.0}
+{"doc_id": "doc_0052", "type": "NAME", "original_value": "Misty Hansen", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0052", "type": "PATIENT_ID", "original_value": "mV735403", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0052", "type": "DATE_OF_BIRTH", "original_value": "2026-05-17", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0052", "type": "PHONE_NUMBER", "original_value": "673-893-6385", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 216, "score": 0.75}
+{"doc_id": "doc_0053", "type": "DATE_OF_BIRTH", "original_value": "2025-03-10", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0053", "type": "NAME", "original_value": "Michael Scott", "replacement": "[NAME]", "start": 19, "end": 32, "score": 0.85}
+{"doc_id": "doc_0053", "type": "PATIENT_ID", "original_value": "UI772522", "replacement": "[PATIENT_ID]", "start": 50, "end": 58, "score": 0.85}
+{"doc_id": "doc_0054", "type": "DATE_OF_BIRTH", "original_value": "2026-05-29", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0054", "type": "NAME", "original_value": "Dawn Gomez", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0054", "type": "PATIENT_ID", "original_value": "pS615679", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0054", "type": "ADDRESS", "original_value": "Rachelshire", "replacement": "[ADDRESS]", "start": 201, "end": 212, "score": 0.85}
+{"doc_id": "doc_0054", "type": "ADDRESS", "original_value": "TN", "replacement": "[ADDRESS]", "start": 214, "end": 216, "score": 0.85}
+{"doc_id": "doc_0055", "type": "NAME", "original_value": "Daniel Thomas", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0055", "type": "PATIENT_ID", "original_value": "Ky614293", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0055", "type": "DATE_OF_BIRTH", "original_value": "2024-12-01", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0056", "type": "NAME", "original_value": "Eric Ward", "replacement": "[NAME]", "start": 8, "end": 17, "score": 0.85}
+{"doc_id": "doc_0056", "type": "DATE_OF_BIRTH", "original_value": "1955-11-08", "replacement": "[DATE_OF_BIRTH]", "start": 24, "end": 34, "score": 0.95}
+{"doc_id": "doc_0056", "type": "PATIENT_ID", "original_value": "CJ412126", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0056", "type": "DATE_OF_BIRTH", "original_value": "2025-04-22", "replacement": "[DATE_OF_BIRTH]", "start": 84, "end": 94, "score": 0.6}
+{"doc_id": "doc_0056", "type": "EMAIL", "original_value": "carterpaul@example.org", "replacement": "[EMAIL]", "start": 208, "end": 230, "score": 1.0}
+{"doc_id": "doc_0057", "type": "DATE_OF_BIRTH", "original_value": "2024-10-04", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0057", "type": "NAME", "original_value": "Heather Raymond", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0057", "type": "PATIENT_ID", "original_value": "it799371", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0057", "type": "NAME", "original_value": "New Wendy", "replacement": "[NAME]", "start": 223, "end": 232, "score": 0.85}
+{"doc_id": "doc_0058", "type": "NAME", "original_value": "Terri Clark", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0058", "type": "DATE_OF_BIRTH", "original_value": "1985-11-27", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0058", "type": "PATIENT_ID", "original_value": "pq416724", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0058", "type": "DATE_OF_BIRTH", "original_value": "2025-02-23", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0058", "type": "EMAIL", "original_value": "rodriguezjohn@example.net", "replacement": "[EMAIL]", "start": 225, "end": 250, "score": 1.0}
+{"doc_id": "doc_0059", "type": "NAME", "original_value": "Joel Frazier", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0059", "type": "DATE_OF_BIRTH", "original_value": "1976-07-29", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0059", "type": "PATIENT_ID", "original_value": "sA825071", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0059", "type": "DATE_OF_BIRTH", "original_value": "2026-08-16", "replacement": "[DATE_OF_BIRTH]", "start": 87, "end": 97, "score": 0.6}
+{"doc_id": "doc_0059", "type": "EMAIL", "original_value": "udavis@example.net", "replacement": "[EMAIL]", "start": 213, "end": 231, "score": 1.0}
+{"doc_id": "doc_0060", "type": "NAME", "original_value": "Jared Lopez", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0060", "type": "DATE_OF_BIRTH", "original_value": "1944-03-30", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0060", "type": "PATIENT_ID", "original_value": "LB660937", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0060", "type": "DATE_OF_BIRTH", "original_value": "2025-06-14", "replacement": "[DATE_OF_BIRTH]", "start": 88, "end": 98, "score": 0.6}
+{"doc_id": "doc_0060", "type": "EMAIL", "original_value": "emily78@example.net", "replacement": "[EMAIL]", "start": 218, "end": 237, "score": 1.0}
+{"doc_id": "doc_0061", "type": "NAME", "original_value": "James Carlson", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0061", "type": "PATIENT_ID", "original_value": "SP966278", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0061", "type": "DATE_OF_BIRTH", "original_value": "2025-08-05", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0061", "type": "PHONE_NUMBER", "original_value": "(282)774-2257", "replacement": "[PHONE_NUMBER]", "start": 192, "end": 205, "score": 0.75}
+{"doc_id": "doc_0062", "type": "NAME", "original_value": "Keith Flynn", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0062", "type": "DATE_OF_BIRTH", "original_value": "1998-07-26", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0062", "type": "PATIENT_ID", "original_value": "sk340438", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0062", "type": "DATE_OF_BIRTH", "original_value": "2025-12-05", "replacement": "[DATE_OF_BIRTH]", "start": 87, "end": 97, "score": 0.6}
+{"doc_id": "doc_0062", "type": "EMAIL", "original_value": "pgarcia@example.org", "replacement": "[EMAIL]", "start": 198, "end": 217, "score": 1.0}
+{"doc_id": "doc_0063", "type": "NAME", "original_value": "Luis Glover", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0063", "type": "PATIENT_ID", "original_value": "MI309584", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0063", "type": "DATE_OF_BIRTH", "original_value": "2026-04-03", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0063", "type": "PHONE_NUMBER", "original_value": "(854)249-4812", "replacement": "[PHONE_NUMBER]", "start": 194, "end": 207, "score": 0.75}
+{"doc_id": "doc_0064", "type": "DATE_OF_BIRTH", "original_value": "2025-08-29", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0064", "type": "NAME", "original_value": "Monica Ellis", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0064", "type": "PATIENT_ID", "original_value": "nF518636", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0064", "type": "NAME", "original_value": "Wright Landing", "replacement": "[NAME]", "start": 192, "end": 206, "score": 0.85}
+{"doc_id": "doc_0064", "type": "ADDRESS", "original_value": "South Diana", "replacement": "[ADDRESS]", "start": 217, "end": 228, "score": 0.85}
+{"doc_id": "doc_0064", "type": "ADDRESS", "original_value": "VT", "replacement": "[ADDRESS]", "start": 230, "end": 232, "score": 0.85}
+{"doc_id": "doc_0065", "type": "NAME", "original_value": "Darrell Frazier", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0065", "type": "PATIENT_ID", "original_value": "Ee005162", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0065", "type": "DATE_OF_BIRTH", "original_value": "2025-12-30", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0065", "type": "PHONE_NUMBER", "original_value": "861.411.5542", "replacement": "[PHONE_NUMBER]", "start": 197, "end": 209, "score": 0.75}
+{"doc_id": "doc_0066", "type": "NAME", "original_value": "Kyle Griffith", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0066", "type": "DATE_OF_BIRTH", "original_value": "1972-04-13", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0066", "type": "PATIENT_ID", "original_value": "Gm404389", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0066", "type": "DATE_OF_BIRTH", "original_value": "2025-07-15", "replacement": "[DATE_OF_BIRTH]", "start": 100, "end": 110, "score": 0.6}
+{"doc_id": "doc_0066", "type": "EMAIL", "original_value": "david96@example.com", "replacement": "[EMAIL]", "start": 215, "end": 234, "score": 1.0}
+{"doc_id": "doc_0067", "type": "NAME", "original_value": "Angela Herrera", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0067", "type": "PATIENT_ID", "original_value": "Gn924141", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0067", "type": "DATE_OF_BIRTH", "original_value": "2024-12-10", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0067", "type": "PHONE_NUMBER", "original_value": "(285)569-1463", "replacement": "[PHONE_NUMBER]", "start": 206, "end": 219, "score": 0.75}
+{"doc_id": "doc_0068", "type": "NAME", "original_value": "Frances Patterson", "replacement": "[NAME]", "start": 0, "end": 17, "score": 0.85}
+{"doc_id": "doc_0068", "type": "PATIENT_ID", "original_value": "DG814917", "replacement": "[PATIENT_ID]", "start": 30, "end": 38, "score": 0.85}
+{"doc_id": "doc_0068", "type": "DATE_OF_BIRTH", "original_value": "2024-11-10", "replacement": "[DATE_OF_BIRTH]", "start": 53, "end": 63, "score": 0.6}
+{"doc_id": "doc_0068", "type": "PHONE_NUMBER", "original_value": "(207)292-5241x913", "replacement": "[PHONE_NUMBER]", "start": 199, "end": 216, "score": 0.75}
+{"doc_id": "doc_0069", "type": "NAME", "original_value": "Jonathan Winters", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0069", "type": "PATIENT_ID", "original_value": "Ds238061", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0069", "type": "DATE_OF_BIRTH", "original_value": "2024-11-29", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0069", "type": "PHONE_NUMBER", "original_value": "001-945-718-7053x49493", "replacement": "[PHONE_NUMBER]", "start": 193, "end": 215, "score": 0.75}
+{"doc_id": "doc_0070", "type": "NAME", "original_value": "Cynthia Vasquez", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0070", "type": "PATIENT_ID", "original_value": "HA024103", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0070", "type": "DATE_OF_BIRTH", "original_value": "2024-12-01", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0070", "type": "PHONE_NUMBER", "original_value": "001-257-819-1826x199", "replacement": "[PHONE_NUMBER]", "start": 198, "end": 218, "score": 0.75}
+{"doc_id": "doc_0071", "type": "NAME", "original_value": "Erik Martinez", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0071", "type": "PATIENT_ID", "original_value": "hf537474", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0071", "type": "DATE_OF_BIRTH", "original_value": "2026-08-01", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0071", "type": "PHONE_NUMBER", "original_value": "(749)803-5213", "replacement": "[PHONE_NUMBER]", "start": 189, "end": 202, "score": 0.75}
+{"doc_id": "doc_0072", "type": "NAME", "original_value": "Kevin Lowery", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0072", "type": "DATE_OF_BIRTH", "original_value": "1953-11-23", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0072", "type": "PATIENT_ID", "original_value": "fZ101372", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0072", "type": "DATE_OF_BIRTH", "original_value": "2026-09-11", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0072", "type": "EMAIL", "original_value": "joshuagriffin@example.org", "replacement": "[EMAIL]", "start": 218, "end": 243, "score": 1.0}
+{"doc_id": "doc_0073", "type": "NAME", "original_value": "Alicia Reyes", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0073", "type": "DATE_OF_BIRTH", "original_value": "1961-05-19", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0073", "type": "PATIENT_ID", "original_value": "Gu578759", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0073", "type": "DATE_OF_BIRTH", "original_value": "2025-11-03", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0073", "type": "EMAIL", "original_value": "wrightjohn@example.net", "replacement": "[EMAIL]", "start": 216, "end": 238, "score": 1.0}
+{"doc_id": "doc_0074", "type": "DATE_OF_BIRTH", "original_value": "2026-01-02", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0074", "type": "NAME", "original_value": "Travis Copeland", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0074", "type": "PATIENT_ID", "original_value": "fd784270", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0074", "type": "ADDRESS", "original_value": "85156 Matthew Islands", "replacement": "[ADDRESS]", "start": 185, "end": 206, "score": 0.85}
+{"doc_id": "doc_0074", "type": "ADDRESS", "original_value": "East Jessica", "replacement": "[ADDRESS]", "start": 208, "end": 220, "score": 0.85}
+{"doc_id": "doc_0075", "type": "DATE_OF_BIRTH", "original_value": "2025-06-18", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0075", "type": "NAME", "original_value": "Wayne Steele", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0075", "type": "PATIENT_ID", "original_value": "tU953926", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0075", "type": "ADDRESS", "original_value": "South Samuelchester", "replacement": "[ADDRESS]", "start": 205, "end": 224, "score": 0.85}
+{"doc_id": "doc_0076", "type": "NAME", "original_value": "Ashley Mendoza", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0076", "type": "DATE_OF_BIRTH", "original_value": "1997-01-06", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0076", "type": "PATIENT_ID", "original_value": "sb932710", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0076", "type": "DATE_OF_BIRTH", "original_value": "2025-01-05", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0076", "type": "EMAIL", "original_value": "kdunlap@example.net", "replacement": "[EMAIL]", "start": 201, "end": 220, "score": 1.0}
+{"doc_id": "doc_0077", "type": "DATE_OF_BIRTH", "original_value": "2025-06-24", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0077", "type": "NAME", "original_value": "Jeffrey Phillips", "replacement": "[NAME]", "start": 15, "end": 31, "score": 0.85}
+{"doc_id": "doc_0077", "type": "PATIENT_ID", "original_value": "kO973103", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0077", "type": "ADDRESS", "original_value": "Elizabeth Valley", "replacement": "[ADDRESS]", "start": 185, "end": 201, "score": 0.85}
+{"doc_id": "doc_0077", "type": "ADDRESS", "original_value": "Arellanoshire", "replacement": "[ADDRESS]", "start": 203, "end": 216, "score": 0.85}
+{"doc_id": "doc_0078", "type": "NAME", "original_value": "Tracie Mcdaniel", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0078", "type": "DATE_OF_BIRTH", "original_value": "1943-12-03", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0078", "type": "NAME", "original_value": "zT793741", "replacement": "[NAME]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0078", "type": "DATE_OF_BIRTH", "original_value": "2025-01-02", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0078", "type": "EMAIL", "original_value": "lindseymartinez@example.com", "replacement": "[EMAIL]", "start": 203, "end": 230, "score": 1.0}
+{"doc_id": "doc_0079", "type": "NAME", "original_value": "Lauren Hanna", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0079", "type": "DATE_OF_BIRTH", "original_value": "1966-02-17", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0079", "type": "PATIENT_ID", "original_value": "wA119148", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0079", "type": "DATE_OF_BIRTH", "original_value": "2025-12-30", "replacement": "[DATE_OF_BIRTH]", "start": 104, "end": 114, "score": 0.6}
+{"doc_id": "doc_0079", "type": "EMAIL", "original_value": "vpreston@example.net", "replacement": "[EMAIL]", "start": 230, "end": 250, "score": 1.0}
+{"doc_id": "doc_0080", "type": "NAME", "original_value": "Daniel Holloway", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0080", "type": "PATIENT_ID", "original_value": "et785082", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0080", "type": "DATE_OF_BIRTH", "original_value": "2024-10-05", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0081", "type": "NAME", "original_value": "Scott Chan", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0081", "type": "PATIENT_ID", "original_value": "Gb333346", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0081", "type": "DATE_OF_BIRTH", "original_value": "2025-03-24", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0081", "type": "PHONE_NUMBER", "original_value": "001-707-922-9034x94466", "replacement": "[PHONE_NUMBER]", "start": 188, "end": 210, "score": 0.75}
+{"doc_id": "doc_0082", "type": "DATE_OF_BIRTH", "original_value": "2026-06-10", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0082", "type": "NAME", "original_value": "Stephanie Evans", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0082", "type": "PATIENT_ID", "original_value": "Qu283096", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0083", "type": "NAME", "original_value": "Terry Jones", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0083", "type": "PATIENT_ID", "original_value": "Ad381684", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0083", "type": "DATE_OF_BIRTH", "original_value": "2025-06-22", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0083", "type": "PHONE_NUMBER", "original_value": "(423)356-9725", "replacement": "[PHONE_NUMBER]", "start": 185, "end": 198, "score": 0.75}
+{"doc_id": "doc_0084", "type": "NAME", "original_value": "Curtis Watson", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0084", "type": "DATE_OF_BIRTH", "original_value": "1948-01-16", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0084", "type": "PATIENT_ID", "original_value": "OU058300", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0084", "type": "DATE_OF_BIRTH", "original_value": "2025-06-09", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0084", "type": "EMAIL", "original_value": "colonkenneth@example.com", "replacement": "[EMAIL]", "start": 211, "end": 235, "score": 1.0}
+{"doc_id": "doc_0085", "type": "NAME", "original_value": "Amanda Mcdowell", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0085", "type": "DATE_OF_BIRTH", "original_value": "1996-05-29", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0085", "type": "PATIENT_ID", "original_value": "Qg489090", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0085", "type": "DATE_OF_BIRTH", "original_value": "2026-08-27", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0085", "type": "EMAIL", "original_value": "qstanley@example.net", "replacement": "[EMAIL]", "start": 203, "end": 223, "score": 1.0}
+{"doc_id": "doc_0086", "type": "NAME", "original_value": "Jason Martin", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0086", "type": "NAME", "original_value": "aa873753", "replacement": "[NAME]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0086", "type": "DATE_OF_BIRTH", "original_value": "2026-05-03", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0087", "type": "DATE_OF_BIRTH", "original_value": "2025-09-02", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0087", "type": "NAME", "original_value": "James Rivers", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0087", "type": "PATIENT_ID", "original_value": "iS467621", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0087", "type": "ADDRESS", "original_value": "Aprilville", "replacement": "[ADDRESS]", "start": 200, "end": 210, "score": 0.85}
+{"doc_id": "doc_0088", "type": "DATE_OF_BIRTH", "original_value": "2026-01-06", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0088", "type": "NAME", "original_value": "Margaret Hernandez", "replacement": "[NAME]", "start": 15, "end": 33, "score": 0.85}
+{"doc_id": "doc_0088", "type": "PATIENT_ID", "original_value": "EF890028", "replacement": "[PATIENT_ID]", "start": 47, "end": 55, "score": 0.85}
+{"doc_id": "doc_0088", "type": "NAME", "original_value": "Curtis Loop Apt", "replacement": "[NAME]", "start": 191, "end": 206, "score": 0.85}
+{"doc_id": "doc_0088", "type": "ADDRESS", "original_value": "880", "replacement": "[ADDRESS]", "start": 208, "end": 211, "score": 0.85}
+{"doc_id": "doc_0089", "type": "NAME", "original_value": "Glen Bryan", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0089", "type": "DATE_OF_BIRTH", "original_value": "1939-02-06", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0089", "type": "PATIENT_ID", "original_value": "ET375899", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0089", "type": "DATE_OF_BIRTH", "original_value": "2025-12-21", "replacement": "[DATE_OF_BIRTH]", "start": 101, "end": 111, "score": 0.6}
+{"doc_id": "doc_0089", "type": "EMAIL", "original_value": "ttaylor@example.net", "replacement": "[EMAIL]", "start": 222, "end": 241, "score": 1.0}
+{"doc_id": "doc_0090", "type": "NAME", "original_value": "Barbara Snow", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0090", "type": "PATIENT_ID", "original_value": "HV798270", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0090", "type": "DATE_OF_BIRTH", "original_value": "2026-07-30", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0091", "type": "DATE_OF_BIRTH", "original_value": "2026-06-09", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0091", "type": "NAME", "original_value": "Christina Weber", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0091", "type": "PATIENT_ID", "original_value": "SO452288", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0091", "type": "NAME", "original_value": "Karen Bypass", "replacement": "[NAME]", "start": 188, "end": 200, "score": 0.85}
+{"doc_id": "doc_0091", "type": "NAME", "original_value": "RI 89043", "replacement": "[NAME]", "start": 213, "end": 221, "score": 0.85}
+{"doc_id": "doc_0092", "type": "NAME", "original_value": "Kristina Young", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0092", "type": "DATE_OF_BIRTH", "original_value": "1938-08-15", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0092", "type": "PATIENT_ID", "original_value": "Jd406665", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0092", "type": "DATE_OF_BIRTH", "original_value": "2026-07-25", "replacement": "[DATE_OF_BIRTH]", "start": 89, "end": 99, "score": 0.6}
+{"doc_id": "doc_0092", "type": "EMAIL", "original_value": "shane12@example.org", "replacement": "[EMAIL]", "start": 209, "end": 228, "score": 1.0}
+{"doc_id": "doc_0093", "type": "NAME", "original_value": "Patricia Garrett", "replacement": "[NAME]", "start": 8, "end": 24, "score": 0.85}
+{"doc_id": "doc_0093", "type": "DATE_OF_BIRTH", "original_value": "1975-02-22", "replacement": "[DATE_OF_BIRTH]", "start": 31, "end": 41, "score": 0.95}
+{"doc_id": "doc_0093", "type": "PATIENT_ID", "original_value": "YT479851", "replacement": "[PATIENT_ID]", "start": 46, "end": 54, "score": 0.85}
+{"doc_id": "doc_0093", "type": "DATE_OF_BIRTH", "original_value": "2025-04-09", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0093", "type": "EMAIL", "original_value": "mark43@example.net", "replacement": "[EMAIL]", "start": 225, "end": 243, "score": 1.0}
+{"doc_id": "doc_0094", "type": "DATE_OF_BIRTH", "original_value": "2026-07-12", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0094", "type": "NAME", "original_value": "Samantha Brooks", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0094", "type": "PATIENT_ID", "original_value": "uG877043", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0094", "type": "ADDRESS", "original_value": "East Lauraside", "replacement": "[ADDRESS]", "start": 219, "end": 233, "score": 0.85}
+{"doc_id": "doc_0095", "type": "DATE_OF_BIRTH", "original_value": "2025-10-20", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0095", "type": "NAME", "original_value": "Jerry Sullivan", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0095", "type": "PATIENT_ID", "original_value": "PU506180", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0095", "type": "NAME", "original_value": "North Bobby", "replacement": "[NAME]", "start": 199, "end": 210, "score": 0.85}
+{"doc_id": "doc_0096", "type": "NAME", "original_value": "Daniel Figueroa", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0096", "type": "PATIENT_ID", "original_value": "lo536822", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0096", "type": "DATE_OF_BIRTH", "original_value": "2025-05-04", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0096", "type": "PHONE_NUMBER", "original_value": "+1-343-612-9087x814", "replacement": "[PHONE_NUMBER]", "start": 188, "end": 207, "score": 0.75}
+{"doc_id": "doc_0097", "type": "NAME", "original_value": "Aaron Sanchez", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0097", "type": "PATIENT_ID", "original_value": "ED364525", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0097", "type": "DATE_OF_BIRTH", "original_value": "2025-09-16", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0097", "type": "PHONE_NUMBER", "original_value": "554.678.1291x428", "replacement": "[PHONE_NUMBER]", "start": 198, "end": 214, "score": 0.75}
+{"doc_id": "doc_0098", "type": "DATE_OF_BIRTH", "original_value": "2026-06-11", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0098", "type": "NAME", "original_value": "Jack Smith", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0098", "type": "NAME", "original_value": "kl392827", "replacement": "[NAME]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0098", "type": "NAME", "original_value": "New Johnbury", "replacement": "[NAME]", "start": 214, "end": 226, "score": 0.85}
+{"doc_id": "doc_0098", "type": "ADDRESS", "original_value": "NC", "replacement": "[ADDRESS]", "start": 228, "end": 230, "score": 0.85}
+{"doc_id": "doc_0099", "type": "NAME", "original_value": "Larry Shaw", "replacement": "[NAME]", "start": 12, "end": 22, "score": 0.85}
+{"doc_id": "doc_0099", "type": "DATE_OF_BIRTH", "original_value": "1979-06-18", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0099", "type": "PATIENT_ID", "original_value": "Pr272318", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0099", "type": "DATE_OF_BIRTH", "original_value": "2025-10-31", "replacement": "[DATE_OF_BIRTH]", "start": 91, "end": 101, "score": 0.6}
+{"doc_id": "doc_0099", "type": "EMAIL", "original_value": "eleonard@example.org", "replacement": "[EMAIL]", "start": 221, "end": 241, "score": 1.0}
+{"doc_id": "doc_0100", "type": "NAME", "original_value": "Nathan Stanley", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0100", "type": "DATE_OF_BIRTH", "original_value": "1972-06-13", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0100", "type": "PATIENT_ID", "original_value": "Ek413797", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0100", "type": "DATE_OF_BIRTH", "original_value": "2024-12-09", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0100", "type": "EMAIL", "original_value": "ecarlson@example.org", "replacement": "[EMAIL]", "start": 201, "end": 221, "score": 1.0}
+{"doc_id": "doc_0101", "type": "NAME", "original_value": "Larry Carey", "replacement": "[NAME]", "start": 4, "end": 15, "score": 0.85}
+{"doc_id": "doc_0101", "type": "PATIENT_ID", "original_value": "Bo686508", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0101", "type": "DATE_OF_BIRTH", "original_value": "2025-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0101", "type": "PHONE_NUMBER", "original_value": "865.699.1624x7314", "replacement": "[PHONE_NUMBER]", "start": 203, "end": 220, "score": 0.75}
+{"doc_id": "doc_0102", "type": "NAME", "original_value": "Donald Becker", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0102", "type": "DATE_OF_BIRTH", "original_value": "1963-10-06", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0102", "type": "PATIENT_ID", "original_value": "xJ368872", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0102", "type": "DATE_OF_BIRTH", "original_value": "2026-09-04", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0102", "type": "EMAIL", "original_value": "craigromero@example.com", "replacement": "[EMAIL]", "start": 211, "end": 234, "score": 1.0}
+{"doc_id": "doc_0103", "type": "DATE_OF_BIRTH", "original_value": "2025-08-13", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0103", "type": "NAME", "original_value": "Kelly Dawson", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0103", "type": "NAME", "original_value": "mQ902770", "replacement": "[NAME]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0103", "type": "NAME", "original_value": "Barber Points", "replacement": "[NAME]", "start": 185, "end": 198, "score": 0.85}
+{"doc_id": "doc_0104", "type": "NAME", "original_value": "Aaron Thompson", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0104", "type": "DATE_OF_BIRTH", "original_value": "1995-08-25", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0104", "type": "NAME", "original_value": "vh818184", "replacement": "[NAME]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0104", "type": "DATE_OF_BIRTH", "original_value": "2024-11-09", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0104", "type": "EMAIL", "original_value": "scottpatrick@example.org", "replacement": "[EMAIL]", "start": 228, "end": 252, "score": 1.0}
+{"doc_id": "doc_0105", "type": "DATE_OF_BIRTH", "original_value": "2025-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0105", "type": "NAME", "original_value": "Karen Gomez", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0105", "type": "PATIENT_ID", "original_value": "pV942373", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0105", "type": "NAME", "original_value": "Henry Track", "replacement": "[NAME]", "start": 197, "end": 208, "score": 0.85}
+{"doc_id": "doc_0106", "type": "DATE_OF_BIRTH", "original_value": "2026-04-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0106", "type": "NAME", "original_value": "Amanda Reed", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0106", "type": "PATIENT_ID", "original_value": "Sa271875", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0106", "type": "NAME", "original_value": "Ramirez Falls", "replacement": "[NAME]", "start": 172, "end": 185, "score": 0.85}
+{"doc_id": "doc_0107", "type": "NAME", "original_value": "Kara Smith", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0107", "type": "DATE_OF_BIRTH", "original_value": "1969-07-24", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0107", "type": "PATIENT_ID", "original_value": "YF672885", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0107", "type": "DATE_OF_BIRTH", "original_value": "2026-08-15", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0107", "type": "EMAIL", "original_value": "michael88@example.com", "replacement": "[EMAIL]", "start": 225, "end": 246, "score": 1.0}
+{"doc_id": "doc_0108", "type": "NAME", "original_value": "Margaret Mcfarland", "replacement": "[NAME]", "start": 8, "end": 26, "score": 0.85}
+{"doc_id": "doc_0108", "type": "DATE_OF_BIRTH", "original_value": "1980-10-30", "replacement": "[DATE_OF_BIRTH]", "start": 33, "end": 43, "score": 0.95}
+{"doc_id": "doc_0108", "type": "PATIENT_ID", "original_value": "kv699611", "replacement": "[PATIENT_ID]", "start": 48, "end": 56, "score": 0.85}
+{"doc_id": "doc_0108", "type": "DATE_OF_BIRTH", "original_value": "2024-11-15", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0108", "type": "EMAIL", "original_value": "bjackson@example.org", "replacement": "[EMAIL]", "start": 217, "end": 237, "score": 1.0}
+{"doc_id": "doc_0109", "type": "NAME", "original_value": "Jean Perez", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0109", "type": "DATE_OF_BIRTH", "original_value": "1991-08-14", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0109", "type": "PATIENT_ID", "original_value": "bc472282", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0109", "type": "DATE_OF_BIRTH", "original_value": "2026-04-21", "replacement": "[DATE_OF_BIRTH]", "start": 101, "end": 111, "score": 0.6}
+{"doc_id": "doc_0109", "type": "EMAIL", "original_value": "regina78@example.org", "replacement": "[EMAIL]", "start": 222, "end": 242, "score": 1.0}
+{"doc_id": "doc_0110", "type": "NAME", "original_value": "Rebecca Kelley", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0110", "type": "PATIENT_ID", "original_value": "kT368663", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0110", "type": "DATE_OF_BIRTH", "original_value": "2024-09-20", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0111", "type": "DATE_OF_BIRTH", "original_value": "2025-04-21", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0111", "type": "NAME", "original_value": "Adrian Robinson", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0111", "type": "PATIENT_ID", "original_value": "vf647570", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0111", "type": "ADDRESS", "original_value": "Lake Sharonhaven", "replacement": "[ADDRESS]", "start": 209, "end": 225, "score": 0.85}
+{"doc_id": "doc_0112", "type": "NAME", "original_value": "Anthony Estrada", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0112", "type": "DATE_OF_BIRTH", "original_value": "1937-04-07", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0112", "type": "NAME", "original_value": "Yr136502", "replacement": "[NAME]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0112", "type": "DATE_OF_BIRTH", "original_value": "2025-06-18", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0112", "type": "EMAIL", "original_value": "wrightvincent@example.net", "replacement": "[EMAIL]", "start": 224, "end": 249, "score": 1.0}
+{"doc_id": "doc_0113", "type": "NAME", "original_value": "Danielle Williams", "replacement": "[NAME]", "start": 8, "end": 25, "score": 0.85}
+{"doc_id": "doc_0113", "type": "DATE_OF_BIRTH", "original_value": "1946-12-16", "replacement": "[DATE_OF_BIRTH]", "start": 32, "end": 42, "score": 0.95}
+{"doc_id": "doc_0113", "type": "PATIENT_ID", "original_value": "Kl784873", "replacement": "[PATIENT_ID]", "start": 47, "end": 55, "score": 0.85}
+{"doc_id": "doc_0113", "type": "DATE_OF_BIRTH", "original_value": "2025-04-09", "replacement": "[DATE_OF_BIRTH]", "start": 109, "end": 119, "score": 0.6}
+{"doc_id": "doc_0113", "type": "EMAIL", "original_value": "lori85@example.com", "replacement": "[EMAIL]", "start": 233, "end": 251, "score": 1.0}
+{"doc_id": "doc_0114", "type": "NAME", "original_value": "Frank Davis", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0114", "type": "PATIENT_ID", "original_value": "gF102203", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0114", "type": "DATE_OF_BIRTH", "original_value": "2025-02-19", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0114", "type": "PHONE_NUMBER", "original_value": "610.296.7899", "replacement": "[PHONE_NUMBER]", "start": 205, "end": 217, "score": 0.75}
+{"doc_id": "doc_0115", "type": "NAME", "original_value": "Ashley Hall", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0115", "type": "DATE_OF_BIRTH", "original_value": "1961-12-27", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0115", "type": "PATIENT_ID", "original_value": "Ol633839", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0115", "type": "DATE_OF_BIRTH", "original_value": "2025-08-11", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0115", "type": "EMAIL", "original_value": "qwagner@example.org", "replacement": "[EMAIL]", "start": 209, "end": 228, "score": 1.0}
+{"doc_id": "doc_0116", "type": "NAME", "original_value": "April Johnson", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0116", "type": "DATE_OF_BIRTH", "original_value": "1987-01-06", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0116", "type": "PATIENT_ID", "original_value": "at490824", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0116", "type": "DATE_OF_BIRTH", "original_value": "2026-05-07", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0116", "type": "EMAIL", "original_value": "stevenseric@example.com", "replacement": "[EMAIL]", "start": 217, "end": 240, "score": 1.0}
+{"doc_id": "doc_0117", "type": "NAME", "original_value": "Martin Johnson", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0117", "type": "DATE_OF_BIRTH", "original_value": "1954-11-15", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0117", "type": "PATIENT_ID", "original_value": "BA961055", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0117", "type": "DATE_OF_BIRTH", "original_value": "2025-07-03", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0117", "type": "EMAIL", "original_value": "wayne32@example.org", "replacement": "[EMAIL]", "start": 201, "end": 220, "score": 1.0}
+{"doc_id": "doc_0118", "type": "NAME", "original_value": "Michael Gill", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0118", "type": "DATE_OF_BIRTH", "original_value": "1999-02-16", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0118", "type": "PATIENT_ID", "original_value": "mJ783769", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0118", "type": "DATE_OF_BIRTH", "original_value": "2026-05-07", "replacement": "[DATE_OF_BIRTH]", "start": 89, "end": 99, "score": 0.6}
+{"doc_id": "doc_0118", "type": "EMAIL", "original_value": "james59@example.net", "replacement": "[EMAIL]", "start": 206, "end": 225, "score": 1.0}
+{"doc_id": "doc_0119", "type": "NAME", "original_value": "Michael Rodriguez", "replacement": "[NAME]", "start": 8, "end": 25, "score": 0.85}
+{"doc_id": "doc_0119", "type": "DATE_OF_BIRTH", "original_value": "1972-10-30", "replacement": "[DATE_OF_BIRTH]", "start": 32, "end": 42, "score": 0.95}
+{"doc_id": "doc_0119", "type": "PATIENT_ID", "original_value": "nn770538", "replacement": "[PATIENT_ID]", "start": 47, "end": 55, "score": 0.85}
+{"doc_id": "doc_0119", "type": "DATE_OF_BIRTH", "original_value": "2026-02-15", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0119", "type": "EMAIL", "original_value": "briangonzalez@example.net", "replacement": "[EMAIL]", "start": 226, "end": 251, "score": 1.0}
+{"doc_id": "doc_0120", "type": "NAME", "original_value": "Kari Harper", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0120", "type": "DATE_OF_BIRTH", "original_value": "2006-07-23", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0120", "type": "PATIENT_ID", "original_value": "Tb123878", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0120", "type": "DATE_OF_BIRTH", "original_value": "2026-07-12", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0120", "type": "EMAIL", "original_value": "colleen38@example.com", "replacement": "[EMAIL]", "start": 209, "end": 230, "score": 1.0}
+{"doc_id": "doc_0121", "type": "NAME", "original_value": "Joshua Clark", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0121", "type": "DATE_OF_BIRTH", "original_value": "1997-06-23", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0121", "type": "PATIENT_ID", "original_value": "ST298324", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0121", "type": "DATE_OF_BIRTH", "original_value": "2025-08-23", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0121", "type": "EMAIL", "original_value": "tali@example.com", "replacement": "[EMAIL]", "start": 216, "end": 232, "score": 1.0}
+{"doc_id": "doc_0122", "type": "NAME", "original_value": "Catherine Hughes", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0122", "type": "PATIENT_ID", "original_value": "AW722330", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0122", "type": "DATE_OF_BIRTH", "original_value": "2025-12-20", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0122", "type": "PHONE_NUMBER", "original_value": "9467333127", "replacement": "[PHONE_NUMBER]", "start": 201, "end": 211, "score": 0.75}
+{"doc_id": "doc_0123", "type": "NAME", "original_value": "Eddie Sanders", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0123", "type": "PATIENT_ID", "original_value": "Nd447264", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0123", "type": "DATE_OF_BIRTH", "original_value": "2025-06-07", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0124", "type": "NAME", "original_value": "Janet Moody", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0124", "type": "DATE_OF_BIRTH", "original_value": "1980-02-03", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0124", "type": "PATIENT_ID", "original_value": "cX892686", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0124", "type": "DATE_OF_BIRTH", "original_value": "2025-09-10", "replacement": "[DATE_OF_BIRTH]", "start": 103, "end": 113, "score": 0.6}
+{"doc_id": "doc_0124", "type": "EMAIL", "original_value": "lroberts@example.org", "replacement": "[EMAIL]", "start": 229, "end": 249, "score": 1.0}
+{"doc_id": "doc_0125", "type": "NAME", "original_value": "Matthew Chavez", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0125", "type": "PATIENT_ID", "original_value": "Jr719903", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0125", "type": "DATE_OF_BIRTH", "original_value": "2026-05-24", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0125", "type": "PHONE_NUMBER", "original_value": "+1-683-702-2050x209", "replacement": "[PHONE_NUMBER]", "start": 181, "end": 200, "score": 0.75}
+{"doc_id": "doc_0126", "type": "NAME", "original_value": "John Martinez", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0126", "type": "DATE_OF_BIRTH", "original_value": "1951-03-17", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0126", "type": "PATIENT_ID", "original_value": "Sn458683", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0126", "type": "DATE_OF_BIRTH", "original_value": "2025-12-27", "replacement": "[DATE_OF_BIRTH]", "start": 99, "end": 109, "score": 0.6}
+{"doc_id": "doc_0126", "type": "EMAIL", "original_value": "christinacrawford@example.net", "replacement": "[EMAIL]", "start": 219, "end": 248, "score": 1.0}
+{"doc_id": "doc_0127", "type": "DATE_OF_BIRTH", "original_value": "2025-06-26", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0127", "type": "PATIENT_ID", "original_value": "Rv488501", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0127", "type": "ADDRESS", "original_value": "West Tonyaside", "replacement": "[ADDRESS]", "start": 198, "end": 212, "score": 0.85}
+{"doc_id": "doc_0128", "type": "DATE_OF_BIRTH", "original_value": "2024-11-29", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0128", "type": "NAME", "original_value": "Sharon Walton", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0128", "type": "NAME", "original_value": "px504617", "replacement": "[NAME]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0129", "type": "DATE_OF_BIRTH", "original_value": "2025-12-09", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0129", "type": "NAME", "original_value": "Nichole Johnson", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0129", "type": "PATIENT_ID", "original_value": "rI435334", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0129", "type": "NAME", "original_value": "David Mountains Apt", "replacement": "[NAME]", "start": 188, "end": 207, "score": 0.85}
+{"doc_id": "doc_0129", "type": "ADDRESS", "original_value": "South Philipshire", "replacement": "[ADDRESS]", "start": 214, "end": 231, "score": 0.85}
+{"doc_id": "doc_0130", "type": "NAME", "original_value": "Robert Marquez", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0130", "type": "PATIENT_ID", "original_value": "ZS817921", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0130", "type": "DATE_OF_BIRTH", "original_value": "2025-12-12", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0130", "type": "PHONE_NUMBER", "original_value": "817.447.7332x945", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 220, "score": 0.75}
+{"doc_id": "doc_0131", "type": "NAME", "original_value": "Valerie Reyes", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0131", "type": "DATE_OF_BIRTH", "original_value": "1982-02-22", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0131", "type": "PATIENT_ID", "original_value": "Yv539669", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0131", "type": "DATE_OF_BIRTH", "original_value": "2024-09-15", "replacement": "[DATE_OF_BIRTH]", "start": 104, "end": 114, "score": 0.6}
+{"doc_id": "doc_0131", "type": "EMAIL", "original_value": "shortgregory@example.com", "replacement": "[EMAIL]", "start": 225, "end": 249, "score": 1.0}
+{"doc_id": "doc_0132", "type": "NAME", "original_value": "Chase Schmidt", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0132", "type": "PATIENT_ID", "original_value": "Ru699733", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0132", "type": "DATE_OF_BIRTH", "original_value": "2026-09-14", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0132", "type": "PHONE_NUMBER", "original_value": "294-765-1909x8624", "replacement": "[PHONE_NUMBER]", "start": 206, "end": 223, "score": 0.75}
+{"doc_id": "doc_0133", "type": "NAME", "original_value": "Patient Brandy Jones", "replacement": "[NAME]", "start": 0, "end": 20, "score": 0.85}
+{"doc_id": "doc_0133", "type": "DATE_OF_BIRTH", "original_value": "1992-07-25", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0133", "type": "PATIENT_ID", "original_value": "iP027621", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0133", "type": "DATE_OF_BIRTH", "original_value": "2025-08-20", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0133", "type": "EMAIL", "original_value": "lanemelanie@example.org", "replacement": "[EMAIL]", "start": 228, "end": 251, "score": 1.0}
+{"doc_id": "doc_0134", "type": "NAME", "original_value": "Steve Davis", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0134", "type": "DATE_OF_BIRTH", "original_value": "1954-02-08", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0134", "type": "PATIENT_ID", "original_value": "dv718949", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0134", "type": "DATE_OF_BIRTH", "original_value": "2025-12-09", "replacement": "[DATE_OF_BIRTH]", "start": 86, "end": 96, "score": 0.6}
+{"doc_id": "doc_0134", "type": "EMAIL", "original_value": "gary94@example.net", "replacement": "[EMAIL]", "start": 203, "end": 221, "score": 1.0}
+{"doc_id": "doc_0135", "type": "NAME", "original_value": "David Figueroa", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0135", "type": "PATIENT_ID", "original_value": "Zl929275", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0135", "type": "DATE_OF_BIRTH", "original_value": "2025-08-09", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0135", "type": "PHONE_NUMBER", "original_value": "837-828-0512x927", "replacement": "[PHONE_NUMBER]", "start": 211, "end": 227, "score": 0.75}
+{"doc_id": "doc_0136", "type": "NAME", "original_value": "Tonya Vega", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0136", "type": "DATE_OF_BIRTH", "original_value": "1945-03-10", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0136", "type": "PATIENT_ID", "original_value": "Pr018569", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0136", "type": "DATE_OF_BIRTH", "original_value": "2026-01-07", "replacement": "[DATE_OF_BIRTH]", "start": 87, "end": 97, "score": 0.6}
+{"doc_id": "doc_0136", "type": "EMAIL", "original_value": "deckeralexander@example.org", "replacement": "[EMAIL]", "start": 204, "end": 231, "score": 1.0}
+{"doc_id": "doc_0137", "type": "NAME", "original_value": "Kylie Coffey", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0137", "type": "DATE_OF_BIRTH", "original_value": "1940-11-05", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0137", "type": "PATIENT_ID", "original_value": "OD124471", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0137", "type": "DATE_OF_BIRTH", "original_value": "2026-02-28", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0137", "type": "EMAIL", "original_value": "scottvasquez@example.org", "replacement": "[EMAIL]", "start": 206, "end": 230, "score": 1.0}
+{"doc_id": "doc_0138", "type": "NAME", "original_value": "Alicia Jimenez", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0138", "type": "DATE_OF_BIRTH", "original_value": "2001-02-24", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0138", "type": "PATIENT_ID", "original_value": "zK006425", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0138", "type": "DATE_OF_BIRTH", "original_value": "2025-12-19", "replacement": "[DATE_OF_BIRTH]", "start": 96, "end": 106, "score": 0.6}
+{"doc_id": "doc_0138", "type": "EMAIL", "original_value": "imartinez@example.com", "replacement": "[EMAIL]", "start": 225, "end": 246, "score": 1.0}
+{"doc_id": "doc_0139", "type": "NAME", "original_value": "Bradley Chen", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0139", "type": "PATIENT_ID", "original_value": "pF320309", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0139", "type": "DATE_OF_BIRTH", "original_value": "2024-12-27", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0139", "type": "PHONE_NUMBER", "original_value": "(818)347-8700x5050", "replacement": "[PHONE_NUMBER]", "start": 202, "end": 220, "score": 0.75}
+{"doc_id": "doc_0140", "type": "DATE_OF_BIRTH", "original_value": "2026-07-23", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0140", "type": "NAME", "original_value": "Kaitlin Hardin", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0140", "type": "PATIENT_ID", "original_value": "tY032020", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0140", "type": "NAME", "original_value": "Brittany Isle Apt", "replacement": "[NAME]", "start": 201, "end": 218, "score": 0.85}
+{"doc_id": "doc_0140", "type": "NAME", "original_value": "Jacksonstad", "replacement": "[NAME]", "start": 225, "end": 236, "score": 0.85}
+{"doc_id": "doc_0141", "type": "NAME", "original_value": "Brett Boone", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0141", "type": "NAME", "original_value": "aa962071", "replacement": "[NAME]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0141", "type": "DATE_OF_BIRTH", "original_value": "2026-06-07", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0141", "type": "PHONE_NUMBER", "original_value": "(619)946-7232", "replacement": "[PHONE_NUMBER]", "start": 187, "end": 200, "score": 0.75}
+{"doc_id": "doc_0142", "type": "NAME", "original_value": "Julie Sims", "replacement": "[NAME]", "start": 12, "end": 22, "score": 0.85}
+{"doc_id": "doc_0142", "type": "DATE_OF_BIRTH", "original_value": "1942-11-12", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0142", "type": "PATIENT_ID", "original_value": "RE340312", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0142", "type": "DATE_OF_BIRTH", "original_value": "2026-03-08", "replacement": "[DATE_OF_BIRTH]", "start": 99, "end": 109, "score": 0.6}
+{"doc_id": "doc_0142", "type": "EMAIL", "original_value": "buckleygregory@example.org", "replacement": "[EMAIL]", "start": 225, "end": 251, "score": 1.0}
+{"doc_id": "doc_0143", "type": "NAME", "original_value": "Jaime Walker", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0143", "type": "DATE_OF_BIRTH", "original_value": "1953-10-19", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0143", "type": "PATIENT_ID", "original_value": "nN797062", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0143", "type": "DATE_OF_BIRTH", "original_value": "2025-07-29", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0143", "type": "EMAIL", "original_value": "derek77@example.com", "replacement": "[EMAIL]", "start": 221, "end": 240, "score": 1.0}
+{"doc_id": "doc_0144", "type": "NAME", "original_value": "Timothy Shah", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0144", "type": "DATE_OF_BIRTH", "original_value": "1981-06-19", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0144", "type": "PATIENT_ID", "original_value": "UX906007", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0144", "type": "DATE_OF_BIRTH", "original_value": "2026-02-11", "replacement": "[DATE_OF_BIRTH]", "start": 87, "end": 97, "score": 0.6}
+{"doc_id": "doc_0144", "type": "EMAIL", "original_value": "kenneth10@example.com", "replacement": "[EMAIL]", "start": 205, "end": 226, "score": 1.0}
+{"doc_id": "doc_0145", "type": "NAME", "original_value": "Mark Cruz", "replacement": "[NAME]", "start": 8, "end": 17, "score": 0.85}
+{"doc_id": "doc_0145", "type": "DATE_OF_BIRTH", "original_value": "2004-04-07", "replacement": "[DATE_OF_BIRTH]", "start": 24, "end": 34, "score": 0.95}
+{"doc_id": "doc_0145", "type": "PATIENT_ID", "original_value": "SN580464", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0145", "type": "DATE_OF_BIRTH", "original_value": "2025-11-13", "replacement": "[DATE_OF_BIRTH]", "start": 84, "end": 94, "score": 0.6}
+{"doc_id": "doc_0145", "type": "EMAIL", "original_value": "ndiaz@example.org", "replacement": "[EMAIL]", "start": 208, "end": 225, "score": 1.0}
+{"doc_id": "doc_0146", "type": "DATE_OF_BIRTH", "original_value": "2025-08-05", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0146", "type": "NAME", "original_value": "Christine Mcgee", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0146", "type": "PATIENT_ID", "original_value": "rd355486", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0146", "type": "NAME", "original_value": "Heidi Parks Apt", "replacement": "[NAME]", "start": 209, "end": 224, "score": 0.85}
+{"doc_id": "doc_0147", "type": "NAME", "original_value": "Dorothy Brown", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0147", "type": "PATIENT_ID", "original_value": "PP385695", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0147", "type": "DATE_OF_BIRTH", "original_value": "2025-08-03", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0147", "type": "PHONE_NUMBER", "original_value": "979-788-7749x24243", "replacement": "[PHONE_NUMBER]", "start": 190, "end": 208, "score": 0.75}
+{"doc_id": "doc_0148", "type": "NAME", "original_value": "Daniel Mann", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0148", "type": "PATIENT_ID", "original_value": "kI552578", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0148", "type": "DATE_OF_BIRTH", "original_value": "2026-07-30", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0148", "type": "PHONE_NUMBER", "original_value": "610-967-2752x0885", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 221, "score": 0.75}
+{"doc_id": "doc_0149", "type": "NAME", "original_value": "Alexander Ryan", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0149", "type": "DATE_OF_BIRTH", "original_value": "2007-09-25", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0149", "type": "PATIENT_ID", "original_value": "uM718637", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0149", "type": "DATE_OF_BIRTH", "original_value": "2024-11-02", "replacement": "[DATE_OF_BIRTH]", "start": 90, "end": 100, "score": 0.6}
+{"doc_id": "doc_0149", "type": "EMAIL", "original_value": "tiffany81@example.org", "replacement": "[EMAIL]", "start": 201, "end": 222, "score": 1.0}
+{"doc_id": "doc_0150", "type": "DATE_OF_BIRTH", "original_value": "2025-09-09", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0150", "type": "NAME", "original_value": "Nicole Davis", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0150", "type": "PATIENT_ID", "original_value": "TK646287", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0151", "type": "NAME", "original_value": "Danielle Wilson", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0151", "type": "PATIENT_ID", "original_value": "EK471959", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0151", "type": "DATE_OF_BIRTH", "original_value": "2025-06-07", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0151", "type": "PHONE_NUMBER", "original_value": "(947)415-8904x29025", "replacement": "[PHONE_NUMBER]", "start": 183, "end": 202, "score": 0.75}
+{"doc_id": "doc_0152", "type": "NAME", "original_value": "Heather Thomas", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0152", "type": "DATE_OF_BIRTH", "original_value": "1987-07-13", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0152", "type": "NAME", "original_value": "vk284576", "replacement": "[NAME]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0152", "type": "DATE_OF_BIRTH", "original_value": "2024-10-06", "replacement": "[DATE_OF_BIRTH]", "start": 91, "end": 101, "score": 0.6}
+{"doc_id": "doc_0152", "type": "EMAIL", "original_value": "hmoon@example.org", "replacement": "[EMAIL]", "start": 221, "end": 238, "score": 1.0}
+{"doc_id": "doc_0153", "type": "NAME", "original_value": "Courtney Vincent", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0153", "type": "PATIENT_ID", "original_value": "fB234232", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0153", "type": "DATE_OF_BIRTH", "original_value": "2026-04-08", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0154", "type": "DATE_OF_BIRTH", "original_value": "2025-09-10", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0154", "type": "NAME", "original_value": "Kathy Jones", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0154", "type": "PATIENT_ID", "original_value": "kW908334", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0154", "type": "ADDRESS", "original_value": "Janetside", "replacement": "[ADDRESS]", "start": 185, "end": 194, "score": 0.85}
+{"doc_id": "doc_0155", "type": "NAME", "original_value": "Jesus Fitzgerald", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0155", "type": "PATIENT_ID", "original_value": "me738646", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0155", "type": "DATE_OF_BIRTH", "original_value": "2024-12-02", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0155", "type": "PHONE_NUMBER", "original_value": "852.307.1678x1126", "replacement": "[PHONE_NUMBER]", "start": 189, "end": 206, "score": 0.75}
+{"doc_id": "doc_0156", "type": "DATE_OF_BIRTH", "original_value": "2025-10-26", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0156", "type": "NAME", "original_value": "Jonathan Fuller", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0156", "type": "PATIENT_ID", "original_value": "Rb201017", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0156", "type": "ADDRESS", "original_value": "NH 05217", "replacement": "[ADDRESS]", "start": 239, "end": 247, "score": 0.85}
+{"doc_id": "doc_0157", "type": "NAME", "original_value": "Elizabeth Mccarthy", "replacement": "[NAME]", "start": 8, "end": 26, "score": 0.85}
+{"doc_id": "doc_0157", "type": "DATE_OF_BIRTH", "original_value": "1939-10-30", "replacement": "[DATE_OF_BIRTH]", "start": 33, "end": 43, "score": 0.95}
+{"doc_id": "doc_0157", "type": "PATIENT_ID", "original_value": "Wh762467", "replacement": "[PATIENT_ID]", "start": 48, "end": 56, "score": 0.85}
+{"doc_id": "doc_0157", "type": "DATE_OF_BIRTH", "original_value": "2025-03-12", "replacement": "[DATE_OF_BIRTH]", "start": 102, "end": 112, "score": 0.6}
+{"doc_id": "doc_0157", "type": "EMAIL", "original_value": "troy69@example.net", "replacement": "[EMAIL]", "start": 234, "end": 252, "score": 1.0}
+{"doc_id": "doc_0158", "type": "DATE_OF_BIRTH", "original_value": "2025-02-27", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0158", "type": "NAME", "original_value": "Erik Miller", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0158", "type": "PATIENT_ID", "original_value": "Iu141520", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0158", "type": "ADDRESS", "original_value": "West Joseph", "replacement": "[ADDRESS]", "start": 215, "end": 226, "score": 0.85}
+{"doc_id": "doc_0159", "type": "DATE_OF_BIRTH", "original_value": "2025-01-01", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0159", "type": "NAME", "original_value": "Anna Richard", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0159", "type": "PATIENT_ID", "original_value": "ZH195419", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0159", "type": "NAME", "original_value": "Giles Place", "replacement": "[NAME]", "start": 202, "end": 213, "score": 0.85}
+{"doc_id": "doc_0160", "type": "NAME", "original_value": "Michael Evans", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0160", "type": "PATIENT_ID", "original_value": "rs665136", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0160", "type": "DATE_OF_BIRTH", "original_value": "2026-01-18", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0161", "type": "NAME", "original_value": "Jennifer Larsen", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0161", "type": "PATIENT_ID", "original_value": "HQ231981", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0161", "type": "DATE_OF_BIRTH", "original_value": "2026-02-20", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0162", "type": "NAME", "original_value": "Alisha Rasmussen", "replacement": "[NAME]", "start": 8, "end": 24, "score": 0.85}
+{"doc_id": "doc_0162", "type": "DATE_OF_BIRTH", "original_value": "1961-05-23", "replacement": "[DATE_OF_BIRTH]", "start": 31, "end": 41, "score": 0.95}
+{"doc_id": "doc_0162", "type": "PATIENT_ID", "original_value": "yt900348", "replacement": "[PATIENT_ID]", "start": 46, "end": 54, "score": 0.85}
+{"doc_id": "doc_0162", "type": "DATE_OF_BIRTH", "original_value": "2025-11-29", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0162", "type": "EMAIL", "original_value": "ruthwelch@example.net", "replacement": "[EMAIL]", "start": 223, "end": 244, "score": 1.0}
+{"doc_id": "doc_0163", "type": "DATE_OF_BIRTH", "original_value": "2025-01-16", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0163", "type": "NAME", "original_value": "Nancy Chavez", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0163", "type": "PATIENT_ID", "original_value": "zm002720", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0163", "type": "NAME", "original_value": "Andrew Brooks", "replacement": "[NAME]", "start": 181, "end": 194, "score": 0.85}
+{"doc_id": "doc_0163", "type": "NAME", "original_value": "North Terri", "replacement": "[NAME]", "start": 196, "end": 207, "score": 0.85}
+{"doc_id": "doc_0164", "type": "DATE_OF_BIRTH", "original_value": "2024-10-23", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0164", "type": "NAME", "original_value": "Jeffrey Green", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0164", "type": "PATIENT_ID", "original_value": "TH152910", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0164", "type": "NAME", "original_value": "Ericksonview", "replacement": "[NAME]", "start": 212, "end": 224, "score": 0.85}
+{"doc_id": "doc_0165", "type": "DATE_OF_BIRTH", "original_value": "2026-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0165", "type": "NAME", "original_value": "Kaitlin Gomez", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0165", "type": "PATIENT_ID", "original_value": "Ny990048", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0165", "type": "NAME", "original_value": "West Jillian", "replacement": "[NAME]", "start": 227, "end": 239, "score": 0.85}
+{"doc_id": "doc_0166", "type": "NAME", "original_value": "Jessica Lopez", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0166", "type": "PATIENT_ID", "original_value": "kT032074", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0166", "type": "DATE_OF_BIRTH", "original_value": "2026-01-25", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0166", "type": "PHONE_NUMBER", "original_value": "461.370.7587x771", "replacement": "[PHONE_NUMBER]", "start": 182, "end": 198, "score": 0.75}
+{"doc_id": "doc_0167", "type": "NAME", "original_value": "Kevin Bean", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0167", "type": "DATE_OF_BIRTH", "original_value": "2001-09-06", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0167", "type": "PATIENT_ID", "original_value": "DO520177", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0167", "type": "DATE_OF_BIRTH", "original_value": "2025-11-30", "replacement": "[DATE_OF_BIRTH]", "start": 89, "end": 99, "score": 0.6}
+{"doc_id": "doc_0167", "type": "EMAIL", "original_value": "manningamy@example.net", "replacement": "[EMAIL]", "start": 206, "end": 228, "score": 1.0}
+{"doc_id": "doc_0168", "type": "NAME", "original_value": "Brendan Richardson", "replacement": "[NAME]", "start": 8, "end": 26, "score": 0.85}
+{"doc_id": "doc_0168", "type": "DATE_OF_BIRTH", "original_value": "1942-08-09", "replacement": "[DATE_OF_BIRTH]", "start": 33, "end": 43, "score": 0.95}
+{"doc_id": "doc_0168", "type": "ADDRESS", "original_value": "KM377674", "replacement": "[ADDRESS]", "start": 48, "end": 56, "score": 0.85}
+{"doc_id": "doc_0168", "type": "DATE_OF_BIRTH", "original_value": "2026-01-11", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0168", "type": "EMAIL", "original_value": "robertssamuel@example.com", "replacement": "[EMAIL]", "start": 216, "end": 241, "score": 1.0}
+{"doc_id": "doc_0169", "type": "NAME", "original_value": "Dawn Scott", "replacement": "[NAME]", "start": 8, "end": 18, "score": 0.85}
+{"doc_id": "doc_0169", "type": "DATE_OF_BIRTH", "original_value": "2006-01-07", "replacement": "[DATE_OF_BIRTH]", "start": 25, "end": 35, "score": 0.95}
+{"doc_id": "doc_0169", "type": "PATIENT_ID", "original_value": "Yl180172", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0169", "type": "DATE_OF_BIRTH", "original_value": "2026-01-21", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0169", "type": "EMAIL", "original_value": "burgesscassandra@example.net", "replacement": "[EMAIL]", "start": 212, "end": 240, "score": 1.0}
+{"doc_id": "doc_0170", "type": "NAME", "original_value": "Anita Taylor", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0170", "type": "PATIENT_ID", "original_value": "EP310303", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0170", "type": "DATE_OF_BIRTH", "original_value": "2025-11-24", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0170", "type": "PHONE_NUMBER", "original_value": "(936)883-1472", "replacement": "[PHONE_NUMBER]", "start": 191, "end": 204, "score": 0.75}
+{"doc_id": "doc_0171", "type": "NAME", "original_value": "Donna Freeman", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0171", "type": "PATIENT_ID", "original_value": "Td789973", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0171", "type": "DATE_OF_BIRTH", "original_value": "2026-05-25", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0171", "type": "PHONE_NUMBER", "original_value": "906.895.8146x71795", "replacement": "[PHONE_NUMBER]", "start": 200, "end": 218, "score": 0.75}
+{"doc_id": "doc_0172", "type": "DATE_OF_BIRTH", "original_value": "2024-12-01", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0172", "type": "NAME", "original_value": "Diane Curry", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0172", "type": "ADDRESS", "original_value": "Fg722329", "replacement": "[ADDRESS]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0172", "type": "NAME", "original_value": "Kemp Walk Apt", "replacement": "[NAME]", "start": 188, "end": 201, "score": 0.85}
+{"doc_id": "doc_0172", "type": "ADDRESS", "original_value": "North Kimberlyville", "replacement": "[ADDRESS]", "start": 208, "end": 227, "score": 0.85}
+{"doc_id": "doc_0173", "type": "NAME", "original_value": "Shelby Bartlett", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0173", "type": "DATE_OF_BIRTH", "original_value": "1962-02-12", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0173", "type": "PATIENT_ID", "original_value": "jP247871", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0173", "type": "DATE_OF_BIRTH", "original_value": "2024-10-06", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0173", "type": "EMAIL", "original_value": "nathan65@example.net", "replacement": "[EMAIL]", "start": 202, "end": 222, "score": 1.0}
+{"doc_id": "doc_0174", "type": "DATE_OF_BIRTH", "original_value": "2026-03-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0174", "type": "NAME", "original_value": "Adam Drake", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0174", "type": "PATIENT_ID", "original_value": "Bd115562", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0175", "type": "DATE_OF_BIRTH", "original_value": "2025-09-29", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0175", "type": "NAME", "original_value": "Alexis Hogan", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0175", "type": "NAME", "original_value": "hU943468", "replacement": "[NAME]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0175", "type": "NAME", "original_value": "9893 Box", "replacement": "[NAME]", "start": 185, "end": 193, "score": 0.85}
+{"doc_id": "doc_0176", "type": "NAME", "original_value": "Garrett Aguilar", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0176", "type": "DATE_OF_BIRTH", "original_value": "1946-03-30", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0176", "type": "PATIENT_ID", "original_value": "ff571266", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0176", "type": "DATE_OF_BIRTH", "original_value": "2024-12-16", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0176", "type": "EMAIL", "original_value": "breanna67@example.net", "replacement": "[EMAIL]", "start": 217, "end": 238, "score": 1.0}
+{"doc_id": "doc_0177", "type": "NAME", "original_value": "Beverly Bush", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0177", "type": "PATIENT_ID", "original_value": "Vk813770", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0177", "type": "DATE_OF_BIRTH", "original_value": "2025-11-02", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0177", "type": "PHONE_NUMBER", "original_value": "+1-651-296-1159", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 219, "score": 0.75}
+{"doc_id": "doc_0178", "type": "NAME", "original_value": "Rachael Alvarez", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0178", "type": "DATE_OF_BIRTH", "original_value": "1944-06-27", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0178", "type": "PATIENT_ID", "original_value": "QC922877", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0178", "type": "DATE_OF_BIRTH", "original_value": "2026-07-31", "replacement": "[DATE_OF_BIRTH]", "start": 92, "end": 102, "score": 0.6}
+{"doc_id": "doc_0178", "type": "EMAIL", "original_value": "pfitzgerald@example.org", "replacement": "[EMAIL]", "start": 222, "end": 245, "score": 1.0}
+{"doc_id": "doc_0179", "type": "DATE_OF_BIRTH", "original_value": "2024-12-28", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0179", "type": "NAME", "original_value": "Albert Buchanan", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0179", "type": "PATIENT_ID", "original_value": "uz397189", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0179", "type": "ADDRESS", "original_value": "Brian Islands", "replacement": "[ADDRESS]", "start": 201, "end": 214, "score": 0.85}
+{"doc_id": "doc_0179", "type": "ADDRESS", "original_value": "North Jennifer", "replacement": "[ADDRESS]", "start": 216, "end": 230, "score": 0.85}
+{"doc_id": "doc_0180", "type": "NAME", "original_value": "Deanna David", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0180", "type": "NAME", "original_value": "pF103399", "replacement": "[NAME]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0180", "type": "DATE_OF_BIRTH", "original_value": "2025-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0180", "type": "PHONE_NUMBER", "original_value": "586.214.0578x61706", "replacement": "[PHONE_NUMBER]", "start": 188, "end": 206, "score": 0.75}
+{"doc_id": "doc_0181", "type": "DATE_OF_BIRTH", "original_value": "2026-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0181", "type": "NAME", "original_value": "Jodi Smith", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0181", "type": "PATIENT_ID", "original_value": "Er794200", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0182", "type": "DATE_OF_BIRTH", "original_value": "2025-12-25", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0182", "type": "NAME", "original_value": "April Smith", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0182", "type": "PATIENT_ID", "original_value": "fY268768", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0182", "type": "NAME", "original_value": "Stokes Forges", "replacement": "[NAME]", "start": 201, "end": 214, "score": 0.85}
+{"doc_id": "doc_0182", "type": "NAME", "original_value": "Trevorborough", "replacement": "[NAME]", "start": 225, "end": 238, "score": 0.85}
+{"doc_id": "doc_0183", "type": "DATE_OF_BIRTH", "original_value": "2025-05-04", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0183", "type": "NAME", "original_value": "Donald Mason", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0183", "type": "PATIENT_ID", "original_value": "le283999", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0183", "type": "ADDRESS", "original_value": "Lake Jeffreyview", "replacement": "[ADDRESS]", "start": 205, "end": 221, "score": 0.85}
+{"doc_id": "doc_0184", "type": "NAME", "original_value": "George Beard", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0184", "type": "DATE_OF_BIRTH", "original_value": "1977-12-20", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0184", "type": "PATIENT_ID", "original_value": "kv036133", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0184", "type": "DATE_OF_BIRTH", "original_value": "2024-11-16", "replacement": "[DATE_OF_BIRTH]", "start": 99, "end": 109, "score": 0.6}
+{"doc_id": "doc_0184", "type": "EMAIL", "original_value": "underwoodapril@example.org", "replacement": "[EMAIL]", "start": 210, "end": 236, "score": 1.0}
+{"doc_id": "doc_0185", "type": "DATE_OF_BIRTH", "original_value": "2025-09-01", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0185", "type": "NAME", "original_value": "Andrew Edwards", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0185", "type": "PATIENT_ID", "original_value": "NO120704", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0185", "type": "ADDRESS", "original_value": "New David", "replacement": "[ADDRESS]", "start": 229, "end": 238, "score": 0.85}
+{"doc_id": "doc_0185", "type": "ADDRESS", "original_value": "NY", "replacement": "[ADDRESS]", "start": 240, "end": 242, "score": 0.85}
+{"doc_id": "doc_0186", "type": "NAME", "original_value": "Charlene Taylor", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0186", "type": "DATE_OF_BIRTH", "original_value": "1943-05-12", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0186", "type": "PATIENT_ID", "original_value": "GP002496", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0186", "type": "DATE_OF_BIRTH", "original_value": "2026-06-17", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0186", "type": "EMAIL", "original_value": "williamconley@example.org", "replacement": "[EMAIL]", "start": 214, "end": 239, "score": 1.0}
+{"doc_id": "doc_0187", "type": "NAME", "original_value": "Kathleen Mora", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0187", "type": "DATE_OF_BIRTH", "original_value": "2002-03-09", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0187", "type": "PATIENT_ID", "original_value": "EV337933", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0187", "type": "DATE_OF_BIRTH", "original_value": "2024-09-30", "replacement": "[DATE_OF_BIRTH]", "start": 100, "end": 110, "score": 0.6}
+{"doc_id": "doc_0187", "type": "EMAIL", "original_value": "llee@example.com", "replacement": "[EMAIL]", "start": 211, "end": 227, "score": 1.0}
+{"doc_id": "doc_0188", "type": "NAME", "original_value": "Jamie Cobb", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0188", "type": "PATIENT_ID", "original_value": "xZ153473", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0188", "type": "DATE_OF_BIRTH", "original_value": "2025-01-23", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0188", "type": "PHONE_NUMBER", "original_value": "(828)796-1122x338", "replacement": "[PHONE_NUMBER]", "start": 189, "end": 206, "score": 0.75}
+{"doc_id": "doc_0189", "type": "NAME", "original_value": "Kelly Webb", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0189", "type": "PATIENT_ID", "original_value": "Pc774969", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0189", "type": "DATE_OF_BIRTH", "original_value": "2025-12-30", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0189", "type": "PHONE_NUMBER", "original_value": "833.473.6346", "replacement": "[PHONE_NUMBER]", "start": 193, "end": 205, "score": 0.75}
+{"doc_id": "doc_0190", "type": "NAME", "original_value": "Bradley Kirby", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0190", "type": "NAME", "original_value": "he881431", "replacement": "[NAME]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0190", "type": "DATE_OF_BIRTH", "original_value": "2025-01-30", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0190", "type": "PHONE_NUMBER", "original_value": "(408)635-3544x439", "replacement": "[PHONE_NUMBER]", "start": 210, "end": 227, "score": 0.75}
+{"doc_id": "doc_0191", "type": "NAME", "original_value": "Melissa Clark", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0191", "type": "DATE_OF_BIRTH", "original_value": "1996-01-16", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0191", "type": "PATIENT_ID", "original_value": "it780529", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0191", "type": "DATE_OF_BIRTH", "original_value": "2025-11-30", "replacement": "[DATE_OF_BIRTH]", "start": 93, "end": 103, "score": 0.6}
+{"doc_id": "doc_0191", "type": "EMAIL", "original_value": "ericcisneros@example.com", "replacement": "[EMAIL]", "start": 222, "end": 246, "score": 1.0}
+{"doc_id": "doc_0192", "type": "DATE_OF_BIRTH", "original_value": "2026-02-15", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0192", "type": "NAME", "original_value": "Cristian Pruitt", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0192", "type": "PATIENT_ID", "original_value": "eD643348", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0192", "type": "NAME", "original_value": "USNS Anderson", "replacement": "[NAME]", "start": 194, "end": 207, "score": 0.85}
+{"doc_id": "doc_0193", "type": "NAME", "original_value": "Larry Crosby", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0193", "type": "PATIENT_ID", "original_value": "aj938743", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0193", "type": "DATE_OF_BIRTH", "original_value": "2025-12-18", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0193", "type": "PHONE_NUMBER", "original_value": "216.393.8597x779", "replacement": "[PHONE_NUMBER]", "start": 205, "end": 221, "score": 0.75}
+{"doc_id": "doc_0194", "type": "NAME", "original_value": "Thomas Wolfe", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0194", "type": "DATE_OF_BIRTH", "original_value": "1987-10-19", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0194", "type": "PATIENT_ID", "original_value": "eW376815", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0194", "type": "DATE_OF_BIRTH", "original_value": "2025-07-31", "replacement": "[DATE_OF_BIRTH]", "start": 89, "end": 99, "score": 0.6}
+{"doc_id": "doc_0194", "type": "EMAIL", "original_value": "jonesheather@example.net", "replacement": "[EMAIL]", "start": 206, "end": 230, "score": 1.0}
+{"doc_id": "doc_0195", "type": "DATE_OF_BIRTH", "original_value": "2026-08-16", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0195", "type": "NAME", "original_value": "Douglas Martin", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0195", "type": "PATIENT_ID", "original_value": "IV091241", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0195", "type": "NAME", "original_value": "Christopher Manor", "replacement": "[NAME]", "start": 180, "end": 197, "score": 0.85}
+{"doc_id": "doc_0195", "type": "ADDRESS", "original_value": "North Matthewborough", "replacement": "[ADDRESS]", "start": 199, "end": 219, "score": 0.85}
+{"doc_id": "doc_0195", "type": "ADDRESS", "original_value": "TX 88181", "replacement": "[ADDRESS]", "start": 221, "end": 229, "score": 0.85}
+{"doc_id": "doc_0196", "type": "DATE_OF_BIRTH", "original_value": "2026-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0196", "type": "NAME", "original_value": "Russell Beck", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0196", "type": "PATIENT_ID", "original_value": "uJ206815", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0196", "type": "NAME", "original_value": "Robert Trafficway", "replacement": "[NAME]", "start": 174, "end": 191, "score": 0.85}
+{"doc_id": "doc_0196", "type": "ADDRESS", "original_value": "Birdville", "replacement": "[ADDRESS]", "start": 193, "end": 202, "score": 0.85}
+{"doc_id": "doc_0196", "type": "ADDRESS", "original_value": "VT", "replacement": "[ADDRESS]", "start": 204, "end": 206, "score": 0.85}
+{"doc_id": "doc_0197", "type": "DATE_OF_BIRTH", "original_value": "2026-04-13", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0197", "type": "NAME", "original_value": "Darlene Davis", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0197", "type": "PATIENT_ID", "original_value": "QE562525", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0198", "type": "NAME", "original_value": "Ricky Perry", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0198", "type": "DATE_OF_BIRTH", "original_value": "1950-02-16", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0198", "type": "PATIENT_ID", "original_value": "nI403553", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0198", "type": "DATE_OF_BIRTH", "original_value": "2025-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0198", "type": "EMAIL", "original_value": "mjones@example.org", "replacement": "[EMAIL]", "start": 213, "end": 231, "score": 1.0}
+{"doc_id": "doc_0199", "type": "DATE_OF_BIRTH", "original_value": "2026-09-06", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0199", "type": "NAME", "original_value": "Elizabeth Ray", "replacement": "[NAME]", "start": 15, "end": 28, "score": 0.85}
+{"doc_id": "doc_0199", "type": "NAME", "original_value": "yk347156", "replacement": "[NAME]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0200", "type": "DATE_OF_BIRTH", "original_value": "2026-08-23", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0200", "type": "NAME", "original_value": "Stephen Riddle", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0200", "type": "PATIENT_ID", "original_value": "qX169236", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0200", "type": "ADDRESS", "original_value": "Martinchester", "replacement": "[ADDRESS]", "start": 198, "end": 211, "score": 0.85}
+{"doc_id": "doc_0201", "type": "DATE_OF_BIRTH", "original_value": "2026-07-14", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0201", "type": "NAME", "original_value": "Janet Parker", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0201", "type": "PATIENT_ID", "original_value": "rV611952", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0201", "type": "NAME", "original_value": "Jacob Circle", "replacement": "[NAME]", "start": 197, "end": 209, "score": 0.85}
+{"doc_id": "doc_0201", "type": "NAME", "original_value": "Port Katherine", "replacement": "[NAME]", "start": 211, "end": 225, "score": 0.85}
+{"doc_id": "doc_0202", "type": "NAME", "original_value": "Mark Miller", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0202", "type": "DATE_OF_BIRTH", "original_value": "1994-07-26", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0202", "type": "PATIENT_ID", "original_value": "bL161415", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0202", "type": "DATE_OF_BIRTH", "original_value": "2024-09-17", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0202", "type": "EMAIL", "original_value": "alexasmith@example.net", "replacement": "[EMAIL]", "start": 209, "end": 231, "score": 1.0}
+{"doc_id": "doc_0203", "type": "NAME", "original_value": "Jennifer Houston", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0203", "type": "PATIENT_ID", "original_value": "SW209184", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0203", "type": "DATE_OF_BIRTH", "original_value": "2026-02-20", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0203", "type": "PHONE_NUMBER", "original_value": "757.297.8630", "replacement": "[PHONE_NUMBER]", "start": 201, "end": 213, "score": 0.75}
+{"doc_id": "doc_0204", "type": "NAME", "original_value": "Jonathan Miller", "replacement": "[NAME]", "start": 8, "end": 23, "score": 0.85}
+{"doc_id": "doc_0204", "type": "DATE_OF_BIRTH", "original_value": "1993-01-07", "replacement": "[DATE_OF_BIRTH]", "start": 30, "end": 40, "score": 0.95}
+{"doc_id": "doc_0204", "type": "PATIENT_ID", "original_value": "QI872717", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0204", "type": "DATE_OF_BIRTH", "original_value": "2026-08-22", "replacement": "[DATE_OF_BIRTH]", "start": 98, "end": 108, "score": 0.6}
+{"doc_id": "doc_0204", "type": "EMAIL", "original_value": "jeffrey47@example.net", "replacement": "[EMAIL]", "start": 227, "end": 248, "score": 1.0}
+{"doc_id": "doc_0205", "type": "DATE_OF_BIRTH", "original_value": "2025-08-14", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0205", "type": "NAME", "original_value": "David Green", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0205", "type": "NAME", "original_value": "mV411159", "replacement": "[NAME]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0205", "type": "NAME", "original_value": "Randall Plain", "replacement": "[NAME]", "start": 180, "end": 193, "score": 0.85}
+{"doc_id": "doc_0206", "type": "DATE_OF_BIRTH", "original_value": "2025-10-20", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0206", "type": "NAME", "original_value": "Brianna Ortega", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0206", "type": "PATIENT_ID", "original_value": "rT095481", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0207", "type": "DATE_OF_BIRTH", "original_value": "2026-01-18", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0207", "type": "NAME", "original_value": "Frank Moody", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0207", "type": "PATIENT_ID", "original_value": "CS047292", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0207", "type": "ADDRESS", "original_value": "Lake Julie", "replacement": "[ADDRESS]", "start": 217, "end": 227, "score": 0.85}
+{"doc_id": "doc_0207", "type": "ADDRESS", "original_value": "WI", "replacement": "[ADDRESS]", "start": 229, "end": 231, "score": 0.85}
+{"doc_id": "doc_0208", "type": "NAME", "original_value": "John Meyers", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0208", "type": "DATE_OF_BIRTH", "original_value": "1995-06-26", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0208", "type": "PATIENT_ID", "original_value": "hf647501", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0208", "type": "DATE_OF_BIRTH", "original_value": "2026-01-04", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0208", "type": "EMAIL", "original_value": "patrickcooke@example.net", "replacement": "[EMAIL]", "start": 213, "end": 237, "score": 1.0}
+{"doc_id": "doc_0209", "type": "NAME", "original_value": "Christine Barrett", "replacement": "[NAME]", "start": 8, "end": 25, "score": 0.85}
+{"doc_id": "doc_0209", "type": "DATE_OF_BIRTH", "original_value": "1972-12-24", "replacement": "[DATE_OF_BIRTH]", "start": 32, "end": 42, "score": 0.95}
+{"doc_id": "doc_0209", "type": "PATIENT_ID", "original_value": "CZ129208", "replacement": "[PATIENT_ID]", "start": 47, "end": 55, "score": 0.85}
+{"doc_id": "doc_0209", "type": "DATE_OF_BIRTH", "original_value": "2026-01-30", "replacement": "[DATE_OF_BIRTH]", "start": 94, "end": 104, "score": 0.6}
+{"doc_id": "doc_0209", "type": "EMAIL", "original_value": "rodneylandry@example.org", "replacement": "[EMAIL]", "start": 224, "end": 248, "score": 1.0}
+{"doc_id": "doc_0210", "type": "DATE_OF_BIRTH", "original_value": "2025-07-09", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0210", "type": "NAME", "original_value": "Amanda Johnson", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0210", "type": "PATIENT_ID", "original_value": "nL243298", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0210", "type": "NAME", "original_value": "Robert Drives Suite", "replacement": "[NAME]", "start": 199, "end": 218, "score": 0.85}
+{"doc_id": "doc_0210", "type": "ADDRESS", "original_value": "North Joseph", "replacement": "[ADDRESS]", "start": 224, "end": 236, "score": 0.85}
+{"doc_id": "doc_0211", "type": "NAME", "original_value": "Brandon Blankenship", "replacement": "[NAME]", "start": 8, "end": 27, "score": 0.85}
+{"doc_id": "doc_0211", "type": "DATE_OF_BIRTH", "original_value": "1966-03-29", "replacement": "[DATE_OF_BIRTH]", "start": 34, "end": 44, "score": 0.95}
+{"doc_id": "doc_0211", "type": "NAME", "original_value": "yo423401", "replacement": "[NAME]", "start": 49, "end": 57, "score": 0.85}
+{"doc_id": "doc_0211", "type": "DATE_OF_BIRTH", "original_value": "2025-08-15", "replacement": "[DATE_OF_BIRTH]", "start": 94, "end": 104, "score": 0.6}
+{"doc_id": "doc_0211", "type": "EMAIL", "original_value": "jacksonstacey@example.com", "replacement": "[EMAIL]", "start": 212, "end": 237, "score": 1.0}
+{"doc_id": "doc_0212", "type": "NAME", "original_value": "Hector Harrison", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0212", "type": "PATIENT_ID", "original_value": "Of446834", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0212", "type": "DATE_OF_BIRTH", "original_value": "2025-08-08", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0212", "type": "PHONE_NUMBER", "original_value": "965-211-1312x9014", "replacement": "[PHONE_NUMBER]", "start": 207, "end": 224, "score": 0.75}
+{"doc_id": "doc_0213", "type": "DATE_OF_BIRTH", "original_value": "2025-05-31", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0213", "type": "NAME", "original_value": "Timothy Gallagher", "replacement": "[NAME]", "start": 15, "end": 32, "score": 0.85}
+{"doc_id": "doc_0213", "type": "NAME", "original_value": "wd321528", "replacement": "[NAME]", "start": 46, "end": 54, "score": 0.85}
+{"doc_id": "doc_0214", "type": "DATE_OF_BIRTH", "original_value": "2025-09-12", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0214", "type": "NAME", "original_value": "Steve Lopez", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0214", "type": "PATIENT_ID", "original_value": "fH501673", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0215", "type": "DATE_OF_BIRTH", "original_value": "2026-02-13", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0215", "type": "NAME", "original_value": "Bethany Potter", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0215", "type": "PATIENT_ID", "original_value": "Yb686211", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0215", "type": "ADDRESS", "original_value": "Virginiabury", "replacement": "[ADDRESS]", "start": 205, "end": 217, "score": 0.85}
+{"doc_id": "doc_0215", "type": "ADDRESS", "original_value": "TN", "replacement": "[ADDRESS]", "start": 219, "end": 221, "score": 0.85}
+{"doc_id": "doc_0216", "type": "NAME", "original_value": "Meredith Shaw", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0216", "type": "NAME", "original_value": "iz239231", "replacement": "[NAME]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0216", "type": "DATE_OF_BIRTH", "original_value": "2025-04-08", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0216", "type": "PHONE_NUMBER", "original_value": "2438260931", "replacement": "[PHONE_NUMBER]", "start": 208, "end": 218, "score": 0.75}
+{"doc_id": "doc_0217", "type": "DATE_OF_BIRTH", "original_value": "2026-07-13", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0217", "type": "NAME", "original_value": "Jason Flores", "replacement": "[NAME]", "start": 15, "end": 27, "score": 0.85}
+{"doc_id": "doc_0217", "type": "PATIENT_ID", "original_value": "ns020005", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0217", "type": "NAME", "original_value": "Lake Julia", "replacement": "[NAME]", "start": 198, "end": 208, "score": 0.85}
+{"doc_id": "doc_0218", "type": "NAME", "original_value": "Cheryl Bush", "replacement": "[NAME]", "start": 8, "end": 19, "score": 0.85}
+{"doc_id": "doc_0218", "type": "DATE_OF_BIRTH", "original_value": "1974-07-30", "replacement": "[DATE_OF_BIRTH]", "start": 26, "end": 36, "score": 0.95}
+{"doc_id": "doc_0218", "type": "PATIENT_ID", "original_value": "UE118954", "replacement": "[PATIENT_ID]", "start": 41, "end": 49, "score": 0.85}
+{"doc_id": "doc_0218", "type": "DATE_OF_BIRTH", "original_value": "2025-09-25", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0218", "type": "EMAIL", "original_value": "webbalexandra@example.net", "replacement": "[EMAIL]", "start": 212, "end": 237, "score": 1.0}
+{"doc_id": "doc_0219", "type": "NAME", "original_value": "Jeffrey Hicks", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0219", "type": "PATIENT_ID", "original_value": "la866943", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0219", "type": "DATE_OF_BIRTH", "original_value": "2026-09-08", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0219", "type": "PHONE_NUMBER", "original_value": "(693)690-8788", "replacement": "[PHONE_NUMBER]", "start": 192, "end": 205, "score": 0.75}
+{"doc_id": "doc_0220", "type": "NAME", "original_value": "Brian Wong", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0220", "type": "PATIENT_ID", "original_value": "Ui955184", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0220", "type": "DATE_OF_BIRTH", "original_value": "2025-01-28", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0221", "type": "NAME", "original_value": "Chelsea Henry", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0221", "type": "PATIENT_ID", "original_value": "zR240422", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0221", "type": "DATE_OF_BIRTH", "original_value": "2024-12-25", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0221", "type": "PHONE_NUMBER", "original_value": "+1-231-321-6376x182", "replacement": "[PHONE_NUMBER]", "start": 191, "end": 210, "score": 0.75}
+{"doc_id": "doc_0222", "type": "NAME", "original_value": "Stephanie Ochoa", "replacement": "[NAME]", "start": 0, "end": 15, "score": 0.85}
+{"doc_id": "doc_0222", "type": "PATIENT_ID", "original_value": "IS457230", "replacement": "[PATIENT_ID]", "start": 28, "end": 36, "score": 0.85}
+{"doc_id": "doc_0222", "type": "DATE_OF_BIRTH", "original_value": "2026-07-19", "replacement": "[DATE_OF_BIRTH]", "start": 51, "end": 61, "score": 0.6}
+{"doc_id": "doc_0222", "type": "PHONE_NUMBER", "original_value": "281-500-1841x862", "replacement": "[PHONE_NUMBER]", "start": 208, "end": 224, "score": 0.75}
+{"doc_id": "doc_0223", "type": "DATE_OF_BIRTH", "original_value": "2026-02-03", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0223", "type": "NAME", "original_value": "Lindsey Thompson", "replacement": "[NAME]", "start": 15, "end": 31, "score": 0.85}
+{"doc_id": "doc_0223", "type": "PATIENT_ID", "original_value": "QR859262", "replacement": "[PATIENT_ID]", "start": 45, "end": 53, "score": 0.85}
+{"doc_id": "doc_0223", "type": "NAME", "original_value": "Marcus Crossroad", "replacement": "[NAME]", "start": 208, "end": 224, "score": 0.85}
+{"doc_id": "doc_0223", "type": "NAME", "original_value": "Port Paul", "replacement": "[NAME]", "start": 226, "end": 235, "score": 0.85}
+{"doc_id": "doc_0223", "type": "NAME", "original_value": "MD 65277", "replacement": "[NAME]", "start": 237, "end": 245, "score": 0.85}
+{"doc_id": "doc_0224", "type": "NAME", "original_value": "Ricky Cook", "replacement": "[NAME]", "start": 0, "end": 10, "score": 0.85}
+{"doc_id": "doc_0224", "type": "PATIENT_ID", "original_value": "IF366878", "replacement": "[PATIENT_ID]", "start": 23, "end": 31, "score": 0.85}
+{"doc_id": "doc_0224", "type": "DATE_OF_BIRTH", "original_value": "2026-08-21", "replacement": "[DATE_OF_BIRTH]", "start": 46, "end": 56, "score": 0.6}
+{"doc_id": "doc_0225", "type": "NAME", "original_value": "Michael Bates", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0225", "type": "DATE_OF_BIRTH", "original_value": "1996-04-06", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0225", "type": "PATIENT_ID", "original_value": "xj179202", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0225", "type": "DATE_OF_BIRTH", "original_value": "2026-07-18", "replacement": "[DATE_OF_BIRTH]", "start": 97, "end": 107, "score": 0.6}
+{"doc_id": "doc_0225", "type": "EMAIL", "original_value": "vjenkins@example.com", "replacement": "[EMAIL]", "start": 229, "end": 249, "score": 1.0}
+{"doc_id": "doc_0226", "type": "NAME", "original_value": "Michelle Henderson", "replacement": "[NAME]", "start": 0, "end": 18, "score": 0.85}
+{"doc_id": "doc_0226", "type": "PATIENT_ID", "original_value": "Vn241862", "replacement": "[PATIENT_ID]", "start": 31, "end": 39, "score": 0.85}
+{"doc_id": "doc_0226", "type": "DATE_OF_BIRTH", "original_value": "2026-07-26", "replacement": "[DATE_OF_BIRTH]", "start": 54, "end": 64, "score": 0.6}
+{"doc_id": "doc_0226", "type": "PHONE_NUMBER", "original_value": "(890)436-2891x7756", "replacement": "[PHONE_NUMBER]", "start": 211, "end": 229, "score": 0.75}
+{"doc_id": "doc_0227", "type": "DATE_OF_BIRTH", "original_value": "2026-04-28", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0227", "type": "NAME", "original_value": "Bradley Hudson", "replacement": "[NAME]", "start": 15, "end": 29, "score": 0.85}
+{"doc_id": "doc_0227", "type": "PATIENT_ID", "original_value": "ft097005", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0227", "type": "NAME", "original_value": "Martin Springs", "replacement": "[NAME]", "start": 204, "end": 218, "score": 0.85}
+{"doc_id": "doc_0227", "type": "ADDRESS", "original_value": "Millerland", "replacement": "[ADDRESS]", "start": 220, "end": 230, "score": 0.85}
+{"doc_id": "doc_0228", "type": "DATE_OF_BIRTH", "original_value": "2025-03-22", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0228", "type": "NAME", "original_value": "Patricia Martin", "replacement": "[NAME]", "start": 15, "end": 30, "score": 0.85}
+{"doc_id": "doc_0228", "type": "PATIENT_ID", "original_value": "Yi889857", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0228", "type": "NAME", "original_value": "Martin Harbors", "replacement": "[NAME]", "start": 206, "end": 220, "score": 0.85}
+{"doc_id": "doc_0228", "type": "ADDRESS", "original_value": "Michaelland", "replacement": "[ADDRESS]", "start": 222, "end": 233, "score": 0.85}
+{"doc_id": "doc_0229", "type": "NAME", "original_value": "David Mcdowell", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0229", "type": "PATIENT_ID", "original_value": "sz219705", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0229", "type": "DATE_OF_BIRTH", "original_value": "2026-07-21", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0229", "type": "PHONE_NUMBER", "original_value": "(292)275-8955x16874", "replacement": "[PHONE_NUMBER]", "start": 182, "end": 201, "score": 0.75}
+{"doc_id": "doc_0230", "type": "NAME", "original_value": "Christina Murphy", "replacement": "[NAME]", "start": 0, "end": 16, "score": 0.85}
+{"doc_id": "doc_0230", "type": "PATIENT_ID", "original_value": "hr559737", "replacement": "[PATIENT_ID]", "start": 29, "end": 37, "score": 0.85}
+{"doc_id": "doc_0230", "type": "DATE_OF_BIRTH", "original_value": "2025-07-18", "replacement": "[DATE_OF_BIRTH]", "start": 52, "end": 62, "score": 0.6}
+{"doc_id": "doc_0230", "type": "PHONE_NUMBER", "original_value": "208.727.2359x096", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 220, "score": 0.75}
+{"doc_id": "doc_0231", "type": "NAME", "original_value": "Steven White", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0231", "type": "DATE_OF_BIRTH", "original_value": "1938-05-15", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0231", "type": "PATIENT_ID", "original_value": "mw016542", "replacement": "[PATIENT_ID]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0231", "type": "DATE_OF_BIRTH", "original_value": "2026-03-14", "replacement": "[DATE_OF_BIRTH]", "start": 95, "end": 105, "score": 0.6}
+{"doc_id": "doc_0231", "type": "EMAIL", "original_value": "alexis72@example.com", "replacement": "[EMAIL]", "start": 210, "end": 230, "score": 1.0}
+{"doc_id": "doc_0232", "type": "DATE_OF_BIRTH", "original_value": "2026-07-28", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0232", "type": "NAME", "original_value": "Michael Schroeder", "replacement": "[NAME]", "start": 15, "end": 32, "score": 0.85}
+{"doc_id": "doc_0232", "type": "PATIENT_ID", "original_value": "RK963533", "replacement": "[PATIENT_ID]", "start": 46, "end": 54, "score": 0.85}
+{"doc_id": "doc_0232", "type": "ADDRESS", "original_value": "North Lindaville", "replacement": "[ADDRESS]", "start": 208, "end": 224, "score": 0.85}
+{"doc_id": "doc_0233", "type": "DATE_OF_BIRTH", "original_value": "2025-06-28", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0233", "type": "NAME", "original_value": "Paul Hanson", "replacement": "[NAME]", "start": 15, "end": 26, "score": 0.85}
+{"doc_id": "doc_0233", "type": "PATIENT_ID", "original_value": "Qs817890", "replacement": "[PATIENT_ID]", "start": 40, "end": 48, "score": 0.85}
+{"doc_id": "doc_0234", "type": "NAME", "original_value": "Jennifer Williams", "replacement": "[NAME]", "start": 0, "end": 17, "score": 0.85}
+{"doc_id": "doc_0234", "type": "PATIENT_ID", "original_value": "uH962626", "replacement": "[PATIENT_ID]", "start": 30, "end": 38, "score": 0.85}
+{"doc_id": "doc_0234", "type": "DATE_OF_BIRTH", "original_value": "2025-02-24", "replacement": "[DATE_OF_BIRTH]", "start": 53, "end": 63, "score": 0.6}
+{"doc_id": "doc_0234", "type": "PHONE_NUMBER", "original_value": "(663)412-8196", "replacement": "[PHONE_NUMBER]", "start": 207, "end": 220, "score": 0.75}
+{"doc_id": "doc_0235", "type": "NAME", "original_value": "Ryan Barber", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0235", "type": "PATIENT_ID", "original_value": "Ob640412", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0235", "type": "DATE_OF_BIRTH", "original_value": "2026-01-10", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0236", "type": "NAME", "original_value": "Sarah Wilson", "replacement": "[NAME]", "start": 8, "end": 20, "score": 0.85}
+{"doc_id": "doc_0236", "type": "DATE_OF_BIRTH", "original_value": "1956-03-23", "replacement": "[DATE_OF_BIRTH]", "start": 27, "end": 37, "score": 0.95}
+{"doc_id": "doc_0236", "type": "NAME", "original_value": "ak557998", "replacement": "[NAME]", "start": 42, "end": 50, "score": 0.85}
+{"doc_id": "doc_0236", "type": "DATE_OF_BIRTH", "original_value": "2025-06-29", "replacement": "[DATE_OF_BIRTH]", "start": 87, "end": 97, "score": 0.6}
+{"doc_id": "doc_0236", "type": "EMAIL", "original_value": "dillon12@example.com", "replacement": "[EMAIL]", "start": 207, "end": 227, "score": 1.0}
+{"doc_id": "doc_0237", "type": "NAME", "original_value": "Pamela Collins", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0237", "type": "PATIENT_ID", "original_value": "Vr376769", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0237", "type": "DATE_OF_BIRTH", "original_value": "2024-09-22", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0237", "type": "PHONE_NUMBER", "original_value": "691-896-6395x51720", "replacement": "[PHONE_NUMBER]", "start": 209, "end": 227, "score": 0.75}
+{"doc_id": "doc_0238", "type": "NAME", "original_value": "John Pope", "replacement": "[NAME]", "start": 0, "end": 9, "score": 0.85}
+{"doc_id": "doc_0238", "type": "PATIENT_ID", "original_value": "nH381649", "replacement": "[PATIENT_ID]", "start": 22, "end": 30, "score": 0.85}
+{"doc_id": "doc_0238", "type": "DATE_OF_BIRTH", "original_value": "2024-10-13", "replacement": "[DATE_OF_BIRTH]", "start": 45, "end": 55, "score": 0.6}
+{"doc_id": "doc_0238", "type": "PHONE_NUMBER", "original_value": "718.749.1966", "replacement": "[PHONE_NUMBER]", "start": 185, "end": 197, "score": 0.75}
+{"doc_id": "doc_0239", "type": "NAME", "original_value": "Andrea Davis", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0239", "type": "PATIENT_ID", "original_value": "fJ644556", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0239", "type": "DATE_OF_BIRTH", "original_value": "2025-12-06", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}
+{"doc_id": "doc_0239", "type": "PHONE_NUMBER", "original_value": "001-557-290-6477x15910", "replacement": "[PHONE_NUMBER]", "start": 192, "end": 214, "score": 0.75}
+{"doc_id": "doc_0240", "type": "NAME", "original_value": "Debra Jackson", "replacement": "[NAME]", "start": 0, "end": 13, "score": 0.85}
+{"doc_id": "doc_0240", "type": "PATIENT_ID", "original_value": "jW297125", "replacement": "[PATIENT_ID]", "start": 26, "end": 34, "score": 0.85}
+{"doc_id": "doc_0240", "type": "DATE_OF_BIRTH", "original_value": "2024-11-30", "replacement": "[DATE_OF_BIRTH]", "start": 49, "end": 59, "score": 0.6}
+{"doc_id": "doc_0241", "type": "DATE_OF_BIRTH", "original_value": "2025-04-02", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0241", "type": "NAME", "original_value": "Kevin Rose", "replacement": "[NAME]", "start": 15, "end": 25, "score": 0.85}
+{"doc_id": "doc_0241", "type": "PATIENT_ID", "original_value": "io547281", "replacement": "[PATIENT_ID]", "start": 39, "end": 47, "score": 0.85}
+{"doc_id": "doc_0241", "type": "NAME", "original_value": "Baker Plaza", "replacement": "[NAME]", "start": 177, "end": 188, "score": 0.85}
+{"doc_id": "doc_0241", "type": "ADDRESS", "original_value": "South Wayne", "replacement": "[ADDRESS]", "start": 199, "end": 210, "score": 0.85}
+{"doc_id": "doc_0242", "type": "NAME", "original_value": "Matthew Dennis", "replacement": "[NAME]", "start": 0, "end": 14, "score": 0.85}
+{"doc_id": "doc_0242", "type": "PATIENT_ID", "original_value": "Mr634362", "replacement": "[PATIENT_ID]", "start": 27, "end": 35, "score": 0.85}
+{"doc_id": "doc_0242", "type": "DATE_OF_BIRTH", "original_value": "2025-12-13", "replacement": "[DATE_OF_BIRTH]", "start": 50, "end": 60, "score": 0.6}
+{"doc_id": "doc_0242", "type": "PHONE_NUMBER", "original_value": "697.586.1031x31009", "replacement": "[PHONE_NUMBER]", "start": 197, "end": 215, "score": 0.75}
+{"doc_id": "doc_0243", "type": "NAME", "original_value": "Sarah Watts", "replacement": "[NAME]", "start": 0, "end": 11, "score": 0.85}
+{"doc_id": "doc_0243", "type": "PATIENT_ID", "original_value": "Dj251225", "replacement": "[PATIENT_ID]", "start": 24, "end": 32, "score": 0.85}
+{"doc_id": "doc_0243", "type": "DATE_OF_BIRTH", "original_value": "2026-09-08", "replacement": "[DATE_OF_BIRTH]", "start": 47, "end": 57, "score": 0.6}
+{"doc_id": "doc_0243", "type": "PHONE_NUMBER", "original_value": "2767502412", "replacement": "[PHONE_NUMBER]", "start": 204, "end": 214, "score": 0.75}
+{"doc_id": "doc_0244", "type": "DATE_OF_BIRTH", "original_value": "2025-09-30", "replacement": "[DATE_OF_BIRTH]", "start": 3, "end": 13, "score": 0.6}
+{"doc_id": "doc_0244", "type": "NAME", "original_value": "John Diaz", "replacement": "[NAME]", "start": 15, "end": 24, "score": 0.85}
+{"doc_id": "doc_0244", "type": "PATIENT_ID", "original_value": "Eh054589", "replacement": "[PATIENT_ID]", "start": 38, "end": 46, "score": 0.85}
+{"doc_id": "doc_0244", "type": "NAME", "original_value": "Joseph Springs Suite", "replacement": "[NAME]", "start": 185, "end": 205, "score": 0.85}
+{"doc_id": "doc_0245", "type": "NAME", "original_value": "Logan Hamilton", "replacement": "[NAME]", "start": 8, "end": 22, "score": 0.85}
+{"doc_id": "doc_0245", "type": "DATE_OF_BIRTH", "original_value": "1947-01-09", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0245", "type": "PATIENT_ID", "original_value": "FR795410", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0245", "type": "DATE_OF_BIRTH", "original_value": "2024-11-16", "replacement": "[DATE_OF_BIRTH]", "start": 91, "end": 101, "score": 0.6}
+{"doc_id": "doc_0245", "type": "EMAIL", "original_value": "marshalexis@example.org", "replacement": "[EMAIL]", "start": 201, "end": 224, "score": 1.0}
+{"doc_id": "doc_0246", "type": "NAME", "original_value": "Zachary Gonzalez", "replacement": "[NAME]", "start": 8, "end": 24, "score": 0.85}
+{"doc_id": "doc_0246", "type": "DATE_OF_BIRTH", "original_value": "1961-10-22", "replacement": "[DATE_OF_BIRTH]", "start": 31, "end": 41, "score": 0.95}
+{"doc_id": "doc_0246", "type": "PATIENT_ID", "original_value": "wp914307", "replacement": "[PATIENT_ID]", "start": 46, "end": 54, "score": 0.85}
+{"doc_id": "doc_0246", "type": "DATE_OF_BIRTH", "original_value": "2025-05-31", "replacement": "[DATE_OF_BIRTH]", "start": 103, "end": 113, "score": 0.6}
+{"doc_id": "doc_0246", "type": "EMAIL", "original_value": "derek83@example.com", "replacement": "[EMAIL]", "start": 214, "end": 233, "score": 1.0}
+{"doc_id": "doc_0247", "type": "NAME", "original_value": "Tyrone Murray", "replacement": "[NAME]", "start": 8, "end": 21, "score": 0.85}
+{"doc_id": "doc_0247", "type": "DATE_OF_BIRTH", "original_value": "1978-05-21", "replacement": "[DATE_OF_BIRTH]", "start": 28, "end": 38, "score": 0.95}
+{"doc_id": "doc_0247", "type": "PATIENT_ID", "original_value": "tY806129", "replacement": "[PATIENT_ID]", "start": 43, "end": 51, "score": 0.85}
+{"doc_id": "doc_0247", "type": "DATE_OF_BIRTH", "original_value": "2025-09-23", "replacement": "[DATE_OF_BIRTH]", "start": 88, "end": 98, "score": 0.6}
+{"doc_id": "doc_0247", "type": "EMAIL", "original_value": "richardsmith@example.net", "replacement": "[EMAIL]", "start": 205, "end": 229, "score": 1.0}
+{"doc_id": "doc_0248", "type": "NAME", "original_value": "Patient Meredith Black", "replacement": "[NAME]", "start": 0, "end": 22, "score": 0.85}
+{"doc_id": "doc_0248", "type": "DATE_OF_BIRTH", "original_value": "1982-02-24", "replacement": "[DATE_OF_BIRTH]", "start": 29, "end": 39, "score": 0.95}
+{"doc_id": "doc_0248", "type": "PATIENT_ID", "original_value": "Ot872324", "replacement": "[PATIENT_ID]", "start": 44, "end": 52, "score": 0.85}
+{"doc_id": "doc_0248", "type": "DATE_OF_BIRTH", "original_value": "2025-01-28", "replacement": "[DATE_OF_BIRTH]", "start": 91, "end": 101, "score": 0.6}
+{"doc_id": "doc_0248", "type": "EMAIL", "original_value": "wellsmarissa@example.com", "replacement": "[EMAIL]", "start": 208, "end": 232, "score": 1.0}
+{"doc_id": "doc_0249", "type": "NAME", "original_value": "Mary Jackson", "replacement": "[NAME]", "start": 0, "end": 12, "score": 0.85}
+{"doc_id": "doc_0249", "type": "PATIENT_ID", "original_value": "Qg837744", "replacement": "[PATIENT_ID]", "start": 25, "end": 33, "score": 0.85}
+{"doc_id": "doc_0249", "type": "DATE_OF_BIRTH", "original_value": "2025-01-20", "replacement": "[DATE_OF_BIRTH]", "start": 48, "end": 58, "score": 0.6}

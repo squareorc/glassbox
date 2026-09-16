@@ -89,25 +89,62 @@ NOTE_TEMPLATES = [
 def make_entities_and_text(template, values):
     """
     Fill a template and track the character span of each injected PII value,
-    so we have ground truth for redaction evaluation. Placeholders are
-    substituted one at a time so offsets stay correct as the string grows.
+    so we have ground truth for redaction evaluation.
+
+    Strategy: parse the template into tokens (literal text vs {placeholder}),
+    build the result string from left to right, tracking the exact character
+    offset where each value lands.
     """
-    text = template
+    import re
+
+    # Split template by placeholders like {name}, {patient_id}, etc.
+    pattern = re.compile(r"\{([a-zA-Z0-9_]+)\}")
+    tokens = []
+    last_end = 0
+
+    for match in pattern.finditer(template):
+        # Literal text before placeholder
+        if match.start() > last_end:
+            tokens.append({"type": "literal", "text": template[last_end:match.start()]})
+
+        # Placeholder
+        key = match.group(1)
+        tokens.append({"type": "placeholder", "key": key})
+        last_end = match.end()
+
+    # Any trailing literal text
+    if last_end < len(template):
+        tokens.append({"type": "literal", "text": template[last_end:]})
+
+    # Assemble the final string left-to-right, tracking entity spans
+    full_text = []
     entities = []
-    for key, (value, etype) in values.items():
-        placeholder = "{" + key + "}"
-        idx = text.find(placeholder)
-        if idx == -1:
-            continue
-        text = text[:idx] + value + text[idx + len(placeholder):]
-        if etype is not None:
-            entities.append({
-                "type": etype,
-                "value": value,
-                "start": idx,
-                "end": idx + len(value),
-            })
-    return text, entities
+    current_offset = 0
+
+    for token in tokens:
+        if token["type"] == "literal":
+            full_text.append(token["text"])
+            current_offset += len(token["text"])
+        else:
+            key = token["key"]
+            if key in values:
+                val, etype = values[key]
+                val_str = str(val)
+                start_idx = current_offset
+                end_idx = current_offset + len(val_str)
+
+                full_text.append(val_str)
+                current_offset = end_idx
+
+                if etype is not None:
+                    entities.append({
+                        "type": etype,
+                        "value": val_str,
+                        "start": start_idx,
+                        "end": end_idx,
+                    })
+
+    return "".join(full_text), entities
 
 
 def generate_document(doc_id):

@@ -102,12 +102,52 @@ The system will be evaluated along three axes, each with a small set of headline
 
 - **Scoped and finalized the proposal.** Domain locked to synthetic healthcare records; differential privacy and other formal privacy techniques deferred to future work; verification defined with four outcome categories; evaluation plan narrowed to a focused metric set per axis.
 - **Environment set up.** Python 3.11 virtual environment, project skeleton (`src/redaction`, `src/retrieval`, `src/generation`, `src/verification`, `src/dashboard`), core libraries installed (Presidio, spaCy, sentence-transformers, ChromaDB, Streamlit, MLX), and a local quantized LLM (Qwen2.5-7B-Instruct, 4-bit) pulled and smoke-tested via MLX. Git repository initialized.
-- **Synthetic dataset generator built and verified.** A script (`generate_synthetic_dataset.py`) that produces 250 synthetic clinical notes across 8 common conditions, using Faker-generated PII injected into note templates at tracked character offsets — giving exact ground-truth entity spans for redaction evaluation. It also produces a companion QA evaluation set (currently 8 diagnosis-based queries with known relevant documents and expected answers, to be expanded later with symptom-based and multi-condition queries for a more rigorous retrieval evaluation).
+- **Synthetic dataset generator built and verified.** A script (`generate_synthetic_dataset.py`) that produces 250 synthetic clinical notes across 8 common conditions, using Faker-generated PII injected into note templates at tracked character offsets — giving exact ground-truth entity spans for redaction evaluation. It also produces a companion QA evaluation set (currently 8 diagnosis-based queries with known relevant documents and expected answers, to be expanded later with symptom-based and multi-condition queries for a more rigorous retrieval evaluation). Ground truth spans verified to match actual text offsets 100% (834/834 entities).
+- **Redaction module built and evaluated.** The full PII detection and redaction pipeline is implemented (`src/redaction/`):
+  - `detector.py`: Wraps Presidio's AnalyzerEngine with a custom PATIENT_ID recognizer (2 letters + 6 digits pattern from the synthetic data).
+  - `redactor.py`: Replaces detected PII with `[TYPE]` tags, handles overlapping spans, logs all redactions for the audit trail.
+  - `evaluate.py`: Compares detected spans against ground truth using IoU-based matching, computes precision/recall/F1 overall and per entity type.
+  - `pipeline.py`: Ties everything together — processes the raw dataset, outputs redacted documents to `data/processed/`, and generates evaluation metrics.
+
+### Redaction Evaluation Results
+
+Evaluated on 250 synthetic clinical notes at confidence threshold 0.5, IoU threshold 0.5:
+
+| Metric | Score |
+|---|---|
+| **Overall Precision** | 0.652 |
+| **Overall Recall** | 0.878 |
+| **Overall F1** | 0.748 |
+
+**Per-entity-type breakdown:**
+
+| Entity Type | Precision | Recall | F1 | TP | FP | FN |
+|---|---|---|---|---|---|---|
+| EMAIL | 1.000 | 1.000 | 1.000 | 84 | 0 | 0 |
+| PATIENT_ID | 1.000 | 1.000 | 1.000 | 250 | 0 | 0 |
+| NAME | 0.769 | 0.996 | 0.868 | 249 | 75 | 1 |
+| PHONE_NUMBER | 1.000 | 0.802 | 0.890 | 65 | 0 | 16 |
+| DATE_OF_BIRTH | 0.251 | 1.000 | 0.402 | 84 | 250 | 0 |
+| ADDRESS | 0.000 | 0.000 | 0.000 | 0 | 65 | 85 |
+
+**What's working well:**
+- Perfect detection for EMAIL and PATIENT_ID (custom recognizer works as expected).
+- Strong NAME detection (99.6% recall with some FPs from street names in addresses).
+- Good PHONE_NUMBER detection (80.2% recall — misses Faker formats with extensions like `x272` or international prefixes `+1-`, `001-`).
+
+**Known issues:**
+- **ADDRESS**: Presidio fragments addresses into separate NAME (street names) and LOCATION (cities) entities. With IoU ≥ 0.5 matching, none of these fragments overlap enough with the full ground-truth address span, resulting in 0% recall. Future work: merge adjacent NAME/LOCATION entities with address-specific context, or use a custom address recognizer.
+- **DATE_OF_BIRTH**: Catches all DOB entities (100% recall) but over-triggers on visit dates in the notes, since both use ISO format `YYYY-MM-DD`. 250 false positives from visit dates being tagged as DOB. Future work: use stricter context matching ("DOB:", "date of birth", proximity to other PII) to distinguish DOB from other dates.
+
+**Impact on pipeline:**
+- The redaction stage successfully processes all 250 documents and outputs sanitized versions with audit logs.
+- The overall F1 of 0.748 is a solid baseline for privacy protection. The high recall (0.878) means most PII is caught, though some over-redaction occurs (precision 0.652).
+- For downstream retrieval and generation stages, the redacted dataset in `data/processed/redacted_notes.jsonl` is ready to use.
 
 ### Next up
 
-- Build the redaction module: run the synthetic notes through Presidio and score detected entities against the dataset's ground-truth spans.
-- Expand the QA evaluation set beyond diagnosis-only queries.
+- Expand the QA evaluation set beyond diagnosis-only queries (add symptom-based and multi-condition queries).
+- Build the retrieval module: embed redacted documents, implement query-driven retrieval with ChromaDB, log retrieval decisions.
 
 ---
 
