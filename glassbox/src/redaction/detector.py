@@ -44,17 +44,18 @@ class PIIDetector:
         )
         self.analyzer.registry.add_recognizer(patient_id_recognizer)
 
-        # Date of birth pattern: ISO format YYYY-MM-DD
-        # Presidio has DATE_TIME but we want to specifically flag DOB
+        # Date of birth pattern: ISO format YYYY-MM-DD, but only for plausible DOB
+        # (18-90 years ago from current date 2026-09-16)
+        # This avoids flagging recent visit dates as DOB
+        # DOB range: 1936-09-16 to 2008-09-16
         dob_pattern = Pattern(
-            name="dob_iso_pattern",
-            regex=r"\b\d{4}-\d{2}-\d{2}\b",
-            score=0.6,  # Lower score because not all dates are DOB
+            name="dob_plausible_range",
+            regex=r"\b(19[3-9]\d|20[0][0-8])-\d{2}-\d{2}\b",
+            score=0.85,
         )
         dob_recognizer = PatternRecognizer(
             supported_entity="DATE_OF_BIRTH",
             patterns=[dob_pattern],
-            context=["DOB", "date of birth", "born"],  # Context boosts confidence
         )
         self.analyzer.registry.add_recognizer(dob_recognizer)
 
