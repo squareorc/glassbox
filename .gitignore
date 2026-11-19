@@ -12,3 +12,5 @@ ENV/
 # Regenerable pipeline outputs (python -m glassbox.src.redaction.pipeline)
 glassbox/data/processed/
 .pytest_cache/
+glassbox/data/indexes/
+glassbox/logs/

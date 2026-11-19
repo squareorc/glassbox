@@ -1,0 +1,1662 @@
+{
+  "dataset": "realistic",
+  "num_questions": 130,
+  "ks": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "runs": {
+    "redacted-t0.50-section/dense": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.1282,
+          "recall@3": 0.1774,
+          "recall@5": 0.2094,
+          "recall@10": 0.2436,
+          "mrr": 0.222,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.2222,
+          "recall@3": 0.2778,
+          "recall@5": 0.3333,
+          "recall@10": 0.3889,
+          "mrr": 0.2681,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.1111,
+          "recall@3": 0.213,
+          "recall@5": 0.2407,
+          "recall@10": 0.2778,
+          "mrr": 0.4259,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.1245,
+          "recall@3": 0.1832,
+          "recall@5": 0.2143,
+          "recall@10": 0.2518,
+          "mrr": 0.2052,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.2381,
+          "recall@3": 0.3333,
+          "recall@5": 0.3571,
+          "recall@10": 0.381,
+          "mrr": 0.2956,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0635,
+          "recall@3": 0.127,
+          "recall@5": 0.2143,
+          "recall@10": 0.3294,
+          "mrr": 0.298,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.1256,
+          "recall@3": 0.1814,
+          "recall@5": 0.2128,
+          "recall@10": 0.2494,
+          "mrr": 0.2103,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.2333,
+          "recall@3": 0.3167,
+          "recall@5": 0.35,
+          "recall@10": 0.3833,
+          "mrr": 0.2874,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0778,
+          "recall@3": 0.1528,
+          "recall@5": 0.2222,
+          "recall@10": 0.3139,
+          "mrr": 0.3364,
+          "n": 30
+        }
+      }
+    },
+    "redacted-t0.50-section/bm25": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.4359,
+          "recall@3": 0.4679,
+          "recall@5": 0.4744,
+          "recall@10": 0.4979,
+          "mrr": 0.4681,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.9444,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0278,
+          "recall@5": 0.0556,
+          "recall@10": 0.1574,
+          "mrr": 0.0838,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.4396,
+          "recall@3": 0.4744,
+          "recall@5": 0.4853,
+          "recall@10": 0.511,
+          "mrr": 0.4765,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.9524,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0556,
+          "recall@5": 0.1032,
+          "recall@10": 0.2143,
+          "mrr": 0.1203,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.4385,
+          "recall@3": 0.4724,
+          "recall@5": 0.4821,
+          "recall@10": 0.5071,
+          "mrr": 0.4739,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.95,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0472,
+          "recall@5": 0.0889,
+          "recall@10": 0.1972,
+          "mrr": 0.1093,
+          "n": 30
+        }
+      }
+    },
+    "redacted-t0.50-section/hybrid": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.3355,
+          "recall@3": 0.4829,
+          "recall@5": 0.5214,
+          "recall@10": 0.5385,
+          "mrr": 0.4645,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.6667,
+          "recall@3": 0.9444,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.8194,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.1204,
+          "recall@3": 0.2037,
+          "recall@5": 0.2593,
+          "recall@10": 0.3333,
+          "mrr": 0.3741,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.3004,
+          "recall@3": 0.4029,
+          "recall@5": 0.4469,
+          "recall@10": 0.4991,
+          "mrr": 0.3927,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.6429,
+          "recall@3": 0.8333,
+          "recall@5": 0.9048,
+          "recall@10": 0.9762,
+          "mrr": 0.7604,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0159,
+          "recall@3": 0.0794,
+          "recall@5": 0.127,
+          "recall@10": 0.2103,
+          "mrr": 0.181,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.3109,
+          "recall@3": 0.4269,
+          "recall@5": 0.4692,
+          "recall@10": 0.5109,
+          "mrr": 0.4143,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.65,
+          "recall@3": 0.8667,
+          "recall@5": 0.9333,
+          "recall@10": 0.9833,
+          "mrr": 0.7781,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0472,
+          "recall@3": 0.1167,
+          "recall@5": 0.1667,
+          "recall@10": 0.2472,
+          "mrr": 0.2389,
+          "n": 30
+        }
+      }
+    },
+    "redacted-t0.50-note/dense": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.0406,
+          "recall@3": 0.0406,
+          "recall@5": 0.1004,
+          "recall@10": 0.1432,
+          "mrr": 0.1003,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.0556,
+          "recall@3": 0.0556,
+          "recall@5": 0.1667,
+          "recall@10": 0.2222,
+          "mrr": 0.0889,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0648,
+          "recall@3": 0.0648,
+          "recall@5": 0.1019,
+          "recall@10": 0.1759,
+          "mrr": 0.2568,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.0412,
+          "recall@3": 0.0733,
+          "recall@5": 0.1035,
+          "recall@10": 0.1557,
+          "mrr": 0.1,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.0714,
+          "recall@3": 0.119,
+          "recall@5": 0.1667,
+          "recall@10": 0.2143,
+          "mrr": 0.1114,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0357,
+          "recall@3": 0.0794,
+          "recall@5": 0.1151,
+          "recall@10": 0.246,
+          "mrr": 0.2104,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.041,
+          "recall@3": 0.0635,
+          "recall@5": 0.1026,
+          "recall@10": 0.1519,
+          "mrr": 0.1001,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.0667,
+          "recall@3": 0.1,
+          "recall@5": 0.1667,
+          "recall@10": 0.2167,
+          "mrr": 0.1046,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0444,
+          "recall@3": 0.075,
+          "recall@5": 0.1111,
+          "recall@10": 0.225,
+          "mrr": 0.2243,
+          "n": 30
+        }
+      }
+    },
+    "redacted-t0.50-note/bm25": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.4615,
+          "recall@3": 0.4808,
+          "recall@5": 0.4808,
+          "recall@10": 0.4936,
+          "mrr": 0.4829,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0833,
+          "recall@5": 0.0833,
+          "recall@10": 0.1389,
+          "mrr": 0.0926,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.4652,
+          "recall@3": 0.4744,
+          "recall@5": 0.4771,
+          "recall@10": 0.4963,
+          "mrr": 0.4917,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0159,
+          "recall@3": 0.0556,
+          "recall@5": 0.0675,
+          "recall@10": 0.1508,
+          "mrr": 0.1308,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.4641,
+          "recall@3": 0.4763,
+          "recall@5": 0.4782,
+          "recall@10": 0.4955,
+          "mrr": 0.4891,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0111,
+          "recall@3": 0.0639,
+          "recall@5": 0.0722,
+          "recall@10": 0.1472,
+          "mrr": 0.1193,
+          "n": 30
+        }
+      }
+    },
+    "redacted-t0.50-note/hybrid": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.1346,
+          "recall@3": 0.1859,
+          "recall@5": 0.1859,
+          "recall@10": 0.297,
+          "mrr": 0.1902,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.2778,
+          "recall@3": 0.3333,
+          "recall@5": 0.3333,
+          "recall@10": 0.4444,
+          "mrr": 0.308,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.1389,
+          "recall@5": 0.1389,
+          "recall@10": 0.3981,
+          "mrr": 0.2081,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.1822,
+          "recall@3": 0.2491,
+          "recall@5": 0.2546,
+          "recall@10": 0.293,
+          "mrr": 0.2459,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.381,
+          "recall@3": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5714,
+          "mrr": 0.4445,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.0794,
+          "recall@5": 0.1032,
+          "recall@10": 0.127,
+          "mrr": 0.1766,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.1679,
+          "recall@3": 0.2301,
+          "recall@5": 0.234,
+          "recall@10": 0.2942,
+          "mrr": 0.2292,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.35,
+          "recall@3": 0.45,
+          "recall@5": 0.45,
+          "recall@10": 0.5333,
+          "mrr": 0.4036,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "mrr": 0.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.0972,
+          "recall@5": 0.1139,
+          "recall@10": 0.2083,
+          "mrr": 0.186,
+          "n": 30
+        }
+      }
+    },
+    "raw-section/dense": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.1538,
+          "recall@3": 0.2286,
+          "recall@5": 0.235,
+          "recall@10": 0.2692,
+          "mrr": 0.2558,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.1667,
+          "recall@3": 0.2222,
+          "recall@5": 0.2222,
+          "recall@10": 0.2778,
+          "mrr": 0.2024,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.1667,
+          "recall@3": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.25,
+          "mrr": 0.2083,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.1111,
+          "recall@3": 0.213,
+          "recall@5": 0.2407,
+          "recall@10": 0.2778,
+          "mrr": 0.4259,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.1795,
+          "recall@3": 0.2491,
+          "recall@5": 0.3022,
+          "recall@10": 0.3654,
+          "mrr": 0.2724,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.1429,
+          "recall@3": 0.2619,
+          "recall@5": 0.3333,
+          "recall@10": 0.381,
+          "mrr": 0.2219,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.3214,
+          "recall@3": 0.3214,
+          "recall@5": 0.3214,
+          "recall@10": 0.3571,
+          "mrr": 0.325,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0635,
+          "recall@3": 0.127,
+          "recall@5": 0.2143,
+          "recall@10": 0.3452,
+          "mrr": 0.3033,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.1718,
+          "recall@3": 0.2429,
+          "recall@5": 0.2821,
+          "recall@10": 0.3365,
+          "mrr": 0.2674,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.15,
+          "recall@3": 0.25,
+          "recall@5": 0.3,
+          "recall@10": 0.35,
+          "mrr": 0.216,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.275,
+          "recall@3": 0.3,
+          "recall@5": 0.3,
+          "recall@10": 0.325,
+          "mrr": 0.29,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0778,
+          "recall@3": 0.1528,
+          "recall@5": 0.2222,
+          "recall@10": 0.325,
+          "mrr": 0.3401,
+          "n": 30
+        }
+      }
+    },
+    "raw-section/bm25": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.75,
+          "recall@3": 0.7756,
+          "recall@5": 0.7821,
+          "recall@10": 0.8056,
+          "mrr": 0.7886,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.9444,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.0278,
+          "recall@5": 0.0556,
+          "recall@10": 0.1574,
+          "mrr": 0.1393,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.7473,
+          "recall@3": 0.7821,
+          "recall@5": 0.7875,
+          "recall@10": 0.8132,
+          "mrr": 0.782,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.9524,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0556,
+          "recall@5": 0.0794,
+          "recall@10": 0.1905,
+          "mrr": 0.1108,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.7481,
+          "recall@3": 0.7801,
+          "recall@5": 0.7859,
+          "recall@10": 0.8109,
+          "mrr": 0.7839,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.95,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9722,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0083,
+          "recall@3": 0.0472,
+          "recall@5": 0.0722,
+          "recall@10": 0.1806,
+          "mrr": 0.1193,
+          "n": 30
+        }
+      }
+    },
+    "raw-section/hybrid": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.4893,
+          "recall@3": 0.5855,
+          "recall@5": 0.7265,
+          "recall@10": 0.7692,
+          "mrr": 0.6195,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.6111,
+          "recall@3": 0.7222,
+          "recall@5": 0.8333,
+          "recall@10": 0.8889,
+          "mrr": 0.6996,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.5833,
+          "recall@3": 0.6667,
+          "recall@5": 0.9167,
+          "recall@10": 0.9167,
+          "mrr": 0.6833,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.1204,
+          "recall@3": 0.2037,
+          "recall@5": 0.2593,
+          "recall@10": 0.3333,
+          "mrr": 0.3741,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.5092,
+          "recall@3": 0.6502,
+          "recall@5": 0.6941,
+          "recall@10": 0.7628,
+          "mrr": 0.6186,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.6667,
+          "recall@3": 0.8095,
+          "recall@5": 0.8571,
+          "recall@10": 0.9048,
+          "mrr": 0.7505,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.6429,
+          "recall@3": 0.8214,
+          "recall@5": 0.8571,
+          "recall@10": 0.9643,
+          "mrr": 0.7423,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0159,
+          "recall@3": 0.1032,
+          "recall@5": 0.1508,
+          "recall@10": 0.2103,
+          "mrr": 0.1901,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.5032,
+          "recall@3": 0.6308,
+          "recall@5": 0.7038,
+          "recall@10": 0.7647,
+          "mrr": 0.6189,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.65,
+          "recall@3": 0.7833,
+          "recall@5": 0.85,
+          "recall@10": 0.9,
+          "mrr": 0.7352,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.625,
+          "recall@3": 0.775,
+          "recall@5": 0.875,
+          "recall@10": 0.95,
+          "mrr": 0.7246,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0472,
+          "recall@3": 0.1333,
+          "recall@5": 0.1833,
+          "recall@10": 0.2472,
+          "mrr": 0.2453,
+          "n": 30
+        }
+      }
+    },
+    "raw-note/dense": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.0769,
+          "recall@3": 0.1496,
+          "recall@5": 0.1667,
+          "recall@10": 0.2607,
+          "mrr": 0.1486,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.0,
+          "recall@3": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.1667,
+          "mrr": 0.0255,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.25,
+          "recall@3": 0.4167,
+          "recall@5": 0.4167,
+          "recall@10": 0.4167,
+          "mrr": 0.3194,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0,
+          "recall@3": 0.0926,
+          "recall@5": 0.1667,
+          "recall@10": 0.2407,
+          "mrr": 0.1671,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.1374,
+          "recall@3": 0.1621,
+          "recall@5": 0.1648,
+          "recall@10": 0.2134,
+          "mrr": 0.1716,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.0238,
+          "recall@3": 0.0714,
+          "recall@5": 0.0714,
+          "recall@10": 0.119,
+          "mrr": 0.0505,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.3929,
+          "recall@3": 0.3929,
+          "recall@5": 0.3929,
+          "recall@10": 0.3929,
+          "mrr": 0.3929,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0238,
+          "recall@3": 0.0357,
+          "recall@5": 0.0476,
+          "recall@10": 0.1627,
+          "mrr": 0.1188,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.1192,
+          "recall@3": 0.1583,
+          "recall@5": 0.1654,
+          "recall@10": 0.2276,
+          "mrr": 0.1647,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.0167,
+          "recall@3": 0.05,
+          "recall@5": 0.05,
+          "recall@10": 0.1333,
+          "mrr": 0.043,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.35,
+          "recall@3": 0.4,
+          "recall@5": 0.4,
+          "recall@10": 0.4,
+          "mrr": 0.3708,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0167,
+          "recall@3": 0.0528,
+          "recall@5": 0.0833,
+          "recall@10": 0.1861,
+          "mrr": 0.1333,
+          "n": 30
+        }
+      }
+    },
+    "raw-note/bm25": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.7756,
+          "recall@3": 0.7756,
+          "recall@5": 0.7756,
+          "recall@10": 0.812,
+          "mrr": 0.8039,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.0278,
+          "recall@5": 0.0278,
+          "recall@10": 0.1852,
+          "mrr": 0.1504,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.7729,
+          "recall@3": 0.7821,
+          "recall@5": 0.7848,
+          "recall@10": 0.8123,
+          "mrr": 0.8015,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0159,
+          "recall@3": 0.0556,
+          "recall@5": 0.0675,
+          "recall@10": 0.1865,
+          "mrr": 0.1397,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.7737,
+          "recall@3": 0.7801,
+          "recall@5": 0.7821,
+          "recall@10": 0.8122,
+          "mrr": 0.8022,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 1.0,
+          "recall@3": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.0194,
+          "recall@3": 0.0472,
+          "recall@5": 0.0556,
+          "recall@10": 0.1861,
+          "mrr": 0.1429,
+          "n": 30
+        }
+      }
+    },
+    "raw-note/hybrid": {
+      "dev": {
+        "overall": {
+          "recall@1": 0.3397,
+          "recall@3": 0.4316,
+          "recall@5": 0.4402,
+          "recall@10": 0.5321,
+          "mrr": 0.4287,
+          "n": 39
+        },
+        "clinical_fact": {
+          "recall@1": 0.2778,
+          "recall@3": 0.2778,
+          "recall@5": 0.2778,
+          "recall@10": 0.4444,
+          "mrr": 0.3019,
+          "n": 18
+        },
+        "identity": {
+          "recall@1": 0.6667,
+          "recall@3": 0.9167,
+          "recall@5": 0.9167,
+          "recall@10": 0.9167,
+          "mrr": 0.7917,
+          "n": 12
+        },
+        "aggregate": {
+          "recall@1": 0.0278,
+          "recall@3": 0.0926,
+          "recall@5": 0.1296,
+          "recall@10": 0.1944,
+          "mrr": 0.1984,
+          "n": 9
+        }
+      },
+      "test": {
+        "overall": {
+          "recall@1": 0.3462,
+          "recall@3": 0.4615,
+          "recall@5": 0.4835,
+          "recall@10": 0.5659,
+          "mrr": 0.4264,
+          "n": 91
+        },
+        "clinical_fact": {
+          "recall@1": 0.2619,
+          "recall@3": 0.4286,
+          "recall@5": 0.4524,
+          "recall@10": 0.5476,
+          "mrr": 0.3511,
+          "n": 42
+        },
+        "identity": {
+          "recall@1": 0.7143,
+          "recall@3": 0.8214,
+          "recall@5": 0.8214,
+          "recall@10": 0.9286,
+          "mrr": 0.7813,
+          "n": 28
+        },
+        "aggregate": {
+          "recall@1": 0.0238,
+          "recall@3": 0.0476,
+          "recall@5": 0.0952,
+          "recall@10": 0.119,
+          "mrr": 0.1036,
+          "n": 21
+        }
+      },
+      "all": {
+        "overall": {
+          "recall@1": 0.3442,
+          "recall@3": 0.4526,
+          "recall@5": 0.4705,
+          "recall@10": 0.5558,
+          "mrr": 0.4271,
+          "n": 130
+        },
+        "clinical_fact": {
+          "recall@1": 0.2667,
+          "recall@3": 0.3833,
+          "recall@5": 0.4,
+          "recall@10": 0.5167,
+          "mrr": 0.3363,
+          "n": 60
+        },
+        "identity": {
+          "recall@1": 0.7,
+          "recall@3": 0.85,
+          "recall@5": 0.85,
+          "recall@10": 0.925,
+          "mrr": 0.7844,
+          "n": 40
+        },
+        "aggregate": {
+          "recall@1": 0.025,
+          "recall@3": 0.0611,
+          "recall@5": 0.1056,
+          "recall@10": 0.1417,
+          "mrr": 0.1321,
+          "n": 30
+        }
+      }
+    }
+  },
+  "leak_audit": {
+    "redacted": {
+      "index": "redacted-t0.50-section",
+      "overall": {
+        "n": 18041,
+        "full_leak_rate": 0.0158,
+        "partial_leak_rate": 0.0867
+      },
+      "per_type": {
+        "ADDRESS": {
+          "n": 1509,
+          "full_leak_rate": 0.1551,
+          "partial_leak_rate": 0.9795
+        },
+        "DATE_OF_BIRTH": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "EMAIL": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "NAME": {
+          "n": 6022,
+          "full_leak_rate": 0.0085,
+          "partial_leak_rate": 0.0143
+        },
+        "PATIENT_ID": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "PHONE_NUMBER": {
+          "n": 3010,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        }
+      },
+      "examples": {
+        "ADDRESS": [
+          {
+            "doc_id": "doc_0002",
+            "value": "184 Rodriguez Mews, South Aaron, VA 94830",
+            "visible": [
+              "94830"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "83465 Lam Mission Apt. 331, Andrewside, IN 77629",
+            "visible": [
+              "83465",
+              "Andrewside",
+              "77629"
+            ]
+          },
+          {
+            "doc_id": "doc_0005",
+            "value": "19136 Shelly Port, New Brooke, RI 11246",
+            "visible": [
+              "19136",
+              "11246"
+            ]
+          },
+          {
+            "doc_id": "doc_0007",
+            "value": "Unit 2602 Box 5634, DPO AE 92418",
+            "visible": [
+              "Unit 2602 Box 5634",
+              "92418"
+            ]
+          },
+          {
+            "doc_id": "doc_0008",
+            "value": "6159 Alvarado Crossing, Williamchester, MD 53244",
+            "visible": [
+              "6159 Alvarado Crossing"
+            ]
+          }
+        ],
+        "NAME": [
+          {
+            "doc_id": "doc_0042",
+            "value": "Lance Hebert",
+            "visible": [
+              "Lance",
+              "Hebert"
+            ]
+          },
+          {
+            "doc_id": "doc_0054",
+            "value": "Kimberly Little",
+            "visible": [
+              "Kimberly",
+              "Little"
+            ]
+          },
+          {
+            "doc_id": "doc_0081",
+            "value": "Meghan White",
+            "visible": [
+              "White"
+            ]
+          },
+          {
+            "doc_id": "doc_0137",
+            "value": "Destiny Brown",
+            "visible": [
+              "Destiny"
+            ]
+          },
+          {
+            "doc_id": "doc_0161",
+            "value": "Gene Garcia",
+            "visible": [
+              "Gene"
+            ]
+          }
+        ]
+      }
+    },
+    "raw": {
+      "index": "raw-section",
+      "overall": {
+        "n": 18041,
+        "full_leak_rate": 1.0,
+        "partial_leak_rate": 1.0
+      },
+      "per_type": {
+        "ADDRESS": {
+          "n": 1509,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        },
+        "DATE_OF_BIRTH": {
+          "n": 2500,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        },
+        "EMAIL": {
+          "n": 2500,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        },
+        "NAME": {
+          "n": 6022,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        },
+        "PATIENT_ID": {
+          "n": 2500,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        },
+        "PHONE_NUMBER": {
+          "n": 3010,
+          "full_leak_rate": 1.0,
+          "partial_leak_rate": 1.0
+        }
+      },
+      "examples": {
+        "NAME": [
+          {
+            "doc_id": "doc_0000",
+            "value": "Allison Hill",
+            "visible": [
+              "Allison",
+              "Hill"
+            ]
+          },
+          {
+            "doc_id": "doc_0000",
+            "value": "Kimberly Dudley",
+            "visible": [
+              "Kimberly",
+              "Dudley"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "Shannon Ray",
+            "visible": [
+              "Shannon",
+              "Ray"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "Matthew Foster",
+            "visible": [
+              "Matthew",
+              "Foster"
+            ]
+          },
+          {
+            "doc_id": "doc_0002",
+            "value": "Justin Baker",
+            "visible": [
+              "Justin",
+              "Baker"
+            ]
+          }
+        ],
+        "PATIENT_ID": [
+          {
+            "doc_id": "doc_0000",
+            "value": "Bc321819",
+            "visible": [
+              "Bc321819"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "MRN1034131",
+            "visible": [
+              "MRN1034131"
+            ]
+          },
+          {
+            "doc_id": "doc_0002",
+            "value": "iG969653",
+            "visible": [
+              "iG969653"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "P288095",
+            "visible": [
+              "P288095"
+            ]
+          },
+          {
+            "doc_id": "doc_0004",
+            "value": "MRN3829973",
+            "visible": [
+              "MRN3829973"
+            ]
+          }
+        ],
+        "DATE_OF_BIRTH": [
+          {
+            "doc_id": "doc_0000",
+            "value": "1986-05-25",
+            "visible": [
+              "1986-05-25"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "1957-02-12",
+            "visible": [
+              "1957-02-12"
+            ]
+          },
+          {
+            "doc_id": "doc_0002",
+            "value": "1965-06-10",
+            "visible": [
+              "1965-06-10"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "1967-05-14",
+            "visible": [
+              "1967-05-14"
+            ]
+          },
+          {
+            "doc_id": "doc_0004",
+            "value": "1993-05-13",
+            "visible": [
+              "1993-05-13"
+            ]
+          }
+        ],
+        "PHONE_NUMBER": [
+          {
+            "doc_id": "doc_0000",
+            "value": "0133890838",
+            "visible": [
+              "0133890838"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "647-525-5341",
+            "visible": [
+              "647-525-5341"
+            ]
+          },
+          {
+            "doc_id": "doc_0002",
+            "value": "(710) 122-6916",
+            "visible": [
+              "(710) 122-6916"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "+1-701-543-0391 x171",
+            "visible": [
+              "+1-701-543-0391 x171"
+            ]
+          },
+          {
+            "doc_id": "doc_0004",
+            "value": "7631165667",
+            "visible": [
+              "7631165667"
+            ]
+          }
+        ],
+        "EMAIL": [
+          {
+            "doc_id": "doc_0000",
+            "value": "lrobinson@example.com",
+            "visible": [
+              "lrobinson@example.com"
+            ]
+          },
+          {
+            "doc_id": "doc_0001",
+            "value": "amandasanchez@example.com",
+            "visible": [
+              "amandasanchez@example.com"
+            ]
+          },
+          {
+            "doc_id": "doc_0002",
+            "value": "dcarlson@example.net",
+            "visible": [
+              "dcarlson@example.net"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "davidalvarez@example.net",
+            "visible": [
+              "davidalvarez@example.net"
+            ]
+          },
+          {
+            "doc_id": "doc_0004",
+            "value": "nuneztracey@example.org",
+            "visible": [
+              "nuneztracey@example.org"
+            ]
+          }
+        ],
+        "ADDRESS": [
+          {
+            "doc_id": "doc_0002",
+            "value": "184 Rodriguez Mews, South Aaron, VA 94830",
+            "visible": [
+              "184 Rodriguez Mews",
+              "South Aaron",
+              "94830"
+            ]
+          },
+          {
+            "doc_id": "doc_0003",
+            "value": "83465 Lam Mission Apt. 331, Andrewside, IN 77629",
+            "visible": [
+              "83465",
+              "Andrewside",
+              "77629"
+            ]
+          },
+          {
+            "doc_id": "doc_0005",
+            "value": "19136 Shelly Port, New Brooke, RI 11246",
+            "visible": [
+              "19136",
+              "New Brooke",
+              "11246"
+            ]
+          },
+          {
+            "doc_id": "doc_0007",
+            "value": "Unit 2602 Box 5634, DPO AE 92418",
+            "visible": [
+              "Unit 2602 Box 5634",
+              "92418"
+            ]
+          },
+          {
+            "doc_id": "doc_0008",
+            "value": "6159 Alvarado Crossing, Williamchester, MD 53244",
+            "visible": [
+              "6159 Alvarado Crossing",
+              "Williamchester",
+              "53244"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

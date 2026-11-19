@@ -82,6 +82,9 @@ def run_redaction_pipeline(
                 "text": redacted_text,
                 "diagnosis": doc["diagnosis"],
                 "note_type": doc.get("note_type", "note"),
+                # Visit date is non-identifying (only DOB is PII) and is used
+                # for the retrieval chunks' context line.
+                "visit_date": doc["facts"]["visit_date"],
                 "medications": doc["medications"],
                 "num_entities_redacted": len(audit_log),
             }

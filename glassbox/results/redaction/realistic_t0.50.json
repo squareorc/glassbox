@@ -8,7 +8,7 @@
   "audit_log_path": "glassbox/data/processed/realistic/t0.50/redaction_audit_log.jsonl",
   "evaluation": {
     "per_type": {
-      "DATE_OF_BIRTH": {
+      "PATIENT_ID": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
@@ -16,15 +16,7 @@
         "fp": 0,
         "fn": 0
       },
-      "PHONE_NUMBER": {
-        "precision": 1.0,
-        "recall": 0.998671096345515,
-        "f1": 0.9993351063829787,
-        "tp": 3006,
-        "fp": 0,
-        "fn": 4
-      },
-      "PATIENT_ID": {
+      "DATE_OF_BIRTH": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
@@ -47,6 +39,14 @@
         "tp": 2500,
         "fp": 0,
         "fn": 0
+      },
+      "PHONE_NUMBER": {
+        "precision": 1.0,
+        "recall": 0.998671096345515,
+        "f1": 0.9993351063829787,
+        "tp": 3006,
+        "fp": 0,
+        "fn": 4
       },
       "ADDRESS": {
         "precision": 0.0,
