@@ -1,0 +1,101 @@
+[
+  {
+    "dense_weight": 0.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.4074,
+    "answerable_evidence@auto": 0.7222,
+    "fact_evidence@auto": 0.8889,
+    "aggregate_evidence@auto": 0.3889,
+    "answerable_evidence@5": 0.6667,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 0.25,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.4444,
+    "answerable_evidence@auto": 0.7593,
+    "fact_evidence@auto": 0.8889,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.6667,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 0.5,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7778,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.4444,
+    "answerable_evidence@5": 0.7037,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7963,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.6481,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 1.5,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7963,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.6667,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 2.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7963,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.6667,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 3.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7963,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.6667,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 0.9815
+  },
+  {
+    "dense_weight": 5.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 0.5556,
+    "answerable_evidence@auto": 0.7963,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.5,
+    "answerable_evidence@5": 0.7037,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 0.9815
+  },
+  {
+    "dense_weight": 1.0,
+    "bm25_weight": 0.0,
+    "answerable_evidence@3": 0.5185,
+    "answerable_evidence@auto": 0.7593,
+    "fact_evidence@auto": 0.9444,
+    "aggregate_evidence@auto": 0.3889,
+    "answerable_evidence@5": 0.7037,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 0.9815
+  }
+]

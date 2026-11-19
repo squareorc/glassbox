@@ -119,3 +119,83 @@ def test_k_is_capped():
     retriever = Retriever(_index("redacted"))
     with pytest.raises(ValueError):
         retriever.retrieve("asthma", k=50)
+
+
+# ---------------------------------------------------------------- query analysis
+
+from glassbox.src.retrieval.query_analysis import analyze_query, chroma_where, matches  # noqa: E402
+
+DX = ["Essential hypertension", "Major depressive disorder", "Type 2 diabetes mellitus",
+      "Chronic kidney disease stage 3", "Asthma"]
+
+
+@pytest.mark.parametrize("question,filters,scope", [
+    ("What medication was prescribed for the Essential hypertension patient whose note is dated 2024-11-10?",
+     {"diagnosis": "Essential hypertension", "date_from": 20241110, "date_to": 20241110}, "single_note"),
+    ("Which medications were prescribed to Major depressive disorder patients who presented with "
+     "depressed mood in December 2025?",
+     {"diagnosis": "Major depressive disorder", "date_from": 20251201, "date_to": 20251231}, "multi_note"),
+    ("Which medications were prescribed to Asthma patients who presented with wheezing in 2024?",
+     {"diagnosis": "Asthma", "date_from": 20240101, "date_to": 20241231}, "multi_note"),
+    ("any diabetes patients seen on 03/15/2025?",
+     {"diagnosis": "Type 2 diabetes mellitus", "date_from": 20250315, "date_to": 20250315}, "single_note"),
+    ("ckd notes from Sept 2025",
+     {"diagnosis": "Chronic kidney disease stage 3", "date_from": 20250901, "date_to": 20250930}, "multi_note"),
+])
+def test_query_analysis_extracts_filters(question, filters, scope):
+    a = analyze_query(question, DX)
+    assert a["filters"] == filters
+    assert a["scope"] == scope
+
+
+@pytest.mark.parametrize("question", [
+    "What medication is John Wilkerson prescribed?",
+    "What is the diagnosis recorded for patient MRN0033092?",
+])
+def test_identity_questions_get_no_filters(question):
+    a = analyze_query(question, DX)
+    assert a["filters"] == {} and a["residual_query"] == question
+
+
+def test_residual_query_drops_constraint_phrases():
+    a = analyze_query("What heart rate was recorded for the Asthma patient whose note is dated 2024-10-07?", DX)
+    assert a["residual_query"] == "What heart rate was recorded for the patient ?"
+
+
+def test_filter_matching_and_chroma_where_agree():
+    f = {"diagnosis": "Asthma", "date_from": 20240101, "date_to": 20241231}
+    assert matches({"diagnosis": "Asthma", "visit_date": "2024-06-01"}, f)
+    assert not matches({"diagnosis": "Asthma", "visit_date": "2025-01-01"}, f)
+    assert not matches({"diagnosis": "COPD", "visit_date": "2024-06-01"}, f)
+    assert chroma_where(f) == {"$and": [{"diagnosis": {"$eq": "Asthma"}},
+                                        {"visit_date_int": {"$gte": 20240101}},
+                                        {"visit_date_int": {"$lte": 20241231}}]}
+    assert chroma_where({}) is None
+
+
+# ---------------------------------------------------------------- selection
+
+def test_note_grouping_caps_chunks_per_note_then_fills():
+    r = Retriever.__new__(Retriever)  # grouping only needs self.chunks
+    r.chunks = [{"doc_id": d} for d in ["a", "a", "a", "b", "b", "c"]]
+    ranked = [(0, 6), (1, 5), (2, 4), (3, 3), (4, 2), (5, 1)]
+    order = [i for i, _ in r._group_by_note(ranked, per_note=2)]
+    assert order == [0, 1, 3, 4, 5, 2]          # a,a,b,b,c first; third 'a' chunk last
+    assert [i for i, _ in r._group_by_note(ranked, None)] == [0, 1, 2, 3, 4, 5]
+
+
+def test_filtered_bm25_keeps_chunks_without_query_words():
+    """After filtering to one note, 'heart rate' must still reach the 'HR 94' chunk."""
+    retriever = Retriever(_index("redacted"))
+    with open("glassbox/data/raw/realistic/qa_eval_set.jsonl") as f:
+        q = next(r for r in map(json.loads, f) if r["type"] == "clinical_fact" and r["answer_field"] == "hr")
+    results = retriever.retrieve(q["question"], k=10, method="bm25")
+    assert {r["doc_id"] for r in results} == set(q["relevant_doc_ids"])
+    assert any(q["answer"][0] in r["text"] for r in results)
+
+
+def test_auto_k_follows_query_scope():
+    retriever = Retriever(_index("redacted"))
+    single = retriever.retrieve("What medication was prescribed for the Asthma patient whose note is dated 2024-10-07?")
+    multi = retriever.retrieve("Which medications were prescribed to Asthma patients who presented with wheezing in October 2024?")
+    assert len(single) == 5 and len(multi) == 10

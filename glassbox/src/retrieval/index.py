@@ -25,10 +25,12 @@ import json
 import shutil
 import time
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .chunker import chunk_document
+from .query_analysis import iso_to_int
 
 DATA_ROOT = Path("glassbox/data")
 INDEX_ROOT = DATA_ROOT / "indexes"
@@ -57,9 +59,15 @@ def embed_passages(texts: List[str], model_name: str = EMBEDDING_MODEL) -> List[
     return model.encode(texts, batch_size=64, normalize_embeddings=True, show_progress_bar=False).tolist()
 
 
-def embed_query(query: str, model_name: str = EMBEDDING_MODEL) -> List[float]:
+@lru_cache(maxsize=4096)
+def _embed_query_cached(query: str, model_name: str) -> tuple:
     model = get_embedder(model_name)
-    return model.encode([QUERY_INSTRUCTION + query], normalize_embeddings=True)[0].tolist()
+    return tuple(model.encode([QUERY_INSTRUCTION + query], normalize_embeddings=True)[0].tolist())
+
+
+def embed_query(query: str, model_name: str = EMBEDDING_MODEL) -> List[float]:
+    # Cached: evaluation runs the same questions against many index/method combinations
+    return list(_embed_query_cached(query, model_name))
 
 
 def index_name(variant: str, chunking: str, threshold: float = 0.5) -> str:
@@ -139,7 +147,12 @@ def build_index(
             ids=[c["chunk_id"] for c in part],
             embeddings=embeddings[i:i + batch],
             documents=[c["text"] for c in part],
-            metadatas=[{k: c[k] for k in ("doc_id", "section", "note_type", "diagnosis", "visit_date")} for c in part],
+            metadatas=[
+                {**{k: c[k] for k in ("doc_id", "section", "note_type", "diagnosis", "visit_date")},
+                 # integer YYYYMMDD so query-analysis date ranges can filter in Chroma
+                 "visit_date_int": iso_to_int(c["visit_date"]) or 0}
+                for c in part
+            ],
         )
 
     manifest = {

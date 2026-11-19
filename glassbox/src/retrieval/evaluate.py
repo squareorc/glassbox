@@ -1,25 +1,28 @@
 """
-Retrieval evaluation and index leak audit.
+Retrieval evaluation, fusion tuning and index leak audit.
 
-Retrieval metrics (note-level: a retrieved chunk counts for the note it came
-from):
-    recall@k  fraction of a question's gold notes that appear among the
-              notes of the top-k chunks, averaged over questions
-    MRR       mean of 1 / rank of the first chunk from a gold note
-              (0 if none in the top MAX_K)
+Metrics:
+    recall@k     note level: fraction of a question's gold notes that appear
+                 among the notes of the top-k chunks
+    evidence@k   answer level: fraction of a question's gold answer items
+                 (e.g. each medication) that appear in top-k chunks FROM GOLD
+                 NOTES - i.e. whether the LLM could actually answer from what
+                 it is shown. Stricter than recall@k: a note's symptom chunk
+                 counts for recall but not for evidence of its medication.
+    MRR          mean of 1 / rank of the first chunk from a gold note
+                 (0 if none in the top MAX_K)
 
-Reported per index (redacted / raw), chunking (section / note), method
-(dense / bm25 / hybrid), question type and split.
+Runs: index (redacted / raw) x chunking (section / note) x method
+(dense / bm25 / hybrid) x query analysis (off / on), reported per question
+type and split. Fusion weights are tuned on the DEV split only (--tune
+prints the grid; the chosen default lives in retriever.DEFAULT_WEIGHTS).
 
-Leak audit:
-    For every ground-truth PII entity, checks whether its value is still
-    visible in the chunks of its note in an index:
-        full_leak     the whole value appears verbatim
-        partial_leak  any identifying component appears (name parts, address
-                      parts such as street, city, ZIP) - an upper bound
+Leak audit: for every ground-truth PII entity, whether its value is still
+visible in its note's indexed chunks (full value, or any identifying part).
 
 Usage (from the repo root):
     python -m glassbox.src.retrieval.evaluate --dataset realistic
+    python -m glassbox.src.retrieval.evaluate --dataset realistic --tune
 """
 
 import argparse
@@ -29,56 +32,108 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List
 
-from glassbox.src.qa.build_qa_set import load_qa_set
+from glassbox.src.qa.build_qa_set import answer_item_found, load_qa_set
 
 from .index import DATA_ROOT, index_dir
-from .retriever import MAX_K, METHODS, Retriever
+from .retriever import DEFAULT_WEIGHTS, MAX_K, METHODS, PER_NOTE, Retriever
 
 RESULTS_ROOT = Path("glassbox/results/retrieval")
 LOG_ROOT = Path("glassbox/logs/retrieval")
 KS = (1, 3, 5, 10)
+QTYPES = ("clinical_fact", "identity", "aggregate")
+# (dense, bm25) weight grid for tuning: from BM25-only to dense-only
+WEIGHT_GRID = ((0.0, 1.0), (0.25, 1.0), (0.5, 1.0), (1.0, 1.0), (1.5, 1.0), (2.0, 1.0),
+               (3.0, 1.0), (5.0, 1.0), (1.0, 0.0))
 
 
 # ----------------------------------------------------------------------------
 # Retrieval metrics
 # ----------------------------------------------------------------------------
 
-def score_question(results: List[Dict[str, Any]], gold: List[str]) -> Dict[str, float]:
-    gold = set(gold)
+def score_question(results: List[Dict[str, Any]], q: Dict[str, Any], auto_k: int = None) -> Dict[str, float]:
+    gold = set(q["relevant_doc_ids"])
+
+    def at(k):
+        top = results[:k]
+        recall = len(gold & {r["doc_id"] for r in top}) / len(gold)
+        gold_text = "\n".join(r["text"] for r in top if r["doc_id"] in gold)
+        found = sum(answer_item_found(gold_text, kws, q["answer_field"]) for kws in q["answer_keywords"])
+        # Data minimisation: how much text the LLM would be shown
+        context_chars = sum(len(r["text"]) for r in top)
+        return recall, found / len(q["answer_keywords"]), context_chars
+
     out = {}
     for k in KS:
-        retrieved = {r["doc_id"] for r in results[:k]}
-        out[f"recall@{k}"] = len(gold & retrieved) / len(gold)
+        out[f"recall@{k}"], out[f"evidence@{k}"], out[f"context_chars@{k}"] = at(k)
+    if auto_k:
+        out["recall@auto"], out["evidence@auto"], out["context_chars@auto"] = at(auto_k)
     first = next((r["rank"] for r in results if r["doc_id"] in gold), None)
     out["mrr"] = 1.0 / first if first else 0.0
     return out
 
 
-def mean_metrics(rows: List[Dict[str, float]]) -> Dict[str, float]:
+def _mean(rows: List[Dict[str, Any]]) -> Dict[str, float]:
     if not rows:
         return {}
-    return {key: round(sum(r[key] for r in rows) / len(rows), 4) for key in rows[0]} | {"n": len(rows)}
+    keys = [k for k in rows[0] if k == "mrr" or "@" in k]
+    return {k: round(sum(r[k] for r in rows) / len(rows), 4) for k in keys} | {"n": len(rows)}
 
 
-def evaluate_index(retriever: Retriever, qa_set, method: str) -> Dict[str, Any]:
-    per_question = []
-    for q in qa_set:
-        results = retriever.retrieve(q["question"], k=MAX_K, method=method, qid=q["qid"])
-        m = score_question(results, q["relevant_doc_ids"])
-        per_question.append({"qid": q["qid"], "type": q["type"], "split": q["split"], **m,
-                             "retrieved_doc_ids": [r["doc_id"] for r in results]})
-
-    def group(filter_fn):
-        return mean_metrics([{k: v for k, v in r.items() if k in ("mrr",) or k.startswith("recall@")}
-                             for r in per_question if filter_fn(r)])
-
+def summarise(per_question: List[Dict[str, Any]]) -> Dict[str, Any]:
     summary = {}
     for split in ("dev", "test", "all"):
-        in_split = (lambda r, s=split: s == "all" or r["split"] == s)
-        summary[split] = {"overall": group(in_split)}
-        for qtype in ("clinical_fact", "identity", "aggregate"):
-            summary[split][qtype] = group(lambda r, s=in_split, t=qtype: s(r) and r["type"] == t)
-    return {"summary": summary, "per_question": per_question}
+        rows = [r for r in per_question if split == "all" or r["split"] == split]
+        summary[split] = {
+            "overall": _mean(rows),
+            # Identity questions are unanswerable under redaction by design;
+            # this excludes them to show utility on the answerable ones.
+            "answerable": _mean([r for r in rows if r["type"] != "identity"]),
+            **{t: _mean([r for r in rows if r["type"] == t]) for t in QTYPES},
+        }
+    return summary
+
+
+def run_questions(retriever, qa_set, method, use_qa, weights=DEFAULT_WEIGHTS, per_note=PER_NOTE):
+    """
+    Retrieve MAX_K chunks per question and score every k on prefixes of that
+    list (selection is prefix-consistent). "@auto" scores the k query
+    analysis would choose (or SINGLE_NOTE_K with query analysis off).
+    """
+    per_question = []
+    for q in qa_set:
+        results = retriever.retrieve(q["question"], k=MAX_K, method=method, qid=q["qid"],
+                                     use_query_analysis=use_qa, weights=weights, per_note=per_note)
+        auto_k = retriever.auto_k(retriever.last_analysis)
+        per_question.append({
+            "qid": q["qid"], "type": q["type"], "split": q["split"], "auto_k": auto_k,
+            **score_question(results, q, auto_k),
+            "filters": retriever.last_analysis["filters"],
+            "fallback": retriever.last_analysis["fallback"],
+            "retrieved": [r["chunk_id"] for r in results],
+        })
+    return per_question
+
+
+# ----------------------------------------------------------------------------
+# Fusion weight tuning (dev split only)
+# ----------------------------------------------------------------------------
+
+def tune_fusion(dataset: str, threshold: float, qa_set) -> List[Dict[str, Any]]:
+    """Grid-search the fusion weights on the redacted section index, dev split, query analysis on."""
+    dev = [q for q in qa_set if q["split"] == "dev"]
+    retriever = Retriever(index_dir(dataset, "redacted", "section", threshold))
+    rows = []
+    for wd, wb in WEIGHT_GRID:
+        s = summarise(run_questions(retriever, dev, "hybrid", True, (wd, wb)))["dev"]
+        rows.append({"dense_weight": wd, "bm25_weight": wb,
+                     "answerable_evidence@3": s["answerable"]["evidence@3"],
+                     "answerable_evidence@auto": s["answerable"]["evidence@auto"],
+                     "fact_evidence@auto": s["clinical_fact"]["evidence@auto"],
+                     "aggregate_evidence@auto": s["aggregate"]["evidence@auto"],
+                     "answerable_evidence@5": s["answerable"]["evidence@5"],
+                     "answerable_recall@5": s["answerable"]["recall@5"],
+                     "answerable_mrr": s["answerable"]["mrr"]})
+    return rows
 
 
 # ----------------------------------------------------------------------------
@@ -147,12 +202,25 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate GlassBox retrieval")
     parser.add_argument("--dataset", choices=["synthetic", "realistic"], default="realistic")
     parser.add_argument("--threshold", type=float, default=0.5)
+    parser.add_argument("--tune", action="store_true", help="Only run the dev-split fusion weight grid")
     args = parser.parse_args()
 
     qa_set = load_qa_set(DATA_ROOT / "raw" / args.dataset / "qa_eval_set.jsonl")
     RESULTS_ROOT.mkdir(parents=True, exist_ok=True)
 
-    report = {"dataset": args.dataset, "num_questions": len(qa_set), "ks": KS, "runs": {}}
+    if args.tune:
+        rows = tune_fusion(args.dataset, args.threshold, qa_set)
+        print("Fusion weight tuning (redacted section index, query analysis on, DEV split, answerable questions):")
+        for r in rows:
+            print(f"  dense {r['dense_weight']:<5} bm25 {r['bm25_weight']}  Ev@auto {r['answerable_evidence@auto']:.3f} "
+                  f"(fact {r['fact_evidence@auto']:.3f}, agg {r['aggregate_evidence@auto']:.3f})  evidence@3 {r['answerable_evidence@3']:.3f}  evidence@5 {r['answerable_evidence@5']:.3f}  "
+                  f"recall@5 {r['answerable_recall@5']:.3f}  MRR {r['answerable_mrr']:.3f}")
+        with (RESULTS_ROOT / f"{args.dataset}_t{args.threshold:.2f}_fusion_tuning.json").open("w") as f:
+            json.dump(rows, f, indent=2)
+        return
+
+    report = {"dataset": args.dataset, "num_questions": len(qa_set), "ks": KS,
+              "fusion_weights": list(DEFAULT_WEIGHTS), "runs": {}}
     per_question_all = {}
     for variant in ("redacted", "raw"):
         for chunking in ("section", "note"):
@@ -160,15 +228,18 @@ def main():
             log_path = LOG_ROOT / args.dataset / f"{d.name}.jsonl"
             log_path.unlink(missing_ok=True)
             retriever = Retriever(d, baseline=(variant == "raw"), log_path=log_path)
-            for method in METHODS:
-                run = f"{d.name}/{method}"
-                res = evaluate_index(retriever, qa_set, method)
-                report["runs"][run] = res["summary"]
-                per_question_all[run] = res["per_question"]
-                t = res["summary"]["test"]
-                print(f"{run:<32} test  R@5 {t['overall']['recall@5']:.3f}  MRR {t['overall']['mrr']:.3f}  |  "
-                      f"fact {t['clinical_fact']['recall@5']:.3f}  identity {t['identity']['recall@5']:.3f}  "
-                      f"aggregate {t['aggregate']['recall@5']:.3f}")
+            for use_qa in (False, True):
+                for method in METHODS:
+                    run = f"{d.name}/{method}/{'qa' if use_qa else 'noqa'}"
+                    pq = run_questions(retriever, qa_set, method, use_qa)
+                    report["runs"][run] = summarise(pq)
+                    per_question_all[run] = pq
+                    t = report["runs"][run]["test"]
+                    a = t["answerable"]
+                    print(f"{run:<36} test@auto answerable R {a['recall@auto']:.3f} Ev {a['evidence@auto']:.3f} "
+                          f"ctx {a['context_chars@auto']:>5.0f}ch | fact Ev {t['clinical_fact']['evidence@auto']:.3f} "
+                          f"| agg R {t['aggregate']['recall@auto']:.3f} Ev {t['aggregate']['evidence@auto']:.3f} "
+                          f"| identity R {t['identity']['recall@auto']:.3f}")
 
     report["leak_audit"] = {
         v: leak_audit(args.dataset, index_dir(args.dataset, v, "section", args.threshold))
@@ -177,8 +248,6 @@ def main():
     print("\nLeak audit (section index):")
     for v, a in report["leak_audit"].items():
         print(f"  {a['index']}: overall full {a['overall']['full_leak_rate']:.3f} partial {a['overall']['partial_leak_rate']:.3f}")
-        for t, r in a["per_type"].items():
-            print(f"    {t:<14} full {r['full_leak_rate']:.3f}  partial {r['partial_leak_rate']:.3f}  (n={r['n']})")
 
     out = RESULTS_ROOT / f"{args.dataset}_t{args.threshold:.2f}.json"
     with out.open("w") as f:

@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-20 (Day 2 of 8)
+**Last updated:** 2026-11-20 (Day 2 of 8, retrieval complete)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -37,7 +37,7 @@
 | Synthetic datasets (250 + 2,500 notes) | ✅ Done | `glassbox/src/generate_*_dataset.py` |
 | QA evaluation set v2 | ✅ Done | `glassbox/src/qa/build_qa_set.py` |
 | PII redaction | ✅ Done (address detection still open, Day 7) | `glassbox/src/redaction/` |
-| Retrieval | 🟡 Built and evaluated; improvement pending a decision (§6.8) | `glassbox/src/retrieval/` |
+| Retrieval (incl. query analysis) | ✅ Done | `glassbox/src/retrieval/` |
 | Citation-based generation | ⬜ Day 3 | `glassbox/src/generation/` |
 | Claim verification (NLI) | ⬜ Day 4 | `glassbox/src/verification/` |
 | End-to-end orchestrator with traces | ⬜ Day 5 | (planned `glassbox/run.py`) |
@@ -52,7 +52,7 @@
 | Day | Date | Work | Status |
 |---|---|---|---|
 | 1 | Nov 20 | Cleanup, reproducible datasets, QA set v2, redaction fixes, test suite | ✅ |
-| 2 | Nov 20–21 | Retrieval: chunking, ChromaDB + BM25 indexes (redacted and raw), access control, logging, recall@k / MRR, leak audit | 🟡 Baseline done |
+| 2 | Nov 20 | Retrieval: chunking, ChromaDB + BM25 indexes (redacted and raw), access control, logging, leak audit; then query analysis, note grouping, fusion tuning | ✅ |
 | 3 | Nov 22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation | ⬜ |
 | 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set | ⬜ |
 | 5 | Nov 24 | Orchestrator with trace JSON; start the dashboard; threshold sweep overnight | ⬜ |
@@ -178,96 +178,185 @@ Overall realistic F1 went from **0.838 (old README) to 0.893**. The old 250-note
 
 **Purpose.** Retrieval is how GlassBox minimizes data. Instead of giving the LLM the whole corpus, or whole notes as a typical RAG system does, it selects the few most relevant pieces of *sanitized* text for each question and logs exactly what was selected and why.
 
-### 6.1 Chunking (`retrieval/chunker.py`)
+**Final pipeline:**
+
+```
+question → Query Analysis (filters + residual query + scope)
+         → candidate chunks satisfying the filters (redacted index only)
+         → dense ranking + BM25 ranking → reciprocal rank fusion
+         → note-grouped selection (≤ 2 chunks per note first) → top-k (5 or 10)
+         → logged
+```
+
+Code is in `glassbox/src/retrieval/`: `chunker.py`, `bm25.py`, `index.py`, `query_analysis.py`, `retriever.py`, `evaluate.py`.
+
+### 6.1 Chunking (`chunker.py`)
 - **Default: one chunk per note section.**
   - The templates separate sections with blank lines (`SUBJECTIVE:`, `ASSESSMENT/PLAN:`, `S:`/`O:`/`A:`/`P:`, `HOSPITAL COURSE:`, …).
-  - Short unlabelled blocks are merged into a neighbour: titles like "PROGRESS NOTE", sign-offs like "Thank you for this referral.".
+  - Short *unlabelled* blocks are merged into a neighbour: titles like "PROGRESS NOTE", sign-offs like "Thank you for this referral.".
+  - Short labelled sections like "CHIEF COMPLAINT: headache" stay separate. A first version merged these too, which mis-named sections; it was caught by checking section counts per template.
 - **Why sections:**
   1. Less data reaches the LLM.
   2. Each citation points at one short paragraph a human can check.
   3. The Day 4 NLI verifier needs short evidence passages.
 - **Context line.** Each chunk starts with `[Progress note | 2024-11-10 | Essential hypertension]`, built only from non-PII metadata (note type, visit date, diagnosis), so a section read on its own still says which visit it belongs to.
-- **Ablation: one chunk per whole note.**
+- **Ablation: one chunk per whole note.** Compared in §6.8.
 - **Result** (realistic redacted): 18,009 chunks, 7.2 per note, median body length 91 characters. Every template's sections are recognised, and every character of every note is covered (both tested).
-  - The synthetic notes are single paragraphs, so both strategies give one chunk per note and the synthetic section/note results are identical.
+  - The synthetic notes are single paragraphs, so both strategies give one chunk per note there.
   - The raw index has 18,790 chunks: real names are longer than `[NAME]`, which pushes some sign-off lines over the merge threshold.
 
-### 6.2 Search methods (`retrieval/bm25.py`, `retrieval/retriever.py`)
+### 6.2 Search methods (`bm25.py`, `retriever.py`)
 
 | Method | How it works | Good at | Bad at |
 |---|---|---|---|
-| **Dense** | `BAAI/bge-small-en-v1.5` (384-dim) embeddings, cosine similarity, stored in ChromaDB. Run locally on the Apple GPU (MPS). Queries get bge's retrieval instruction prefix. | Paraphrase and meaning | Exact strings: `2024-11-10` vs `2024-11-19` look almost identical |
-| **BM25** | Classic keyword relevance (Okapi BM25, k1 = 1.5, b = 0.75), ~50 lines written in-house. Tokenizer keeps dates, IDs, BP readings and decimals as single tokens. | Exact dates, IDs, names, drug names | Synonyms and rephrasing |
-| **Hybrid** | Reciprocal rank fusion: score = Σ 1/(60 + rank) over the two rankings (Cormack et al., 2009). Top 50 candidates from each. | Intended to combine both | See §6.7 |
+| **Dense** | `BAAI/bge-small-en-v1.5` (384-dim) embeddings, cosine similarity, stored in ChromaDB. Run locally on the Apple GPU (MPS). Queries get bge's retrieval instruction prefix. | Meaning: "what medication" → the plan section | Exact strings: `2024-11-10` vs `2024-11-19` look almost identical |
+| **BM25** | Classic keyword relevance (Okapi BM25, k1 = 1.5, b = 0.75), ~50 lines written in-house. Tokenizer keeps dates, IDs, BP readings and decimals as single tokens. | Exact dates, IDs, names, drug names | Synonyms: "heart rate" vs "HR" |
+| **Hybrid** | Weighted reciprocal rank fusion: score = w_dense/(60 + rank_dense) + w_bm25/(60 + rank_bm25) (Cormack et al., 2009), over the top 50 candidates of each. Weights chosen on the dev split (§6.7). | Combines both | |
 
-### 6.3 Indexes (`retrieval/index.py`)
+### 6.3 Query analysis (`query_analysis.py`), added on Day 2 after the baseline
+This is the "Query Analysis" box from the README's architecture diagram. It reads the question and extracts:
+
+| Output | Example | Used for |
+|---|---|---|
+| **Diagnosis filter** | "…Essential hypertension patient…" → `diagnosis = Essential hypertension` | Only chunks from notes with that diagnosis are candidates. Exact names first, then a small alias table ("diabetes", "CKD", "COPD", …). |
+| **Date filter** | ISO `2024-11-10` → that day. `03/15/2025` → that day. "December 2025" / "Sept 2025" → that month. "in 2024" → that year. | Only chunks whose visit date falls in the range |
+| **Residual query** | "What heart rate was recorded for the Asthma patient whose note is dated 2024-10-07?" → "What heart rate was recorded for the patient ?" | Ranking. Once the filters guarantee the constraints, repeating them in the ranking query only rewards chunks that restate the date or diagnosis (patient header, impression) over the chunk that answers. |
+| **Scope** | Exact date → `single_note`. Month, year or plural "patients" → `multi_note` | Chooses k: 5 for single-note questions, 10 for multi-note ones |
+
+- Filters use only non-PII metadata, so identity questions ("What is John Wilkerson prescribed?") get **no** filter and behave as before (tested).
+- If the filters match nothing, retrieval falls back to unfiltered search and logs the fallback.
+- The filters are applied inside ChromaDB (a `where` clause on diagnosis and an integer `visit_date_int`) and to BM25 candidates.
+- Bug found while building it: filtered BM25 dropped chunks sharing no word with the question, so "heart rate" never reached "HR 94". Now every filtered chunk is a candidate, with zero-score chunks last.
+
+### 6.4 Note-grouped selection
+- **The problem.** Aggregate questions need *two* chunks per qualifying note: one showing why the note qualifies (the symptom) and one with the answer (the medication). Ranking alone filled the top-k with near-identical medication sections from *non-qualifying* notes of the same diagnosis and month.
+- **The fix.** Each note contributes at most 2 chunks (`PER_NOTE`) before any note contributes more; leftover slots are filled in score order. For a single-note question this is identical to plain ranking.
+- **Effect on the dev split** (prototype): aggregate evidence 0.22 → 0.56. A naive cap without the fill step hurt fact questions (0.94 → 0.78); that version was rejected.
+
+### 6.5 Indexes (`index.py`)
 - 4 per dataset (8 total): {**redacted** (the system), **raw** (no-privacy baseline)} × {section, note}.
-- Stored in `glassbox/data/indexes/<dataset>/<name>/` (gitignored; rebuild in about 90 s for all 8). Each holds:
+- Stored in `glassbox/data/indexes/<dataset>/<name>/` (gitignored; all 8 rebuild in about 90 s). Each holds:
   - `manifest.json`: provenance (source, threshold, chunking, model, counts, build time)
   - `chunks.jsonl`
   - `chroma/`
 - The raw baseline reads only the note `text`. The loader drops `facts`, `entities` and `patient_name`.
 
-### 6.4 Access control
-The README's architecture promises "access-controlled retrieval". This is the implemented version:
+### 6.6 Access control and logging
 - The `Retriever` only opens an index whose manifest says `source: redacted`.
 - Opening the raw baseline requires an explicit `baseline=True`; otherwise it raises `AccessDenied` (tested).
-- At most 10 chunks per query (`MAX_K`); the default is 5.
-- Every log record states the index, its source and whether baseline mode was on, so the logs show that the system answered from sanitized data.
+- At most 10 chunks per query (`MAX_K`).
 - Not implemented: real role-based permissions. That's out of scope and should be stated as such.
+- **Retrieval log.** With a log path set, every query appends one JSON line:
+  - timestamp, question ID, question
+  - index, source, baseline flag
+  - the full query analysis (filters, matched phrases, residual query, scope, fallback)
+  - method, fusion weights, per-note cap, k, latency
+  - for each returned chunk: rank, chunk/doc ID, section, character offsets, dense/BM25/fused scores and ranks
+- Evaluation runs write `glassbox/logs/retrieval/<dataset>/<index>.jsonl` (gitignored). This is stage 2 of the audit trail and feeds the dashboard.
 
-### 6.5 Retrieval logging
-- With a log path set, every query appends one JSON line: timestamp, question ID, question, index, source, baseline flag, method, k, latency, and for each returned chunk its rank, chunk/doc ID, section, character offsets, and dense/BM25/fused scores and ranks.
-- Evaluation runs write `glassbox/logs/retrieval/<dataset>/<index>.jsonl` (gitignored).
-- This is stage 2 of the audit trail and feeds the dashboard.
+### 6.7 How retrieval is measured (`evaluate.py`)
 
-### 6.6 How retrieval is measured (`retrieval/evaluate.py`)
-- **Note level:** a retrieved chunk counts for the note it came from.
-- **recall@k:** the fraction of a question's gold notes found among the top-k chunks, averaged over questions (k = 1, 3, 5, 10).
-- **MRR (mean reciprocal rank):** the average of 1/rank of the first chunk from a gold note (0 if none in the top 10).
-- Reported on the **test split**, per index × chunking × method × question type.
-- Files:
-  - `glassbox/results/retrieval/<dataset>_t0.50.json` (summary)
-  - `…_per_question.json` (every question's retrieved notes)
-- **Leak audit:** for every ground-truth PII value, it checks whether the value (*full leak*) or any identifying part of it, such as a first or last name, street, city or ZIP (*partial leak*, an upper bound), is visible in that note's indexed chunks. This measures leakage at the exact text the LLM can be shown.
+| Metric | Definition | Why |
+|---|---|---|
+| **recall** | Fraction of a question's gold notes with at least one chunk in the top-k | Did we find the right patients/visits? |
+| **evidence** | Fraction of a question's gold answer items (e.g. each medication) present in top-k chunks *from gold notes* | Could the LLM actually answer from what it's shown? Stricter than recall: a note's symptom chunk counts for recall but not as evidence for its medication. |
+| **context (chars)** | Characters of text in the top-k chunks | Data minimization: how much the LLM sees |
+| MRR | Mean of 1/rank of the first gold-note chunk | Ranking quality |
 
-### 6.7 Baseline results (Day 2), realistic set, test split (91 questions: 42 fact, 28 identity, 21 aggregate)
+- **@auto** means "at the k the system actually uses" (5 for single-note questions, 10 for multi-note; 5 when query analysis is off). Fixed k = 1, 3, 5, 10 are in the JSON too.
+- **"Answerable"** means fact + aggregate questions. Identity questions are excluded because they're unanswerable under redaction by design; they're reported separately as the privacy result.
+- **Splits.** Every design choice was made on the **dev** split (39 questions; 27 answerable). All tables below are on the **test** split (91 questions: 42 fact, 28 identity, 21 aggregate).
+- **Answer matching** (`qa/build_qa_set.py: answer_item_found`, reused by Day 3's answer scoring):
+  - All keywords must appear.
+  - Numbers must be standalone (HR "94" doesn't match inside "BP 157/94").
+  - Follow-ups must read "<n> weeks".
+- **Fusion weight tuning** (dev split, redacted section index, query analysis on; `results/retrieval/realistic_t0.50_fusion_tuning.json`):
 
-| Index | Method | R@1 | R@5 | R@10 | MRR | Fact R@5 | Identity R@5 | Aggregate R@5 |
-|---|---|---|---|---|---|---|---|---|
-| redacted, section | dense | 0.124 | 0.214 | 0.252 | 0.205 | 0.357 | 0.000 | 0.214 |
-| redacted, section | **bm25** | 0.440 | 0.485 | 0.511 | 0.476 | **1.000** | 0.000 | 0.103 |
-| redacted, section | hybrid | 0.300 | 0.447 | 0.499 | 0.393 | 0.905 | 0.000 | 0.127 |
-| redacted, note | dense | 0.041 | 0.103 | 0.156 | 0.100 | 0.167 | 0.000 | 0.115 |
-| redacted, note | bm25 | 0.465 | 0.477 | 0.496 | 0.492 | 1.000 | 0.000 | 0.068 |
-| redacted, note | hybrid | 0.182 | 0.255 | 0.293 | 0.246 | 0.500 | 0.000 | 0.103 |
-| raw, section | dense | 0.179 | 0.302 | 0.365 | 0.272 | 0.333 | 0.321 | 0.214 |
-| raw, section | **bm25** | 0.747 | 0.787 | 0.813 | 0.782 | 1.000 | **1.000** | 0.079 |
-| raw, section | hybrid | 0.509 | 0.694 | 0.763 | 0.619 | 0.857 | 0.857 | 0.151 |
-| raw, note | dense | 0.137 | 0.165 | 0.213 | 0.172 | 0.071 | 0.393 | 0.048 |
-| raw, note | bm25 | 0.773 | 0.785 | 0.812 | 0.801 | 1.000 | 1.000 | 0.068 |
-| raw, note | hybrid | 0.346 | 0.483 | 0.566 | 0.426 | 0.452 | 0.821 | 0.095 |
+| Dense weight | BM25 weight | Answerable evidence | Fact evidence | Aggregate evidence |
+|---|---|---|---|---|
+| 0.0 (BM25 only) | 1.0 | 0.722 | 0.889 | 0.389 |
+| 0.25 | 1.0 | 0.759 | 0.889 | 0.500 |
+| 0.5 | 1.0 | 0.778 | 0.944 | 0.444 |
+| **1.0 (chosen)** | **1.0** | **0.796** | 0.944 | 0.500 |
+| 1.5 – 5.0 | 1.0 | 0.796 (plateau) | 0.944 | 0.500 |
+| 1.0 (dense only) | 0.0 | 0.759 | 0.944 | 0.389 |
 
-Synthetic set, test split (56 questions), section index:
+  Hybrid beats both single methods on dev. The scores are flat from 1.0 to 5.0, so the simplest point, equal weights, was chosen.
+  - Note: an earlier tuning run picked 0.25, but it ran before the filtered-BM25 bug fix (§6.3). It was re-run after the fix, and the weights were re-chosen on dev, not on test.
 
-| Index | Method | R@5 | MRR | Fact | Identity | Aggregate |
+### 6.8 Results (realistic set, test split)
+
+**Effect of query analysis.** This is the main Day 2 result; system configuration = redacted index, section chunks, hybrid.
+
+| | Answerable recall | Answerable evidence | Fact evidence | Aggregate recall | Aggregate evidence | Context (chars) |
 |---|---|---|---|---|---|---|
-| redacted | dense | 0.372 | 0.282 | 0.500 | 0.000 | 0.621 |
-| redacted | bm25 | 0.632 | 0.625 | 1.000 | 0.059 | 0.583 |
-| redacted | hybrid | 0.597 | 0.523 | 0.893 | 0.059 | 0.674 |
-| raw | bm25 | 0.918 | 0.934 | 1.000 | 1.000 | 0.583 |
+| Baseline (no query analysis, k = 5) | 0.645 | 0.048 | 0.071 | 0.127 | 0.000 | 579 |
+| **+ query analysis, grouping, auto-k** | **1.000** | **0.840** | **1.000** | **1.000** | **0.520** | 940 |
 
-**What the numbers say:**
-1. **Redaction costs nothing for clinical questions.** Clinical-fact recall@5 is 1.000 on both the redacted and raw indexes (BM25).
-2. **Identity questions collapse under redaction, by design.** Recall@5 goes from 1.000 (raw) to 0.000 (redacted). This is the privacy guarantee showing up as a number.
-   - The redacted *overall* figures are low mainly because identity questions are 31% of the test set.
-   - The one synthetic identity hit (0.059) came from a name that wasn't fully redacted (see the leak audit). That's an actual leak caught by the evaluation.
-3. **Dense search is weak here (R@5 ≈ 0.2).** Fact questions hinge on an exact date, which embeddings can't distinguish.
-4. **Hybrid is worse than BM25 alone.** Equal-weight fusion lets the weak dense ranking push correct BM25 results down.
-5. **Aggregate questions are badly under-retrieved by every method (R@5 ≈ 0.1).** They say "in December 2025" while the notes say `2025-12-03`; neither method connects the two.
-6. **Section chunking ≥ whole-note chunking** for every method except BM25 on fact questions (tied). Hybrid sections 0.447 vs. notes 0.255. This supports the chunking choice.
+**Privacy vs. utility: redacted vs. raw index** (same configuration):
 
-**Leak audit, realistic section indexes** (what an LLM could be shown):
+| Index | Answerable recall | Answerable evidence | Identity recall |
+|---|---|---|---|
+| Raw (no privacy) | 1.000 | 0.840 | 0.857 |
+| **Redacted (GlassBox)** | **1.000** | **0.840** | **0.000** |
+
+- **Redaction costs nothing measurable for clinical and aggregate questions, and completely blocks identity lookups.** That's the central privacy-utility result at the retrieval level.
+- Caveat: 1 gold answer (cf-010) is unanswerable after redaction because spaCy redacts the drug "Glipizide" as a name (§11); it isn't in the test split.
+
+**Chunking: data minimization vs. evidence** (redacted index, query analysis on, hybrid):
+
+| Chunking | Answerable evidence | Aggregate evidence | Context (chars) |
+|---|---|---|---|
+| **Section (default)** | 0.840 | 0.520 | **940** |
+| Whole note | 0.984 | 0.952 | 2,630 (2.8× more) |
+
+Whole-note retrieval finds more evidence for aggregate questions, but shows the LLM 2.8× more text, including every other section of each note. Section chunking keeps the minimization principle; its remaining weakness is aggregate questions (§11). This is a genuine trade-off for the report's discussion.
+
+**Methods** (redacted, section, query analysis on):
+
+| Method | Answerable evidence | Fact evidence | Aggregate evidence |
+|---|---|---|---|
+| Dense | 0.848 | 1.000 | 0.544 |
+| BM25 | 0.798 | 0.929 | 0.536 |
+| Hybrid (chosen on dev) | 0.840 | 1.000 | 0.520 |
+
+On test, dense and hybrid are effectively tied: 0.008 apart, which is one aggregate item out of 21 questions. Hybrid was chosen on dev, and it's also much better whenever query analysis can't apply. Without filters, BM25 handles exact names and IDs: raw-index identity recall is 0.857 for hybrid vs. 0.250 for dense.
+
+<details>
+<summary>Full table: all 24 configurations, realistic test split (@auto)</summary>
+
+| Index | Chunking | Method | Query analysis | Answerable recall | Answerable evidence | Context (chars) | Fact evidence | Aggregate recall | Aggregate evidence | Identity recall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| redacted | section | dense | off | 0.286 | 0.032 | 587 | 0.048 | 0.191 | 0.000 | 0.000 |
+| redacted | section | bm25 | off | 0.701 | 0.064 | 614 | 0.095 | 0.103 | 0.000 | 0.000 |
+| redacted | section | hybrid | off | 0.645 | 0.048 | 579 | 0.071 | 0.127 | 0.000 | 0.000 |
+| redacted | section | dense | on | 1.000 | 0.848 | 938 | 1.000 | 1.000 | 0.544 | 0.000 |
+| redacted | section | bm25 | on | 1.000 | 0.798 | 946 | 0.929 | 1.000 | 0.536 | 0.000 |
+| redacted | section | hybrid | on | 1.000 | 0.840 | 940 | 1.000 | 1.000 | 0.520 | 0.000 |
+| redacted | note | dense | off | 0.149 | 0.157 | 3394 | 0.167 | 0.115 | 0.139 | 0.000 |
+| redacted | note | bm25 | off | 0.689 | 0.693 | 3610 | 1.000 | 0.068 | 0.079 | 0.000 |
+| redacted | note | hybrid | off | 0.368 | 0.373 | 3426 | 0.500 | 0.103 | 0.119 | 0.000 |
+| redacted | note | dense | on | 0.996 | 0.976 | 2645 | 1.000 | 0.988 | 0.929 | 0.000 |
+| redacted | note | bm25 | on | 1.000 | 0.984 | 2630 | 1.000 | 1.000 | 0.952 | 0.000 |
+| redacted | note | hybrid | on | 1.000 | 0.984 | 2630 | 1.000 | 1.000 | 0.952 | 0.000 |
+| raw | section | dense | off | 0.294 | 0.016 | 627 | 0.024 | 0.214 | 0.000 | 0.250 |
+| raw | section | bm25 | off | 0.693 | 0.111 | 618 | 0.167 | 0.079 | 0.000 | 1.000 |
+| raw | section | hybrid | off | 0.622 | 0.079 | 617 | 0.119 | 0.151 | 0.000 | 0.857 |
+| raw | section | dense | on | 1.000 | 0.856 | 954 | 1.000 | 1.000 | 0.568 | 0.250 |
+| raw | section | bm25 | on | 1.000 | 0.798 | 947 | 0.929 | 1.000 | 0.536 | 1.000 |
+| raw | section | hybrid | on | 1.000 | 0.840 | 945 | 1.000 | 1.000 | 0.520 | 0.857 |
+| raw | note | dense | off | 0.064 | 0.068 | 4009 | 0.071 | 0.048 | 0.059 | 0.321 |
+| raw | note | bm25 | off | 0.689 | 0.693 | 3738 | 1.000 | 0.068 | 0.079 | 1.000 |
+| raw | note | hybrid | off | 0.333 | 0.341 | 3895 | 0.452 | 0.095 | 0.119 | 0.786 |
+| raw | note | dense | on | 0.996 | 0.992 | 2728 | 1.000 | 0.988 | 0.976 | 0.321 |
+| raw | note | bm25 | on | 1.000 | 1.000 | 2732 | 1.000 | 1.000 | 1.000 | 1.000 |
+| raw | note | hybrid | on | 1.000 | 1.000 | 2722 | 1.000 | 1.000 | 1.000 | 0.786 |
+
+</details>
+
+**Synthetic set** (250 notes, test split, section index): with query analysis, every method reaches 1.000 recall and evidence on answerable questions, at about 840 characters of context. Redacted identity recall is 0.059: one name that wasn't fully redacted was found by BM25, an actual leak the evaluation caught. Raw identity recall is 1.000 (BM25).
+
+**Leak audit, realistic section indexes.** For every ground-truth PII value: is the full value, or any identifying part of it, visible in that note's indexed chunks (i.e. text an LLM could be shown)?
 
 | PII type | n | Redacted: full value visible | Redacted: any part visible | Raw |
 |---|---|---|---|---|
@@ -277,15 +366,15 @@ Synthetic set, test split (56 questions), section index:
 | **Overall** | 18,041 | 1.6% | 8.7% | 100% |
 
 - Address parts (street, city, ZIP) are almost always visible. That's the main privacy gap, and it gets fixed on Day 7.
-- The visible names are mostly provider names in signatures, e.g. "Lance Hebert", "Kimberly Little", and names with titles like "Dr. …" that spaCy only partly tags.
+- The visible names are mostly provider names in signatures (e.g. "Lance Hebert") and names with titles ("Dr. …") that spaCy only partly tags.
 
-### 6.8 Pending decision: improving retrieval
-Proposed next step, awaiting approval: add the **Query Analysis** stage from the README's architecture diagram.
-- Parse dates, months/years and the diagnosis out of the question.
-- Apply them as metadata filters (ChromaDB `where`, and the same filter on BM25 candidates).
-- Re-tune the fusion on the **dev** split only (e.g. weighted RRF, or BM25 alone if dense still doesn't help).
-- Re-report on test.
-- Expected to fix the aggregate questions, and to make dense search useful once the date filter does the exact-match work.
+### 6.9 The Day 2 morning baseline, for the "before" story
+The first evaluation, with no query analysis, equal-weight fusion and k = 5, measured only note recall. Realistic test results:
+- Hybrid had answerable recall 0.645 and was *worse* than BM25 alone.
+- Aggregate recall was 0.103 for BM25 and 0.127 for hybrid.
+- Diagnosis: questions hinge on exact dates (which dense search can't distinguish), and on month names that neither method connects to ISO dates.
+
+That analysis motivated §6.3 and §6.4. The full baseline numbers are in git history: commit `5c62519`, `results/retrieval/*.json`.
 
 ---
 
@@ -301,12 +390,12 @@ Proposed next step, awaiting approval: add the **Query Analysis** stage from the
 
 ## 8. Tests
 
-`python -m pytest glassbox/tests` → **22 passed, 1 xfailed**.
+`python -m pytest glassbox/tests` → **34 passed, 1 xfailed**.
 
 | File | Covers |
 |---|---|
 | `tests/test_generalization.py` | Redaction on formats not in the training data: dash IDs, MRN, US and written dates, 3 phone formats, full address (xfail). Plus regression tests for each Day 1 redaction fix. |
-| `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. |
+| `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; no filters for identity questions; residual query; Chroma/Python filter agreement. Note grouping, filtered BM25 keeping zero-score chunks, auto-k. |
 
 - Generalization count: **7/8**. The address case is a strict `xfail`; it'll flag once Day 7's fix makes it pass.
 - The old README claimed 8/8, but the committed test file only had 3 of those cases.
@@ -327,7 +416,8 @@ python -m glassbox.src.redaction.pipeline --dataset realistic [--threshold 0.5]
 
 # Retrieval
 python -m glassbox.src.retrieval.index --dataset realistic --all  # build the 4 indexes
-python -m glassbox.src.retrieval.evaluate --dataset realistic     # metrics + leak audit
+python -m glassbox.src.retrieval.evaluate --dataset realistic     # metrics + leak audit (~3 min)
+python -m glassbox.src.retrieval.evaluate --dataset realistic --tune  # dev-split fusion weight grid
 
 # Tests
 python -m pytest glassbox/tests
@@ -345,11 +435,16 @@ python -m pytest glassbox/tests
 | Nov 20 | Drop `original_text` from redacted output | Retrieval indexes that file | Keep it "for debugging" (the old behaviour) |
 | Nov 20 | Remove Presidio's UK NHS recognizer | US-only domain; it fired on phone numbers | Map UK_NHS to PHONE (rejected: wrong semantics) |
 | Nov 20 | Include identity questions in the QA set | Turns the privacy cost into a measured result | Clinical questions only (would hide the trade-off) |
-| Nov 20 | Section chunks with a non-PII context line | Precise citations, short NLI premises, less exposure | Whole-note chunks: measured, worse (§6.7) |
+| Nov 20 | Section chunks with a non-PII context line | Precise citations, short NLI premises, 2.8× less text shown to the LLM | Whole-note chunks: more aggregate evidence (0.95 vs. 0.52) at 2.8× the context (§6.8) |
 | Nov 20 | Hybrid dense + BM25, BM25 written in-house | Questions mix meaning with exact dates; no extra dependency | `rank-bm25` package |
 | Nov 20 | Embedding model `bge-small-en-v1.5` | Strong small retrieval model; runs locally on MPS | `all-MiniLM-L6-v2` (downloaded, unused so far) |
 | Nov 20 | Raw index needs explicit `baseline=True` | Makes "the LLM only sees sanitized data" enforced and auditable | Convention only |
-| Nov 20 | Default k = 5, max 10 | Covers aggregate questions (2–4 notes) while limiting exposure | n/a |
+| Nov 20 | k chosen by query analysis: 5 (single note) / 10 (multi-note), max 10 | Multi-note questions need ~2 chunks per note | Fixed k = 5 (too little for aggregates) |
+| Nov 20 | Add a query analysis stage: diagnosis and date filters, residual query, scope | Fixes month-name and exact-date matching; answerable evidence 0.048 → 0.840 (§6.8) | Prepend month names to chunks (rejected: tailors data to question wording); query rewriting with the LLM (slower, less auditable) |
+| Nov 20 | Rank on the residual query once filters apply | Filters already guarantee the constraints; repeating them rewards header chunks | Full question (dev evidence 0.52 vs. 0.80) |
+| Nov 20 | Note-grouped selection, ≤ 2 chunks per note, then fill | Aggregate questions need a qualifying chunk and an answer chunk per note | Plain ranking (aggregate evidence 0.22 on dev); hard cap without fill (hurt fact questions) |
+| Nov 20 | Fusion weights (1.0, 1.0), chosen on dev | Plateau from 1.0 to 5.0; simplest point | BM25-only 0.722, dense-only 0.759 vs. hybrid 0.796 (dev answerable evidence) |
+| Nov 20 | Add evidence and context-size metrics | Note recall alone hid that answer-bearing sections weren't retrieved; context size makes minimization measurable | Recall@k / MRR only |
 
 ---
 
@@ -360,7 +455,11 @@ python -m pytest glassbox/tests
   - The fix is a custom address recognizer.
   - This is also the main source of NAME false positives (street names tagged as people).
 - **Provider names in signatures.** About 1% of names (mostly "Dr./Mr. …" forms and signature lines) are only partly redacted.
-- **Retrieval for aggregate questions is weak.** See the proposal in §6.8.
+- **Clinical over-redaction (found Day 2).** 148 redactions hit non-PII text.
+  - Mainly the drug **"Glipizide"** tagged as a person's name (97 notes), "SpO2" (26) and a few BP readings (9).
+  - Glipizide becomes `[NAME]`, which makes 3 QA gold answers unanswerable after redaction (1 dev, 2 test).
+  - Fix candidate: a clinical-term guard (drug lexicon, vitals patterns) on NER detections. This should be done **with the address fix, before the Day 6 experiments**, so the final numbers include it.
+- **Aggregate questions on section chunks.** Evidence is 0.520: within each qualifying note, the medication section doesn't always make that note's top 2. Whole-note chunks reach 0.952 but expose 2.8× more text. Possible future work: an answer-type-aware section prior (e.g. "medications" → plan, recommendations and discharge-medications sections).
 - **The audit log stores raw PII values.** That's needed for the audit trail, but the log is itself a sensitive artifact. The report should say so.
 - **The docs are stale.** The README and `report_draft.md` show old numbers (0.838 / 0.869 / 0.858, 62.5%, 8/8) and old data paths. Refresh on Day 7.
 
@@ -381,9 +480,16 @@ python -m pytest glassbox/tests
 - Built the retrieval module: chunker, BM25, ChromaDB index builder, access-controlled and logged retriever, evaluation and leak audit (§6).
 - Added `visit_date` (non-PII) to the redacted note metadata for the chunk context line.
 - Built 8 indexes and evaluated all 24 (index × method) combinations on both datasets.
-- Main findings:
+- Baseline findings (commit `5c62519`):
   - Clinical facts are fully retrievable after redaction.
   - Identity questions drop to 0 (the privacy result).
   - Aggregate retrieval is weak, and hybrid underperforms BM25.
-  - Proposed fix in §6.8, awaiting approval.
-- Tests: 12 → 23.
+- Approved and built the improvements:
+  - Query analysis stage: filters, residual query, scope-based k.
+  - Note-grouped selection.
+  - Evidence and context-size metrics.
+  - Dev-split fusion tuning.
+  - Fixed filtered BM25 dropping zero-score chunks.
+- Result (realistic test, redacted): answerable evidence 0.048 → **0.840**, recall 0.645 → **1.000**, identity 0.000.
+- Found clinical over-redaction ("Glipizide" → `[NAME]`; §11).
+- Tests: 12 → 35.

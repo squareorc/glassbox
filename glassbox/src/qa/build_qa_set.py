@@ -105,6 +105,30 @@ def item_keywords(field: str, item: str) -> List[str]:
     return [item.lower()]
 
 
+def answer_item_found(text: str, keywords: List[str], field: str) -> bool:
+    """
+    Does `text` contain one gold answer item? Shared by retrieval evidence
+    recall and generation answer scoring.
+
+    - All keywords must appear (case-insensitive).
+    - Pure numbers match only as standalone numbers, so HR "94" doesn't match
+      inside "BP 157/94".
+    - Follow-up weeks must appear as "<n> week(s)".
+    """
+    t = text.lower()
+    for kw in keywords:
+        kw = kw.lower()
+        if field == "followup_weeks":
+            if not re.search(rf"(?<![\d/.]){re.escape(kw)}\s*-?\s*weeks?\b", t):
+                return False
+        elif kw.replace(".", "", 1).isdigit():
+            if not re.search(rf"(?<![\d/.]){re.escape(kw)}(?![\d/]|\.\d)", t):
+                return False
+        elif kw not in t:
+            return False
+    return True
+
+
 # ----------------------------------------------------------------------------
 # Builders
 # ----------------------------------------------------------------------------

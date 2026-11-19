@@ -1,0 +1,101 @@
+[
+  {
+    "dense_weight": 0.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 0.25,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 0.5,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 1.5,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 2.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 3.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 5.0,
+    "bm25_weight": 1.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  },
+  {
+    "dense_weight": 1.0,
+    "bm25_weight": 0.0,
+    "answerable_evidence@3": 1.0,
+    "answerable_evidence@auto": 1.0,
+    "fact_evidence@auto": 1.0,
+    "aggregate_evidence@auto": 1.0,
+    "answerable_evidence@5": 1.0,
+    "answerable_recall@5": 1.0,
+    "answerable_mrr": 1.0
+  }
+]
