@@ -1,0 +1,120 @@
+{
+  "dataset": "synthetic",
+  "num_documents": 250,
+  "num_entities_detected": 899,
+  "num_entities_redacted": 870,
+  "confidence_threshold": 0.5,
+  "output_path": "glassbox/data/processed/synthetic/t0.50/redacted_notes.jsonl",
+  "audit_log_path": "glassbox/data/processed/synthetic/t0.50/redaction_audit_log.jsonl",
+  "evaluation": {
+    "per_type": {
+      "NAME": {
+        "precision": 0.8078175895765473,
+        "recall": 0.992,
+        "f1": 0.8904847396768403,
+        "tp": 248,
+        "fp": 59,
+        "fn": 2
+      },
+      "PATIENT_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 250,
+        "fp": 0,
+        "fn": 0
+      },
+      "PHONE_NUMBER": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 78,
+        "fp": 0,
+        "fn": 0
+      },
+      "ADDRESS": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 59,
+        "fn": 84
+      },
+      "DATE_OF_BIRTH": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 88,
+        "fp": 0,
+        "fn": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 88,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "overall": {
+      "precision": 0.864367816091954,
+      "recall": 0.8973747016706444,
+      "f1": 0.8805620608899296,
+      "tp": 752,
+      "fp": 118,
+      "fn": 86
+    },
+    "masking": {
+      "overall": {
+        "n": 838,
+        "masked_recall": 0.8997613365155132,
+        "fully_masked_rate": 0.8890214797136038,
+        "char_leakage": 0.18218310946425814
+      },
+      "per_type": {
+        "ADDRESS": {
+          "n": 84,
+          "masked_recall": 0.023809523809523808,
+          "fully_masked_rate": 0.0,
+          "char_leakage": 0.6317086527929902
+        },
+        "DATE_OF_BIRTH": {
+          "n": 88,
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
+        },
+        "EMAIL": {
+          "n": 88,
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
+        },
+        "NAME": {
+          "n": 250,
+          "masked_recall": 0.992,
+          "fully_masked_rate": 0.964,
+          "char_leakage": 0.01592069690597777
+        },
+        "PATIENT_ID": {
+          "n": 250,
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
+        },
+        "PHONE_NUMBER": {
+          "n": 78,
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
+        }
+      }
+    },
+    "config": {
+      "confidence_threshold": 0.5,
+      "overlap_threshold": 0.5,
+      "num_documents": 250
+    }
+  }
+}

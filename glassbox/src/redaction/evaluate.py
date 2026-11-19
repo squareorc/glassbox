@@ -45,15 +45,27 @@ class RedactionEvaluator:
             for line in f:
                 documents.append(json.loads(line))
 
+        predictions = [self.detector.detect(doc["text"]) for doc in documents]
+        return self.score(documents, predictions)
+
+    def score(
+        self,
+        documents: List[Dict[str, Any]],
+        predictions: List[List[Dict[str, Any]]],
+    ) -> Dict[str, Any]:
+        """
+        Score precomputed predictions against each document's ground truth.
+
+        Args:
+            documents: Documents with "entities" ground truth.
+            predictions: Predicted entities (type/start/end) per document,
+                aligned with `documents`.
+        """
         # Track predictions and ground truth per entity type
         stats = defaultdict(lambda: {"tp": 0, "fp": 0, "fn": 0})
 
-        for doc in documents:
-            text = doc["text"]
+        for doc, predicted in zip(documents, predictions):
             ground_truth = doc["entities"]
-
-            # Detect entities
-            predicted = self.detector.detect(text)
 
             # Match predictions to ground truth
             matches = self._match_spans(predicted, ground_truth)
@@ -122,6 +134,8 @@ class RedactionEvaluator:
             "fn": overall_fn,
         }
 
+        results["masking"] = self._masking_metrics(documents, predictions)
+
         results["config"] = {
             "confidence_threshold": self.detector.confidence_threshold,
             "overlap_threshold": self.overlap_threshold,
@@ -129,6 +143,56 @@ class RedactionEvaluator:
         }
 
         return results
+
+    def _masking_metrics(self, documents, predictions) -> Dict[str, Any]:
+        """
+        Type-agnostic privacy metrics: did the PII get masked at all?
+
+        Typed P/R above penalises a correctly-masked span that got the wrong
+        label (e.g. a patient ID tagged [NAME]); from a privacy standpoint
+        that span did not leak. These metrics measure leakage directly:
+
+        - masked_recall: fraction of ground-truth entities with IoU >= the
+          overlap threshold against SOME predicted span, of any type.
+        - fully_masked_rate: fraction of entities with every character masked.
+        - char_leakage: fraction of ground-truth PII characters left visible.
+        """
+        per_type = defaultdict(lambda: {"n": 0, "masked": 0, "fully_masked": 0, "chars": 0, "leaked_chars": 0})
+
+        for doc, predicted in zip(documents, predictions):
+            masked = [False] * len(doc["text"])
+            for p in predicted:
+                for i in range(p["start"], min(p["end"], len(masked))):
+                    masked[i] = True
+
+            for gt in doc["entities"]:
+                s = per_type[gt["type"]]
+                s["n"] += 1
+                span = (gt["start"], gt["end"])
+                if any(self._compute_iou(span, (p["start"], p["end"])) >= self.overlap_threshold for p in predicted):
+                    s["masked"] += 1
+                leaked = sum(1 for i in range(gt["start"], gt["end"]) if not masked[i])
+                s["chars"] += gt["end"] - gt["start"]
+                s["leaked_chars"] += leaked
+                if leaked == 0:
+                    s["fully_masked"] += 1
+
+        def summarise(s):
+            return {
+                "n": s["n"],
+                "masked_recall": s["masked"] / s["n"] if s["n"] else 0,
+                "fully_masked_rate": s["fully_masked"] / s["n"] if s["n"] else 0,
+                "char_leakage": s["leaked_chars"] / s["chars"] if s["chars"] else 0,
+            }
+
+        total = {"n": 0, "masked": 0, "fully_masked": 0, "chars": 0, "leaked_chars": 0}
+        for s in per_type.values():
+            for k in total:
+                total[k] += s[k]
+        return {
+            "overall": summarise(total),
+            "per_type": {t: summarise(s) for t, s in sorted(per_type.items())},
+        }
 
     def _match_spans(
         self, predicted: List[Dict[str, Any]], ground_truth: List[Dict[str, Any]]

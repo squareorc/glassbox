@@ -8,3 +8,7 @@ env/
 venv/
 ENV/
 .DS_Store
+
+# Regenerable pipeline outputs (python -m glassbox.src.redaction.pipeline)
+glassbox/data/processed/
+.pytest_cache/

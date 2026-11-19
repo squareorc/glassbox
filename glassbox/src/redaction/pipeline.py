@@ -1,14 +1,35 @@
 """
 Redaction pipeline - ties detection, redaction, and evaluation together.
+
+Usage (from the repo root):
+    python -m glassbox.src.redaction.pipeline --dataset realistic
+    python -m glassbox.src.redaction.pipeline --dataset synthetic --threshold 0.3
+
+Outputs (per dataset and confidence threshold):
+    glassbox/data/processed/<dataset>/t<threshold>/redacted_notes.jsonl
+    glassbox/data/processed/<dataset>/t<threshold>/redaction_audit_log.jsonl
+    glassbox/results/redaction/<dataset>_t<threshold>.json
 """
 
+import argparse
 import json
 from pathlib import Path
 from typing import Dict, Any, Optional
 
 from .detector import PIIDetector
 from .redactor import PIIRedactor
-from .evaluate import evaluate_redaction
+from .evaluate import RedactionEvaluator, evaluate_redaction
+
+DATA_ROOT = Path("glassbox/data")
+RESULTS_ROOT = Path("glassbox/results/redaction")
+
+
+def raw_notes_path(dataset: str) -> Path:
+    return DATA_ROOT / "raw" / dataset / "synthetic_notes.jsonl"
+
+
+def processed_dir(dataset: str, threshold: float) -> Path:
+    return DATA_ROOT / "processed" / dataset / f"t{threshold:.2f}"
 
 
 def run_redaction_pipeline(
@@ -16,79 +37,76 @@ def run_redaction_pipeline(
     output_path: Path,
     audit_log_path: Optional[Path] = None,
     confidence_threshold: float = 0.5,
+    overlap_threshold: float = 0.5,
+    evaluate: bool = True,
 ) -> Dict[str, Any]:
     """
-    Run the full redaction pipeline: detect → redact → save.
+    Run the full redaction pipeline: detect → redact → save → (evaluate).
 
-    Args:
-        input_path: Path to raw synthetic_notes.jsonl
-        output_path: Path to write redacted documents (JSONL)
-        audit_log_path: Optional path to write audit log (JSONL)
-        confidence_threshold: Minimum confidence for detections
+    Detection runs once per document; the evaluation scores exactly the spans
+    that were redacted (after overlap resolution), so the reported metrics
+    describe the sanitized output that downstream stages actually see.
+
+    The redacted documents contain only sanitized text plus non-identifying
+    metadata. The original text is deliberately NOT copied across: retrieval
+    and generation read these files, and the raw notes stay in data/raw/.
 
     Returns:
-        Summary statistics: number of documents processed, entities redacted, etc.
+        Summary statistics, plus evaluation results under "evaluation" if
+        `evaluate` is True.
     """
     detector = PIIDetector(confidence_threshold=confidence_threshold)
     redactor = PIIRedactor()
 
-    # Process documents
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if audit_log_path:
         audit_log_path.parent.mkdir(parents=True, exist_ok=True)
 
-    total_docs = 0
+    with input_path.open("r") as f_in:
+        documents = [json.loads(line) for line in f_in]
+
     total_entities_detected = 0
-    total_entities_redacted = 0
+    redacted_spans = []
+    audit_records = []
 
-    with input_path.open("r") as f_in, output_path.open("w") as f_out:
-        audit_records = []
-
-        for line in f_in:
-            doc = json.loads(line)
-            text = doc["text"]
-            doc_id = doc["doc_id"]
-
-            # Detect PII
-            entities = detector.detect(text)
+    with output_path.open("w") as f_out:
+        for doc in documents:
+            entities = detector.detect(doc["text"])
             total_entities_detected += len(entities)
 
-            # Redact PII
-            redacted_text, audit_log = redactor.redact(text, entities)
-            total_entities_redacted += len(audit_log)
+            redacted_text, audit_log = redactor.redact(doc["text"], entities)
+            redacted_spans.append(audit_log)
 
-            # Write redacted document
             redacted_doc = {
-                "doc_id": doc_id,
+                "doc_id": doc["doc_id"],
                 "text": redacted_text,
-                "original_text": text,  # Keep for debugging/evaluation
                 "diagnosis": doc["diagnosis"],
+                "note_type": doc.get("note_type", "note"),
                 "medications": doc["medications"],
                 "num_entities_redacted": len(audit_log),
             }
             f_out.write(json.dumps(redacted_doc) + "\n")
 
-            # Collect audit log
-            if audit_log_path:
-                for entry in audit_log:
-                    audit_records.append({"doc_id": doc_id, **entry})
+            for entry in audit_log:
+                audit_records.append({"doc_id": doc["doc_id"], **entry})
 
-            total_docs += 1
-
-        # Write audit log
-        if audit_log_path:
-            with audit_log_path.open("w") as f_audit:
-                for record in audit_records:
-                    f_audit.write(json.dumps(record) + "\n")
+    if audit_log_path:
+        with audit_log_path.open("w") as f_audit:
+            for record in audit_records:
+                f_audit.write(json.dumps(record) + "\n")
 
     summary = {
-        "num_documents": total_docs,
+        "num_documents": len(documents),
         "num_entities_detected": total_entities_detected,
-        "num_entities_redacted": total_entities_redacted,
+        "num_entities_redacted": len(audit_records),
         "confidence_threshold": confidence_threshold,
         "output_path": str(output_path),
         "audit_log_path": str(audit_log_path) if audit_log_path else None,
     }
+
+    if evaluate:
+        evaluator = RedactionEvaluator(detector=detector, overlap_threshold=overlap_threshold)
+        summary["evaluation"] = evaluator.score(documents, redacted_spans)
 
     return summary
 
@@ -98,17 +116,7 @@ def run_evaluation(
     confidence_threshold: float = 0.5,
     overlap_threshold: float = 0.5,
 ) -> Dict[str, Any]:
-    """
-    Run evaluation on the redaction module.
-
-    Args:
-        dataset_path: Path to synthetic_notes.jsonl with ground truth
-        confidence_threshold: Minimum confidence for detections
-        overlap_threshold: IoU threshold for matching
-
-    Returns:
-        Evaluation results with precision, recall, F1 per entity type
-    """
+    """Evaluate raw detector output (before overlap resolution) on a dataset."""
     return evaluate_redaction(
         dataset_path=dataset_path,
         confidence_threshold=confidence_threshold,
@@ -116,24 +124,7 @@ def run_evaluation(
     )
 
 
-if __name__ == "__main__":
-    # Example usage
-    from pathlib import Path
-
-    # Paths
-    raw_data = Path("glassbox/data/raw/synthetic_notes.jsonl")
-    redacted_data = Path("glassbox/data/processed/redacted_notes.jsonl")
-    audit_log = Path("glassbox/data/processed/redaction_audit_log.jsonl")
-
-    # Run pipeline
-    print("Running redaction pipeline...")
-    summary = run_redaction_pipeline(
-        input_path=raw_data,
-        output_path=redacted_data,
-        audit_log_path=audit_log,
-        confidence_threshold=0.5,
-    )
-
+def print_results(summary: Dict[str, Any]) -> None:
     print("\nPipeline Summary:")
     print(f"  Documents processed: {summary['num_documents']}")
     print(f"  Entities detected: {summary['num_entities_detected']}")
@@ -141,26 +132,47 @@ if __name__ == "__main__":
     print(f"  Output: {summary['output_path']}")
     print(f"  Audit log: {summary['audit_log_path']}")
 
-    # Run evaluation
-    print("\nRunning evaluation...")
-    results = run_evaluation(
-        dataset_path=raw_data,
-        confidence_threshold=0.5,
-        overlap_threshold=0.5,
-    )
+    results = summary.get("evaluation")
+    if not results:
+        return
+    o = results["overall"]
+    print(f"\nEvaluation (confidence {summary['confidence_threshold']}, IoU {results['config']['overlap_threshold']}):")
+    print(f"  Overall  P {o['precision']:.3f}  R {o['recall']:.3f}  F1 {o['f1']:.3f}  (TP {o['tp']} FP {o['fp']} FN {o['fn']})")
+    for entity_type, m in sorted(results["per_type"].items()):
+        print(f"  {entity_type:<14} P {m['precision']:.3f}  R {m['recall']:.3f}  F1 {m['f1']:.3f}  "
+              f"(TP {m['tp']} FP {m['fp']} FN {m['fn']})")
 
-    print("\nEvaluation Results:")
-    print(f"  Documents: {results['config']['num_documents']}")
-    print(f"  Confidence threshold: {results['config']['confidence_threshold']}")
-    print(f"  Overlap threshold: {results['config']['overlap_threshold']}")
-    print("\nOverall Metrics:")
-    print(f"  Precision: {results['overall']['precision']:.3f}")
-    print(f"  Recall: {results['overall']['recall']:.3f}")
-    print(f"  F1 Score: {results['overall']['f1']:.3f}")
-    print("\nPer-Entity-Type Metrics:")
-    for entity_type, metrics in sorted(results["per_type"].items()):
-        print(f"  {entity_type}:")
-        print(f"    Precision: {metrics['precision']:.3f}")
-        print(f"    Recall: {metrics['recall']:.3f}")
-        print(f"    F1: {metrics['f1']:.3f}")
-        print(f"    TP/FP/FN: {metrics['tp']}/{metrics['fp']}/{metrics['fn']}")
+    masking = results["masking"]
+    print("\nMasking (type-agnostic privacy view):")
+    for name, m in [("Overall", masking["overall"]), *sorted(masking["per_type"].items())]:
+        print(f"  {name:<14} masked {m['masked_recall']:.3f}  fully masked {m['fully_masked_rate']:.3f}  "
+              f"char leakage {m['char_leakage']:.3f}  (n={m['n']})")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Run GlassBox PII redaction on a dataset")
+    parser.add_argument("--dataset", choices=["synthetic", "realistic"], default="realistic")
+    parser.add_argument("--threshold", type=float, default=0.5, help="Detector confidence threshold")
+    parser.add_argument("--iou", type=float, default=0.5, help="IoU threshold for evaluation matching")
+    args = parser.parse_args()
+
+    out_dir = processed_dir(args.dataset, args.threshold)
+    print(f"Running redaction on {args.dataset} (threshold {args.threshold})...")
+    summary = run_redaction_pipeline(
+        input_path=raw_notes_path(args.dataset),
+        output_path=out_dir / "redacted_notes.jsonl",
+        audit_log_path=out_dir / "redaction_audit_log.jsonl",
+        confidence_threshold=args.threshold,
+        overlap_threshold=args.iou,
+    )
+    print_results(summary)
+
+    RESULTS_ROOT.mkdir(parents=True, exist_ok=True)
+    results_path = RESULTS_ROOT / f"{args.dataset}_t{args.threshold:.2f}.json"
+    with results_path.open("w") as f:
+        json.dump({"dataset": args.dataset, **summary}, f, indent=2)
+    print(f"\nResults saved to {results_path}")
+
+
+if __name__ == "__main__":
+    main()

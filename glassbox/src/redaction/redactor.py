@@ -4,6 +4,17 @@ PII redaction - replaces detected entities with type tags.
 
 from typing import List, Dict, Any, Tuple
 
+# Tie-break order for overlapping spans with equal score and length: specific
+# pattern-based types first, generic NER types last. Lower = preferred.
+TYPE_PRIORITY = {
+    "PATIENT_ID": 0,
+    "EMAIL": 1,
+    "PHONE_NUMBER": 2,
+    "DATE_OF_BIRTH": 3,
+    "ADDRESS": 4,
+    "NAME": 5,
+}
+
 
 class PIIRedactor:
     """
@@ -82,26 +93,34 @@ class PIIRedactor:
         self, entities: List[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
         """
-        Handle overlapping entity spans by keeping the higher-confidence one.
+        Handle overlapping entity spans, greedily keeping the best span.
 
-        When two spans overlap, we keep the one with:
+        Candidates are ranked globally (not by position), and each is kept
+        unless it overlaps an already-kept, better-ranked span. Ranking:
         1. Higher confidence score
-        2. If tied, longer span
-        3. If still tied, the first one
+        2. If tied, the more specific entity type (pattern recognizers like
+           PATIENT_ID beat generic NER types like NAME/ADDRESS, which spaCy
+           assigns to ID-like tokens such as "pm010651")
+        3. If still tied, longer span
+        4. If still tied, earlier span
 
         Args:
-            entities: List of entities sorted by start position.
+            entities: Detected entities (any order).
 
         Returns:
-            Filtered list with no overlaps.
+            Filtered list with no overlaps, sorted by start position.
         """
         if not entities:
             return []
 
-        # Sort by start position, then by score (descending), then by length (descending)
         entities = sorted(
             entities,
-            key=lambda e: (e["start"], -e.get("score", 0), -(e["end"] - e["start"])),
+            key=lambda e: (
+                -e.get("score", 0),
+                TYPE_PRIORITY.get(e["type"], len(TYPE_PRIORITY)),
+                -(e["end"] - e["start"]),
+                e["start"],
+            ),
         )
 
         non_overlapping = []

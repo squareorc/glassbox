@@ -5,23 +5,29 @@ Generates synthetic clinical notes with injected PII (with known ground-truth
 character spans, for redaction precision/recall evaluation) plus a companion
 QA evaluation set (for retrieval and answer-utility evaluation later).
 
-Usage:
-    pip install faker
-    python generate_synthetic_dataset.py
+Usage (from the repo root):
+    python -m glassbox.src.generate_synthetic_dataset
 """
 
 import json
 import random
+import re
+from datetime import date, timedelta
 from pathlib import Path
 
 from faker import Faker
+
+from glassbox.src.qa.build_qa_set import build_qa_set, write_qa_set
 
 fake = Faker()
 random.seed(42)
 Faker.seed(42)
 
-OUTPUT_DIR = Path("glassbox/data/raw")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR = Path("glassbox/data/raw/synthetic")
+
+# Fixed "today" for the synthetic world, so regeneration is reproducible
+# regardless of the date the script is run on.
+REFERENCE_DATE = date(2026, 9, 16)
 
 N_DOCUMENTS = 250
 
@@ -95,8 +101,6 @@ def make_entities_and_text(template, values):
     build the result string from left to right, tracking the exact character
     offset where each value lands.
     """
-    import re
-
     # Split template by placeholders like {name}, {patient_id}, etc.
     pattern = re.compile(r"\{([a-zA-Z0-9_]+)\}")
     tokens = []
@@ -156,8 +160,9 @@ def generate_document(doc_id):
     phone = fake.phone_number()
     email = fake.email()
     address = fake.address().replace("\n", ", ")
-    dob = fake.date_of_birth(minimum_age=18, maximum_age=90).isoformat()
-    visit_date = fake.date_between(start_date="-2y", end_date="today").isoformat()
+    # Ages 18-90 as of REFERENCE_DATE; visits in the 2 years before it
+    dob = (REFERENCE_DATE - timedelta(days=random.randint(18 * 365 + 5, 90 * 365))).isoformat()
+    visit_date = (REFERENCE_DATE - timedelta(days=random.randint(0, 730))).isoformat()
     medication = random.choice(condition["medications"])
     symptom = random.choice(condition["symptoms"])
     followup_weeks = str(random.choice([2, 4, 6, 8, 12]))
@@ -187,51 +192,25 @@ def generate_document(doc_id):
         "diagnosis": condition["diagnosis"],
         "medications": [medication],
         "patient_name": name,      # kept for building/inspecting the QA set
+        # Structured ground truth for the QA set. Contains PII, so it must
+        # never be passed to retrieval/generation.
+        "facts": {k: v[0] for k, v in values.items()},
+        "fields_in_text": sorted(set(re.findall(r"\{([a-zA-Z0-9_]+)\}", template))),
     }
-
-
-def build_qa_eval_set(documents, n_queries=20):
-    """
-    Build a small ground-truth QA set: for each query, which documents are
-    relevant (by diagnosis) and what the expected answer content is. Used to
-    evaluate retrieval precision/recall and answer utility later, and as a
-    source of "known correct" claims to contrast against injected wrong ones
-    when testing the verification stage.
-    """
-    by_diagnosis = {}
-    for doc in documents:
-        by_diagnosis.setdefault(doc["diagnosis"], []).append(doc["doc_id"])
-
-    diagnoses = list(by_diagnosis.keys())
-    random.shuffle(diagnoses)
-
-    qa_set = []
-    for diagnosis in diagnoses[:n_queries]:
-        relevant_docs = by_diagnosis[diagnosis]
-        meds = sorted({
-            m for doc in documents if doc["diagnosis"] == diagnosis for m in doc["medications"]
-        })
-        qa_set.append({
-            "query": f"What medications are associated with patients diagnosed with {diagnosis}?",
-            "relevant_doc_ids": relevant_docs,
-            "expected_medications": meds,
-        })
-    return qa_set
 
 
 def main():
     documents = [generate_document(i) for i in range(N_DOCUMENTS)]
-    qa_set = build_qa_eval_set(documents)
+    qa_set = build_qa_set(documents, profile="synthetic")
 
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     docs_path = OUTPUT_DIR / "synthetic_notes.jsonl"
     with docs_path.open("w") as f:
         for doc in documents:
             f.write(json.dumps(doc) + "\n")
 
     qa_path = OUTPUT_DIR / "qa_eval_set.jsonl"
-    with qa_path.open("w") as f:
-        for qa in qa_set:
-            f.write(json.dumps(qa) + "\n")
+    write_qa_set(qa_set, qa_path)
 
     print(f"Wrote {len(documents)} documents to {docs_path}")
     print(f"Wrote {len(qa_set)} QA eval examples to {qa_path}")

@@ -10,18 +10,25 @@ Generates synthetic clinical notes that more closely mimic real-world EHR data:
 - Longitudinal visit patterns
 
 Usage:
-    python glassbox/src/generate_realistic_dataset.py --size large
+    python -m glassbox.src.generate_realistic_dataset --size large
 """
 
 import json
 import random
 import argparse
 from pathlib import Path
-from datetime import datetime, timedelta
+import re
+from datetime import date, timedelta
 
 from faker import Faker
 
+from glassbox.src.qa.build_qa_set import build_qa_set, write_qa_set
+
 fake = Faker()
+
+# Fixed "today" for the synthetic world, so regeneration is byte-for-byte
+# reproducible regardless of the date the script is run on.
+REFERENCE_DATE = date(2026, 9, 16)
 
 
 class RealisticClinicalGenerator:
@@ -315,13 +322,15 @@ Specialty: {values['specialty']}
         gender = random.choice(["male", "female"])
         age = random.randint(25, 85)
 
-        # Generate DOB from age (plausible range 1936-2001 for ages 25-90 in 2026)
-        current_year = 2026
-        birth_year = current_year - age
-        dob = self.fake.date_of_birth(minimum_age=age, maximum_age=age).replace(year=birth_year).isoformat()
+        # DOB consistent with age as of REFERENCE_DATE (birth years ~1940-2001)
+        dob_date = REFERENCE_DATE.replace(year=REFERENCE_DATE.year - age) - timedelta(
+            days=random.randint(0, 364)
+        )
+        dob = dob_date.isoformat()
 
-        # Visit date in past 2 years
-        visit_date = self.fake.date_between(start_date="-2y", end_date="today").isoformat()
+        # Visit date in the 2 years before REFERENCE_DATE
+        visit_dt = REFERENCE_DATE - timedelta(days=random.randint(0, 730))
+        visit_date = visit_dt.isoformat()
 
         # Patient ID - varied formats
         patient_id = random.choice(self.patient_id_formats)()
@@ -408,7 +417,8 @@ Specialty: {values['specialty']}
         # Additional values for specific note types
         if note_type == "discharge":
             values.update({
-                "admission_date": (self.fake.date_between(start_date="-30d", end_date="-1d").isoformat(), None),
+                # Admission precedes discharge (visit_date) by 1-14 days
+                "admission_date": ((visit_dt - timedelta(days=random.randint(1, 14))).isoformat(), None),
                 "hospital_course": ("Patient responded well to treatment.", None),
                 "additional_med": (random.choice(condition["medications"]), None),
                 "discharge_instruction": ("Resume normal activities as tolerated", None),
@@ -492,15 +502,31 @@ Specialty: {values['specialty']}
         # Generate text and track entities
         text, entities = self.make_entities_and_text(template_func, values)
 
+        medications = [values["medication"][0]]
+        if "additional_med" in values and values["additional_med"][0] not in medications:
+            medications.append(values["additional_med"][0])
+
         return {
             "doc_id": f"doc_{doc_id:04d}",
             "text": text,
             "entities": entities,
             "diagnosis": condition["diagnosis"],
             "note_type": note_type,
-            "medications": [values["medication"][0]],
+            "medications": medications,
             "patient_name": values["name"][0],
+            # Structured ground truth for building the QA eval set. Contains PII,
+            # so it must never be passed to retrieval/generation.
+            "facts": {k: v[0] for k, v in values.items()},
+            # Which fields the chosen template actually rendered into the text,
+            # so QA questions only ask about information present in the note.
+            "fields_in_text": self._fields_rendered(template_func, values),
         }
+
+    @staticmethod
+    def _fields_rendered(template_func, values):
+        """Render the template with sentinel values to see which keys it uses."""
+        probe = template_func({k: f"<<{k}>>" for k in values})
+        return sorted(set(re.findall(r"<<([a-z0-9_]+)>>", probe)))
 
     def generate_dataset(self, n_documents, output_dir):
         """Generate full dataset."""
@@ -515,12 +541,10 @@ Specialty: {values['specialty']}
             for doc in documents:
                 f.write(json.dumps(doc) + "\n")
 
-        # Build QA evaluation set
-        qa_set = self.build_qa_eval_set(documents)
+        # Build QA evaluation set from per-note facts (see glassbox/src/qa/)
+        qa_set = build_qa_set(documents, profile="realistic")
         qa_path = output_dir / "qa_eval_set.jsonl"
-        with qa_path.open("w") as f:
-            for qa in qa_set:
-                f.write(json.dumps(qa) + "\n")
+        write_qa_set(qa_set, qa_path)
 
         print(f"Generated {len(documents)} realistic clinical notes")
         print(f"  Written to: {docs_path}")
@@ -541,31 +565,6 @@ Specialty: {values['specialty']}
         for etype, count in sorted(entity_counts.items()):
             print(f"    {etype}: {count}")
 
-    def build_qa_eval_set(self, documents, n_queries=20):
-        """Build QA evaluation set from generated documents."""
-        by_diagnosis = {}
-        for doc in documents:
-            by_diagnosis.setdefault(doc["diagnosis"], []).append(doc["doc_id"])
-
-        diagnoses = list(by_diagnosis.keys())
-        random.shuffle(diagnoses)
-
-        qa_set = []
-        for diagnosis in diagnoses[:n_queries]:
-            relevant_docs = by_diagnosis[diagnosis]
-            meds = sorted({
-                m for doc in documents
-                if doc["diagnosis"] == diagnosis
-                for m in doc["medications"]
-            })
-            qa_set.append({
-                "query": f"What medications are prescribed for {diagnosis}?",
-                "relevant_doc_ids": relevant_docs,
-                "expected_medications": meds,
-            })
-
-        return qa_set
-
 
 def main():
     parser = argparse.ArgumentParser(description="Generate realistic synthetic clinical notes")
@@ -577,7 +576,7 @@ def main():
     )
     parser.add_argument(
         "--output",
-        default="glassbox/data/raw",
+        default="glassbox/data/raw/realistic",
         help="Output directory"
     )
     parser.add_argument(

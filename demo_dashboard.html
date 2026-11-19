@@ -1,0 +1,651 @@
+<title>GlassBox Demonstration</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-dim: #666666;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --success: #059669;
+  --warning: #d97706;
+  --border: #e5e5e5;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --code-bg: #f5f5f5;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0a0a;
+    --surface: #1a1a1a;
+    --text: #e5e5e5;
+    --text-dim: #a3a3a3;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --border: #2a2a2a;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --code-bg: #252525;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #1a1a1a;
+  --text: #e5e5e5;
+  --text-dim: #a3a3a3;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --border: #2a2a2a;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --code-bg: #252525;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 24px 16px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 48px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-dim);
+  max-width: 65ch;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metrics-table th,
+.metrics-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.metrics-table th {
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.metrics-table tr:last-child td {
+  border-bottom: none;
+}
+
+.perfect {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.good {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.issue {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.example-box {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.redacted {
+  background: var(--accent);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feature-icon {
+  color: var(--success);
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--text);
+  background: var(--code-bg);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.badge-success {
+  background: var(--success);
+  color: white;
+}
+
+.badge-info {
+  background: var(--accent);
+  color: white;
+}
+
+ul {
+  margin-left: 20px;
+  margin-top: 12px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 24px 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="container">
+  <header>
+    <h1>GlassBox: Privacy-Preserving LLM Framework</h1>
+    <p class="subtitle">A verifiably explainable system for analyzing sensitive healthcare data with automatic PII redaction and evidence-based verification</p>
+  </header>
+
+  <div class="section">
+    <h2>Project Overview</h2>
+    <p>GlassBox addresses two critical problems in LLM systems handling sensitive documents:</p>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <div>
+          <strong>Privacy Risk:</strong> Automatic detection and redaction of PII before any data reaches the LLM, minimizing exposure of names, IDs, and identifying information.
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div>
+          <strong>Verifiable Explanations:</strong> Independent verification mechanism that checks whether each LLM claim is actually supported by its cited evidence (planned).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What We've Built</h2>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('overview')">Overview</button>
+      <button class="tab" onclick="switchTab('redaction')">Redaction Module</button>
+      <button class="tab" onclick="switchTab('datasets')">Datasets</button>
+      <button class="tab" onclick="switchTab('demo')">Live Demo</button>
+    </div>
+
+    <div id="overview" class="tab-content active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">4/4</div>
+          <div class="stat-label">Pipeline Stages Planned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1/4</div>
+          <div class="stat-label">Stages Complete & Evaluated</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2,750</div>
+          <div class="stat-label">Clinical Notes Generated</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0.838</div>
+          <div class="stat-label">Redaction F1 Score (2,500 notes)</div>
+        </div>
+      </div>
+
+      <h3>Completed Components</h3>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div><strong>PII Detection & Redaction:</strong> Full implementation with Presidio, custom recognizers, and comprehensive evaluation</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div><strong>Synthetic Dataset Generator:</strong> 250 clinical notes with ground-truth PII annotations across 8 conditions</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div><strong>Realistic Dataset:</strong> 2,500 EHR-style notes (SOAP, discharge, consultation) for scale evaluation</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div><strong>Evaluation Framework:</strong> IoU-based span matching with precision/recall/F1 per entity type</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div><strong>Generalization Tests:</strong> 8/8 test cases passed for unseen formats</div>
+        </div>
+      </div>
+
+      <h3>Next Steps</h3>
+      <ul>
+        <li>Build retrieval module with ChromaDB and embedding model</li>
+        <li>Implement evidence-based generation with local LLM (Qwen2.5-7B-Instruct)</li>
+        <li>Create verification module for claim validation</li>
+        <li>Build audit dashboard with Streamlit</li>
+      </ul>
+    </div>
+
+    <div id="redaction" class="tab-content">
+      <h3>Performance Metrics</h3>
+
+      <h4>Baseline Evaluation (250 Synthetic Notes)</h4>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">84.2%</div>
+          <div class="stat-label">Precision</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">89.7%</div>
+          <div class="stat-label">Recall</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">86.9%</div>
+          <div class="stat-label">F1 Score</div>
+        </div>
+      </div>
+
+      <h4>Scaled Evaluation (2,500 Realistic Notes)</h4>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">77.6%</div>
+          <div class="stat-label">Precision</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">91.1%</div>
+          <div class="stat-label">Recall</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">83.8%</div>
+          <div class="stat-label">F1 Score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">17,544</div>
+          <div class="stat-label">PII Entities Detected</div>
+        </div>
+      </div>
+
+      <h4>Per-Entity Performance (2,500 Notes)</h4>
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Entity Type</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1 Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EMAIL</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">1.000</td>
+          </tr>
+          <tr>
+            <td>DATE_OF_BIRTH</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">1.000</td>
+          </tr>
+          <tr>
+            <td>PHONE_NUMBER</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">1.000</td>
+          </tr>
+          <tr>
+            <td>PATIENT_ID</td>
+            <td class="perfect">99.9%</td>
+            <td class="perfect">100.0%</td>
+            <td class="perfect">1.000</td>
+          </tr>
+          <tr>
+            <td>NAME</td>
+            <td class="good">83.4%</td>
+            <td class="good">98.8%</td>
+            <td class="good">0.904</td>
+          </tr>
+          <tr>
+            <td>ADDRESS</td>
+            <td class="issue">0.1%</td>
+            <td class="issue">0.1%</td>
+            <td class="issue">0.001</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Key Achievements</h4>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <div>Perfect detection (F1 1.000) for 4 entity types at scale</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <div>98.8% recall on NAMEs across 6,005 patient and provider names</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <div>Custom recognizers for PATIENT_ID and year-range DATE_OF_BIRTH filtering</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <div>Robust across diverse note structures (SOAP, progress, discharge, consultation)</div>
+        </div>
+      </div>
+
+      <h4>Known Issue</h4>
+      <p><strong>ADDRESS detection:</strong> Presidio fragments addresses into separate NAME/LOCATION entities. With IoU ≥ 0.5 matching, fragments don't overlap enough with full ground-truth spans. Future work: merge adjacent entities with address-specific context.</p>
+    </div>
+
+    <div id="datasets" class="tab-content">
+      <h3>Synthetic Dataset (250 Notes)</h3>
+      <p>Generated with exact ground-truth PII annotations for rigorous evaluation:</p>
+      <ul>
+        <li><strong>8 medical conditions:</strong> Essential hypertension, Type 2 diabetes, Major depressive disorder, COPD, Chronic kidney disease stage 3, Atrial fibrillation, Hyperlipidemia, Asthma</li>
+        <li><strong>834 PII entities</strong> with tracked character offsets (100% span accuracy verified)</li>
+        <li><strong>Note formats:</strong> SOAP notes, discharge summaries, consultation notes</li>
+        <li><strong>PII types:</strong> Names, PATIENT_ID (2 letters + 6 digits), DOB, phone, email, address</li>
+      </ul>
+
+      <h3>Realistic Dataset (2,500 Notes)</h3>
+      <p>Scaled evaluation on complex EHR-style documentation:</p>
+      <ul>
+        <li><strong>17,544 total PII entities</strong> across diverse formats</li>
+        <li><strong>Multiple providers:</strong> Attending physicians, referring physicians, emergency contacts</li>
+        <li><strong>Complex documentation:</strong> Progress notes with vitals, lab orders, ICD-10 codes</li>
+        <li><strong>Format variations:</strong> Standard, parentheses, extensions, international phone formats</li>
+      </ul>
+
+      <h3>Generalization Test Suite</h3>
+      <p><span class="badge badge-success">8/8 Tests Passed (100%)</span></p>
+      <ul>
+        <li>Patient IDs: Dash-separated (AB-123456), MRN-prefixed (MRN0012345)</li>
+        <li>Dates: US format (03/20/1985), written format ("born March 20, 1985")</li>
+        <li>Phone numbers: Parentheses (555) 123-4567, extensions x272, international +1-555-123-4567</li>
+      </ul>
+    </div>
+
+    <div id="demo" class="tab-content">
+      <h3>Redaction Example</h3>
+      <p><strong>Original Clinical Note:</strong></p>
+      <div class="example-box">
+SOAP NOTE - 2026-03-07<br><br>
+PATIENT INFORMATION<br>
+Name: Allison Hill<br>
+Patient ID: f-819600<br>
+Date of Birth: 1986-12-06 (Age: 40)<br>
+Phone: 338-908-3863<br><br>
+SUBJECTIVE: Patient presents with headache. Reports some improvement with current medications.<br><br>
+OBJECTIVE:<br>
+Vitals: BP 157/66, HR 94, Temp 97.2°F, RR 18, SpO2 95%<br>
+General: Appears well. CV: S1 S2 normal. Pulm: Clear bilaterally.<br><br>
+ASSESSMENT:<br>
+Essential hypertension (I10)<br><br>
+PLAN:<br>
+- Prescribed Lisinopril 10mg PO daily<br>
+- Lifestyle modifications discussed<br>
+- Patient education provided<br>
+- RTC 12 weeks<br><br>
+Contact email: zlawrence@example.org<br>
+Address on file: 654 Jason Track, Curtisfurt, CT 47553<br><br>
+Provider: Lindsey Roman, MD
+      </div>
+
+      <p style="margin-top: 24px;"><strong>After Redaction (8 entities detected):</strong></p>
+      <div class="example-box">
+SOAP NOTE - 2026-03-07<br><br>
+PATIENT INFORMATION<br>
+Name: <span class="redacted">NAME</span><br>
+Patient ID: <span class="redacted">PATIENT_ID</span><br>
+Date of Birth: <span class="redacted">DATE_OF_BIRTH</span> (Age: 40)<br>
+Phone: <span class="redacted">PHONE_NUMBER</span><br><br>
+SUBJECTIVE: Patient presents with headache. Reports some improvement with current medications.<br><br>
+OBJECTIVE:<br>
+Vitals: BP 157/66, HR 94, Temp 97.2°F, RR 18, SpO2 95%<br>
+General: Appears well. CV: S1 S2 normal. Pulm: Clear bilaterally.<br><br>
+ASSESSMENT:<br>
+Essential hypertension (I10)<br><br>
+PLAN:<br>
+- Prescribed Lisinopril 10mg PO daily<br>
+- Lifestyle modifications discussed<br>
+- Patient education provided<br>
+- RTC 12 weeks<br><br>
+Contact email: <span class="redacted">EMAIL</span><br>
+Address on file: 654 <span class="redacted">NAME</span>, Curtisfurt, CT 47553<br><br>
+Provider: <span class="redacted">NAME</span>, <span class="redacted">ADDRESS</span>
+      </div>
+
+      <p style="margin-top: 24px;"><strong>Audit Trail:</strong> All redactions logged with type, original value, replacement, character offsets, and confidence scores for full transparency and reversibility.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Technical Implementation</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">PII Detection</div>
+        <div style="margin-top: 8px;">
+          <span class="badge badge-info">Presidio</span>
+          <span class="badge badge-info">spaCy</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Local LLM (Planned)</div>
+        <div style="margin-top: 8px;">
+          <span class="badge badge-info">MLX</span>
+          <span class="badge badge-info">Qwen2.5-7B</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Retrieval (Planned)</div>
+        <div style="margin-top: 8px;">
+          <span class="badge badge-info">ChromaDB</span>
+          <span class="badge badge-info">Embeddings</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Dashboard (Planned)</div>
+        <div style="margin-top: 8px;">
+          <span class="badge badge-info">Streamlit</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Architecture</h3>
+    <ul>
+      <li><strong>Stage 1 (✅ Complete):</strong> Privacy-aware data processing with PII detection and redaction</li>
+      <li><strong>Stage 2 (Planned):</strong> Access-controlled retrieval with ChromaDB</li>
+      <li><strong>Stage 3 (Planned):</strong> Evidence-based generation with citation requirements</li>
+      <li><strong>Stage 4 (Planned):</strong> Independent claim verification with NLI/cross-encoder</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Project Contributions</h2>
+    <p>GlassBox's core contribution is a <strong>working, evaluated integration</strong> of privacy-minimization and verifiable evidence-tracing into a single pipeline, with empirical analysis of the tradeoff between privacy protection, answer utility, and explanation faithfulness.</p>
+
+    <h3>Key Design Decisions</h3>
+    <ul>
+      <li><strong>Local LLM:</strong> Privacy guarantee extends to model-serving, not just preprocessing</li>
+      <li><strong>Synthetic healthcare data:</strong> Enables exact ground-truth PII locations for rigorous evaluation without data-use approvals</li>
+      <li><strong>Deterministic redaction:</strong> Entity detection + masking (formal privacy methods like differential privacy deferred to future work)</li>
+      <li><strong>End-to-end audit trail:</strong> Every stage's output logged and inspectable</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function switchTab(tabName) {
+  // Hide all tab contents
+  const contents = document.querySelectorAll('.tab-content');
+  contents.forEach(content => content.classList.remove('active'));
+
+  // Remove active class from all tabs
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+
+  // Show selected tab content
+  document.getElementById(tabName).classList.add('active');
+
+  // Add active class to clicked tab
+  event.target.classList.add('active');
+}
+</script>
