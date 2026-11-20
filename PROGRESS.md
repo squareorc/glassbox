@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-20 (Day 2 of 8, retrieval complete)
+**Last updated:** 2026-11-20 (Day 2 of 8, retrieval complete; Days 1–2 audited, see §11.1)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -36,7 +36,7 @@
 |---|---|---|
 | Synthetic datasets (250 + 2,500 notes) | ✅ Done | `glassbox/src/generate_*_dataset.py` |
 | QA evaluation set v2 | ✅ Done | `glassbox/src/qa/build_qa_set.py` |
-| PII redaction | ✅ Done (address detection still open, Day 7) | `glassbox/src/redaction/` |
+| PII redaction | ✅ Done (address detection and clinical-term guard open, Day 5) | `glassbox/src/redaction/` |
 | Retrieval (incl. query analysis) | ✅ Done | `glassbox/src/retrieval/` |
 | Citation-based generation | ⬜ Day 3 | `glassbox/src/generation/` |
 | Claim verification (NLI) | ⬜ Day 4 | `glassbox/src/verification/` |
@@ -53,11 +53,11 @@
 |---|---|---|---|
 | 1 | Nov 20 | Cleanup, reproducible datasets, QA set v2, redaction fixes, test suite | ✅ |
 | 2 | Nov 20 | Retrieval: chunking, ChromaDB + BM25 indexes (redacted and raw), access control, logging, leak audit; then query analysis, note grouping, fusion tuning | ✅ |
-| 3 | Nov 22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation | ⬜ |
-| 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set | ⬜ |
-| 5 | Nov 24 | Orchestrator with trace JSON; start the dashboard; threshold sweep overnight | ⬜ |
-| 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots | ⬜ |
-| 7 | Nov 26 | Address-detection fix; README and report refresh | ⬜ |
+| 3 | Nov 22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation. From the audit (§11.1): redact the question itself, abstain rule for identity questions, add each qualifying note's answer section, keep placeholder-only sections out of context | ⬜ |
+| 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set. From the audit: rewrite claims with the question's subject before verifying | ⬜ |
+| 5 | Nov 24 | Orchestrator with trace JSON; start the dashboard; **redaction fixes (address recognizer, clinical-term guard incl. "Glipizide", "SpO2", "Email")**, then re-run redaction, indexes and evaluations; `requirements.txt`; query-analysis date ranges and "or"; threshold sweep overnight | ⬜ |
+| 6 | Nov 25 | Finish the dashboard; enlarge the QA set; run the experiments and make the plots, with 95% confidence intervals | ⬜ |
+| 7 | Nov 26 | README and report refresh | ⬜ |
 | 8 | Nov 27 | Polish, buffer, demo rehearsal, backup video | ⬜ |
 
 ---
@@ -365,7 +365,7 @@ On test, dense and hybrid are effectively tied: 0.008 apart, which is one aggreg
 | PATIENT_ID / DOB / EMAIL / PHONE | 10,510 | 0.0% | 0.0% | 100% |
 | **Overall** | 18,041 | 1.6% | 8.7% | 100% |
 
-- Address parts (street, city, ZIP) are almost always visible. That's the main privacy gap, and it gets fixed on Day 7.
+- Address parts (street, city, ZIP) are almost always visible. That's the main privacy gap, and it gets fixed on Day 5.
 - The visible names are mostly provider names in signatures (e.g. "Lance Hebert") and names with titles ("Dr. …") that spaCy only partly tags.
 
 ### 6.9 The Day 2 morning baseline, for the "before" story
@@ -397,7 +397,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 | `tests/test_generalization.py` | Redaction on formats not in the training data: dash IDs, MRN, US and written dates, 3 phone formats, full address (xfail). Plus regression tests for each Day 1 redaction fix. |
 | `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; no filters for identity questions; residual query; Chroma/Python filter agreement. Note grouping, filtered BM25 keeping zero-score chunks, auto-k. |
 
-- Generalization count: **7/8**. The address case is a strict `xfail`; it'll flag once Day 7's fix makes it pass.
+- Generalization count: **7/8**. The address case is a strict `xfail`; it'll flag once Day 5's fix makes it pass.
 - The old README claimed 8/8, but the committed test file only had 3 of those cases.
 
 ---
@@ -450,7 +450,7 @@ python -m pytest glassbox/tests
 
 ## 11. Known issues / open items
 
-- **ADDRESS detection (Day 7).**
+- **ADDRESS detection (Day 5; moved from Day 7 so the Day 6 experiments include it).**
   - spaCy splits addresses into fragments, so 64% of address characters stay visible, and 98% of addresses have some part visible in the index.
   - The fix is a custom address recognizer.
   - This is also the main source of NAME false positives (street names tagged as people).
@@ -458,10 +458,38 @@ python -m pytest glassbox/tests
 - **Clinical over-redaction (found Day 2).** 148 redactions hit non-PII text.
   - Mainly the drug **"Glipizide"** tagged as a person's name (97 notes), "SpO2" (26) and a few BP readings (9).
   - Glipizide becomes `[NAME]`, which makes 3 QA gold answers unanswerable after redaction (1 dev, 2 test).
-  - Fix candidate: a clinical-term guard (drug lexicon, vitals patterns) on NER detections. This should be done **with the address fix, before the Day 6 experiments**, so the final numbers include it.
+  - Fix candidate: a clinical-term guard (drug lexicon, vitals patterns) on NER detections. Scheduled for **Day 5**, with the address fix, so the Day 6 experiments include it. The audit (§11.1) found one more term: the field label "Email" redacted as `[NAME]` 17 times.
 - **Aggregate questions on section chunks.** Evidence is 0.520: within each qualifying note, the medication section doesn't always make that note's top 2. Whole-note chunks reach 0.952 but expose 2.8× more text. Possible future work: an answer-type-aware section prior (e.g. "medications" → plan, recommendations and discharge-medications sections).
 - **The audit log stores raw PII values.** That's needed for the audit trail, but the log is itself a sensitive artifact. The report should say so.
 - **The docs are stale.** The README and `report_draft.md` show old numbers (0.838 / 0.869 / 0.858, 62.5%, 8/8) and old data paths. Refresh on Day 7.
+
+### 11.1 Audit of Days 1–2 (Nov 20)
+
+An independent check of everything built so far, using throwaway scripts rather than the project's own evaluators.
+
+**Verified (all passed):**
+- Test suite: 34 passed, 1 xfailed.
+- Regenerating the realistic dataset gives **byte-identical** notes and QA set.
+- QA gold: every gold answer is in its note; every "unique" fact question picks out exactly one note; every aggregate question lists *all* qualifying notes.
+- Redaction, by direct string search of the redacted notes: 0 exact IDs, DOBs, phones or emails survive; names 0.8%, addresses 15.5% (matches §5 and §6.8).
+- All 4 realistic indexes are internally consistent (chunk file = ChromaDB count = manifest count, no duplicate IDs).
+- The headline retrieval numbers recompute exactly from `realistic_t0.50_per_question.json`.
+- Days 3–4 stack runs on the laptop: Qwen loads in 1.3 s, answers in 2.6 s, peak memory 4.5 GB; both NLI models run on MPS.
+
+**Findings:**
+
+| # | Severity | Finding | Evidence | Fix (day) |
+|---|---|---|---|---|
+| 1 | Critical | **Misattribution under redaction.** Asked "What is John Wilkerson's medication?" with a redacted note as context, Qwen answered with that note's drug, treating `[NAME]` as John. It phrased the claim "The patient is prescribed …", which both NLI models label *entailment* (Supported). "Identity recall 0.000" only shows retrieval can't find the person; without a guard the full system would still give a confident, verified, wrong answer. | Smoke test. With the name in the claim ("John Wilkerson is prescribed …") both models say *neutral* (Unsupported). | Abstain rule (Day 3); rewrite claims with the question's subject before verifying (Day 4); report abstention and false-attribution rates as privacy metrics (Day 6) |
+| 2 | Critical | **The question itself isn't redacted.** A name typed into the question reaches the LLM prompt, the query embedding and the retrieval log. | `retriever.py` uses the raw query | Redact the question at entry; detected identifiers also trigger the abstain rule in #1 (Day 3) |
+| 3 | Important | **Aggregate evidence 0.52 is a two-hop selection problem.** 6 of 21 aggregate test questions have zero evidence despite recall 1.0. The qualifying symptom is in *subjective*, the medication in *plan*; after the qualifying sections, the remaining slots go to *other* notes' plan sections. | e.g. ag-012, ag-020, ag-027 retrieve every gold note's subjective section, then non-gold plans | After selecting qualifying notes, add each one's answer section (plan / medications) (Day 3) |
+| 4 | Important | **NAME precision 0.84 is mostly an address problem.** Of ~1,130 NAME spans not matching gold exactly, 965 are address fragments and 92 are "Dr. X" where gold includes the title (name masked, scored as an error). Pure false positives: 148 (§11). | Audit log vs. gold spans | Day 5 address fix also raises NAME precision |
+| 5 | Important | **Context spent on placeholders.** 18% of context slots go to `patient_info` / `contact` sections, mostly `[NAME]`-style tags after redaction; they also invite #1. | Per-question retrieved sections | Drop or rank them lower for non-identity questions (Day 3) |
+| 6 | Important | **No `requirements.txt` or install steps**; matplotlib not installed (needed for plots). | Repo root | Day 5 |
+| 7 | Important | **Small test split.** 63 answerable test questions; 95% bootstrap CI for evidence 0.840 is [0.757, 0.915]. Hybrid vs. dense differ on 8 questions (mean −0.008): not significant, report as "tied". | Bootstrap, 5,000 resamples | Enlarge QA set, CIs on plots (Day 6) |
+| 8 | Minor | **Query analysis on free-typed questions** (the QA set is templated, so evaluation doesn't see these): "between March and June 2025" → March only; "hypertension or diabetes" → first diagnosis only; "May, 2025" not parsed; invalid "2025-13-01" becomes all of 2025; a date with no notes ("in 2019") falls back to unrelated notes. | Probe questions | Ranges and "or" (Day 5); pass `fallback` to the generator so it abstains (Day 3) |
+| 9 | Minor | **Redaction gaps outside the dataset** (limitations section): numeric-only MRNs (`00482913`), insurance numbers, hospital names, birth years before 1936 are not redacted. Lowercase names, relatives' names and valid SSNs are. | Probe sentences | Report as limitations |
+| 10 | Minor | Raw and redacted indexes chunk slightly differently (781 signature blocks merged in redacted, see §6.1). Headline unaffected (both 0.840). | Section counts | Note in report |
 
 ---
 
@@ -493,3 +521,9 @@ python -m pytest glassbox/tests
 - Result (realistic test, redacted): answerable evidence 0.048 → **0.840**, recall 0.645 → **1.000**, identity 0.000.
 - Found clinical over-redaction ("Glipizide" → `[NAME]`; §11).
 - Tests: 12 → 35.
+
+### Audit: Nov 20
+- Independent audit of Days 1–2 (§11.1): reproducibility, QA gold, leakage and headline numbers all verified.
+- Found the misattribution risk (critical, fixed in Days 3–4), unredacted questions, and the root cause of weak aggregate evidence.
+- Moved the address and clinical-term redaction fixes from Day 7 to Day 5; plan in §2 updated.
+- Pushed `pipeline-build` to GitHub.
