@@ -69,8 +69,6 @@ def test_generalization_phone_formats(redactor_pipeline, phone):
     assert phone in _redacted_values(detector, redactor, text, "PHONE_NUMBER")
 
 
-@pytest.mark.xfail(reason="Known limitation: spaCy NER fragments addresses; full-span address "
-                          "detection is scheduled work (README, Known issues)", strict=True)
 def test_generalization_full_address(redactor_pipeline):
     detector, redactor = redactor_pipeline
     address = "123 Main Street, Springfield, IL 62701"
@@ -129,3 +127,67 @@ def test_overlap_resolution_prefers_higher_score_regardless_of_position():
     ]
     kept = redactor._resolve_overlaps(entities)
     assert [e["type"] for e in kept] == ["PATIENT_ID"]
+
+
+# ---------------------------------------------------------------------------
+# Address recognizer, name-in-context recognizer and clinical-term guard
+# ---------------------------------------------------------------------------
+
+def _redact(redactor_pipeline, text):
+    detector, redactor = redactor_pipeline
+    return redactor.redact(text, detector.detect(text))[0]
+
+
+@pytest.mark.parametrize("address", [
+    "0288 Robert Lake Suite 860, West Lorihaven, AL 34055",
+    "826 Bobby Lakes Apt. 533, West Kimberlychester, RI 98736",
+    "Unit 4724 Box 3586, DPO AE 64879",
+    "PSC 1234, Box 5678, APO AA 12345",
+    "USNS Long, FPO AP 12345",
+])
+def test_address_is_one_span(redactor_pipeline, address):
+    assert _redact(redactor_pipeline, f"Address: {address}\nEmail: a@b.com") == "Address: [ADDRESS]\nEmail: [EMAIL]"
+
+
+def test_street_line_needs_context(redactor_pipeline):
+    assert _redact(redactor_pipeline, "She lives at 42 Oak Street.") == "She lives at [ADDRESS]."
+    assert "42 Oak Street" in _redact(redactor_pipeline, "Seen 42 Oak Street ago")
+
+
+def test_address_patterns_are_case_sensitive(redactor_pipeline):
+    """Presidio's default IGNORECASE would let [A-Z] match lowercase words."""
+    assert _redact(redactor_pipeline, "Take 5 tabs in the am, in 12345") == "Take 5 tabs in the am, in 12345"
+
+
+@pytest.mark.xfail(reason="Known limitation: the address patterns use capitalisation; "
+                          "an all-lowercase address is only partly caught", strict=True)
+def test_lowercase_address(redactor_pipeline):
+    assert "62704" not in _redact(redactor_pipeline, "lives at 42 oak street, springfield, il 62704")
+
+
+@pytest.mark.parametrize("text", [
+    "Started Metformin 500mg and Glipizide 5mg.",
+    "SpO2 97% on RA.",
+    "BP 158/62, HR 72.",
+])
+def test_clinical_terms_not_redacted(redactor_pipeline, text):
+    assert _redact(redactor_pipeline, text) == text
+
+
+def test_field_label_not_redacted(redactor_pipeline):
+    assert _redact(redactor_pipeline, "Email: jdoe@mail.com") == "Email: [EMAIL]"
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("Thank you.\n\nLance Hebert, MD\nCardiology", "Thank you.\n\n[NAME], MD\nCardiology"),
+    ("Referring Physician: Autumn Sharp\n", "Referring Physician: [NAME]\n"),
+    ("Electronically signed by Tiffany Wilson, MD", "Electronically signed by [NAME], MD"),
+    ("Dr. Patel to follow up.", "Dr. [NAME] to follow up."),
+])
+def test_names_in_clinical_context(redactor_pipeline, text, expected):
+    assert _redact(redactor_pipeline, text) == expected
+
+
+def test_numeric_mrn_after_label(redactor_pipeline):
+    assert _redact(redactor_pipeline, "MRN: 00482913.") == "MRN: [PATIENT_ID]."
+

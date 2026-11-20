@@ -1,0 +1,137 @@
+[
+  {
+    "step": "Day 2 selection",
+    "dev": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 758.9697,
+      "identity_recall@auto": 0.0667
+    },
+    "test": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 771.3896,
+      "identity_recall@auto": 0.0286
+    }
+  },
+  {
+    "step": "+ question redaction",
+    "dev": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 758.9697,
+      "identity_recall@auto": 0.0
+    },
+    "test": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 771.3896,
+      "identity_recall@auto": 0.0
+    }
+  },
+  {
+    "step": "+ demote low-information chunks",
+    "dev": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 758.9697,
+      "identity_recall@auto": 0.0
+    },
+    "test": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 771.3896,
+      "identity_recall@auto": 0.0
+    }
+  },
+  {
+    "step": "+ note-ordered grouping",
+    "dev": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 758.9697,
+      "identity_recall@auto": 0.0
+    },
+    "test": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 771.3896,
+      "identity_recall@auto": 0.0
+    }
+  },
+  {
+    "step": "+ two-hop answer sections (final)",
+    "dev": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 758.9697,
+      "identity_recall@auto": 0.0
+    },
+    "test": {
+      "answerable_evidence@auto": 1.0,
+      "answerable_evidence@auto_ci95": [
+        1.0,
+        1.0
+      ],
+      "fact_evidence@auto": 1.0,
+      "aggregate_evidence@auto": 1.0,
+      "aggregate_recall@auto": 1.0,
+      "context_chars@auto": 771.3896,
+      "identity_recall@auto": 0.0
+    }
+  }
+]

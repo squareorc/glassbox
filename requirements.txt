@@ -1,0 +1,37 @@
+# GlassBox: Python 3.11, macOS on Apple silicon (MLX and MPS need an M-series Mac).
+#
+#   python3.11 -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+#   python -m spacy download en_core_web_lg
+#
+# Versions are the ones the reported results were produced with.
+
+# Data generation
+Faker==40.38.0
+
+# PII redaction
+presidio-analyzer==2.2.364
+presidio-anonymizer==2.2.364
+spacy==3.8.16
+# spaCy model: installed with `python -m spacy download en_core_web_lg` (3.8.0)
+
+# Retrieval
+chromadb==1.5.9
+sentence-transformers==6.0.1
+torch==2.13.0
+numpy==2.4.6
+
+# Verification (NLI models)
+transformers==5.16.1
+
+# Generation (local LLM on Apple silicon)
+mlx==0.32.2
+mlx-lm==0.31.3
+
+# Dashboard, experiments, plots
+streamlit==1.62.0
+pandas==3.0.5
+matplotlib==3.10.9
+
+# Tests
+pytest==9.1.1

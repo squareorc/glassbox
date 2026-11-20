@@ -46,7 +46,7 @@
   {
     "dense_weight": 1.5,
     "bm25_weight": 1.0,
-    "answerable_evidence@3": 1.0,
+    "answerable_evidence@3": 0.9848,
     "answerable_evidence@auto": 1.0,
     "fact_evidence@auto": 1.0,
     "aggregate_evidence@auto": 1.0,
@@ -57,7 +57,7 @@
   {
     "dense_weight": 2.0,
     "bm25_weight": 1.0,
-    "answerable_evidence@3": 1.0,
+    "answerable_evidence@3": 0.9848,
     "answerable_evidence@auto": 1.0,
     "fact_evidence@auto": 1.0,
     "aggregate_evidence@auto": 1.0,
@@ -68,7 +68,7 @@
   {
     "dense_weight": 3.0,
     "bm25_weight": 1.0,
-    "answerable_evidence@3": 1.0,
+    "answerable_evidence@3": 0.9697,
     "answerable_evidence@auto": 1.0,
     "fact_evidence@auto": 1.0,
     "aggregate_evidence@auto": 1.0,
@@ -79,7 +79,7 @@
   {
     "dense_weight": 5.0,
     "bm25_weight": 1.0,
-    "answerable_evidence@3": 1.0,
+    "answerable_evidence@3": 0.9697,
     "answerable_evidence@auto": 1.0,
     "fact_evidence@auto": 1.0,
     "aggregate_evidence@auto": 1.0,
@@ -90,7 +90,7 @@
   {
     "dense_weight": 1.0,
     "bm25_weight": 0.0,
-    "answerable_evidence@3": 1.0,
+    "answerable_evidence@3": 0.9545,
     "answerable_evidence@auto": 1.0,
     "fact_evidence@auto": 1.0,
     "aggregate_evidence@auto": 1.0,

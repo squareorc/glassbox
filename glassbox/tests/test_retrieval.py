@@ -157,6 +157,35 @@ def test_identity_questions_get_no_filters(question):
     assert a["filters"] == {} and a["residual_query"] == question
 
 
+@pytest.mark.parametrize("question,filters", [
+    ("Asthma patients in May, 2025", {"diagnosis": "Asthma", "date_from": 20250501, "date_to": 20250531}),
+    ("Asthma notes between March 2025 and June 2025", {"diagnosis": "Asthma", "date_from": 20250301, "date_to": 20250630}),
+    ("Asthma notes from March to June 2025", {"diagnosis": "Asthma", "date_from": 20250301, "date_to": 20250630}),
+    ("asthma notes from 2024 to 2025", {"diagnosis": "Asthma", "date_from": 20240101, "date_to": 20251231}),
+    ("asthma notes 2024-01-05 to 2024-02-10", {"diagnosis": "Asthma", "date_from": 20240105, "date_to": 20240210}),
+    ("patients with hypertension or diabetes in 2025",
+     {"diagnosis": ["Essential hypertension", "Type 2 diabetes mellitus"], "date_from": 20250101, "date_to": 20251231}),
+])
+def test_query_analysis_ranges_and_multiple_diagnoses(question, filters):
+    a = analyze_query(question, DX)
+    assert a["filters"] == filters and a["scope"] == "multi_note"
+
+
+@pytest.mark.parametrize("question", ["notes from 2025-13-01 for asthma", "BP on 2/30/2025?"])
+def test_invalid_date_gives_no_date_filter(question):
+    """A malformed date is reported, never silently widened (2025-13-01 used to become all of 2025)."""
+    a = analyze_query(question, DX)
+    assert "date_from" not in a["filters"]
+    assert [e["type"] for e in a["extracted"]].count("invalid_date") == 1
+
+
+def test_multiple_diagnoses_filter():
+    f = {"diagnosis": ["Asthma", "COPD"]}
+    assert matches({"diagnosis": "COPD", "visit_date": "2024-06-01"}, f)
+    assert not matches({"diagnosis": "Osteoarthritis", "visit_date": "2024-06-01"}, f)
+    assert chroma_where(f) == {"diagnosis": {"$in": ["Asthma", "COPD"]}}
+
+
 def test_residual_query_drops_constraint_phrases():
     a = analyze_query("What heart rate was recorded for the Asthma patient whose note is dated 2024-10-07?", DX)
     assert a["residual_query"] == "What heart rate was recorded for the patient ?"
@@ -199,3 +228,68 @@ def test_auto_k_follows_query_scope():
     single = retriever.retrieve("What medication was prescribed for the Asthma patient whose note is dated 2024-10-07?")
     multi = retriever.retrieve("Which medications were prescribed to Asthma patients who presented with wheezing in October 2024?")
     assert len(single) == 5 and len(multi) == 10
+
+
+# ---------------------------------------------------------------- Day 3 audit fixes
+
+from glassbox.src.redaction.query import redact_query  # noqa: E402
+from glassbox.src.retrieval.query_analysis import split_condition  # noqa: E402
+from glassbox.src.retrieval.retriever import is_low_information  # noqa: E402
+
+
+def test_question_is_redacted_and_flags_identifiers():
+    r = redact_query("What medication is John Wilkerson prescribed?")
+    assert r["text"] == "What medication is [NAME] prescribed?"
+    assert r["identifiers"] == ["NAME"]
+    assert "John" not in str(r["redacted"])  # only types and offsets, never values
+
+
+def test_clinical_question_is_not_changed_by_redaction():
+    q = "What medication was prescribed for the Type 2 diabetes mellitus patient whose note is dated 2024-11-10?"
+    r = redact_query(q)
+    assert r["text"] == q and r["identifiers"] == []
+
+
+def test_retrieval_log_never_contains_the_name(tmp_path):
+    log = tmp_path / "r.jsonl"
+    retriever = Retriever(_index("redacted"), log_path=log)
+    retriever.retrieve("What medication is John Wilkerson prescribed?")
+    assert "Wilkerson" not in log.read_text()
+    assert retriever.last_query_redaction["identifiers"] == ["NAME"]
+
+
+@pytest.mark.parametrize("body,low", [
+    ("PATIENT: [NAME]\nMRN: [PATIENT_ID]\nDOB: [DATE_OF_BIRTH]", True),
+    ("Contact: [PHONE_NUMBER] (cell), [EMAIL]\n\n- [NAME], MD", True),
+    ("PLAN: Continue Glipizide 5mg PO daily. Follow up in 8 weeks.", False),
+    ("Patient: Allison Hill (ID: Bc321819)", False),   # raw text: no placeholders
+])
+def test_low_information_chunks(body, low):
+    assert is_low_information(body) is low
+
+
+def test_split_condition():
+    assert split_condition("Which medications were prescribed to patients who presented with fatigue ?") == {
+        "ask": "Which medications were prescribed to patients", "condition": "presented with fatigue"}
+    assert split_condition("What medication was prescribed for the patient ?") is None
+
+
+def test_note_ordered_grouping_keeps_each_notes_chunks_together():
+    r = Retriever.__new__(Retriever)
+    r.chunks = [{"doc_id": d} for d in ["a", "b", "a", "b", "c"]]
+    ranked = [(0, 5), (1, 4), (2, 3), (3, 2), (4, 1)]
+    assert [i for i, _ in r._group_by_note(ranked, 2)] == [0, 2, 1, 3, 4]
+    assert [i for i, _ in r._group_by_note(ranked, 2, note_ordered=False)] == [0, 1, 2, 3, 4]
+
+
+def test_two_hop_adds_each_qualifying_notes_answer_section():
+    retriever = Retriever(_index("redacted"))
+    qa = [json.loads(l) for l in open("glassbox/data/raw/realistic/qa_eval_set.jsonl")]
+    q = next(q for q in qa if q["type"] == "aggregate")
+    results = retriever.retrieve(q["question"])
+    assert retriever.last_analysis["ask"]
+    by_note = {}
+    for r in results:
+        by_note.setdefault(r["doc_id"], []).append(r["selected_by"])
+    for doc in q["relevant_doc_ids"]:
+        assert by_note.get(doc) == ["question", "ask"]

@@ -39,9 +39,12 @@ from typing import Any, Dict, List, Optional
 # How many questions of each type per dataset profile, and the time
 # granularity used to form aggregate groups (finer for the larger corpus so
 # groups stay at 2-4 documents).
+# Sizes were tripled on Day 3 (realistic; synthetic doubled, capped by its 34
+# possible aggregate questions) after the audit found the 95% CI on test
+# evidence was +/-0.08 with the original 60/40/30.
 PROFILES = {
-    "realistic": {"clinical_fact": 60, "identity": 40, "aggregate": 30, "period": "month"},
-    "synthetic": {"clinical_fact": 40, "identity": 25, "aggregate": 15, "period": "year"},
+    "realistic": {"clinical_fact": 180, "identity": 120, "aggregate": 90, "period": "month"},
+    "synthetic": {"clinical_fact": 80, "identity": 50, "aggregate": 30, "period": "year"},
 }
 
 DEV_FRACTION = 0.3  # dev split is for tuning (e.g. NLI thresholds); report on test

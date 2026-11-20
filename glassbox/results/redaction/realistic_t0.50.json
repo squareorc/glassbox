@@ -1,14 +1,38 @@
 {
   "dataset": "realistic",
   "num_documents": 2500,
-  "num_entities_detected": 19011,
-  "num_entities_redacted": 18791,
+  "num_entities_detected": 20317,
+  "num_entities_redacted": 18042,
   "confidence_threshold": 0.5,
   "output_path": "glassbox/data/processed/realistic/t0.50/redacted_notes.jsonl",
   "audit_log_path": "glassbox/data/processed/realistic/t0.50/redaction_audit_log.jsonl",
   "evaluation": {
     "per_type": {
+      "PHONE_NUMBER": {
+        "precision": 1.0,
+        "recall": 0.9990033222591362,
+        "f1": 0.9995014126641183,
+        "tp": 3007,
+        "fp": 0,
+        "fn": 3
+      },
+      "NAME": {
+        "precision": 0.9993339993339994,
+        "recall": 0.9966788442377947,
+        "f1": 0.998004655803126,
+        "tp": 6002,
+        "fp": 4,
+        "fn": 20
+      },
       "PATIENT_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2500,
+        "fp": 0,
+        "fn": 0
+      },
+      "EMAIL": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
@@ -24,60 +48,36 @@
         "fp": 0,
         "fn": 0
       },
-      "NAME": {
-        "precision": 0.8412563667232598,
-        "recall": 0.98737960810362,
-        "f1": 0.9084797555385791,
-        "tp": 5946,
-        "fp": 1122,
-        "fn": 76
-      },
-      "EMAIL": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "tp": 2500,
-        "fp": 0,
-        "fn": 0
-      },
-      "PHONE_NUMBER": {
-        "precision": 1.0,
-        "recall": 0.998671096345515,
-        "f1": 0.9993351063829787,
-        "tp": 3006,
-        "fp": 0,
-        "fn": 4
-      },
       "ADDRESS": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1": 0,
-        "tp": 0,
-        "fp": 1217,
-        "fn": 1509
+        "precision": 0.986919555264879,
+        "recall": 1.0,
+        "f1": 0.9934167215273206,
+        "tp": 1509,
+        "fp": 20,
+        "fn": 0
       }
     },
     "overall": {
-      "precision": 0.8755255175349902,
-      "recall": 0.9119228424145003,
-      "f1": 0.8933536055603822,
-      "tp": 16452,
-      "fp": 2339,
-      "fn": 1589
+      "precision": 0.9986697705354174,
+      "recall": 0.9987251261016573,
+      "f1": 0.9986974475514786,
+      "tp": 18018,
+      "fp": 24,
+      "fn": 23
     },
     "masking": {
       "overall": {
         "n": 18041,
-        "masked_recall": 0.9134748628124827,
-        "fully_masked_rate": 0.9043844576243002,
-        "char_leakage": 0.153940537663397
+        "masked_recall": 0.9997782828002882,
+        "fully_masked_rate": 0.991353029211241,
+        "char_leakage": 0.0023606589107097184
       },
       "per_type": {
         "ADDRESS": {
           "n": 1509,
-          "masked_recall": 0.005301524188204109,
-          "fully_masked_rate": 0.0,
-          "char_leakage": 0.642798599210193
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
         },
         "DATE_OF_BIRTH": {
           "n": 2500,
@@ -93,9 +93,9 @@
         },
         "NAME": {
           "n": 6022,
-          "masked_recall": 0.9900365327133842,
-          "fully_masked_rate": 0.9641315177681833,
-          "char_leakage": 0.017606119505925135
+          "masked_recall": 0.9993357688475589,
+          "fully_masked_rate": 0.9740949850547991,
+          "char_leakage": 0.008564800300959307
         },
         "PATIENT_ID": {
           "n": 2500,

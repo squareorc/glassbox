@@ -1,13 +1,21 @@
 {
   "dataset": "synthetic",
   "num_documents": 250,
-  "num_entities_detected": 899,
-  "num_entities_redacted": 870,
+  "num_entities_detected": 950,
+  "num_entities_redacted": 837,
   "confidence_threshold": 0.5,
   "output_path": "glassbox/data/processed/synthetic/t0.50/redacted_notes.jsonl",
   "audit_log_path": "glassbox/data/processed/synthetic/t0.50/redaction_audit_log.jsonl",
   "evaluation": {
     "per_type": {
+      "PHONE_NUMBER": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 78,
+        "fp": 0,
+        "fn": 0
+      },
       "PATIENT_ID": {
         "precision": 1.0,
         "recall": 1.0,
@@ -17,34 +25,18 @@
         "fn": 0
       },
       "NAME": {
-        "precision": 0.8078175895765473,
+        "precision": 0.9959839357429718,
         "recall": 0.992,
-        "f1": 0.8904847396768403,
+        "f1": 0.9939879759519038,
         "tp": 248,
-        "fp": 59,
+        "fp": 1,
         "fn": 2
       },
-      "PHONE_NUMBER": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "tp": 78,
-        "fp": 0,
-        "fn": 0
-      },
       "ADDRESS": {
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1": 0,
-        "tp": 0,
-        "fp": 59,
-        "fn": 84
-      },
-      "EMAIL": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
-        "tp": 88,
+        "tp": 84,
         "fp": 0,
         "fn": 0
       },
@@ -55,29 +47,37 @@
         "tp": 88,
         "fp": 0,
         "fn": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 88,
+        "fp": 0,
+        "fn": 0
       }
     },
     "overall": {
-      "precision": 0.864367816091954,
-      "recall": 0.8973747016706444,
-      "f1": 0.8805620608899296,
-      "tp": 752,
-      "fp": 118,
-      "fn": 86
+      "precision": 0.998805256869773,
+      "recall": 0.9976133651551312,
+      "f1": 0.9982089552238805,
+      "tp": 836,
+      "fp": 1,
+      "fn": 2
     },
     "masking": {
       "overall": {
         "n": 838,
-        "masked_recall": 0.8997613365155132,
-        "fully_masked_rate": 0.8890214797136038,
-        "char_leakage": 0.18218310946425814
+        "masked_recall": 0.9976133651551312,
+        "fully_masked_rate": 0.9892601431980907,
+        "char_leakage": 0.004091400339663424
       },
       "per_type": {
         "ADDRESS": {
           "n": 84,
-          "masked_recall": 0.023809523809523808,
-          "fully_masked_rate": 0.0,
-          "char_leakage": 0.6317086527929902
+          "masked_recall": 1.0,
+          "fully_masked_rate": 1.0,
+          "char_leakage": 0.0
         },
         "DATE_OF_BIRTH": {
           "n": 88,

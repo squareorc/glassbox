@@ -27,6 +27,7 @@ Usage (from the repo root):
 
 import argparse
 import json
+import random
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -79,6 +80,15 @@ def _mean(rows: List[Dict[str, Any]]) -> Dict[str, float]:
     return {k: round(sum(r[k] for r in rows) / len(rows), 4) for k in keys} | {"n": len(rows)}
 
 
+def bootstrap_ci(values: List[float], n_resamples: int = 5000, seed: int = 0) -> List[float]:
+    """95% percentile-bootstrap confidence interval of the mean (questions resampled with replacement)."""
+    if not values:
+        return [0.0, 0.0]
+    rng = random.Random(seed)
+    means = sorted(sum(rng.choices(values, k=len(values))) / len(values) for _ in range(n_resamples))
+    return [round(means[int(0.025 * n_resamples)], 4), round(means[int(0.975 * n_resamples) - 1], 4)]
+
+
 def summarise(per_question: List[Dict[str, Any]]) -> Dict[str, Any]:
     summary = {}
     for split in ("dev", "test", "all"):
@@ -89,11 +99,13 @@ def summarise(per_question: List[Dict[str, Any]]) -> Dict[str, Any]:
             # this excludes them to show utility on the answerable ones.
             "answerable": _mean([r for r in rows if r["type"] != "identity"]),
             **{t: _mean([r for r in rows if r["type"] == t]) for t in QTYPES},
+            "answerable_evidence@auto_ci95": bootstrap_ci(
+                [r["evidence@auto"] for r in rows if r["type"] != "identity"]),
         }
     return summary
 
 
-def run_questions(retriever, qa_set, method, use_qa, weights=DEFAULT_WEIGHTS, per_note=PER_NOTE):
+def run_questions(retriever, qa_set, method, use_qa, weights=DEFAULT_WEIGHTS, per_note=PER_NOTE, **selection):
     """
     Retrieve MAX_K chunks per question and score every k on prefixes of that
     list (selection is prefix-consistent). "@auto" scores the k query
@@ -102,7 +114,7 @@ def run_questions(retriever, qa_set, method, use_qa, weights=DEFAULT_WEIGHTS, pe
     per_question = []
     for q in qa_set:
         results = retriever.retrieve(q["question"], k=MAX_K, method=method, qid=q["qid"],
-                                     use_query_analysis=use_qa, weights=weights, per_note=per_note)
+                                     use_query_analysis=use_qa, weights=weights, per_note=per_note, **selection)
         auto_k = retriever.auto_k(retriever.last_analysis)
         per_question.append({
             "qid": q["qid"], "type": q["type"], "split": q["split"], "auto_k": auto_k,
@@ -133,6 +145,41 @@ def tune_fusion(dataset: str, threshold: float, qa_set) -> List[Dict[str, Any]]:
                      "answerable_evidence@5": s["answerable"]["evidence@5"],
                      "answerable_recall@5": s["answerable"]["recall@5"],
                      "answerable_mrr": s["answerable"]["mrr"]})
+    return rows
+
+
+# ----------------------------------------------------------------------------
+# Selection ablation: each Day 3 retrieval change added in turn
+# ----------------------------------------------------------------------------
+
+SELECTION_STEPS = [
+    ("Day 2 selection", dict(redact_queries=False, demote_low_info=False, note_ordered=False, two_hop=False)),
+    ("+ question redaction", dict(redact_queries=True, demote_low_info=False, note_ordered=False, two_hop=False)),
+    ("+ demote low-information chunks", dict(redact_queries=True, demote_low_info=True, note_ordered=False, two_hop=False)),
+    ("+ note-ordered grouping", dict(redact_queries=True, demote_low_info=True, note_ordered=True, two_hop=False)),
+    ("+ two-hop answer sections (final)", dict(redact_queries=True, demote_low_info=True, note_ordered=True, two_hop=True)),
+]
+
+
+def selection_ablation(dataset: str, threshold: float, qa_set) -> List[Dict[str, Any]]:
+    """Redacted section index, hybrid, query analysis on. Steps were chosen on dev; test reported."""
+    retriever = Retriever(index_dir(dataset, "redacted", "section", threshold))
+    rows = []
+    for name, cfg in SELECTION_STEPS:
+        cfg = dict(cfg)
+        retriever.redact_queries = cfg.pop("redact_queries")
+        summary = summarise(run_questions(retriever, qa_set, "hybrid", True, **cfg))
+        row = {"step": name}
+        for split in ("dev", "test"):
+            s = summary[split]
+            row[split] = {"answerable_evidence@auto": s["answerable"]["evidence@auto"],
+                          "answerable_evidence@auto_ci95": s["answerable_evidence@auto_ci95"],
+                          "fact_evidence@auto": s["clinical_fact"]["evidence@auto"],
+                          "aggregate_evidence@auto": s["aggregate"]["evidence@auto"],
+                          "aggregate_recall@auto": s["aggregate"]["recall@auto"],
+                          "context_chars@auto": s["answerable"]["context_chars@auto"],
+                          "identity_recall@auto": s["identity"]["recall@auto"]}
+        rows.append(row)
     return rows
 
 
@@ -203,10 +250,23 @@ def main():
     parser.add_argument("--dataset", choices=["synthetic", "realistic"], default="realistic")
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--tune", action="store_true", help="Only run the dev-split fusion weight grid")
+    parser.add_argument("--ablate", action="store_true", help="Only run the selection ablation (dev + test)")
     args = parser.parse_args()
 
     qa_set = load_qa_set(DATA_ROOT / "raw" / args.dataset / "qa_eval_set.jsonl")
     RESULTS_ROOT.mkdir(parents=True, exist_ok=True)
+
+    if args.ablate:
+        rows = selection_ablation(args.dataset, args.threshold, qa_set)
+        print("Selection ablation (redacted section index, hybrid, query analysis on):")
+        for r in rows:
+            d, t = r["dev"], r["test"]
+            print(f"  {r['step']:<36} dev Ev {d['answerable_evidence@auto']:.3f} (agg {d['aggregate_evidence@auto']:.3f}) | "
+                  f"test Ev {t['answerable_evidence@auto']:.3f} CI {t['answerable_evidence@auto_ci95']} "
+                  f"(fact {t['fact_evidence@auto']:.3f}, agg {t['aggregate_evidence@auto']:.3f}) ctx {t['context_chars@auto']:.0f}")
+        with (RESULTS_ROOT / f"{args.dataset}_t{args.threshold:.2f}_selection_ablation.json").open("w") as f:
+            json.dump(rows, f, indent=2)
+        return
 
     if args.tune:
         rows = tune_fusion(args.dataset, args.threshold, qa_set)
