@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-22 (Day 4: claim verification complete; threshold sweep running)
+**Last updated:** 2026-11-22 (Day 4: claim verification complete; threshold sweep complete, §5.1)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -43,7 +43,7 @@
 | Citation-based generation (with abstain guard) | ✅ Done | `glassbox/src/generation/` |
 | Robustness / overfitting checks | ✅ Done (held-out results below) | `glassbox/src/robustness/` |
 | Claim verification (NLI, 4 labels) | ✅ Done | `glassbox/src/verification/` |
-| Redaction threshold sweep (privacy-utility curve) | ⏳ Running | `glassbox/src/experiments/threshold_sweep.py` |
+| Redaction threshold sweep (privacy-utility curve) | ✅ Done (§5.1) | `glassbox/src/experiments/threshold_sweep.py` |
 | End-to-end orchestrator with traces | ⬜ Day 5 | (planned `glassbox/run.py`) |
 | Audit dashboard (Streamlit) | ⬜ Days 5–6 | `glassbox/src/dashboard/` |
 | Experiments (privacy / utility / faithfulness) | ⬜ Day 6 | `glassbox/results/` |
@@ -239,6 +239,31 @@ Overall realistic F1 went from **0.838 (old README) to 0.893** on Day 1.
 | Case-insensitive patterns | Presidio's default flag let `[A-Z]` match lowercase words | Compile the new patterns case-sensitively | Tested |
 
 Overall realistic F1: **0.893 → 0.999**.
+
+### 5.1 Redaction threshold sweep (privacy-utility curve)
+
+**What:** the detector's confidence threshold (a detection is redacted only if its score is at least the threshold) was varied from 0.3 to 0.8. For each value the whole downstream pipeline was re-run from scratch: redaction of all 2,500 notes, a fresh index (`redacted-t<thr>-section`), retrieval on the test split, and generation on all 390 questions (reported on test). Script: `glassbox/src/experiments/threshold_sweep.py`; results: `glassbox/results/experiments/threshold_sweep.json`, plus per-threshold redaction reports `glassbox/results/redaction/realistic_t0.{30..80}.json`. Each point took about 19–24 minutes (about 2 hours in total, run overnight Nov 22).
+
+**Why:** 0.5 was used everywhere so far, and nobody had checked whether that choice mattered. The sweep shows what each side of the trade-off costs: privacy (PII leaked) against utility (clinical text kept, answers correct).
+
+| Threshold | Precision | Recall | F1 | Missed PII spans | Over-redactions (clinical text) | Char leakage | Phones fully leaked | Retrieval evidence@auto | Grounded accuracy (test) [95% CI] | Identity answered |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 0.30 | 0.809 | 0.999 | 0.894 | 23 | **4,219** | 0.24% | 0% | 0.952 | 0.869 [0.827, 0.907] | 0 |
+| 0.40 | 0.999 | 0.999 | 0.999 | 23 | 0 | 0.24% | 0% | 0.949 | 0.858 [0.815, 0.899] | 0 |
+| **0.50 (chosen)** | 0.999 | 0.999 | 0.999 | 23 | 0 | 0.24% | 0% | 0.949 | 0.858 [0.815, 0.899] | 0 |
+| 0.60 | 0.999 | 0.999 | 0.999 | 23 | 0 | 0.24% | 0% | 0.949 | 0.858 [0.815, 0.899] | 0 |
+| 0.70 | 0.999 | 0.999 | 0.999 | 23 | 0 | 0.24% | 0% | 0.949 | 0.858 [0.815, 0.899] | 0 |
+| 0.80 | 0.999 | 0.973 | 0.986 | **491** | 0 | **1.85%** | **15.6%** | 0.949 | 0.858 [0.815, 0.899] | 0 |
+
+**How measured:** precision, recall and F1 come from span matching against the generator's ground-truth entities. Char leakage is the share of PII characters left visible. "Phones fully leaked" comes from the leak audit (`leak_audit` in the JSON): the share of gold phone numbers that appear verbatim in the redacted index. Retrieval and generation use the same metrics and test split as §6 and §7, with bootstrap 95% CIs.
+
+**Findings:**
+- **Flat region from 0.4 to 0.7.** All metrics are identical across this range, so 0.5 sits in the middle of a stable plateau and the results don't depend on its exact value. This is the justification for the operating point: it was fixed before the sweep, and the sweep confirms that nearby choices give the same results.
+- **Below 0.4, over-redaction.** Several recognizers deliberately score 0.40–0.45 and only cross the threshold when a context word boosts them: bare 6–9 digit record numbers, bare 10-digit phones, street lines without a city or ZIP, written-out birth dates. At 0.3 they fire with no context at all, which gives 4,219 false redactions (PATIENT_ID F1 drops to 0.542) and destroys clinical numbers in the text.
+- **Above 0.7, leakage.** The context-boosted bare 10-digit phone pattern scores 0.40 + 0.35 boost = 0.75, so at 0.8 it never fires: 15.6% of phone numbers (the unformatted ones) leak verbatim, missed spans go from 23 to 491, and char leakage rises about 8×. Formatted phones (score 0.85) are still caught.
+- **0.3's higher accuracy (0.869) is not a real gain:** its CI overlaps 0.5's, and it comes from a setting that wipes out 4,219 pieces of clinical text.
+- **Limitation:** utility is insensitive to the 0.8 leak. Questions never ask about phone numbers, and identity questions are refused at every threshold, so accuracy can't detect it. The privacy metrics have to decide the upper end. For the same reason the "flat" utility curve says more about this QA set than about every possible use.
+- **Reproduction check:** the sweep re-ran 0.5 from scratch in its own folder and index. It reproduced the main results exactly (F1 0.999, evidence 0.949, grounded accuracy 0.858 [0.815, 0.899]; §5, §6, §7.2).
 
 ---
 
@@ -543,7 +568,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
   - corruptions of each genuine claim → expected not SUPPORTED: drug swap, dose change, vital/follow-up number change, negation, symptom swap (ideal CONTRADICTED); an invented extra drug, or the evidence replaced by the same section of another note with the same diagnosis (ideal UNSUPPORTED).
   - Identical claim + evidence pairs are counted once.
 - **Subject rewriting** (tried for the audit's misattribution finding): when the question named someone, a claim's generic subject is rewritten to "The person named in the question", which NLI correctly finds unsupported by any redacted note ("[NAME] is prescribed X" alone reads as entailed). See §7.5 for why this has little practical value.
-- Speed: about 57 ms per claim on the Apple GPU (measured while the threshold sweep shared the GPU).
+- Speed: about 28 ms per claim (premise options included) on the Apple GPU when idle: 863 test items, re-measured after the sweep. The 57 ms in `verifier_eval.json` was measured while the threshold sweep shared the GPU.
 
 ### 7.5 Claim verification: results (test split; `results/verification/verifier_eval.json`)
 
@@ -870,4 +895,5 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Finding: claim verification can't catch misattribution under redaction (93/94 guard-off claims SUPPORTED; 57/94 with subject rewriting); the guard is the protection.
 - Fixed a subject-rewrite bug (`[NAME]` not matched) found by its unit test.
 - Tests: 128 → 141 (137 passed, 3 slow skipped, all pass with `GLASSBOX_SLOW=1`; 1 documented xfail).
+- Threshold sweep finished overnight (§5.1): plateau from 0.4 to 0.7, over-redaction at 0.3 (4,219), phone leakage at 0.8 (15.6% of phones). 0.5 is justified, and its point reproduces the main results exactly. Verifier speed re-measured on an idle GPU: 28 ms per claim.
 
