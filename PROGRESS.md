@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-22 (Day 3: generation complete; robustness and overfitting checks done)
+**Last updated:** 2026-11-22 (Day 4: claim verification complete; threshold sweep running)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -21,7 +21,7 @@
 4. [Stage: QA evaluation set](#4-stage-qa-evaluation-set)
 5. [Stage: PII redaction](#5-stage-pii-redaction)
 6. [Stage: Retrieval](#6-stage-retrieval)
-7. [Stage: Cited generation](#7-stage-cited-generation)
+7. [Stage: Cited generation and claim verification](#7-stage-cited-generation-and-claim-verification)
 8. [Robustness and overfitting checks](#8-robustness-and-overfitting-checks)
 9. [Tests](#9-tests)
 10. [How to run](#10-how-to-run)
@@ -42,7 +42,8 @@
 | Retrieval (query analysis, two-hop selection) | ✅ Done | `glassbox/src/retrieval/` |
 | Citation-based generation (with abstain guard) | ✅ Done | `glassbox/src/generation/` |
 | Robustness / overfitting checks | ✅ Done (held-out results below) | `glassbox/src/robustness/` |
-| Claim verification (NLI, claims rewritten with the question's subject) | ⬜ Day 4 | `glassbox/src/verification/` |
+| Claim verification (NLI, 4 labels) | ✅ Done | `glassbox/src/verification/` |
+| Redaction threshold sweep (privacy-utility curve) | ⏳ Running | `glassbox/src/experiments/threshold_sweep.py` |
 | End-to-end orchestrator with traces | ⬜ Day 5 | (planned `glassbox/run.py`) |
 | Audit dashboard (Streamlit) | ⬜ Days 5–6 | `glassbox/src/dashboard/` |
 | Experiments (privacy / utility / faithfulness) | ⬜ Day 6 | `glassbox/results/` |
@@ -60,6 +61,8 @@
 | Identity questions answerable from the redacted index | **0.000** (raw index with BM25: 1.000) |
 | **Grounded answer accuracy** (answerable test questions, §7) | **0.858** [0.815, 0.899] (no-privacy baseline: 0.833) |
 | Identity questions answered by the system (§7) | **0** of 84 (guard off: 84 of 84, all from other people's notes) |
+| Corrupted claims caught by the verifier (§7.5) | **99.4%** [98.8, 99.9]; genuine claims wrongly flagged 1.2% (8.8% counting claims that cite incompletely) |
+| Answers the verifier marks VERIFIED vs not | grounded accuracy **0.906** vs 0.492 |
 
 **How far these numbers generalise (§8). Read before quoting anything above.**
 
@@ -82,8 +85,8 @@ The headline numbers hold for questions and notes shaped like the generators' te
 | — | Nov 20 | Independent audit of Days 1–2 (§12.1) | ✅ |
 | 3a | Nov 20 | Audit fixes (§12.1): address recognizer, clinical-term guard, names in clinical context, question redaction, query-analysis ranges / "or" / invalid dates, low-information demotion, note-ordered and two-hop selection, QA set ×3, bootstrap CIs, `requirements.txt` | ✅ |
 | 3 | Nov 21–22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation, abstain guard (§7). Then robustness and overfitting checks, general fixes, held-out evaluation (§8) | ✅ |
-| 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set. **Rewrite each claim with the question's subject before verifying** (§12.1 #1) | ⬜ |
-| 5 | Nov 24 | Orchestrator with trace JSON; start the dashboard; threshold sweep overnight. (The redaction fixes planned for this day were done on Day 3a.) | ⬜ |
+| 4 | Nov 22 | Verification: NLI verifier, 4 labels, corrupted-claim test set, model and margin chosen on dev (§7.4–7.5). Threshold sweep started overnight | ✅ (a day early) |
+| 5 | Nov 23–24 | Orchestrator with trace JSON (question → redaction → retrieval → generation → verification); regenerate stale logs; start the dashboard; write up the threshold sweep | ⬜ |
 | 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots, with 95% confidence intervals; abstention and false-attribution rates as privacy metrics | ⬜ |
 | 7 | Nov 26 | README and report refresh | ⬜ |
 | 8 | Nov 27 | Polish, buffer, demo rehearsal, backup video | ⬜ |
@@ -481,7 +484,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 
 ---
 
-## 7. Stage: Cited generation
+## 7. Stage: Cited generation and claim verification
 
 **What.** Stage 3 of the pipeline. A local LLM answers each question **only from the retrieved, redacted sections**, splits the answer into claims, and cites the section(s) each claim comes from. It refuses when it can't answer honestly. Code: `glassbox/src/generation/` (`prompt.py`, `parse.py`, `generator.py`, `evaluate.py`).
 
@@ -529,8 +532,39 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 - **Dev → test:** 0.941 → 0.919 plain accuracy, so the prompt isn't overfitted to dev.
 - **Weak spot: aggregate questions.** Grounded 0.622 against a retrieval ceiling of 0.847. The 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition; only 67% of its citations in aggregate answers come from gold notes.
 
-### 7.4 Not built yet
-- **Verification (Day 4).** An NLI model checks each claim against its cited chunk: **Supported / Contradicted / Unsupported / Uncertain**. Candidates (downloaded): `cross-encoder/nli-deberta-v3-base` and `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`. Evaluated on deliberately corrupted claims. Claims are rewritten with the question's subject before verifying: both models call "The patient is prescribed X" *entailed* by a redacted note but "John Wilkerson is prescribed X" *neutral*.
+### 7.4 Claim verification: design (Day 4)
+**What.** Stage 4. Every claim of an answer is checked against the chunk(s) it cites by a separate model, a natural-language-inference (NLI) classifier, so verification doesn't depend on the LLM that wrote the claim. Code: `glassbox/src/verification/` (`verifier.py`, `corruptions.py`, `evaluate.py`).
+
+- **NLI:** premise = a cited chunk (with its non-PII context line), hypothesis = the claim → P(entailment), P(neutral), P(contradiction). With several citations, each chunk alone and all of them together are tried, and the best-supporting premise is used.
+- **Labels:** SUPPORTED (entailment), CONTRADICTED (contradiction), UNSUPPORTED (neutral, or the claim cites nothing), UNCERTAIN (top two probabilities closer than a margin). An answer is VERIFIED if every claim is SUPPORTED, CONTRADICTED if any claim is, otherwise PARTLY / NOT VERIFIED.
+- **Model and margin chosen on the dev split** of the corrupted-claim set: `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` (balanced accuracy 0.967 vs 0.830 for `cross-encoder/nli-deberta-v3-base`). The UNCERTAIN margin is the smallest at which confident labels are ≥ 95% correct on dev. For the large model that is **0**: it's already 97.9% accurate with no margin, and accuracy stays flat (~0.978) up to a margin of 0.45 because its errors are *confident* (margins 0.7–1.0). A margin can't separate its errors from its correct answers, so with this model UNCERTAIN doesn't occur. It stays a label, used if another model or a stricter target gives a non-zero margin.
+- **Corrupted-claim test set** (`data/verification/corrupted_claims.jsonl`, 1,289 items; dev 426, test 863), built from the system's own Day 3 answers so it has exact ground truth:
+  - *genuine* claims (286): cite a gold note, contain a gold item found in the cited text, and every drug name and number in them appears in that text → expected SUPPORTED;
+  - corruptions of each genuine claim → expected not SUPPORTED: drug swap, dose change, vital/follow-up number change, negation, symptom swap (ideal CONTRADICTED); an invented extra drug, or the evidence replaced by the same section of another note with the same diagnosis (ideal UNSUPPORTED).
+  - Identical claim + evidence pairs are counted once.
+- **Subject rewriting** (tried for the audit's misattribution finding): when the question named someone, a claim's generic subject is rewritten to "The person named in the question", which NLI correctly finds unsupported by any redacted note ("[NAME] is prescribed X" alone reads as entailed). See §7.5 for why this has little practical value.
+- Speed: about 57 ms per claim on the Apple GPU (measured while the threshold sweep shared the GPU).
+
+### 7.5 Claim verification: results (test split; `results/verification/verifier_eval.json`)
+
+| Claim type | n | Said SUPPORTED | Agrees with ideal label | Labels |
+|---|---|---|---|---|
+| Genuine | 193 | 0.912 | 0.912 | 176 S, 16 U, 1 C |
+| Dose change | 95 | 0.000 | 0.958 | 91 C, 4 U |
+| Drug swap | 100 | 0.030 | 0.900 | 90 C, 7 U, 3 S |
+| Number change (HR, BP, weeks) | 61 | 0.000 | 1.000 | 61 C |
+| Negation | 33 | 0.000 | 0.818 | 27 C, 6 U |
+| Symptom swap | 21 | 0.000 | 0.905 | 19 C, 2 U |
+| Invented extra drug | 193 | 0.000 | 0.985 | 190 U, 3 C |
+| Wrong citation | 167 | 0.006 | 0.204 | 132 C, 34 U, 1 S |
+
+- **Corrupted claims caught: 99.4%** [98.8%, 99.9%]; balanced accuracy 0.953.
+- **Genuine claims wrongly flagged: 8.8% strict, 1.2% on clean claims.** 15 of the 17 flagged genuine claims restate the question's condition ("…prescribed to the COPD patients who presented with dyspnea in September 2024") while citing only the PLAN section, which doesn't show the symptom or month. The verifier is right that the citation doesn't support the whole claim; the generator cited incompletely (25 of 193 genuine test claims do this). Reported both ways; the ground truth was not relabelled.
+- **Wrong citations** are caught (0.6% pass) but mostly labelled CONTRADICTED rather than the ideal UNSUPPORTED: another note's plan says "Continue Amlodipine", which NLI reads as conflicting with "prescribed Lisinopril". Either label correctly means "not supported".
+- **The verdict tracks correctness on real answers** (test, 189 answerable): claims 211 SUPPORTED, 30 UNSUPPORTED, 1 CONTRADICTED. VERIFIED answers (165) have grounded accuracy **0.906**; NOT VERIFIED answers (21) **0.492**. So the label is a useful warning to the user.
+- **Verification can't catch misattribution under redaction.** On the guard-off identity answers, 93 of 94 claims are SUPPORTED: the evidence does say what the claim says; it just isn't about the person asked about, and redaction removes the only thing that could show that. Subject rewriting lowers this to 57 of 94 (bare claims like "Acetaminophen 650mg PO Q6H PRN" stay entailed). And it can only trigger when question redaction found an identifier, which is exactly when the guard has already refused. **Conclusion for the report: identity protection must be enforced before generation (the guard); claim-level verification checks evidence, not identity.**
+
+### 7.6 Not built yet
 - **Orchestrator, dashboard, experiments (Days 5–6).** See §2.
 
 ---
@@ -612,12 +646,13 @@ Share of PII values fully masked (for names: every personal-name word hidden; ti
 
 ## 9. Tests
 
-`python -m pytest glassbox/tests` → **126 passed, 1 skipped, 1 xfailed**. The skipped test loads the real 7B model; run it with `GLASSBOX_SLOW=1` (passes).
+`python -m pytest glassbox/tests` → **137 passed, 3 skipped, 1 xfailed**. The skipped tests load the real 7B model or the NLI model; run them with `GLASSBOX_SLOW=1` (all pass).
 
 | File | Covers |
 |---|---|
 | `tests/test_generalization.py` | Redaction on formats not in the data: dash IDs, MRN, numeric MRN after a label, US and written dates, 3 phone formats, full address. Day 3a: 5 address formats as single spans, street line only with context, case-sensitivity, clinical terms kept (drugs, SpO2, BP), field label "Email" kept, names before credentials / after labels / after "Dr.". Day 3 robustness: full state names and no-comma addresses, DOB variants, record numbers with/without context, accented names, "Pt"/dates/disease words kept. Plus regression tests for each Day 1 redaction fix. |
 | `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; ranges, several diagnoses, "May, 2025", invalid dates; no filters for identity questions; residual query; Chroma/Python filter agreement incl. `$in`. Selection: note grouping (both versions), filtered BM25 keeping zero-score chunks, auto-k, low-information classifier, ask/condition split, two-hop picks each gold note's answer section. Question redaction: names removed, clinical questions unchanged, the name never reaches the log. Day 3 robustness: written / day-first / ordinal / `M/YYYY` / `YYYY-MM` dates, standard abbreviations, condition split without "who", original-template analysis unchanged. |
+| `tests/test_verification.py` (Day 4) | Subject rewriting (incl. `[NAME]` as subject, bare claims), the label rule and UNCERTAIN margin, combined-evidence premises, genuine-claim detection, corruptions, the uncited-condition flag, the frozen set's consistency. With the model (`GLASSBOX_SLOW=1`): correct / changed-dose / uncited claims labelled SUPPORTED / CONTRADICTED / UNSUPPORTED, answer verdicts. |
 | `tests/test_generation.py` (Day 3) | Parser (fences, prose around JSON, truncated or malformed JSON, citation normalisation, invalid citations, uncited claims), the abstain guard (identifier / fallback / raw baseline), the guard never calling the model, prompt construction (note labels, no internal IDs in the prompt), question-name rules (spaCy misses, first name alone, possessives, diagnoses and drugs left alone), grounded accuracy (right drug from the wrong note scores 0). End-to-end test with the real model (`GLASSBOX_SLOW=1`). |
 
 - The full-address test was a strict `xfail` until Day 3a; it now passes.
@@ -660,6 +695,13 @@ python -m glassbox.src.qa.build_qa_set --notes glassbox/data/raw/realistic/synth
 python -m glassbox.src.generation.evaluate --dataset realistic
 python -m glassbox.src.generation.evaluate --rescore           # re-score saved answers, no model calls
 
+# Verification (corrupted-claim set from the saved generation answers, then evaluation, ~5 min)
+python -m glassbox.src.verification.corruptions
+python -m glassbox.src.verification.evaluate
+
+# Redaction threshold sweep, 0.3-0.8 (~2.5 h; --skip-generation for redaction + retrieval only)
+python -m glassbox.src.experiments.threshold_sweep
+
 # Robustness (set A = development, set B = held out)
 python -m glassbox.src.robustness.paraphrase                    # rebuild paraphrase set A
 python glassbox/src/robustness/evaluate_paraphrases.py --set b --generate
@@ -698,6 +740,10 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 | Nov 20 (3a) | Demote, not drop, placeholder-only chunks | They answer nothing and invite misattribution; demoting keeps them available if nothing else matches | Drop them (loses the ability to show the header in the dashboard) |
 | Nov 20 (3a) | Two-hop selection via ask/condition split | Aggregate questions need a qualifying section and an answer section per note | Answer-type section prior ("medications" → plan): rejected, hard-codes section names; whole-note chunks (2.7× context) |
 | Nov 20 (3a) | Fusion weights (2.0, 1.0) | Re-tuned on the 3× dev split with the final selection; plateau starts at 2.0 and it's best at k = 3 | (1.0, 1.0): 0.943 vs 0.968 dev |
+| Nov 22 (4) | NLI verifier DeBERTa-v3-large (MNLI/FEVER/ANLI/LingNLI/WANLI) | Dev balanced accuracy 0.967 vs 0.830 for DeBERTa-v3-base; same speed | Base model; using the generating LLM to self-check (not independent) |
+| Nov 22 (4) | UNCERTAIN = top-two probability margin, chosen on dev for >= 95% accuracy on confident labels -> 0 | Pre-stated rule; the large model's errors are confident, so a margin can't isolate them | A hand-picked margin |
+| Nov 22 (4) | Corrupted-claim set from the system's own answers | Exact ground truth on realistic claims | Hand-written claims (few, less realistic) |
+| Nov 22 (4) | Report false alarms strict and on clean claims; flag, don't relabel | Most "false alarms" are incomplete citations by the generator; relabelling after seeing results would flatter the verifier | Relabel genuine claims |
 | Nov 21 (3) | Abstain guard in code, before the model | The model treats `[NAME]` as the person asked about; guard off it answers 84/84 identity questions from other people's notes | Prompt instruction only (can be ignored by the model) |
 | Nov 21 (3) | JSON output with per-claim citations | Clean input for the Day 4 verifier; malformed output is detectable and retried | Free text with inline [C1] markers |
 | Nov 21 (3) | Greedy decoding (temperature 0) | Reproducible numbers | Sampling |
@@ -712,11 +758,13 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 
 ## 12. Known issues / open items
 
+- **Incomplete citations in multi-hop claims (§7.5).** 13% of genuine test claims restate the question's condition (symptom, month) but cite only the section with the drug. Fix candidate: a prompt rule to cite every section a claim relies on, tuned on dev (Day 8 if time).
+- **The verifier is confidently wrong when it's wrong (§7.4).** Its margin can't flag its own errors, so UNCERTAIN doesn't occur with the chosen model. Report as a calibration limitation.
 - **Generalisation to unseen wording (§8.3).** Held-out paraphrases: retrieval evidence 0.579, grounded accuracy 0.502, against 0.949 / 0.858 on template wording. Main causes: "29-Sep-2024"-style dates, European day-first numeric dates read in US order, other date formats, "w/" not recognised as a condition marker, Title-Case questions tripping the question-name rule (the system then refuses).
 - **Redaction on unseen note formats (§8.5).** Held-out OOD notes: 0.819 fully masked. PO boxes, multi-line addresses and addresses without a ZIP are not caught; names of Turkish (0.57), Vietnamese (0.70) and Spanish (0.73) origin are missed more often than English ones (0.97).
 - **Aggregate answers (§7.3).** Grounded accuracy 0.622 against a retrieval ceiling of 0.847: the 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition.
 - **Brand-name drugs in questions** ("What is prescribed for Jardiance?") can trip the single-name rule; the system then refuses (privacy preferred over answering).
-- **Misattribution under redaction (§12.1 #1).** Fixed for questions that name someone: the abstain guard refuses 84/84 (guard off: 84/84 answered from other people's notes). Still open: claims rewritten with the question's subject before verification (Day 4).
+- **Misattribution under redaction (§12.1 #1).** Fixed for questions that name someone: the abstain guard refuses 84/84 (guard off: 84/84 answered from other people's notes). Day 4 showed verification can't be a second line of defence here (§7.5); protection depends on question redaction catching the identifier.
 - **Titles are quasi-identifiers.** "Mrs. [NAME]" keeps the title, which reveals gender and let one redacted identity question match its note. Option: redact titles with the name; worth one sentence in the report either way.
 - **Redaction generalisation limits** (for the report's limitations section; found by probing, not in the data): all-lowercase addresses are only partly caught; insurance member numbers, hospital names and birth years before 1936 are not redacted. Lowercase names, relatives' names, valid SSNs and numeric MRNs after a label are.
 - **The redaction numbers are in-distribution.** 0.999 F1 is measured on synthetic notes from the same generator the recognizers were checked against. The hand-written generalisation tests (§9) are the evidence for other formats.
@@ -742,7 +790,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 
 | # | Severity | Finding | Evidence | Fix (day) |
 |---|---|---|---|---|
-| 1 | Critical | **Misattribution under redaction.** Asked "What is John Wilkerson's medication?" with a redacted note as context, Qwen answered with that note's drug, treating `[NAME]` as John. It phrased the claim "The patient is prescribed …", which both NLI models label *entailment* (Supported). "Identity recall 0.000" only shows retrieval can't find the person; without a guard the full system would still give a confident, verified, wrong answer. | Smoke test. With the name in the claim ("John Wilkerson is prescribed …") both models say *neutral* (Unsupported). | Abstain rule (Day 3); rewrite claims with the question's subject before verifying (Day 4); report abstention and false-attribution rates as privacy metrics (Day 6) **Status: ✅ guard fixed Day 3** (0/84 identity questions answered; §7.3); claim rewriting for the verifier is Day 4. |
+| 1 | Critical | **Misattribution under redaction.** Asked "What is John Wilkerson's medication?" with a redacted note as context, Qwen answered with that note's drug, treating `[NAME]` as John. It phrased the claim "The patient is prescribed …", which both NLI models label *entailment* (Supported). "Identity recall 0.000" only shows retrieval can't find the person; without a guard the full system would still give a confident, verified, wrong answer. | Smoke test. With the name in the claim ("John Wilkerson is prescribed …") both models say *neutral* (Unsupported). | Abstain rule (Day 3); rewrite claims with the question's subject before verifying (Day 4); report abstention and false-attribution rates as privacy metrics (Day 6) **Status: ✅ guard fixed Day 3** (0/84 identity questions answered; §7.3). Day 4: claim verification can't catch misattribution under redaction (§7.5), so the guard is the protection. |
 | 2 | Critical | **The question itself isn't redacted.** A name typed into the question reaches the LLM prompt, the query embedding and the retrieval log. | `retriever.py` uses the raw query | Redact the question at entry; detected identifiers also trigger the abstain rule in #1 (Day 3) **Status: ✅ fixed Day 3a** (§6.6). |
 | 3 | Important | **Aggregate evidence 0.52 is a two-hop selection problem.** 6 of 21 aggregate test questions have zero evidence despite recall 1.0. The qualifying symptom is in *subjective*, the medication in *plan*; after the qualifying sections, the remaining slots go to *other* notes' plan sections. | e.g. ag-012, ag-020, ag-027 retrieve every gold note's subjective section, then non-gold plans | After selecting qualifying notes, add each one's answer section (plan / medications) (Day 3) **Status: ✅ fixed Day 3a**: two-hop selection, test aggregate evidence 0.553 → 0.847 (§6.4, §6.8). |
 | 4 | Important | **NAME precision 0.84 is mostly an address problem.** Of ~1,130 NAME spans not matching gold exactly, 965 are address fragments and 92 are "Dr. X" where gold includes the title (name masked, scored as an error). Pure false positives: 148 (§12). | Audit log vs. gold spans | Day 5 address fix also raises NAME precision **Status: ✅ fixed Day 3a**: NAME precision 0.841 → 0.999, "Email" kept (§5). |
@@ -811,4 +859,15 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Froze held-out set B before any fix (commits `2f0bb6b`, `a0047eb`), made general fixes on set A, evaluated set B once: retrieval 0.324 → 0.579, grounded accuracy 0.502, OOD redaction 0.672 → 0.819.
 - Original-template results unchanged by the fixes (query analysis identical on all 550 QA questions; redacted notes byte-identical).
 - Tests: 71 → 128 (126 passed, 1 skipped slow-model test which passes with `GLASSBOX_SLOW=1`, 1 documented xfail).
+
+### Day 4: Nov 22 (claim verification)
+- Sanity check of Day 3: headline numbers recomputed independently from raw logs (match), generation deterministic (6/6 identical re-runs), held-out protocol verified from git history. Found stale pre-fix logs with one name and 4 identity questions whose retrieval changed (recall still 0): regenerate on Day 5.
+- Started the full redaction threshold sweep (0.3–0.8, all 390 questions).
+- Built the NLI verifier (4 labels), the corrupted-claim test set (1,289 items) and its evaluation (§7.4–7.5).
+- Chose DeBERTa-v3-large on dev (0.967 vs 0.830); UNCERTAIN margin 0 by the pre-stated rule (errors are confident).
+- Test: 99.4% of corrupted claims caught; 1.2% of clean genuine claims flagged (8.8% strict, mostly incomplete citations by the generator).
+- VERIFIED answers: grounded accuracy 0.906 vs 0.492 for NOT VERIFIED.
+- Finding: claim verification can't catch misattribution under redaction (93/94 guard-off claims SUPPORTED; 57/94 with subject rewriting); the guard is the protection.
+- Fixed a subject-rewrite bug (`[NAME]` not matched) found by its unit test.
+- Tests: 128 → 141 (137 passed, 3 slow skipped, all pass with `GLASSBOX_SLOW=1`; 1 documented xfail).
 

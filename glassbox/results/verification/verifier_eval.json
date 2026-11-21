@@ -1,0 +1,500 @@
+{
+  "n_items": {
+    "dev": 426,
+    "test": 863
+  },
+  "target_accuracy": 0.95,
+  "models": {
+    "cross-encoder/nli-deberta-v3-base": {
+      "dev_balanced_accuracy": 0.8299,
+      "dev_per_kind": {
+        "dose_change": {
+          "n": 50,
+          "said_supported": 0.02,
+          "ideal_label_agreement": 0.86,
+          "labels": {
+            "CONTRADICTED": 43,
+            "UNSUPPORTED": 6,
+            "SUPPORTED": 1
+          }
+        },
+        "drug_swap": {
+          "n": 51,
+          "said_supported": 0.1569,
+          "ideal_label_agreement": 0.6078,
+          "labels": {
+            "CONTRADICTED": 31,
+            "SUPPORTED": 8,
+            "UNSUPPORTED": 12
+          }
+        },
+        "genuine": {
+          "n": 93,
+          "said_supported": 0.6989,
+          "ideal_label_agreement": 0.6989,
+          "labels": {
+            "SUPPORTED": 65,
+            "UNSUPPORTED": 18,
+            "CONTRADICTED": 10
+          }
+        },
+        "negation": {
+          "n": 16,
+          "said_supported": 0.125,
+          "ideal_label_agreement": 0.4375,
+          "labels": {
+            "SUPPORTED": 2,
+            "UNSUPPORTED": 7,
+            "CONTRADICTED": 7
+          }
+        },
+        "number_change": {
+          "n": 24,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 1,
+          "labels": {
+            "CONTRADICTED": 24
+          }
+        },
+        "symptom_swap": {
+          "n": 12,
+          "said_supported": 0.0833,
+          "ideal_label_agreement": 0.8333,
+          "labels": {
+            "CONTRADICTED": 10,
+            "SUPPORTED": 1,
+            "UNSUPPORTED": 1
+          }
+        },
+        "unsupported_addition": {
+          "n": 93,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 1,
+          "labels": {
+            "UNSUPPORTED": 93
+          }
+        },
+        "wrong_citation": {
+          "n": 87,
+          "said_supported": 0.0115,
+          "ideal_label_agreement": 0.1609,
+          "labels": {
+            "CONTRADICTED": 72,
+            "SUPPORTED": 1,
+            "UNSUPPORTED": 14
+          }
+        }
+      },
+      "dev_margin_table": [
+        {
+          "margin": 0.0,
+          "coverage": 1.0,
+          "accuracy_on_covered": 0.9038
+        },
+        {
+          "margin": 0.05,
+          "coverage": 0.9953,
+          "accuracy_on_covered": 0.9057
+        },
+        {
+          "margin": 0.1,
+          "coverage": 0.9953,
+          "accuracy_on_covered": 0.9057
+        },
+        {
+          "margin": 0.15,
+          "coverage": 0.9953,
+          "accuracy_on_covered": 0.9057
+        },
+        {
+          "margin": 0.2,
+          "coverage": 0.993,
+          "accuracy_on_covered": 0.9054
+        },
+        {
+          "margin": 0.25,
+          "coverage": 0.9859,
+          "accuracy_on_covered": 0.9119
+        },
+        {
+          "margin": 0.3,
+          "coverage": 0.9812,
+          "accuracy_on_covered": 0.9115
+        },
+        {
+          "margin": 0.35,
+          "coverage": 0.9765,
+          "accuracy_on_covered": 0.9135
+        },
+        {
+          "margin": 0.4,
+          "coverage": 0.9742,
+          "accuracy_on_covered": 0.9133
+        },
+        {
+          "margin": 0.45,
+          "coverage": 0.9718,
+          "accuracy_on_covered": 0.913
+        },
+        {
+          "margin": 0.5,
+          "coverage": 0.9695,
+          "accuracy_on_covered": 0.9153
+        },
+        {
+          "margin": 0.55,
+          "coverage": 0.9671,
+          "accuracy_on_covered": 0.9175
+        },
+        {
+          "margin": 0.6,
+          "coverage": 0.9601,
+          "accuracy_on_covered": 0.9169
+        },
+        {
+          "margin": 0.65,
+          "coverage": 0.9601,
+          "accuracy_on_covered": 0.9169
+        },
+        {
+          "margin": 0.7,
+          "coverage": 0.9601,
+          "accuracy_on_covered": 0.9169
+        },
+        {
+          "margin": 0.75,
+          "coverage": 0.9554,
+          "accuracy_on_covered": 0.9165
+        },
+        {
+          "margin": 0.8,
+          "coverage": 0.9507,
+          "accuracy_on_covered": 0.916
+        },
+        {
+          "margin": 0.85,
+          "coverage": 0.946,
+          "accuracy_on_covered": 0.9181
+        },
+        {
+          "margin": 0.9,
+          "coverage": 0.9249,
+          "accuracy_on_covered": 0.9188
+        },
+        {
+          "margin": 0.95,
+          "coverage": 0.8732,
+          "accuracy_on_covered": 0.922
+        }
+      ]
+    },
+    "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli": {
+      "dev_balanced_accuracy": 0.9671,
+      "dev_per_kind": {
+        "dose_change": {
+          "n": 50,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 0.94,
+          "labels": {
+            "CONTRADICTED": 47,
+            "UNSUPPORTED": 3
+          }
+        },
+        "drug_swap": {
+          "n": 51,
+          "said_supported": 0.0392,
+          "ideal_label_agreement": 0.902,
+          "labels": {
+            "CONTRADICTED": 46,
+            "SUPPORTED": 2,
+            "UNSUPPORTED": 3
+          }
+        },
+        "genuine": {
+          "n": 93,
+          "said_supported": 0.9462,
+          "ideal_label_agreement": 0.9462,
+          "labels": {
+            "SUPPORTED": 88,
+            "UNSUPPORTED": 5
+          }
+        },
+        "negation": {
+          "n": 16,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 0.625,
+          "labels": {
+            "CONTRADICTED": 10,
+            "UNSUPPORTED": 6
+          }
+        },
+        "number_change": {
+          "n": 24,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 1,
+          "labels": {
+            "CONTRADICTED": 24
+          }
+        },
+        "symptom_swap": {
+          "n": 12,
+          "said_supported": 0.0,
+          "ideal_label_agreement": 1,
+          "labels": {
+            "CONTRADICTED": 12
+          }
+        },
+        "unsupported_addition": {
+          "n": 93,
+          "said_supported": 0.0108,
+          "ideal_label_agreement": 0.9892,
+          "labels": {
+            "UNSUPPORTED": 92,
+            "SUPPORTED": 1
+          }
+        },
+        "wrong_citation": {
+          "n": 87,
+          "said_supported": 0.0115,
+          "ideal_label_agreement": 0.1379,
+          "labels": {
+            "CONTRADICTED": 74,
+            "UNSUPPORTED": 12,
+            "SUPPORTED": 1
+          }
+        }
+      },
+      "dev_margin_table": [
+        {
+          "margin": 0.0,
+          "coverage": 1.0,
+          "accuracy_on_covered": 0.9789
+        },
+        {
+          "margin": 0.05,
+          "coverage": 0.9977,
+          "accuracy_on_covered": 0.9788
+        },
+        {
+          "margin": 0.1,
+          "coverage": 0.9953,
+          "accuracy_on_covered": 0.9788
+        },
+        {
+          "margin": 0.15,
+          "coverage": 0.9906,
+          "accuracy_on_covered": 0.9787
+        },
+        {
+          "margin": 0.2,
+          "coverage": 0.9859,
+          "accuracy_on_covered": 0.9786
+        },
+        {
+          "margin": 0.25,
+          "coverage": 0.9836,
+          "accuracy_on_covered": 0.9785
+        },
+        {
+          "margin": 0.3,
+          "coverage": 0.9789,
+          "accuracy_on_covered": 0.9784
+        },
+        {
+          "margin": 0.35,
+          "coverage": 0.9695,
+          "accuracy_on_covered": 0.9782
+        },
+        {
+          "margin": 0.4,
+          "coverage": 0.9695,
+          "accuracy_on_covered": 0.9782
+        },
+        {
+          "margin": 0.45,
+          "coverage": 0.9601,
+          "accuracy_on_covered": 0.9804
+        },
+        {
+          "margin": 0.5,
+          "coverage": 0.9554,
+          "accuracy_on_covered": 0.9803
+        },
+        {
+          "margin": 0.55,
+          "coverage": 0.9531,
+          "accuracy_on_covered": 0.9803
+        },
+        {
+          "margin": 0.6,
+          "coverage": 0.9484,
+          "accuracy_on_covered": 0.9802
+        },
+        {
+          "margin": 0.65,
+          "coverage": 0.9437,
+          "accuracy_on_covered": 0.9801
+        },
+        {
+          "margin": 0.7,
+          "coverage": 0.9343,
+          "accuracy_on_covered": 0.9799
+        },
+        {
+          "margin": 0.75,
+          "coverage": 0.9296,
+          "accuracy_on_covered": 0.9798
+        },
+        {
+          "margin": 0.8,
+          "coverage": 0.9202,
+          "accuracy_on_covered": 0.9796
+        },
+        {
+          "margin": 0.85,
+          "coverage": 0.8967,
+          "accuracy_on_covered": 0.9791
+        },
+        {
+          "margin": 0.9,
+          "coverage": 0.8615,
+          "accuracy_on_covered": 0.9837
+        },
+        {
+          "margin": 0.95,
+          "coverage": 0.8028,
+          "accuracy_on_covered": 0.9825
+        }
+      ]
+    }
+  },
+  "chosen": {
+    "model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "margin": 0.0
+  },
+  "test": {
+    "balanced_accuracy": 0.953,
+    "coverage": 1.0,
+    "accuracy_on_covered": 0.9757,
+    "false_alarm_on_genuine": 0.0881,
+    "false_alarm_on_genuine_clean": 0.0119,
+    "genuine_asserting_uncited_condition": 25,
+    "corruptions_caught": 0.994,
+    "corruptions_caught_ci95": [
+      0.9881,
+      0.9985
+    ],
+    "per_kind": {
+      "dose_change": {
+        "n": 95,
+        "said_supported": 0.0,
+        "ideal_label_agreement": 0.9579,
+        "labels": {
+          "CONTRADICTED": 91,
+          "UNSUPPORTED": 4
+        }
+      },
+      "drug_swap": {
+        "n": 100,
+        "said_supported": 0.03,
+        "ideal_label_agreement": 0.9,
+        "labels": {
+          "CONTRADICTED": 90,
+          "SUPPORTED": 3,
+          "UNSUPPORTED": 7
+        }
+      },
+      "genuine": {
+        "n": 193,
+        "said_supported": 0.9119,
+        "ideal_label_agreement": 0.9119,
+        "labels": {
+          "SUPPORTED": 176,
+          "UNSUPPORTED": 16,
+          "CONTRADICTED": 1
+        }
+      },
+      "negation": {
+        "n": 33,
+        "said_supported": 0.0,
+        "ideal_label_agreement": 0.8182,
+        "labels": {
+          "CONTRADICTED": 27,
+          "UNSUPPORTED": 6
+        }
+      },
+      "number_change": {
+        "n": 61,
+        "said_supported": 0.0,
+        "ideal_label_agreement": 1,
+        "labels": {
+          "CONTRADICTED": 61
+        }
+      },
+      "symptom_swap": {
+        "n": 21,
+        "said_supported": 0.0,
+        "ideal_label_agreement": 0.9048,
+        "labels": {
+          "CONTRADICTED": 19,
+          "UNSUPPORTED": 2
+        }
+      },
+      "unsupported_addition": {
+        "n": 193,
+        "said_supported": 0.0,
+        "ideal_label_agreement": 0.9845,
+        "labels": {
+          "UNSUPPORTED": 190,
+          "CONTRADICTED": 3
+        }
+      },
+      "wrong_citation": {
+        "n": 167,
+        "said_supported": 0.006,
+        "ideal_label_agreement": 0.2036,
+        "labels": {
+          "CONTRADICTED": 132,
+          "UNSUPPORTED": 34,
+          "SUPPORTED": 1
+        }
+      }
+    },
+    "ms_per_item": 56.6
+  },
+  "real_answers_test": {
+    "claim_labels": {
+      "SUPPORTED": 211,
+      "UNSUPPORTED": 30,
+      "CONTRADICTED": 1
+    },
+    "answer_verdicts": {
+      "VERIFIED": {
+        "n": 165,
+        "grounded_accuracy": 0.9061
+      },
+      "NOT_VERIFIED": {
+        "n": 21,
+        "grounded_accuracy": 0.4921
+      },
+      "PARTLY_VERIFIED": {
+        "n": 2,
+        "grounded_accuracy": 1.0
+      },
+      "CONTRADICTED": {
+        "n": 1,
+        "grounded_accuracy": 0.3333
+      }
+    }
+  },
+  "guard_off_identity_claims": {
+    "without_rewriting": {
+      "SUPPORTED": 93,
+      "UNSUPPORTED": 1
+    },
+    "with_rewriting": {
+      "SUPPORTED": 57,
+      "UNSUPPORTED": 37
+    }
+  }
+}
