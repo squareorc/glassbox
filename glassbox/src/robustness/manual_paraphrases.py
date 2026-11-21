@@ -1,0 +1,77 @@
+"""
+Held-out paraphrase set B, part 1: written by hand (Claude), one at a time,
+on 2026-11-21 BEFORE any of the robustness fixes were made, and committed
+before them (see git history). Never used while developing fixes.
+
+Each rewording keeps exactly the original question's facts (diagnosis,
+visit date or month, symptom, and what is asked). Styles deliberately differ
+from set A's templates: typos, two-sentence questions, ordinal dates,
+lowercase shorthand, conversational and terse phrasing.
+
+Known bias: the author had seen set A's failures, so this half may be easier
+or harder for the fixed system in ways that reflect that knowledge. Results
+are reported separately from the Qwen-written half for that reason.
+"""
+
+MANUAL = {
+    "realistic-cf-054": "the asthma pt I saw on June 23rd 2026 - when do they need to come back in? how many weeks?",
+    "realistic-cf-057": "Looking at the COPD visit from 23/08/2025... sorry, August 23, 2025. What labs did we order?",
+    "realistic-cf-060": "Pulse for the coronary artery disease patient, visit of 6 July 2025?",
+    "realistic-cf-063": "What was the CAD patient seen on 26 January 2026 put on, medication-wise?",
+    "realistic-cf-066": "Type 2 diabetic seen 07/19/2026. What was their heart rate?",
+    "realistic-cf-069": "copd pt 2025-07-01, which drug was prescribed",
+    "realistic-cf-072": "I need the HR from the hypertension visit on Nov. 16, 2025.",
+    "realistic-cf-075": "What was the presenting complaint of the CKD stage 3 patient seen on the 16th of June 2025?",
+    "realistic-cf-078": "Coronary artery disease, 24 Oct 2024 — what did the BP read?",
+    "realistic-cf-081": "Osteoarthritis follow-up: the patient seen 2026-08-04 should return after how many weeks?",
+    "realistic-cf-084": "What brought the asthma patient in on July 30, 2026?",
+    "realistic-cf-087": "Blood pressure please for the asthmatic seen on New Year's Eve 2024 (2024-12-31).",
+    "realistic-cf-090": "For the chronic kidney disease patient (stage 3) on 10/09/2024 — I mean October 9 2024 — what's the follow up interval?",
+    "realistic-cf-093": "Which bloodwork was requested at the CKD visit on 13 October 2025?",
+    "realistic-cf-096": "What heartrate did the copd patient have on feb 1 2026?",
+    "realistic-cf-099": "The patient with major depression seen on January 4, 2025: what were they prescribed?",
+    "realistic-cf-102": "BP reading, hypertensive patient, 19 Sep 2025?",
+    "realistic-cf-105": "On 2024-12-09 a COPD patient was seen. What were they complaining of?",
+    "realistic-cf-108": "osteoarthritis visit may 21 2026 - chief complaint?",
+    "realistic-cf-111": "What symptom did the depressed patient report at the October 11, 2025 appointment?",
+    "realistic-cf-114": "Can you tell me which medication the osteoarthritis patient got on March 10th, 2025?",
+    "realistic-cf-117": "Heart rate for the coronary artery disease encounter on 2025-01-14, please.",
+    "realistic-cf-120": "When is the asthma patient from 12 April 2025 due back (weeks)?",
+    "realistic-cf-123": "MDD patient, seen April 13 2026. Follow-up planned in how many weeks?",
+    "realistic-cf-126": "What lab tests were ordered for the asthma patient on 6 May 2026?",
+    "realistic-cf-129": "How many weeks until the next visit for the coronary artery disease patient seen on April 7, 2025?",
+    "realistic-cf-132": "Labs ordered for the essential hypertension appointment of 24 November 2025?",
+    "realistic-cf-135": "Depression patient seen Dec 31 2024 — how many weeks till follow up?",
+    "realistic-cf-138": "For the CKD 3 patient on 2026-08-08, what investigations were ordered?",
+    "realistic-cf-141": "kidney disease stage 3, visit 30 October 2024: follow-up in how many weeks?",
+    "realistic-cf-144": "What did we order lab-wise for the asthma visit on April 15 2025?",
+    "realistic-cf-147": "Osteoarthritis patient 8 April 2026. When should they be followed up, in weeks?",
+    "realistic-cf-150": "Which diabetes medication was prescribed to the type 2 diabetic on 18 September 2025?",
+    "realistic-cf-153": "Heart rate of the major depressive disorder patient seen 22 March 2025?",
+    "realistic-cf-156": "osteoarthritis appt 1 feb 2026, meds prescribed?",
+    "realistic-cf-159": "Asthma patient, March 9 2025. What was the pulse rate?",
+    "realistic-cf-162": "Why did the type 2 diabetes patient come in on November 20, 2024? What symptom?",
+    "realistic-cf-165": "What was the complaint at the hypertension visit on 7 Nov 2024?",
+    "realistic-cf-168": "Blood presure for the essential hypertension pt on October 5 2024?",
+    "realistic-cf-171": "The hypertension patient seen on May 31, 2025 — follow-up scheduled after how many weeks?",
+    "realistic-ag-027": "In May 2025, which meds were given to type 2 diabetics who came in with polyuria?",
+    "realistic-ag-030": "Diabetic patients complaining of polydipsia during May 2025 — what were they prescribed?",
+    "realistic-ag-033": "Sept 2024: COPD patients with dyspnea. List their medications.",
+    "realistic-ag-036": "What were the osteoarthritis patients with swelling put on in Feb 2025?",
+    "realistic-ag-039": "Which drugs did hypertensive patients presenting with dizziness receive in May 2025?",
+    "realistic-ag-042": "Depressed patients who had poor concentration, December 2024. What medications?",
+    "realistic-ag-045": "Medications for CKD stage 3 patients with edema seen in May 2026?",
+    "realistic-ag-048": "What did the chronic kidney disease patients with nausea get prescribed in June 2025?",
+    "realistic-ag-051": "copd patients w/ sputum production in june 2025 - meds?",
+    "realistic-ag-054": "Give me the medications prescribed to major depressive disorder patients reporting fatigue in June 2025.",
+    "realistic-ag-057": "For COPD patients seen with wheezing in May 2026, which medications were prescribed?",
+    "realistic-ag-060": "Type 2 diabetes patients with neuropathy in April 2026 — what were they on?",
+    "realistic-ag-063": "In January 2025, depression patients with anhedonia were prescribed what?",
+    "realistic-ag-066": "COPD, sputum production, April 2026. Which drugs were prescribed?",
+    "realistic-ag-069": "What medications did osteoarthritis patients with morning stiffness receive in Dec 2025?",
+    "realistic-ag-072": "Osteoarthritis patients reporting morning stiffness in July 2026: list the prescriptions.",
+    "realistic-ag-075": "Which meds were the CKD3 patients with nausea given in May 2026?",
+    "realistic-ag-078": "CAD patients who complained of fatigue in February 2025 — medications prescribed?",
+    "realistic-ag-081": "What were chronic kidney disease stage 3 patients presenting with edema prescribed in October 2025?",
+    "realistic-ag-084": "Which medications were given in September 2025 to MDD patients with poor concentration?",
+}
