@@ -23,7 +23,17 @@ US_STATES = (
     "NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC "
     "AS GU MP PR VI FM MH PW"  # territories and freely associated states
 ).split()
-_STATE = "(?:" + "|".join(US_STATES) + ")"
+US_STATE_NAMES = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida",
+    "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+    "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska",
+    "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+    "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
+    "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia",
+    "Puerto Rico", "Guam",
+]
+# Robustness fix (OOD set A): full state names ("Springfield, Illinois 62704") were not matched.
+_STATE = "(?:" + "|".join(sorted(US_STATE_NAMES, key=len, reverse=True) + US_STATES) + ")"
 _ZIP = r"\d{5}(?:-\d{4})?"
 _WORD = r"[A-Z][A-Za-z'\-]*"  # a capitalised word (street or city name)
 _UNIT = r"(?:,?[ ]+(?:Apt\.?|Apartment|Suite|Ste\.?|Unit|Rm\.?|Room|Fl\.?|Floor|#)[ ]*[A-Za-z0-9\-]+)"
@@ -32,7 +42,8 @@ ADDRESS_PATTERNS = [
     # "0288 Robert Lake Suite 860, West Lorihaven, AL 34055", "42 Oak Street, Springfield, IL 62704"
     Pattern(
         name="us_street_address",
-        regex=rf"\b\d{{1,6}}[ ]+{_WORD}(?:[ ]+{_WORD}){{0,4}}\.?{_UNIT}?,[ ]+{_CITY},?[ ]+{_STATE}[ ]+{_ZIP}\b",
+        # Commas optional (robustness fix, OOD set A: "12 Oak St Springfield IL 62704" was missed)
+        regex=rf"\b\d{{1,6}}[ ]+{_WORD}(?:[ ]+{_WORD}){{0,4}}\.?{_UNIT}?,?[ ]+{_CITY},?[ ]+{_STATE}[ ]+{_ZIP}\b",
         score=0.95,
     ),
     # Military mail: "Unit 4724 Box 3586, DPO AE 64879", "PSC 1234, Box 5678, APO AA 12345",
@@ -64,7 +75,9 @@ CASE_SENSITIVE = re.MULTILINE | re.DOTALL
 # right before a credential ("Lance Hebert, MD" on a signature line) and
 # right after a form label ("Referring Physician: Autumn Sharp",
 # "Electronically signed by Tiffany Wilson"). A name is 2-3 capitalised words.
-_NAME = r"[A-Z][a-z'\-]+(?:[ ][A-Z]\.)?(?:[ ][A-Z][a-z'\-]+){1,2}"
+# \p{Lu}/\p{Ll}: any script's upper/lower-case letters, so accented names (Müller, Çamurcuoğlu)
+# match too (robustness fix; Presidio compiles patterns with the `regex` module).
+_NAME = r"\p{Lu}[\p{Ll}'\-]+(?:[ ]\p{Lu}\.)?(?:[ ]\p{Lu}[\p{Ll}'\-]+){1,2}"
 _CREDENTIAL = r"(?:MD|DO|RN|NP|PA-C|PA|PhD|DDS|DMD|MBBS|FACP|FNP|APRN)"
 _LABELS = ["Patient: ", "PATIENT: ", "Name: ", "Physician: ", "Provider: ", "Attending: ",
            "Clinician: ", "Nurse: ", "signed by ", "Signed by ", "Dr. ", "Dr "]
@@ -117,10 +130,16 @@ class PIIDetector:
             # Purely numeric record number after an explicit label ("MRN: 00482913")
             Pattern(name="patient_id_labelled_number",
                     regex=r"(?:(?<=MRN: )|(?<=MRN:)|(?<=MRN# )|(?<=MRN #)|(?<=MRN ))\d{5,10}\b", score=0.95),
+            # A bare 6-9 digit number scores below the threshold and only counts with a record-type
+            # word nearby ("Record number 1234567", "Medical Record #", "Acct", "chart").
+            # Robustness fix (OOD set A: IDs without an "MRN" label were missed). 10 digits are
+            # left to the phone recognizer.
+            Pattern(name="patient_id_context_number", regex=r"(?<![\d\-])\d{6,9}(?![\d\-])", score=0.4),
         ]
         patient_id_recognizer = PatternRecognizer(
             supported_entity="PATIENT_ID",
             patterns=patient_id_patterns,
+            context=["record", "mrn", "chart", "account", "acct", "patient", "id", "identifier", "medical"],
         )
         self.analyzer.registry.add_recognizer(patient_id_recognizer)
 
@@ -129,13 +148,19 @@ class PIIDetector:
             # ISO format YYYY-MM-DD with plausible DOB range (1936-2008)
             Pattern(name="dob_iso_plausible", regex=r"\b(19[3-9]\d|20[0][0-8])-\d{2}-\d{2}\b", score=0.85),
             # MM/DD/YYYY format with plausible years
-            Pattern(name="dob_us_format", regex=r"\b\d{2}/\d{2}/(19[3-9]\d|20[0][0-8])\b", score=0.85),
+            # 1-2 digit month/day with / - or . (robustness fix, OOD set A: "3/4/1975" was missed)
+            Pattern(name="dob_us_format", regex=r"\b\d{1,2}[/.\-]\d{1,2}[/.\-](19[3-9]\d|20[0][0-8])\b", score=0.85),
+            Pattern(name="dob_day_mon_year", regex=r"\b\d{1,2}[ \-](?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?[ \-](19[3-9]\d|20[0][0-8])\b", score=0.85),
             # Written format with context (e.g., "born March 20, 1985", "DOB: March 20, 1985")
             Pattern(name="dob_written", regex=r"\b(?:born|DOB:?|date of birth:?)\s+[A-Z][a-z]+\s+\d{1,2},?\s+(19[3-9]\d|20[0][0-8])\b", score=0.8),
+            # "March 5, 1975" without a keyword right before it: below threshold unless a
+            # birth-related word is nearby (context boost)
+            Pattern(name="dob_month_day_year", regex=r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+(19[3-9]\d|20[0][0-8])\b", score=0.45),
         ]
         dob_recognizer = PatternRecognizer(
             supported_entity="DATE_OF_BIRTH",
             patterns=dob_patterns,
+            context=["dob", "born", "birth", "d.o.b", "birthday"],
         )
         self.analyzer.registry.add_recognizer(dob_recognizer)
 

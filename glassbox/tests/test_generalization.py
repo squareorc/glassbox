@@ -191,3 +191,34 @@ def test_names_in_clinical_context(redactor_pipeline, text, expected):
 def test_numeric_mrn_after_label(redactor_pipeline):
     assert _redact(redactor_pipeline, "MRN: 00482913.") == "MRN: [PATIENT_ID]."
 
+
+
+# ---------------------------------------------------------------------------
+# Robustness fixes (OOD redaction set A)
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize("address", [
+    "42 Oak Street, Springfield, Illinois 62704",     # full state name
+    "42 Oak Street Springfield IL 62704",             # no commas
+])
+def test_address_variants(redactor_pipeline, address):
+    assert _redact(redactor_pipeline, f"Lives at {address}.") == "Lives at [ADDRESS]."
+
+
+@pytest.mark.parametrize("dob", ["3/4/1975", "3-4-1975", "04-Mar-1975"])
+def test_dob_variants(redactor_pipeline, dob):
+    assert _redact(redactor_pipeline, f"DOB {dob}.") == "DOB [DATE_OF_BIRTH]."
+
+
+def test_record_number_with_context(redactor_pipeline):
+    assert _redact(redactor_pipeline, "Record number 1234567.") == "Record number [PATIENT_ID]."
+    assert _redact(redactor_pipeline, "Walked 1234567 steps.") == "Walked 1234567 steps."
+
+
+def test_accented_name_after_label(redactor_pipeline):
+    assert _redact(redactor_pipeline, "Patient: Nurşan Çamurcuoğlu\n") == "Patient: [NAME]\n"
+
+
+@pytest.mark.parametrize("text", ["Pt seen in clinic.", "Visit on 9/7/2026.", "Emphysema patient, stable."])
+def test_more_non_pii_kept(redactor_pipeline, text):
+    assert _redact(redactor_pipeline, text) == text

@@ -1,0 +1,3781 @@
+{
+ "set": "a",
+ "tag": "",
+ "overall": {
+  "n": 189,
+  "evidence_original": 0.9489,
+  "evidence_paraphrase": 0.9321,
+  "evidence_paraphrase_ci95": [
+   0.9004,
+   0.9603
+  ],
+  "recall_paraphrase": 1.0
+ },
+ "by_type": {
+  "clinical_fact": {
+   "n": 126,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.9841,
+   "evidence_paraphrase_ci95": [
+    0.9603,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate": {
+   "n": 63,
+   "evidence_original": 0.8466,
+   "evidence_paraphrase": 0.828,
+   "evidence_paraphrase_ci95": [
+    0.754,
+    0.8968
+   ],
+   "recall_paraphrase": 1.0
+  }
+ },
+ "by_group": {
+  "aggregate date_format=iso_month": {
+   "n": 16,
+   "evidence_original": 0.7708,
+   "evidence_paraphrase": 0.8125,
+   "evidence_paraphrase_ci95": [
+    0.6562,
+    0.9375
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate date_format=month_abbr": {
+   "n": 16,
+   "evidence_original": 0.8854,
+   "evidence_paraphrase": 0.8021,
+   "evidence_paraphrase_ci95": [
+    0.625,
+    0.9479
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate date_format=month_name": {
+   "n": 16,
+   "evidence_original": 0.8229,
+   "evidence_paraphrase": 0.7917,
+   "evidence_paraphrase_ci95": [
+    0.6354,
+    0.9271
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate date_format=numeric_us": {
+   "n": 15,
+   "evidence_original": 0.9111,
+   "evidence_paraphrase": 0.9111,
+   "evidence_paraphrase_ci95": [
+    0.8111,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate dx_form=alias": {
+   "n": 21,
+   "evidence_original": 0.873,
+   "evidence_paraphrase": 0.8651,
+   "evidence_paraphrase_ci95": [
+    0.7619,
+    0.9524
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate dx_form=canonical": {
+   "n": 21,
+   "evidence_original": 0.8889,
+   "evidence_paraphrase": 0.8651,
+   "evidence_paraphrase_ci95": [
+    0.7222,
+    0.9841
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "aggregate dx_form=unlisted_abbrev": {
+   "n": 21,
+   "evidence_original": 0.7778,
+   "evidence_paraphrase": 0.754,
+   "evidence_paraphrase_ci95": [
+    0.619,
+    0.8889
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact date_format=day_first": {
+   "n": 25,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact date_format=iso": {
+   "n": 25,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.96,
+   "evidence_paraphrase_ci95": [
+    0.88,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact date_format=long": {
+   "n": 25,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact date_format=short": {
+   "n": 25,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.96,
+   "evidence_paraphrase_ci95": [
+    0.88,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact date_format=us": {
+   "n": 26,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact dx_form=alias": {
+   "n": 42,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact dx_form=canonical": {
+   "n": 42,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.9524,
+   "evidence_paraphrase_ci95": [
+    0.881,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  },
+  "clinical_fact dx_form=unlisted_abbrev": {
+   "n": 42,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0
+  }
+ },
+ "rows": [
+  {
+   "qid": "realistic-cf-054",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the 6/23/2026 asthma visit?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260623,
+    "date_to": 20260623
+   },
+   "redacted_question": "Follow-up interval after the 6/23/2026 asthma visit?"
+  },
+  {
+   "qid": "realistic-cf-055",
+   "type": "clinical_fact",
+   "question": "Heart rate at the September 29, 2024 CKD3 visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20240929,
+    "date_to": 20240929
+   },
+   "redacted_question": "Heart rate at the September 29, 2024 CKD3 visit?"
+  },
+  {
+   "qid": "realistic-cf-056",
+   "type": "clinical_fact",
+   "question": "Blood pressure reading for the Type 2 diabetes mellitus encounter on Oct 2 2024?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241002,
+    "date_to": 20241002
+   },
+   "redacted_question": "Blood pressure reading for the Type 2 diabetes mellitus encounter on Oct 2 2024?"
+  },
+  {
+   "qid": "realistic-cf-057",
+   "type": "clinical_fact",
+   "question": "Labs requested at the 23 Aug 2025 COPD visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250823,
+    "date_to": 20250823
+   },
+   "redacted_question": "Labs requested at the 23 Aug 2025 COPD visit?"
+  },
+  {
+   "qid": "realistic-cf-058",
+   "type": "clinical_fact",
+   "question": "HTN visit on 2025-09-29: what was prescribed?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250929,
+    "date_to": 20250929
+   },
+   "redacted_question": "HTN visit on 2025-09-29: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-059",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the Osteoarthritis visit on 9/7/2026?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260907,
+    "date_to": 20260907
+   },
+   "redacted_question": "Which symptoms were noted at the Osteoarthritis visit on 9/7/2026?"
+  },
+  {
+   "qid": "realistic-cf-060",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the CAD patient on July 6, 2025?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250706,
+    "date_to": 20250706
+   },
+   "redacted_question": "What was the pulse of the CAD patient on July 6, 2025?"
+  },
+  {
+   "qid": "realistic-cf-061",
+   "type": "clinical_fact",
+   "question": "What was the BP of the MDD patient seen on May 12 2026?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260512,
+    "date_to": 20260512
+   },
+   "redacted_question": "What was the BP of the MDD patient seen on May 12 2026?"
+  },
+  {
+   "qid": "realistic-cf-062",
+   "type": "clinical_fact",
+   "question": "Labs requested at the 4 Nov 2025 Type 2 diabetes mellitus visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251104,
+    "date_to": 20251104
+   },
+   "redacted_question": "Labs requested at the 4 Nov 2025 Type 2 diabetes mellitus visit?"
+  },
+  {
+   "qid": "realistic-cf-063",
+   "type": "clinical_fact",
+   "question": "CAD visit on 2026-01-26: what was prescribed?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260126,
+    "date_to": 20260126
+   },
+   "redacted_question": "CAD visit on 2026-01-26: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-064",
+   "type": "clinical_fact",
+   "question": "What did the reactive airway disease patient seen on 1/19/2026 complain of?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260119,
+    "date_to": 20260119
+   },
+   "redacted_question": "What did the reactive airway disease patient seen on 1/19/2026 complain of?"
+  },
+  {
+   "qid": "realistic-cf-065",
+   "type": "clinical_fact",
+   "question": "When should the Asthma patient seen on January 4, 2026 come back?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260104,
+    "date_to": 20260104
+   },
+   "redacted_question": "When should the Asthma patient seen on January 4, 2026 come back?"
+  },
+  {
+   "qid": "realistic-cf-066",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the diabetes patient on Jul 19 2026?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260719,
+    "date_to": 20260719
+   },
+   "redacted_question": "What was the pulse of the diabetes patient on Jul 19 2026?"
+  },
+  {
+   "qid": "realistic-cf-067",
+   "type": "clinical_fact",
+   "question": "What was the BP of the CKD3 patient seen on 15 Feb 2025?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250215,
+    "date_to": 20250215
+   },
+   "redacted_question": "What was the BP of the CKD3 patient seen on 15 Feb 2025?"
+  },
+  {
+   "qid": "realistic-cf-068",
+   "type": "clinical_fact",
+   "question": "Which investigations did the Osteoarthritis patient seen 2025-08-04 get?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250804,
+    "date_to": 20250804
+   },
+   "redacted_question": "Which investigations did the Osteoarthritis patient seen 2025-08-04 get?"
+  },
+  {
+   "qid": "realistic-cf-069",
+   "type": "clinical_fact",
+   "question": "Which drug did the COPD patient seen on 7/1/2025 get?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250701,
+    "date_to": 20250701
+   },
+   "redacted_question": "Which drug did the COPD patient seen on 7/1/2025 get?"
+  },
+  {
+   "qid": "realistic-cf-070",
+   "type": "clinical_fact",
+   "question": "What did the CKD3 patient seen on December 20, 2025 complain of?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251220,
+    "date_to": 20251220
+   },
+   "redacted_question": "What did the CKD3 patient seen on December 20, 2025 complain of?"
+  },
+  {
+   "qid": "realistic-cf-071",
+   "type": "clinical_fact",
+   "question": "When should the Major depressive disorder patient seen on Jun 19 2026 come back?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260619,
+    "date_to": 20260619
+   },
+   "redacted_question": "When should the Major depressive disorder patient seen on Jun 19 2026 come back?"
+  },
+  {
+   "qid": "realistic-cf-072",
+   "type": "clinical_fact",
+   "question": "Heart rate at the 16 Nov 2025 high blood pressure visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20251116,
+    "date_to": 20251116
+   },
+   "redacted_question": "Heart rate at the 16 Nov 2025 high blood pressure visit?"
+  },
+  {
+   "qid": "realistic-cf-073",
+   "type": "clinical_fact",
+   "question": "CKD3 patient on 2025-11-10 - blood pressure?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251110,
+    "date_to": 20251110
+   },
+   "redacted_question": "CKD3 patient on 2025-11-10 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-074",
+   "type": "clinical_fact",
+   "question": "For the 9/24/2024 Major depressive disorder encounter, what medication was given?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20240924,
+    "date_to": 20240924
+   },
+   "redacted_question": "For the 9/24/2024 Major depressive disorder encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-075",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the CKD visit on June 16, 2025?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250616,
+    "date_to": 20250616
+   },
+   "redacted_question": "Which symptoms were noted at the CKD visit on June 16, 2025?"
+  },
+  {
+   "qid": "realistic-cf-076",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the Mar 6 2026 T2DM visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260306,
+    "date_to": 20260306
+   },
+   "redacted_question": "Follow-up interval after the Mar 6 2026 T2DM visit?"
+  },
+  {
+   "qid": "realistic-cf-077",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the Chronic kidney disease stage 3 patient on 17 Apr 2026?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260417,
+    "date_to": 20260417
+   },
+   "redacted_question": "What was the pulse of the Chronic kidney disease stage 3 patient on 17 Apr 2026?"
+  },
+  {
+   "qid": "realistic-cf-078",
+   "type": "clinical_fact",
+   "question": "CAD patient on 2024-10-24 - blood pressure?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20241024,
+    "date_to": 20241024
+   },
+   "redacted_question": "CAD patient on 2024-10-24 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-079",
+   "type": "clinical_fact",
+   "question": "Which drug did the OA patient seen on 9/30/2024 get?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20240930,
+    "date_to": 20240930
+   },
+   "redacted_question": "Which drug did the OA patient seen on 9/30/2024 get?"
+  },
+  {
+   "qid": "realistic-cf-080",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the January 22, 2026 Chronic kidney disease stage 3 visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260122,
+    "date_to": 20260122
+   },
+   "redacted_question": "Chief complaint at the January 22, 2026 Chronic kidney disease stage 3 visit?"
+  },
+  {
+   "qid": "realistic-cf-081",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the Aug 4 2026 osteoarthritis visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260804,
+    "date_to": 20260804
+   },
+   "redacted_question": "Follow-up interval after the Aug 4 2026 osteoarthritis visit?"
+  },
+  {
+   "qid": "realistic-cf-082",
+   "type": "clinical_fact",
+   "question": "Heart rate at the 10 Jan 2025 MDD visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250110,
+    "date_to": 20250110
+   },
+   "redacted_question": "Heart rate at the 10 Jan 2025 MDD visit?"
+  },
+  {
+   "qid": "realistic-cf-083",
+   "type": "clinical_fact",
+   "question": "Which drug did the Chronic kidney disease stage 3 patient seen on 2025-03-03 get?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250303,
+    "date_to": 20250303
+   },
+   "redacted_question": "Which drug did the Chronic kidney disease stage 3 patient seen on 2025-03-03 get?"
+  },
+  {
+   "qid": "realistic-cf-084",
+   "type": "clinical_fact",
+   "question": "What did the asthma patient seen on 7/30/2026 complain of?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260730,
+    "date_to": 20260730
+   },
+   "redacted_question": "What did the asthma patient seen on 7/30/2026 complain of?"
+  },
+  {
+   "qid": "realistic-cf-085",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the January 30, 2026 coronary heart disease visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260130,
+    "date_to": 20260130
+   },
+   "redacted_question": "Follow-up interval after the January 30, 2026 coronary heart disease visit?"
+  },
+  {
+   "qid": "realistic-cf-086",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the Type 2 diabetes mellitus patient on May 25 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250525,
+    "date_to": 20250525
+   },
+   "redacted_question": "What was the pulse of the Type 2 diabetes mellitus patient on May 25 2025?"
+  },
+  {
+   "qid": "realistic-cf-087",
+   "type": "clinical_fact",
+   "question": "Asthma patient on 31 Dec 2024 - blood pressure?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241231,
+    "date_to": 20241231
+   },
+   "redacted_question": "Asthma patient on 31 Dec 2024 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-088",
+   "type": "clinical_fact",
+   "question": "For the 2026-04-13 reactive airway disease encounter, what medication was given?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260413,
+    "date_to": 20260413
+   },
+   "redacted_question": "For the 2026-04-13 reactive airway disease encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-089",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 7/16/2025 Essential hypertension visit?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250716,
+    "date_to": 20250716
+   },
+   "redacted_question": "Chief complaint at the 7/16/2025 Essential hypertension visit?"
+  },
+  {
+   "qid": "realistic-cf-090",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the CKD patient from October 9, 2024?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241009,
+    "date_to": 20241009
+   },
+   "redacted_question": "How soon is the next appointment for the CKD patient from October 9, 2024?"
+  },
+  {
+   "qid": "realistic-cf-091",
+   "type": "clinical_fact",
+   "question": "Heart rate at the Aug 28 2026 CKD3 visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260828,
+    "date_to": 20260828
+   },
+   "redacted_question": "Heart rate at the Aug 28 2026 CKD3 visit?"
+  },
+  {
+   "qid": "realistic-cf-092",
+   "type": "clinical_fact",
+   "question": "Asthma patient on 6 Jun 2025 - blood pressure?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250606,
+    "date_to": 20250606
+   },
+   "redacted_question": "Asthma patient on 6 Jun 2025 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-093",
+   "type": "clinical_fact",
+   "question": "What tests were ordered for the CKD patient on 2025-10-13?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251013,
+    "date_to": 20251013
+   },
+   "redacted_question": "What tests were ordered for the CKD patient on 2025-10-13?"
+  },
+  {
+   "qid": "realistic-cf-094",
+   "type": "clinical_fact",
+   "question": "For the 6/7/2025 reactive airway disease encounter, what medication was given?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250607,
+    "date_to": 20250607
+   },
+   "redacted_question": "For the 6/7/2025 reactive airway disease encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-095",
+   "type": "clinical_fact",
+   "question": "What did the Type 2 diabetes mellitus patient seen on October 8, 2025 complain of?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251008,
+    "date_to": 20251008
+   },
+   "redacted_question": "What did the Type 2 diabetes mellitus patient seen on October 8, 2025 complain of?"
+  },
+  {
+   "qid": "realistic-cf-096",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the COPD patient on Feb 1 2026?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260201,
+    "date_to": 20260201
+   },
+   "redacted_question": "What was the pulse of the COPD patient on Feb 1 2026?"
+  },
+  {
+   "qid": "realistic-cf-097",
+   "type": "clinical_fact",
+   "question": "MDD patient on 20 Jan 2026 - blood pressure?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260120,
+    "date_to": 20260120
+   },
+   "redacted_question": "MDD patient on 20 Jan 2026 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-098",
+   "type": "clinical_fact",
+   "question": "What tests were ordered for the Type 2 diabetes mellitus patient on 2026-05-15?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260515,
+    "date_to": 20260515
+   },
+   "redacted_question": "What tests were ordered for the Type 2 diabetes mellitus patient on 2026-05-15?"
+  },
+  {
+   "qid": "realistic-cf-099",
+   "type": "clinical_fact",
+   "question": "Depression visit on 1/4/2025: what was prescribed?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250104,
+    "date_to": 20250104
+   },
+   "redacted_question": "Depression visit on 1/4/2025: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-100",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the T2DM visit on April 17, 2026?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260417,
+    "date_to": 20260417
+   },
+   "redacted_question": "Which symptoms were noted at the T2DM visit on April 17, 2026?"
+  },
+  {
+   "qid": "realistic-cf-101",
+   "type": "clinical_fact",
+   "question": "Heart rate at the Jun 26 2026 COPD visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260626,
+    "date_to": 20260626
+   },
+   "redacted_question": "Heart rate at the Jun 26 2026 COPD visit?"
+  },
+  {
+   "qid": "realistic-cf-102",
+   "type": "clinical_fact",
+   "question": "High blood pressure patient on 19 Sep 2025 - blood pressure?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250919,
+    "date_to": 20250919
+   },
+   "redacted_question": "High blood pressure patient on 19 Sep 2025 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-103",
+   "type": "clinical_fact",
+   "question": "Which investigations did the HTN patient seen 2025-02-07 get?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250207,
+    "date_to": 20250207
+   },
+   "redacted_question": "Which investigations did the HTN patient seen 2025-02-07 get?"
+  },
+  {
+   "qid": "realistic-cf-104",
+   "type": "clinical_fact",
+   "question": "For the 8/10/2026 Type 2 diabetes mellitus encounter, what medication was given?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260810,
+    "date_to": 20260810
+   },
+   "redacted_question": "For the 8/10/2026 Type 2 diabetes mellitus encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-105",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the December 9, 2024 COPD visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20241209,
+    "date_to": 20241209
+   },
+   "redacted_question": "Chief complaint at the December 9, 2024 COPD visit?"
+  },
+  {
+   "qid": "realistic-cf-106",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the MDD patient from Mar 5 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250305,
+    "date_to": 20250305
+   },
+   "redacted_question": "How soon is the next appointment for the MDD patient from Mar 5 2025?"
+  },
+  {
+   "qid": "realistic-cf-107",
+   "type": "clinical_fact",
+   "question": "Coronary artery disease visit on 3 Oct 2024: what was prescribed?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20241003,
+    "date_to": 20241003
+   },
+   "redacted_question": "Coronary artery disease visit on 3 Oct 2024: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-108",
+   "type": "clinical_fact",
+   "question": "What did the osteoarthritis patient seen on 2026-05-21 complain of?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260521,
+    "date_to": 20260521
+   },
+   "redacted_question": "What did the osteoarthritis patient seen on 2026-05-21 complain of?"
+  },
+  {
+   "qid": "realistic-cf-109",
+   "type": "clinical_fact",
+   "question": "Heart rate at the 9/30/2024 coronary heart disease visit?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20240930,
+    "date_to": 20240930
+   },
+   "redacted_question": "Heart rate at the 9/30/2024 coronary heart disease visit?"
+  },
+  {
+   "qid": "realistic-cf-110",
+   "type": "clinical_fact",
+   "question": "For the January 12, 2025 Asthma encounter, what medication was given?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250112,
+    "date_to": 20250112
+   },
+   "redacted_question": "For the January 12, 2025 Asthma encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-111",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the depression visit on Oct 11 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20251011,
+    "date_to": 20251011
+   },
+   "redacted_question": "Which symptoms were noted at the depression visit on Oct 11 2025?"
+  },
+  {
+   "qid": "realistic-cf-112",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the OA patient from 25 May 2025?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250525,
+    "date_to": 20250525
+   },
+   "redacted_question": "How soon is the next appointment for the OA patient from 25 May 2025?"
+  },
+  {
+   "qid": "realistic-cf-113",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the Osteoarthritis patient on 2025-10-26?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20251026,
+    "date_to": 20251026
+   },
+   "redacted_question": "What was the pulse of the Osteoarthritis patient on 2025-10-26?"
+  },
+  {
+   "qid": "realistic-cf-114",
+   "type": "clinical_fact",
+   "question": "Osteoarthritis visit on 3/10/2025: what was prescribed?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250310,
+    "date_to": 20250310
+   },
+   "redacted_question": "Osteoarthritis visit on 3/10/2025: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-115",
+   "type": "clinical_fact",
+   "question": "What did the reactive airway disease patient seen on October 4, 2024 complain of?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241004,
+    "date_to": 20241004
+   },
+   "redacted_question": "What did the reactive airway disease patient seen on October 4, 2024 complain of?"
+  },
+  {
+   "qid": "realistic-cf-116",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the Feb 8 2026 Osteoarthritis visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260208,
+    "date_to": 20260208
+   },
+   "redacted_question": "Follow-up interval after the Feb 8 2026 Osteoarthritis visit?"
+  },
+  {
+   "qid": "realistic-cf-117",
+   "type": "clinical_fact",
+   "question": "CAD patient, 14 Jan 2025: what was the HR?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250114,
+    "date_to": 20250114
+   },
+   "redacted_question": "CAD patient, 14 Jan 2025: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-118",
+   "type": "clinical_fact",
+   "question": "Coronary heart disease visit on 2026-03-19: what was prescribed?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260319,
+    "date_to": 20260319
+   },
+   "redacted_question": "Coronary heart disease visit on 2026-03-19: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-119",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the COPD visit on 8/10/2025?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250810,
+    "date_to": 20250810
+   },
+   "redacted_question": "Which symptoms were noted at the COPD visit on 8/10/2025?"
+  },
+  {
+   "qid": "realistic-cf-120",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the asthma patient from April 12, 2025?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250412,
+    "date_to": 20250412
+   },
+   "redacted_question": "How soon is the next appointment for the asthma patient from April 12, 2025?"
+  },
+  {
+   "qid": "realistic-cf-121",
+   "type": "clinical_fact",
+   "question": "For the Jul 26 2025 T2DM encounter, what medication was given?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250726,
+    "date_to": 20250726
+   },
+   "redacted_question": "For the Jul 26 2025 T2DM encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-122",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 9 Sep 2025 Type 2 diabetes mellitus visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250909,
+    "date_to": 20250909
+   },
+   "redacted_question": "Chief complaint at the 9 Sep 2025 Type 2 diabetes mellitus visit?"
+  },
+  {
+   "qid": "realistic-cf-123",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the 2026-04-13 depression visit?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260413,
+    "date_to": 20260413
+   },
+   "redacted_question": "Follow-up interval after the 2026-04-13 depression visit?"
+  },
+  {
+   "qid": "realistic-cf-124",
+   "type": "clinical_fact",
+   "question": "Heart rate at the 4/27/2025 coronary heart disease visit?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250427,
+    "date_to": 20250427
+   },
+   "redacted_question": "Heart rate at the 4/27/2025 coronary heart disease visit?"
+  },
+  {
+   "qid": "realistic-cf-125",
+   "type": "clinical_fact",
+   "question": "What was the BP of the COPD patient seen on May 30, 2025?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250530,
+    "date_to": 20250530
+   },
+   "redacted_question": "What was the BP of the COPD patient seen on May 30, 2025?"
+  },
+  {
+   "qid": "realistic-cf-126",
+   "type": "clinical_fact",
+   "question": "Which investigations did the asthma patient seen May 6 2026 get?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260506,
+    "date_to": 20260506
+   },
+   "redacted_question": "Which investigations did the asthma patient seen May 6 2026 get?"
+  },
+  {
+   "qid": "realistic-cf-127",
+   "type": "clinical_fact",
+   "question": "For the 7 Aug 2025 OA encounter, what medication was given?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250807,
+    "date_to": 20250807
+   },
+   "redacted_question": "For the 7 Aug 2025 OA encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-128",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 2025-09-21 Chronic kidney disease stage 3 visit?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250921,
+    "date_to": 20250921
+   },
+   "redacted_question": "Chief complaint at the 2025-09-21 Chronic kidney disease stage 3 visit?"
+  },
+  {
+   "qid": "realistic-cf-129",
+   "type": "clinical_fact",
+   "question": "When should the CAD patient seen on 4/7/2025 come back?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250407,
+    "date_to": 20250407
+   },
+   "redacted_question": "When should the CAD patient seen on 4/7/2025 come back?"
+  },
+  {
+   "qid": "realistic-cf-130",
+   "type": "clinical_fact",
+   "question": "Heart rate at the August 4, 2026 T2DM visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260804,
+    "date_to": 20260804
+   },
+   "redacted_question": "Heart rate at the August 4, 2026 T2DM visit?"
+  },
+  {
+   "qid": "realistic-cf-131",
+   "type": "clinical_fact",
+   "question": "Blood pressure reading for the Asthma encounter on Nov 13 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20251113,
+    "date_to": 20251113
+   },
+   "redacted_question": "Blood pressure reading for the Asthma encounter on Nov 13 2025?"
+  },
+  {
+   "qid": "realistic-cf-132",
+   "type": "clinical_fact",
+   "question": "Labs requested at the 24 Nov 2025 high blood pressure visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20251124,
+    "date_to": 20251124
+   },
+   "redacted_question": "Labs requested at the 24 Nov 2025 high blood pressure visit?"
+  },
+  {
+   "qid": "realistic-cf-133",
+   "type": "clinical_fact",
+   "question": "Which drug did the T2DM patient seen on 2025-10-20 get?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251020,
+    "date_to": 20251020
+   },
+   "redacted_question": "Which drug did the T2DM patient seen on 2025-10-20 get?"
+  },
+  {
+   "qid": "realistic-cf-134",
+   "type": "clinical_fact",
+   "question": "What did the Chronic kidney disease stage 3 patient seen on 8/14/2026 complain of?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260814,
+    "date_to": 20260814
+   },
+   "redacted_question": "What did the Chronic kidney disease stage 3 patient seen on 8/14/2026 complain of?"
+  },
+  {
+   "qid": "realistic-cf-135",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the December 31, 2024 depression visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20241231,
+    "date_to": 20241231
+   },
+   "redacted_question": "Follow-up interval after the December 31, 2024 depression visit?"
+  },
+  {
+   "qid": "realistic-cf-136",
+   "type": "clinical_fact",
+   "question": "HTN patient, Jan 30 2026: what was the HR?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260130,
+    "date_to": 20260130
+   },
+   "redacted_question": "HTN patient, Jan 30 2026: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-137",
+   "type": "clinical_fact",
+   "question": "What was the BP of the Major depressive disorder patient seen on 1 Jan 2026?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260101,
+    "date_to": 20260101
+   },
+   "redacted_question": "What was the BP of the Major depressive disorder patient seen on 1 Jan 2026?"
+  },
+  {
+   "qid": "realistic-cf-138",
+   "type": "clinical_fact",
+   "question": "What tests were ordered for the CKD patient on 2026-08-08?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260808,
+    "date_to": 20260808
+   },
+   "redacted_question": "What tests were ordered for the CKD patient on 2026-08-08?"
+  },
+  {
+   "qid": "realistic-cf-139",
+   "type": "clinical_fact",
+   "question": "OA visit on 2/10/2026: what was prescribed?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260210,
+    "date_to": 20260210
+   },
+   "redacted_question": "OA visit on 2/10/2026: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-140",
+   "type": "clinical_fact",
+   "question": "What did the Chronic kidney disease stage 3 patient seen on September 4, 2026 complain of?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260904,
+    "date_to": 20260904
+   },
+   "redacted_question": "What did the Chronic kidney disease stage 3 patient seen on September 4, 2026 complain of?"
+  },
+  {
+   "qid": "realistic-cf-141",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the Oct 30 2024 CKD visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241030,
+    "date_to": 20241030
+   },
+   "redacted_question": "Follow-up interval after the Oct 30 2024 CKD visit?"
+  },
+  {
+   "qid": "realistic-cf-142",
+   "type": "clinical_fact",
+   "question": "Heart rate at the 2 Jan 2026 OA visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260102,
+    "date_to": 20260102
+   },
+   "redacted_question": "Heart rate at the 2 Jan 2026 OA visit?"
+  },
+  {
+   "qid": "realistic-cf-143",
+   "type": "clinical_fact",
+   "question": "Blood pressure reading for the Major depressive disorder encounter on 2026-07-02?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260702,
+    "date_to": 20260702
+   },
+   "redacted_question": "Blood pressure reading for the Major depressive disorder encounter on 2026-07-02?"
+  },
+  {
+   "qid": "realistic-cf-144",
+   "type": "clinical_fact",
+   "question": "What tests were ordered for the asthma patient on 4/15/2025?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250415,
+    "date_to": 20250415
+   },
+   "redacted_question": "What tests were ordered for the asthma patient on 4/15/2025?"
+  },
+  {
+   "qid": "realistic-cf-145",
+   "type": "clinical_fact",
+   "question": "Coronary heart disease visit on June 26, 2025: what was prescribed?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250626,
+    "date_to": 20250626
+   },
+   "redacted_question": "Coronary heart disease visit on June 26, 2025: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-146",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the Aug 6 2026 Major depressive disorder visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260806,
+    "date_to": 20260806
+   },
+   "redacted_question": "Chief complaint at the Aug 6 2026 Major depressive disorder visit?"
+  },
+  {
+   "qid": "realistic-cf-147",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the 8 Apr 2026 osteoarthritis visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260408,
+    "date_to": 20260408
+   },
+   "redacted_question": "Follow-up interval after the 8 Apr 2026 osteoarthritis visit?"
+  },
+  {
+   "qid": "realistic-cf-148",
+   "type": "clinical_fact",
+   "question": "HTN patient, 2026-09-13: what was the HR?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260913,
+    "date_to": 20260913
+   },
+   "redacted_question": "HTN patient, 2026-09-13: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-149",
+   "type": "clinical_fact",
+   "question": "Coronary artery disease patient on 2/21/2026 - blood pressure?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260221,
+    "date_to": 20260221
+   },
+   "redacted_question": "Coronary artery disease patient on 2/21/2026 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-150",
+   "type": "clinical_fact",
+   "question": "Diabetes visit on September 18, 2025: what was prescribed?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250918,
+    "date_to": 20250918
+   },
+   "redacted_question": "Diabetes visit on September 18, 2025: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-151",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the T2DM visit on Jun 2 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250602,
+    "date_to": 20250602
+   },
+   "redacted_question": "Which symptoms were noted at the T2DM visit on Jun 2 2025?"
+  },
+  {
+   "qid": "realistic-cf-152",
+   "type": "clinical_fact",
+   "question": "When should the COPD patient seen on 26 Aug 2025 come back?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250826,
+    "date_to": 20250826
+   },
+   "redacted_question": "When should the COPD patient seen on 26 Aug 2025 come back?"
+  },
+  {
+   "qid": "realistic-cf-153",
+   "type": "clinical_fact",
+   "question": "Depression patient, 2025-03-22: what was the HR?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250322,
+    "date_to": 20250322
+   },
+   "redacted_question": "Depression patient, 2025-03-22: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-154",
+   "type": "clinical_fact",
+   "question": "What was the BP of the OA patient seen on 1/5/2026?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260105,
+    "date_to": 20260105
+   },
+   "redacted_question": "What was the BP of the OA patient seen on 1/5/2026?"
+  },
+  {
+   "qid": "realistic-cf-155",
+   "type": "clinical_fact",
+   "question": "Which investigations did the Major depressive disorder patient seen January 8, 2026 get?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260108,
+    "date_to": 20260108
+   },
+   "redacted_question": "Which investigations did the Major depressive disorder patient seen January 8, 2026 get?"
+  },
+  {
+   "qid": "realistic-cf-156",
+   "type": "clinical_fact",
+   "question": "Which drug did the osteoarthritis patient seen on Feb 1 2026 get?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260201,
+    "date_to": 20260201
+   },
+   "redacted_question": "Which drug did the osteoarthritis patient seen on Feb 1 2026 get?"
+  },
+  {
+   "qid": "realistic-cf-157",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 2 May 2026 HTN visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260502,
+    "date_to": 20260502
+   },
+   "redacted_question": "Chief complaint at the 2 May 2026 HTN visit?"
+  },
+  {
+   "qid": "realistic-cf-158",
+   "type": "clinical_fact",
+   "question": "When should the COPD patient seen on 2026-04-08 come back?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260408,
+    "date_to": 20260408
+   },
+   "redacted_question": "When should the COPD patient seen on 2026-04-08 come back?"
+  },
+  {
+   "qid": "realistic-cf-159",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the asthma patient on 3/9/2025?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250309,
+    "date_to": 20250309
+   },
+   "redacted_question": "What was the pulse of the asthma patient on 3/9/2025?"
+  },
+  {
+   "qid": "realistic-cf-160",
+   "type": "clinical_fact",
+   "question": "What was the BP of the coronary heart disease patient seen on July 23, 2025?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250723,
+    "date_to": 20250723
+   },
+   "redacted_question": "What was the BP of the coronary heart disease patient seen on July 23, 2025?"
+  },
+  {
+   "qid": "realistic-cf-161",
+   "type": "clinical_fact",
+   "question": "Asthma visit on Dec 31 2025: what was prescribed?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20251231,
+    "date_to": 20251231
+   },
+   "redacted_question": "Asthma visit on Dec 31 2025: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-162",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 20 Nov 2024 diabetes visit?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241120,
+    "date_to": 20241120
+   },
+   "redacted_question": "Chief complaint at the 20 Nov 2024 diabetes visit?"
+  },
+  {
+   "qid": "realistic-cf-163",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the coronary heart disease patient from 2026-05-01?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260501,
+    "date_to": 20260501
+   },
+   "redacted_question": "How soon is the next appointment for the coronary heart disease patient from 2026-05-01?"
+  },
+  {
+   "qid": "realistic-cf-164",
+   "type": "clinical_fact",
+   "question": "Which drug did the Type 2 diabetes mellitus patient seen on 3/2/2026 get?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260302,
+    "date_to": 20260302
+   },
+   "redacted_question": "Which drug did the Type 2 diabetes mellitus patient seen on 3/2/2026 get?"
+  },
+  {
+   "qid": "realistic-cf-165",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the high blood pressure visit on November 7, 2024?",
+   "groups": [
+    "date_format=long",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20241107,
+    "date_to": 20241107
+   },
+   "redacted_question": "Which symptoms were noted at the high blood pressure visit on November 7, 2024?"
+  },
+  {
+   "qid": "realistic-cf-166",
+   "type": "clinical_fact",
+   "question": "Follow-up interval after the Feb 4 2026 coronary heart disease visit?",
+   "groups": [
+    "date_format=short",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260204,
+    "date_to": 20260204
+   },
+   "redacted_question": "Follow-up interval after the Feb 4 2026 coronary heart disease visit?"
+  },
+  {
+   "qid": "realistic-cf-167",
+   "type": "clinical_fact",
+   "question": "Asthma patient, 28 Jan 2026: what was the HR?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260128,
+    "date_to": 20260128
+   },
+   "redacted_question": "Asthma patient, 28 Jan 2026: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-168",
+   "type": "clinical_fact",
+   "question": "Blood pressure reading for the high blood pressure encounter on 2024-10-05?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20241005,
+    "date_to": 20241005
+   },
+   "redacted_question": "Blood pressure reading for the high blood pressure encounter on 2024-10-05?"
+  },
+  {
+   "qid": "realistic-cf-169",
+   "type": "clinical_fact",
+   "question": "For the 4/14/2025 emphysema encounter, what medication was given?",
+   "groups": [
+    "date_format=us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250414,
+    "date_to": 20250414
+   },
+   "redacted_question": "For the 4/14/2025 emphysema encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-170",
+   "type": "clinical_fact",
+   "question": "Which symptoms were noted at the Essential hypertension visit on February 22, 2026?",
+   "groups": [
+    "date_format=long",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260222,
+    "date_to": 20260222
+   },
+   "redacted_question": "Which symptoms were noted at the Essential hypertension visit on February 22, 2026?"
+  },
+  {
+   "qid": "realistic-cf-171",
+   "type": "clinical_fact",
+   "question": "When should the high blood pressure patient seen on May 31 2025 come back?",
+   "groups": [
+    "date_format=short",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250531,
+    "date_to": 20250531
+   },
+   "redacted_question": "When should the high blood pressure patient seen on May 31 2025 come back?"
+  },
+  {
+   "qid": "realistic-cf-172",
+   "type": "clinical_fact",
+   "question": "Emphysema patient, 8 May 2025: what was the HR?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250508,
+    "date_to": 20250508
+   },
+   "redacted_question": "Emphysema patient, 8 May 2025: what was the HR?"
+  },
+  {
+   "qid": "realistic-cf-173",
+   "type": "clinical_fact",
+   "question": "Coronary artery disease patient on 2025-10-21 - blood pressure?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20251021,
+    "date_to": 20251021
+   },
+   "redacted_question": "Coronary artery disease patient on 2025-10-21 - blood pressure?"
+  },
+  {
+   "qid": "realistic-cf-174",
+   "type": "clinical_fact",
+   "question": "For the 1/14/2025 depression encounter, what medication was given?",
+   "groups": [
+    "date_format=us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250114,
+    "date_to": 20250114
+   },
+   "redacted_question": "For the 1/14/2025 depression encounter, what medication was given?"
+  },
+  {
+   "qid": "realistic-cf-175",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the November 6, 2024 reactive airway disease visit?",
+   "groups": [
+    "date_format=long",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241106,
+    "date_to": 20241106
+   },
+   "redacted_question": "Chief complaint at the November 6, 2024 reactive airway disease visit?"
+  },
+  {
+   "qid": "realistic-cf-176",
+   "type": "clinical_fact",
+   "question": "What was the pulse of the Osteoarthritis patient on Sep 24 2025?",
+   "groups": [
+    "date_format=short",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250924,
+    "date_to": 20250924
+   },
+   "redacted_question": "What was the pulse of the Osteoarthritis patient on Sep 24 2025?"
+  },
+  {
+   "qid": "realistic-cf-177",
+   "type": "clinical_fact",
+   "question": "Asthma visit on 27 Feb 2026: what was prescribed?",
+   "groups": [
+    "date_format=day_first",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260227,
+    "date_to": 20260227
+   },
+   "redacted_question": "Asthma visit on 27 Feb 2026: what was prescribed?"
+  },
+  {
+   "qid": "realistic-cf-178",
+   "type": "clinical_fact",
+   "question": "Chief complaint at the 2025-04-06 emphysema visit?",
+   "groups": [
+    "date_format=iso",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250406,
+    "date_to": 20250406
+   },
+   "redacted_question": "Chief complaint at the 2025-04-06 emphysema visit?"
+  },
+  {
+   "qid": "realistic-cf-179",
+   "type": "clinical_fact",
+   "question": "How soon is the next appointment for the Chronic kidney disease stage 3 patient from 11/21/2024?",
+   "groups": [
+    "date_format=us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241121,
+    "date_to": 20241121
+   },
+   "redacted_question": "How soon is the next appointment for the Chronic kidney disease stage 3 patient from 11/21/2024?"
+  },
+  {
+   "qid": "realistic-ag-027",
+   "type": "aggregate",
+   "question": "2025-05: diabetes patients presenting with polyuria - what were they prescribed?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "2025-05: diabetes patients presenting with polyuria - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-028",
+   "type": "aggregate",
+   "question": "Medications prescribed in June 2026 to HTN patients complaining of dizziness?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260601,
+    "date_to": 20260630
+   },
+   "redacted_question": "Medications prescribed in June 2026 to HTN patients complaining of dizziness?"
+  },
+  {
+   "qid": "realistic-ag-029",
+   "type": "aggregate",
+   "question": "List the medications for Asthma patients who had wheezing during Feb 2025.",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 0.75,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "List the medications for Asthma patients who had wheezing during Feb 2025."
+  },
+  {
+   "qid": "realistic-ag-030",
+   "type": "aggregate",
+   "question": "5/2025: diabetes patients presenting with polydipsia - what were they prescribed?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "5/2025: diabetes patients presenting with polydipsia - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-031",
+   "type": "aggregate",
+   "question": "2025-07: reactive airway disease patients presenting with cough - what were they prescribed?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 0.6666666666666666,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "2025-07: reactive airway disease patients presenting with cough - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-032",
+   "type": "aggregate",
+   "question": "What drugs were the Chronic kidney disease stage 3 patients with decreased appetite in March 2026 given?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260301,
+    "date_to": 20260331
+   },
+   "redacted_question": "What drugs were the Chronic kidney disease stage 3 patients with decreased appetite in March 2026 given?"
+  },
+  {
+   "qid": "realistic-ag-033",
+   "type": "aggregate",
+   "question": "Medications prescribed in Sep 2024 to COPD patients complaining of dyspnea?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20240901,
+    "date_to": 20240930
+   },
+   "redacted_question": "Medications prescribed in Sep 2024 to COPD patients complaining of dyspnea?"
+  },
+  {
+   "qid": "realistic-ag-034",
+   "type": "aggregate",
+   "question": "Medications prescribed in 9/2024 to coronary heart disease patients complaining of fatigue?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20240901,
+    "date_to": 20240930
+   },
+   "redacted_question": "Medications prescribed in 9/2024 to coronary heart disease patients complaining of fatigue?"
+  },
+  {
+   "qid": "realistic-ag-035",
+   "type": "aggregate",
+   "question": "2025-09: Type 2 diabetes mellitus patients presenting with fatigue - what were they prescribed?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "2025-09: Type 2 diabetes mellitus patients presenting with fatigue - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-036",
+   "type": "aggregate",
+   "question": "List the medications for osteoarthritis patients who had swelling during February 2025.",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "List the medications for osteoarthritis patients who had swelling during February 2025."
+  },
+  {
+   "qid": "realistic-ag-037",
+   "type": "aggregate",
+   "question": "What drugs were the emphysema patients with wheezing in Feb 2025 given?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "What drugs were the emphysema patients with wheezing in Feb 2025 given?"
+  },
+  {
+   "qid": "realistic-ag-038",
+   "type": "aggregate",
+   "question": "List the medications for Chronic kidney disease stage 3 patients who had nausea during 9/2025.",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "List the medications for Chronic kidney disease stage 3 patients who had nausea during 9/2025."
+  },
+  {
+   "qid": "realistic-ag-039",
+   "type": "aggregate",
+   "question": "2025-05: high blood pressure patients presenting with dizziness - what were they prescribed?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "2025-05: high blood pressure patients presenting with dizziness - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-040",
+   "type": "aggregate",
+   "question": "List the medications for MDD patients who had fatigue during May 2025.",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "List the medications for MDD patients who had fatigue during May 2025."
+  },
+  {
+   "qid": "realistic-ag-041",
+   "type": "aggregate",
+   "question": "Jan 2025: Coronary artery disease patients presenting with fatigue - what were they prescribed?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "Jan 2025: Coronary artery disease patients presenting with fatigue - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-042",
+   "type": "aggregate",
+   "question": "Medications prescribed in 12/2024 to depression patients complaining of poor concentration?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20241201,
+    "date_to": 20241231
+   },
+   "redacted_question": "Medications prescribed in 12/2024 to depression patients complaining of poor concentration?"
+  },
+  {
+   "qid": "realistic-ag-043",
+   "type": "aggregate",
+   "question": "What drugs were the OA patients with morning stiffness in 2024-10 given?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20241001,
+    "date_to": 20241031
+   },
+   "redacted_question": "What drugs were the OA patients with morning stiffness in 2024-10 given?"
+  },
+  {
+   "qid": "realistic-ag-044",
+   "type": "aggregate",
+   "question": "What drugs were the Major depressive disorder patients with anhedonia in October 2025 given?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "What drugs were the Major depressive disorder patients with anhedonia in October 2025 given?"
+  },
+  {
+   "qid": "realistic-ag-045",
+   "type": "aggregate",
+   "question": "Medications prescribed in May 2026 to CKD patients complaining of edema?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "Medications prescribed in May 2026 to CKD patients complaining of edema?"
+  },
+  {
+   "qid": "realistic-ag-046",
+   "type": "aggregate",
+   "question": "Medications prescribed in 11/2025 to T2DM patients complaining of polydipsia?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251101,
+    "date_to": 20251130
+   },
+   "redacted_question": "Medications prescribed in 11/2025 to T2DM patients complaining of polydipsia?"
+  },
+  {
+   "qid": "realistic-ag-047",
+   "type": "aggregate",
+   "question": "Medications prescribed in 2026-06 to Osteoarthritis patients complaining of reduced range of motion?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260601,
+    "date_to": 20260630
+   },
+   "redacted_question": "Medications prescribed in 2026-06 to Osteoarthritis patients complaining of reduced range of motion?"
+  },
+  {
+   "qid": "realistic-ag-048",
+   "type": "aggregate",
+   "question": "June 2025: CKD patients presenting with nausea - what were they prescribed?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "June 2025: CKD patients presenting with nausea - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-049",
+   "type": "aggregate",
+   "question": "List the medications for coronary heart disease patients who had dyspnea on exertion during Oct 2025.",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "List the medications for coronary heart disease patients who had dyspnea on exertion during Oct 2025."
+  },
+  {
+   "qid": "realistic-ag-050",
+   "type": "aggregate",
+   "question": "What drugs were the Essential hypertension patients with chest pain in 7/2025 given?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "What drugs were the Essential hypertension patients with chest pain in 7/2025 given?"
+  },
+  {
+   "qid": "realistic-ag-051",
+   "type": "aggregate",
+   "question": "Medications prescribed in 2025-06 to COPD patients complaining of sputum production?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "Medications prescribed in 2025-06 to COPD patients complaining of sputum production?"
+  },
+  {
+   "qid": "realistic-ag-052",
+   "type": "aggregate",
+   "question": "List the medications for HTN patients who had chest pain during February 2025.",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "List the medications for HTN patients who had chest pain during February 2025."
+  },
+  {
+   "qid": "realistic-ag-053",
+   "type": "aggregate",
+   "question": "Medications prescribed in Nov 2024 to COPD patients complaining of wheezing?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Medications prescribed in Nov 2024 to COPD patients complaining of wheezing?"
+  },
+  {
+   "qid": "realistic-ag-054",
+   "type": "aggregate",
+   "question": "What drugs were the depression patients with fatigue in 6/2025 given?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "What drugs were the depression patients with fatigue in 6/2025 given?"
+  },
+  {
+   "qid": "realistic-ag-055",
+   "type": "aggregate",
+   "question": "What drugs were the reactive airway disease patients with dyspnea in 2025-07 given?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "What drugs were the reactive airway disease patients with dyspnea in 2025-07 given?"
+  },
+  {
+   "qid": "realistic-ag-056",
+   "type": "aggregate",
+   "question": "Medications prescribed in November 2024 to Major depressive disorder patients complaining of anhedonia?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Medications prescribed in November 2024 to Major depressive disorder patients complaining of anhedonia?"
+  },
+  {
+   "qid": "realistic-ag-057",
+   "type": "aggregate",
+   "question": "What drugs were the COPD patients with wheezing in May 2026 given?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=alias"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "What drugs were the COPD patients with wheezing in May 2026 given?"
+  },
+  {
+   "qid": "realistic-ag-058",
+   "type": "aggregate",
+   "question": "Medications prescribed in 4/2026 to CKD3 patients complaining of fatigue?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "Medications prescribed in 4/2026 to CKD3 patients complaining of fatigue?"
+  },
+  {
+   "qid": "realistic-ag-059",
+   "type": "aggregate",
+   "question": "What drugs were the Osteoarthritis patients with joint pain in 2025-04 given?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250401,
+    "date_to": 20250430
+   },
+   "redacted_question": "What drugs were the Osteoarthritis patients with joint pain in 2025-04 given?"
+  },
+  {
+   "qid": "realistic-ag-060",
+   "type": "aggregate",
+   "question": "List the medications for diabetes patients who had neuropathy during April 2026.",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "List the medications for diabetes patients who had neuropathy during April 2026."
+  },
+  {
+   "qid": "realistic-ag-061",
+   "type": "aggregate",
+   "question": "What drugs were the MDD patients with insomnia in Nov 2025 given?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20251101,
+    "date_to": 20251130
+   },
+   "redacted_question": "What drugs were the MDD patients with insomnia in Nov 2025 given?"
+  },
+  {
+   "qid": "realistic-ag-062",
+   "type": "aggregate",
+   "question": "Medications prescribed in 4/2026 to Asthma patients complaining of cough?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "Medications prescribed in 4/2026 to Asthma patients complaining of cough?"
+  },
+  {
+   "qid": "realistic-ag-063",
+   "type": "aggregate",
+   "question": "Medications prescribed in 2025-01 to depression patients complaining of anhedonia?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "Medications prescribed in 2025-01 to depression patients complaining of anhedonia?"
+  },
+  {
+   "qid": "realistic-ag-064",
+   "type": "aggregate",
+   "question": "June 2025: HTN patients presenting with chest pain - what were they prescribed?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "June 2025: HTN patients presenting with chest pain - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-065",
+   "type": "aggregate",
+   "question": "What drugs were the Asthma patients with dyspnea in Jan 2025 given?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "What drugs were the Asthma patients with dyspnea in Jan 2025 given?"
+  },
+  {
+   "qid": "realistic-ag-066",
+   "type": "aggregate",
+   "question": "4/2026: COPD patients presenting with sputum production - what were they prescribed?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "4/2026: COPD patients presenting with sputum production - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-067",
+   "type": "aggregate",
+   "question": "Medications prescribed in 2025-09 to coronary heart disease patients complaining of chest pain?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Medications prescribed in 2025-09 to coronary heart disease patients complaining of chest pain?"
+  },
+  {
+   "qid": "realistic-ag-068",
+   "type": "aggregate",
+   "question": "August 2026: Essential hypertension patients presenting with dizziness - what were they prescribed?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260801,
+    "date_to": 20260831
+   },
+   "redacted_question": "August 2026: Essential hypertension patients presenting with dizziness - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-069",
+   "type": "aggregate",
+   "question": "Dec 2025: osteoarthritis patients presenting with morning stiffness - what were they prescribed?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20251201,
+    "date_to": 20251231
+   },
+   "redacted_question": "Dec 2025: osteoarthritis patients presenting with morning stiffness - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-070",
+   "type": "aggregate",
+   "question": "Medications prescribed in 10/2025 to T2DM patients complaining of neuropathy?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "Medications prescribed in 10/2025 to T2DM patients complaining of neuropathy?"
+  },
+  {
+   "qid": "realistic-ag-071",
+   "type": "aggregate",
+   "question": "What drugs were the Coronary artery disease patients with fatigue in 2025-05 given?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "What drugs were the Coronary artery disease patients with fatigue in 2025-05 given?"
+  },
+  {
+   "qid": "realistic-ag-072",
+   "type": "aggregate",
+   "question": "July 2026: osteoarthritis patients presenting with morning stiffness - what were they prescribed?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260701,
+    "date_to": 20260731
+   },
+   "redacted_question": "July 2026: osteoarthritis patients presenting with morning stiffness - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-073",
+   "type": "aggregate",
+   "question": "What drugs were the T2DM patients with blurred vision in Oct 2024 given?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241001,
+    "date_to": 20241031
+   },
+   "redacted_question": "What drugs were the T2DM patients with blurred vision in Oct 2024 given?"
+  },
+  {
+   "qid": "realistic-ag-074",
+   "type": "aggregate",
+   "question": "2/2025: Asthma patients presenting with dyspnea - what were they prescribed?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "2/2025: Asthma patients presenting with dyspnea - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-075",
+   "type": "aggregate",
+   "question": "List the medications for CKD patients who had nausea during 2026-05.",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "List the medications for CKD patients who had nausea during 2026-05."
+  },
+  {
+   "qid": "realistic-ag-076",
+   "type": "aggregate",
+   "question": "Medications prescribed in December 2024 to T2DM patients complaining of polydipsia?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241201,
+    "date_to": 20241231
+   },
+   "redacted_question": "Medications prescribed in December 2024 to T2DM patients complaining of polydipsia?"
+  },
+  {
+   "qid": "realistic-ag-077",
+   "type": "aggregate",
+   "question": "Nov 2024: Type 2 diabetes mellitus patients presenting with polydipsia - what were they prescribed?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Nov 2024: Type 2 diabetes mellitus patients presenting with polydipsia - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-078",
+   "type": "aggregate",
+   "question": "Medications prescribed in 2/2025 to CAD patients complaining of fatigue?",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "Medications prescribed in 2/2025 to CAD patients complaining of fatigue?"
+  },
+  {
+   "qid": "realistic-ag-079",
+   "type": "aggregate",
+   "question": "2026-09: emphysema patients presenting with sputum production - what were they prescribed?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260901,
+    "date_to": 20260930
+   },
+   "redacted_question": "2026-09: emphysema patients presenting with sputum production - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-080",
+   "type": "aggregate",
+   "question": "Medications prescribed in April 2025 to Asthma patients complaining of chest tightness?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250401,
+    "date_to": 20250430
+   },
+   "redacted_question": "Medications prescribed in April 2025 to Asthma patients complaining of chest tightness?"
+  },
+  {
+   "qid": "realistic-ag-081",
+   "type": "aggregate",
+   "question": "Medications prescribed in Oct 2025 to CKD patients complaining of edema?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "Medications prescribed in Oct 2025 to CKD patients complaining of edema?"
+  },
+  {
+   "qid": "realistic-ag-082",
+   "type": "aggregate",
+   "question": "List the medications for emphysema patients who had dyspnea during 9/2025.",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "List the medications for emphysema patients who had dyspnea during 9/2025."
+  },
+  {
+   "qid": "realistic-ag-083",
+   "type": "aggregate",
+   "question": "List the medications for Osteoarthritis patients who had morning stiffness during 2026-08.",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260801,
+    "date_to": 20260831
+   },
+   "redacted_question": "List the medications for Osteoarthritis patients who had morning stiffness during 2026-08."
+  },
+  {
+   "qid": "realistic-ag-084",
+   "type": "aggregate",
+   "question": "September 2025: depression patients presenting with poor concentration - what were they prescribed?",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "September 2025: depression patients presenting with poor concentration - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-085",
+   "type": "aggregate",
+   "question": "Nov 2024: reactive airway disease patients presenting with cough - what were they prescribed?",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 0.5,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Nov 2024: reactive airway disease patients presenting with cough - what were they prescribed?"
+  },
+  {
+   "qid": "realistic-ag-086",
+   "type": "aggregate",
+   "question": "List the medications for Chronic kidney disease stage 3 patients who had nausea during 9/2026.",
+   "groups": [
+    "date_format=numeric_us",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260901,
+    "date_to": 20260930
+   },
+   "redacted_question": "List the medications for Chronic kidney disease stage 3 patients who had nausea during 9/2026."
+  },
+  {
+   "qid": "realistic-ag-087",
+   "type": "aggregate",
+   "question": "What drugs were the depression patients with fatigue in 2026-01 given?",
+   "groups": [
+    "date_format=iso_month",
+    "dx_form=alias"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260101,
+    "date_to": 20260131
+   },
+   "redacted_question": "What drugs were the depression patients with fatigue in 2026-01 given?"
+  },
+  {
+   "qid": "realistic-ag-088",
+   "type": "aggregate",
+   "question": "List the medications for reactive airway disease patients who had dyspnea during March 2026.",
+   "groups": [
+    "date_format=month_name",
+    "dx_form=unlisted_abbrev"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260301,
+    "date_to": 20260331
+   },
+   "redacted_question": "List the medications for reactive airway disease patients who had dyspnea during March 2026."
+  },
+  {
+   "qid": "realistic-ag-089",
+   "type": "aggregate",
+   "question": "List the medications for Essential hypertension patients who had headache during Jun 2025.",
+   "groups": [
+    "date_format=month_abbr",
+    "dx_form=canonical"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "List the medications for Essential hypertension patients who had headache during Jun 2025."
+  }
+ ]
+}

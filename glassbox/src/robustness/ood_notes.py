@@ -19,6 +19,7 @@ from many Faker locales. Every PII value's exact span is recorded.
 import argparse
 import json
 import random
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List
@@ -154,6 +155,24 @@ def build(set_name: str) -> List[Dict[str, Any]]:
     return notes
 
 
+# Honorifics and degrees that Faker puts inside some names ("Univ.Prof. Leyla Ullrich",
+# "Valeri Tschentscher B.A.", "Sra. Allana Novais"). A visible title doesn't identify anyone,
+# so for NAME the "fully masked" check covers the personal-name words only. Correction made
+# after the first set-A run, where these titles made names count as leaked (PROGRESS.md).
+_TITLE = re.compile(r"^(?:[A-Za-z]{1,5}\.)+$|^(?:Dr|Prof|Mr|Mrs|Ms|Miss|Sr|Sra|Srta|Srita|Dott|Dipl|Ing|Mag|"
+                    r"Lic|Univ|MD|PhD|BSc|MSc|BA|MA|MBA|DDS|Jr|II|III)\.?$", re.IGNORECASE)
+
+
+def _name_parts(e: Dict[str, Any]) -> List[tuple]:
+    """Character ranges of the personal-name words of a NAME entity (titles/degrees excluded)."""
+    parts, pos = [], e["start"]
+    for word in e["value"].split(" "):
+        if word and not _TITLE.match(word):
+            parts.append((pos, pos + len(word)))
+        pos += len(word) + 1
+    return parts or [(e["start"], e["end"])]
+
+
 def evaluate(notes: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Fully-masked rate per type / name locale / address format, over-redactions, clinical damage."""
     from glassbox.src.redaction.detector import PIIDetector
@@ -165,8 +184,8 @@ def evaluate(notes: List[Dict[str, Any]]) -> Dict[str, Any]:
         text, log = red.redact(nt["text"], det.detect(nt["text"]))
         spans = [(r["start"], r["end"]) for r in log]
         for e in nt["entities"]:
-            covered = sum(max(0, min(e["end"], b) - max(e["start"], a)) for a, b in spans)
-            full = covered >= e["end"] - e["start"]
+            ranges = _name_parts(e) if e["type"] == "NAME" else [(e["start"], e["end"])]
+            full = all(sum(max(0, min(r1, b) - max(r0, a)) for a, b in spans) >= r1 - r0 for r0, r1 in ranges)
             keys = [e["type"]]
             if e["type"] == "NAME" and e["value"] == nt["name"]:
                 keys.append(f"NAME[patient, {nt['name_locale']}]")
@@ -179,7 +198,8 @@ def evaluate(notes: List[Dict[str, Any]]) -> Dict[str, Any]:
                 stats[k][1] += full
         over += [r["original_value"] for r in log
                  if not any(r["start"] < e["end"] and e["start"] < r["end"] for e in nt["entities"])]
-        clinical_damage += nt["med"].split()[0] not in text or nt["sym"] not in text
+        # only terms the note actually contains (the phone-message template has no symptom)
+        clinical_damage += any(term in nt["text"] and term not in text for term in (nt["med"].split()[0], nt["sym"]))
     total = [sum(v[0] for k, v in stats.items() if "[" not in k), sum(v[1] for k, v in stats.items() if "[" not in k)]
     return {
         "notes": len(notes),

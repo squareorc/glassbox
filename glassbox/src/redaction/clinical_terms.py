@@ -73,7 +73,18 @@ ABBREVIATIONS = {
     "hba1c", "a1c", "egfr", "gfr", "ldl", "hdl", "tsh", "inr", "ptt", "bun", "wbc", "rbc",
     "po", "iv", "im", "sc", "sq", "prn", "qd", "qhs", "bid", "tid", "qid", "qam", "qpm",
     "mg", "mcg", "ml", "xl", "er", "sr", "dr", "hfa", "mdi", "copd", "ckd", "cad", "gerd",
-    "s1", "s2", "ra", "nka", "nkda", "sob", "doe", "nad", "rrr", "cta",
+    "s1", "s2", "ra", "nka", "nkda", "sob", "doe", "nad", "rrr", "cta", "pt", "pts", "hx", "dx", "rx", "tx",
+}
+
+# Diagnoses and disease words: spaCy tags a capitalised one at a sentence start as a
+# person ("Emphysema patient, ..." -> [NAME]) - found by the robustness check.
+DISEASES = {
+    "hypertension", "hypertensive", "htn", "diabetes", "diabetic", "mellitus", "t2dm", "dm2", "asthma",
+    "asthmatic", "copd", "emphysema", "bronchitis", "pneumonia", "osteoarthritis", "arthritis", "oa",
+    "depression", "depressive", "mdd", "anxiety", "ckd", "ckd3", "kidney", "renal", "cad", "chd", "ihd",
+    "coronary", "artery", "heart", "cardiac", "disease", "disorder", "failure", "chronic", "acute",
+    "obstructive", "pulmonary", "stage", "type", "essential", "major", "reactive", "airway", "gerd",
+    "hypothyroidism", "hyperlipidemia", "obesity", "stroke", "cancer", "infection", "migraine", "anemia",
 }
 
 # Field labels / section headings that NER mistakes for names at line starts
@@ -85,11 +96,13 @@ FIELD_LABELS = {
     "medications", "vitals",
 }
 
-CLINICAL_TERMS = DRUGS | ABBREVIATIONS | FIELD_LABELS
+CLINICAL_TERMS = DRUGS | ABBREVIATIONS | FIELD_LABELS | DISEASES
 
 _TOKEN = re.compile(r"[A-Za-z0-9]+(?:-[A-Za-z0-9]+)?")
-# A measurement, optionally preceded by a vitals label: "158/62", "BP 152/68", "97%", "98.6"
-_MEASUREMENT = re.compile(r"^(?:[A-Za-z][A-Za-z0-9]{0,4}\s*:?\s*)?\d+(?:[/.]\d+)?\s*%?$")
+# A measurement, optionally preceded by a vitals label: "158/62", "BP 152/68", "97%", "98.6",
+# or a date ("9/7/2026", "2026-09-07"): NER sometimes tags a date as a place. A real date of
+# birth is still caught by the DATE_OF_BIRTH patterns, which this guard never filters.
+_MEASUREMENT = re.compile(r"^(?:[A-Za-z][A-Za-z0-9]{0,4}\s*:?\s*)?\d+(?:[/.\-]\d+){0,2}\s*%?$")
 
 
 def is_clinical_term(span: str) -> bool:

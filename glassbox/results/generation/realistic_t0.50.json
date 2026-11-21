@@ -1,0 +1,535 @@
+{
+  "dataset": "realistic",
+  "split": "all",
+  "num_questions": 390,
+  "configs": {
+    "redacted": {
+      "dev": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.9414,
+          "all_correct": 0.8642,
+          "cited_from_gold_note": 0.9028,
+          "cited_support": 0.9959,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.8961,
+          "json_first_try": 1.0,
+          "latency_ms": 3870.0,
+          "med_f1": 0.8938,
+          "med_precision": 0.9487,
+          "med_recall": 0.8825,
+          "ok": 1.0,
+          "n": 81
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.8457,
+          0.9434
+        ],
+        "answerable_accuracy_ci95": [
+          0.9064,
+          0.9722
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 1.0,
+          "all_correct": 1.0,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 1.0,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3189.5,
+          "med_f1": 1.0,
+          "med_precision": 1.0,
+          "med_recall": 1.0,
+          "ok": 1.0,
+          "n": 54
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.8241,
+          "all_correct": 0.5926,
+          "cited_from_gold_note": 0.7083,
+          "cited_support": 0.9877,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.6883,
+          "json_first_try": 1.0,
+          "latency_ms": 5231.2,
+          "med_f1": 0.8466,
+          "med_precision": 0.9259,
+          "med_recall": 0.8302,
+          "ok": 1.0,
+          "n": 27
+        },
+        "identity": {
+          "abstained": 1.0,
+          "accuracy": 0.0,
+          "all_correct": 0.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 0.0,
+          "latency_ms": 0.0,
+          "ok": 1.0,
+          "n": 36,
+          "false_attribution": 0.0
+        }
+      },
+      "test": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.9189,
+          "all_correct": 0.836,
+          "cited_from_gold_note": 0.89,
+          "cited_support": 0.9704,
+          "claims_cited": 0.9947,
+          "grounded_accuracy": 0.858,
+          "json_first_try": 1.0,
+          "latency_ms": 3781.5,
+          "med_f1": 0.8548,
+          "med_precision": 0.926,
+          "med_recall": 0.8388,
+          "ok": 1.0,
+          "n": 189
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.8148,
+          0.8986
+        ],
+        "answerable_accuracy_ci95": [
+          0.8889,
+          0.9444
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 1.0,
+          "all_correct": 1.0,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 0.984,
+          "claims_cited": 0.9921,
+          "grounded_accuracy": 0.9762,
+          "json_first_try": 1.0,
+          "latency_ms": 2960.7,
+          "med_f1": 1.0,
+          "med_precision": 1.0,
+          "med_recall": 1.0,
+          "ok": 1.0,
+          "n": 126
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.7566,
+          "all_correct": 0.5079,
+          "cited_from_gold_note": 0.6717,
+          "cited_support": 0.9426,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.6217,
+          "json_first_try": 1.0,
+          "latency_ms": 5423.1,
+          "med_f1": 0.7949,
+          "med_precision": 0.8955,
+          "med_recall": 0.7722,
+          "ok": 1.0,
+          "n": 63
+        },
+        "identity": {
+          "abstained": 1.0,
+          "accuracy": 0.0,
+          "all_correct": 0.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 0.0,
+          "latency_ms": 0.0,
+          "ok": 1.0,
+          "n": 84,
+          "false_attribution": 0.0
+        }
+      },
+      "all": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.9256,
+          "all_correct": 0.8444,
+          "cited_from_gold_note": 0.8938,
+          "cited_support": 0.9782,
+          "claims_cited": 0.9963,
+          "grounded_accuracy": 0.8694,
+          "json_first_try": 1.0,
+          "latency_ms": 3808.1,
+          "med_f1": 0.8667,
+          "med_precision": 0.9329,
+          "med_recall": 0.8521,
+          "ok": 1.0,
+          "n": 270
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.8361,
+          0.9012
+        ],
+        "answerable_accuracy_ci95": [
+          0.9031,
+          0.9466
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 1.0,
+          "all_correct": 1.0,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 0.9888,
+          "claims_cited": 0.9944,
+          "grounded_accuracy": 0.9833,
+          "json_first_try": 1.0,
+          "latency_ms": 3029.3,
+          "med_f1": 1.0,
+          "med_precision": 1.0,
+          "med_recall": 1.0,
+          "ok": 1.0,
+          "n": 180
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.7769,
+          "all_correct": 0.5333,
+          "cited_from_gold_note": 0.6827,
+          "cited_support": 0.9564,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.6417,
+          "json_first_try": 1.0,
+          "latency_ms": 5365.5,
+          "med_f1": 0.8104,
+          "med_precision": 0.9046,
+          "med_recall": 0.7896,
+          "ok": 1.0,
+          "n": 90
+        },
+        "identity": {
+          "abstained": 1.0,
+          "accuracy": 0.0,
+          "all_correct": 0.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 0.0,
+          "latency_ms": 0.0,
+          "ok": 1.0,
+          "n": 120,
+          "false_attribution": 0.0
+        }
+      }
+    },
+    "raw": {
+      "dev": {
+        "answerable": {
+          "abstained": 0.0123,
+          "accuracy": 0.9146,
+          "all_correct": 0.8272,
+          "cited_from_gold_note": 0.9128,
+          "cited_support": 0.9833,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.8755,
+          "json_first_try": 1.0,
+          "latency_ms": 3864.1,
+          "med_f1": 0.8857,
+          "med_precision": 0.9693,
+          "med_recall": 0.8487,
+          "ok": 1.0,
+          "n": 81
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.8148,
+          0.93
+        ],
+        "answerable_accuracy_ci95": [
+          0.8693,
+          0.9547
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 1.0,
+          "all_correct": 1.0,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 1.0,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3216.2,
+          "med_f1": 1.0,
+          "med_precision": 1.0,
+          "med_recall": 1.0,
+          "ok": 1.0,
+          "n": 54
+        },
+        "aggregate": {
+          "abstained": 0.037,
+          "accuracy": 0.7438,
+          "all_correct": 0.4815,
+          "cited_from_gold_note": 0.7317,
+          "cited_support": 0.9487,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.6265,
+          "json_first_try": 1.0,
+          "latency_ms": 5160.0,
+          "med_f1": 0.833,
+          "med_precision": 0.9551,
+          "med_recall": 0.7788,
+          "ok": 1.0,
+          "n": 27
+        },
+        "identity": {
+          "abstained": 0.5278,
+          "accuracy": 0.2222,
+          "all_correct": 0.2222,
+          "cited_from_gold_note": 0.5,
+          "cited_support": 1.0,
+          "claims_cited": 0.8182,
+          "grounded_accuracy": 0.2222,
+          "json_first_try": 1.0,
+          "latency_ms": 2388.9,
+          "med_f1": 0.0,
+          "med_precision": 0.0,
+          "med_recall": 0.0,
+          "ok": 1.0,
+          "n": 36,
+          "false_attribution": 0.4722
+        }
+      },
+      "test": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.8995,
+          "all_correct": 0.8042,
+          "cited_from_gold_note": 0.9167,
+          "cited_support": 0.9784,
+          "claims_cited": 0.9947,
+          "grounded_accuracy": 0.8333,
+          "json_first_try": 0.9947,
+          "latency_ms": 3764.1,
+          "med_f1": 0.8264,
+          "med_precision": 0.911,
+          "med_recall": 0.7944,
+          "ok": 0.9947,
+          "n": 189
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.7875,
+          0.8765
+        ],
+        "answerable_accuracy_ci95": [
+          0.8668,
+          0.9295
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 0.9881,
+          "all_correct": 0.9841,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 0.992,
+          "claims_cited": 0.9921,
+          "grounded_accuracy": 0.9802,
+          "json_first_try": 1.0,
+          "latency_ms": 2963.8,
+          "med_f1": 0.9487,
+          "med_precision": 0.9615,
+          "med_recall": 0.9423,
+          "ok": 1.0,
+          "n": 126
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.7222,
+          "all_correct": 0.4444,
+          "cited_from_gold_note": 0.7486,
+          "cited_support": 0.95,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.5397,
+          "json_first_try": 0.9841,
+          "latency_ms": 5364.5,
+          "med_f1": 0.7759,
+          "med_precision": 0.8902,
+          "med_recall": 0.7333,
+          "ok": 0.9841,
+          "n": 63
+        },
+        "identity": {
+          "abstained": 0.4286,
+          "accuracy": 0.1905,
+          "all_correct": 0.1905,
+          "cited_from_gold_note": 0.246,
+          "cited_support": 1.0,
+          "claims_cited": 0.8929,
+          "grounded_accuracy": 0.1429,
+          "json_first_try": 1.0,
+          "latency_ms": 2588.3,
+          "med_f1": 0.1429,
+          "med_precision": 0.1429,
+          "med_recall": 0.1429,
+          "ok": 1.0,
+          "n": 84,
+          "false_attribution": 0.5714
+        }
+      },
+      "all": {
+        "answerable": {
+          "abstained": 0.0037,
+          "accuracy": 0.904,
+          "all_correct": 0.8111,
+          "cited_from_gold_note": 0.9155,
+          "cited_support": 0.9799,
+          "claims_cited": 0.9963,
+          "grounded_accuracy": 0.846,
+          "json_first_try": 0.9963,
+          "latency_ms": 3794.1,
+          "med_f1": 0.8441,
+          "med_precision": 0.9285,
+          "med_recall": 0.8106,
+          "ok": 0.9963,
+          "n": 270
+        },
+        "answerable_grounded_accuracy_ci95": [
+          0.808,
+          0.8796
+        ],
+        "answerable_accuracy_ci95": [
+          0.8775,
+          0.9284
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "accuracy": 0.9917,
+          "all_correct": 0.9889,
+          "cited_from_gold_note": 1.0,
+          "cited_support": 0.9944,
+          "claims_cited": 0.9944,
+          "grounded_accuracy": 0.9861,
+          "json_first_try": 1.0,
+          "latency_ms": 3039.5,
+          "med_f1": 0.9649,
+          "med_precision": 0.9737,
+          "med_recall": 0.9605,
+          "ok": 1.0,
+          "n": 180
+        },
+        "aggregate": {
+          "abstained": 0.0111,
+          "accuracy": 0.7287,
+          "all_correct": 0.4556,
+          "cited_from_gold_note": 0.7436,
+          "cited_support": 0.9496,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.5657,
+          "json_first_try": 0.9889,
+          "latency_ms": 5303.1,
+          "med_f1": 0.7926,
+          "med_precision": 0.9092,
+          "med_recall": 0.7466,
+          "ok": 0.9889,
+          "n": 90
+        },
+        "identity": {
+          "abstained": 0.4583,
+          "accuracy": 0.2,
+          "all_correct": 0.2,
+          "cited_from_gold_note": 0.3132,
+          "cited_support": 1.0,
+          "claims_cited": 0.8718,
+          "grounded_accuracy": 0.1667,
+          "json_first_try": 1.0,
+          "latency_ms": 2528.5,
+          "med_f1": 0.1111,
+          "med_precision": 0.1111,
+          "med_recall": 0.1111,
+          "ok": 1.0,
+          "n": 120,
+          "false_attribution": 0.5417
+        }
+      }
+    },
+    "redacted_noguard": {
+      "dev": {
+        "answerable": {},
+        "answerable_grounded_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "answerable_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "clinical_fact": {},
+        "aggregate": {},
+        "identity": {
+          "abstained": 0.0,
+          "accuracy": 0.1111,
+          "all_correct": 0.1111,
+          "cited_from_gold_note": 0.0,
+          "cited_support": 1.0,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3495.9,
+          "med_f1": 0.0667,
+          "med_precision": 0.0667,
+          "med_recall": 0.0667,
+          "ok": 1.0,
+          "n": 36,
+          "false_attribution": 1.0
+        }
+      },
+      "test": {
+        "answerable": {},
+        "answerable_grounded_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "answerable_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "clinical_fact": {},
+        "aggregate": {},
+        "identity": {
+          "abstained": 0.0,
+          "accuracy": 0.1726,
+          "all_correct": 0.1667,
+          "cited_from_gold_note": 0.0,
+          "cited_support": 1.0,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3247.6,
+          "med_f1": 0.0702,
+          "med_precision": 0.0789,
+          "med_recall": 0.0658,
+          "ok": 1.0,
+          "n": 84,
+          "false_attribution": 1.0
+        }
+      },
+      "all": {
+        "answerable": {},
+        "answerable_grounded_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "answerable_accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "clinical_fact": {},
+        "aggregate": {},
+        "identity": {
+          "abstained": 0.0,
+          "accuracy": 0.1542,
+          "all_correct": 0.15,
+          "cited_from_gold_note": 0.0,
+          "cited_support": 1.0,
+          "claims_cited": 1.0,
+          "grounded_accuracy": 0.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3322.1,
+          "med_f1": 0.0692,
+          "med_precision": 0.0755,
+          "med_recall": 0.066,
+          "ok": 1.0,
+          "n": 120,
+          "false_attribution": 1.0
+        }
+      }
+    }
+  }
+}

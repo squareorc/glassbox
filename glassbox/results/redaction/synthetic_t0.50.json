@@ -1,7 +1,7 @@
 {
   "dataset": "synthetic",
   "num_documents": 250,
-  "num_entities_detected": 950,
+  "num_entities_detected": 949,
   "num_entities_redacted": 837,
   "confidence_threshold": 0.5,
   "output_path": "glassbox/data/processed/synthetic/t0.50/redacted_notes.jsonl",
@@ -16,14 +16,6 @@
         "fp": 0,
         "fn": 0
       },
-      "PATIENT_ID": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "tp": 250,
-        "fp": 0,
-        "fn": 0
-      },
       "NAME": {
         "precision": 0.9959839357429718,
         "recall": 0.992,
@@ -31,6 +23,14 @@
         "tp": 248,
         "fp": 1,
         "fn": 2
+      },
+      "PATIENT_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 250,
+        "fp": 0,
+        "fn": 0
       },
       "ADDRESS": {
         "precision": 1.0,
@@ -40,7 +40,7 @@
         "fp": 0,
         "fn": 0
       },
-      "DATE_OF_BIRTH": {
+      "EMAIL": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
@@ -48,7 +48,7 @@
         "fp": 0,
         "fn": 0
       },
-      "EMAIL": {
+      "DATE_OF_BIRTH": {
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,

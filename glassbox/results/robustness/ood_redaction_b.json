@@ -1,0 +1,87 @@
+{
+  "notes": 240,
+  "overall_fully_masked": 0.8191,
+  "fully_masked": {
+    "ADDRESS": {
+      "n": 114,
+      "rate": 0.2895
+    },
+    "ADDRESS[PO box]": {
+      "n": 26,
+      "rate": 0.0
+    },
+    "ADDRESS[apt, no ZIP]": {
+      "n": 23,
+      "rate": 0.0
+    },
+    "ADDRESS[comma+code]": {
+      "n": 33,
+      "rate": 1.0
+    },
+    "ADDRESS[multi-line]": {
+      "n": 32,
+      "rate": 0.0
+    },
+    "DATE_OF_BIRTH": {
+      "n": 123,
+      "rate": 1.0
+    },
+    "EMAIL": {
+      "n": 67,
+      "rate": 1.0
+    },
+    "NAME": {
+      "n": 478,
+      "rate": 0.8912
+    },
+    "NAME[patient, da_DK]": {
+      "n": 30,
+      "rate": 0.9333
+    },
+    "NAME[patient, en_GB]": {
+      "n": 30,
+      "rate": 0.9667
+    },
+    "NAME[patient, en_IE]": {
+      "n": 30,
+      "rate": 0.9667
+    },
+    "NAME[patient, es_ES]": {
+      "n": 30,
+      "rate": 0.7333
+    },
+    "NAME[patient, nl_NL]": {
+      "n": 30,
+      "rate": 0.8667
+    },
+    "NAME[patient, sv_SE]": {
+      "n": 30,
+      "rate": 0.9667
+    },
+    "NAME[patient, tr_TR]": {
+      "n": 30,
+      "rate": 0.5667
+    },
+    "NAME[patient, vi_VN]": {
+      "n": 30,
+      "rate": 0.7
+    },
+    "NAME[relative/provider]": {
+      "n": 238,
+      "rate": 0.9454
+    },
+    "PATIENT_ID": {
+      "n": 117,
+      "rate": 0.7009
+    },
+    "PHONE_NUMBER": {
+      "n": 240,
+      "rate": 0.8417
+    }
+  },
+  "over_redactions": 1,
+  "over_redaction_examples": [
+    "D.O.B."
+  ],
+  "notes_with_clinical_damage": 0
+}

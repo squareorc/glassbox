@@ -1,0 +1,111 @@
+{
+  "dataset": "realistic",
+  "split": "dev",
+  "num_questions": 117,
+  "configs": {
+    "redacted": {
+      "dev": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.8899,
+          "all_correct": 0.7901,
+          "cited_from_gold_note": 0.8856,
+          "cited_support": 0.981,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3654.5,
+          "med_precision": 0.9573,
+          "ok": 1.0,
+          "n": 81
+        },
+        "answerable_accuracy_ci95": [
+          0.8364,
+          0.9372
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "all_correct": 0.9815,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 2912.1,
+          "med_precision": 1.0,
+          "ok": 1.0,
+          "n": 54
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.7068,
+          "all_correct": 0.4074,
+          "cited_from_gold_note": 0.6568,
+          "cited_support": 0.9423,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 5139.4,
+          "med_precision": 0.9383,
+          "ok": 1.0,
+          "n": 27
+        },
+        "identity": {
+          "abstained": 1.0,
+          "all_correct": 0.0,
+          "json_first_try": 0.0278,
+          "latency_ms": 42.4,
+          "ok": 1.0,
+          "n": 36,
+          "false_attribution": 0.0
+        }
+      },
+      "all": {
+        "answerable": {
+          "abstained": 0.0,
+          "accuracy": 0.8899,
+          "all_correct": 0.7901,
+          "cited_from_gold_note": 0.8856,
+          "cited_support": 0.981,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 3654.5,
+          "med_precision": 0.9573,
+          "ok": 1.0,
+          "n": 81
+        },
+        "answerable_accuracy_ci95": [
+          0.8364,
+          0.9372
+        ],
+        "clinical_fact": {
+          "abstained": 0.0,
+          "all_correct": 0.9815,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 2912.1,
+          "med_precision": 1.0,
+          "ok": 1.0,
+          "n": 54
+        },
+        "aggregate": {
+          "abstained": 0.0,
+          "accuracy": 0.7068,
+          "all_correct": 0.4074,
+          "cited_from_gold_note": 0.6568,
+          "cited_support": 0.9423,
+          "claims_cited": 1.0,
+          "json_first_try": 1.0,
+          "latency_ms": 5139.4,
+          "med_precision": 0.9383,
+          "ok": 1.0,
+          "n": 27
+        },
+        "identity": {
+          "abstained": 1.0,
+          "all_correct": 0.0,
+          "json_first_try": 0.0278,
+          "latency_ms": 42.4,
+          "ok": 1.0,
+          "n": 36,
+          "false_attribution": 0.0
+        }
+      }
+    }
+  }
+}

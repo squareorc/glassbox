@@ -293,3 +293,45 @@ def test_two_hop_adds_each_qualifying_notes_answer_section():
         by_note.setdefault(r["doc_id"], []).append(r["selected_by"])
     for doc in q["relevant_doc_ids"]:
         assert by_note.get(doc) == ["question", "ask"]
+
+
+# ---------------------------------------------------------------- robustness fixes (paraphrase set A)
+
+@pytest.mark.parametrize("question,date_from,date_to", [
+    ("Heart rate at the September 29, 2024 visit?", 20240929, 20240929),
+    ("Labs requested at the 23 Aug 2025 visit?", 20250823, 20250823),
+    ("seen on the 16th of June 2025?", 20250616, 20250616),
+    ("BP on Nov. 16, 2025", 20251116, 20251116),
+    ("visit 23/08/2025", 20250823, 20250823),          # first number > 12 can only be the day
+    ("patients in 5/2025", 20250501, 20250531),
+    ("patients in 2026-01", 20260101, 20260131),
+])
+def test_more_date_formats(question, date_from, date_to):
+    f = analyze_query(question, DX)["filters"]
+    assert (f.get("date_from"), f.get("date_to")) == (date_from, date_to)
+
+
+@pytest.mark.parametrize("question,dx", [
+    ("HTN visit on 2025-09-29", "Essential hypertension"),
+    ("type 2 diabetics in May 2025", "Type 2 diabetes mellitus"),
+    ("MDD patient seen 2025-01-04", "Major depressive disorder"),
+    ("CKD3 visit", "Chronic kidney disease stage 3"),
+    ("asthmatics in 2024", "Asthma"),
+])
+def test_standard_abbreviations(question, dx):
+    assert analyze_query(question, DX)["filters"]["diagnosis"] == dx
+
+
+@pytest.mark.parametrize("residual,ask,condition", [
+    ("What drugs were the patients with dizziness given?", "What drugs were the patients given", "with dizziness"),
+    ("Medications prescribed to patients complaining of dizziness?", "Medications prescribed to patients",
+     "complaining of dizziness"),
+])
+def test_condition_split_without_relative_clause(residual, ask, condition):
+    assert split_condition(residual) == {"ask": ask, "condition": condition}
+
+
+def test_original_template_analysis_unchanged():
+    a = analyze_query("Which medications were prescribed to Asthma patients who presented with wheezing in "
+                      "October 2024?", DX)
+    assert a["ask"] == "Which medications were prescribed to patients" and a["condition"] == "presented with wheezing"

@@ -33,35 +33,111 @@ _MONTHS = {name.lower(): i for i, name in enumerate(calendar.month_name) if name
 _MONTHS.update({name.lower(): i for i, name in enumerate(calendar.month_abbr) if name})
 _MONTHS["sept"] = 9
 
-_ISO_DATE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
-_US_DATE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b")
 _MONTH_NAME = "(?:" + "|".join(sorted(_MONTHS, key=len, reverse=True)) + ")"
-_MONTH_YEAR = re.compile(r"\b(" + _MONTH_NAME[3:-1] + r")\.?,?\s+(\d{4})\b", re.IGNORECASE)
+_MON = _MONTH_NAME[3:-1]
+_ORD = r"(?:st|nd|rd|th)?"
+# Day-level forms, tried in this order (robustness fix: only ISO and US numeric dates were
+# understood; "November 10, 2024", "Nov 10 2024", "10 Nov 2024" and "the 16th of June 2025"
+# were ignored or shrunk to the whole month).
+_ISO_DATE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+_LONG_DATE = re.compile(r"\b(" + _MON + r")\.?\s+(\d{1,2})" + _ORD + r",?\s+(\d{4})\b", re.IGNORECASE)
+_DAY_FIRST = re.compile(r"\b(?:the\s+)?(\d{1,2})" + _ORD + r"(?:\s+of)?\s+(" + _MON + r")\.?,?\s+(\d{4})\b", re.IGNORECASE)
+_US_DATE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b")
+# Month-level forms
+_MONTH_YEAR = re.compile(r"\b(" + _MON + r")\.?,?\s+(\d{4})\b", re.IGNORECASE)
+_NUM_MONTH = re.compile(r"(?<![\d/])(\d{1,2})/(\d{4})\b")            # 5/2025
+_ISO_MONTH = re.compile(r"\b(\d{4})-(\d{2})\b(?!-\d)")               # 2025-05
 # "between March 2025 and June 2025", "from 2025-03-01 to 2025-06-30", "March to June 2025"
-_DATE_EXPR = (r"(?:\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4}|" + _MONTH_NAME + r"\.?(?:,?\s+\d{4})?|(?:19|20)\d{2})")
+_DATE_EXPR = (r"(?:\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4}|" + _MONTH_NAME + r"\.?(?:\s+\d{1,2}(?!\d)" + _ORD
+              + r")?(?:,?\s+\d{4})?|(?:19|20)\d{2})")
 _RANGE = re.compile(r"\b(?:between|from)\s+(" + _DATE_EXPR + r")\s+(?:and|to|until|through)\s+(" + _DATE_EXPR + r")"
                     r"|\b(" + _DATE_EXPR + r")\s*(?:-|to|through|until)\s*(" + _DATE_EXPR + r")(?=\W|$)", re.IGNORECASE)
 _YEAR = re.compile(r"\b(?:in|during|from)\s+((?:19|20)\d{2})\b", re.IGNORECASE)
 
+
+def _day(y: int, m: int, d: int, matched: str) -> Dict[str, Any]:
+    try:
+        dt = date(y, m, d)
+    except ValueError:
+        raise InvalidDate(matched)
+    return {"from": date_to_int(dt), "to": date_to_int(dt), "matched": matched, "granularity": "day"}
+
+
+def _month(y: int, m: int, matched: str) -> Dict[str, Any]:
+    if not 1 <= m <= 12:
+        raise InvalidDate(matched)
+    last = calendar.monthrange(y, m)[1]
+    return {"from": date_to_int(date(y, m, 1)), "to": date_to_int(date(y, m, last)),
+            "matched": matched, "granularity": "month"}
+
+
+class InvalidDate(ValueError):
+    pass
+
+
+def _single_date(text: str, default_year: Optional[int] = None) -> Optional[Dict[str, Any]]:
+    """
+    Parse the first date expression in `text` into a range: a day, else a month, else
+    (only for a bare year) a year. Returns None if there is none; raises InvalidDate for
+    one that looks like a date but isn't (2025-13-01), so the caller doesn't silently
+    fall back to a coarser match.
+    """
+    m = _ISO_DATE.search(text)
+    if m:
+        return _day(int(m.group(1)), int(m.group(2)), int(m.group(3)), m.group(0))
+    m = _LONG_DATE.search(text)
+    if m:
+        return _day(int(m.group(3)), _MONTHS[m.group(1).lower()], int(m.group(2)), m.group(0))
+    m = _DAY_FIRST.search(text)
+    if m:
+        return _day(int(m.group(3)), _MONTHS[m.group(2).lower()], int(m.group(1)), m.group(0))
+    m = _US_DATE.search(text)
+    if m:
+        a, b, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        # US month/day order; a first number above 12 can only be a day (23/08/2025)
+        return _day(y, b, a, m.group(0)) if a > 12 and b <= 12 else _day(y, a, b, m.group(0))
+    m = _MONTH_YEAR.search(text)
+    if m:
+        return _month(int(m.group(2)), _MONTHS[m.group(1).lower()], m.group(0))
+    m = _NUM_MONTH.search(text)
+    if m:
+        return _month(int(m.group(2)), int(m.group(1)), m.group(0))
+    m = _ISO_MONTH.search(text)
+    if m:
+        return _month(int(m.group(1)), int(m.group(2)), m.group(0))
+    m = re.fullmatch(r"\s*(" + _MON + r")\.?\s*", text, re.IGNORECASE)
+    if m and default_year:  # bare month inside a range: "March to June 2025"
+        return _month(default_year, _MONTHS[m.group(1).lower()], m.group(0).strip())
+    m = re.fullmatch(r"\s*((?:19|20)\d{2})\s*", text)
+    if m:
+        year = int(m.group(1))
+        return {"from": year * 10000 + 101, "to": year * 10000 + 1231, "matched": m.group(1), "granularity": "year"}
+    return None
+
+
 # Common short forms -> a word that identifies the canonical diagnosis.
 # Applied only if exactly one known diagnosis contains the target word.
 DIAGNOSIS_ALIASES = {
-    "hypertension": "hypertension",
-    "high blood pressure": "hypertension",
-    "diabetes": "diabetes",
-    "t2dm": "diabetes",
-    "depression": "depressive",
-    "ckd": "kidney",
-    "kidney disease": "kidney",
-    "cad": "coronary",
-    "coronary disease": "coronary",
-    "copd": "copd",
-    "gerd": "gastroesophageal",
-    "reflux": "gastroesophageal",
-    "anxiety": "anxiety",
-    "hypothyroidism": "hypothyroidism",
-    "osteoarthritis": "osteoarthritis",
-    "asthma": "asthma",
+    # Robustness fix: extended with standard clinical abbreviations and synonyms (from common
+    # clinical-abbreviation usage, not only the forms that appeared in paraphrase set A, which
+    # did include HTN, MDD, OA, CKD3, coronary heart disease, emphysema, reactive airway disease).
+    # Matched as whole words, optionally plural ("diabetics", "asthmatics").
+    "hypertension": "hypertension", "high blood pressure": "hypertension", "htn": "hypertension",
+    "hypertensive": "hypertension",
+    "diabetes": "diabetes", "diabetic": "diabetes", "t2dm": "diabetes", "t2d": "diabetes", "dm2": "diabetes",
+    "dm": "diabetes", "niddm": "diabetes", "type 2 diabetes": "diabetes", "type ii diabetes": "diabetes",
+    "depression": "depressive", "major depression": "depressive", "mdd": "depressive",
+    "ckd": "kidney", "ckd3": "kidney", "kidney disease": "kidney", "renal disease": "kidney",
+    "renal insufficiency": "kidney",
+    "cad": "coronary", "chd": "coronary", "ihd": "coronary", "coronary disease": "coronary",
+    "coronary heart disease": "coronary", "ischemic heart disease": "coronary", "ischaemic heart disease": "coronary",
+    "copd": "copd", "emphysema": "copd", "chronic bronchitis": "copd",
+    "chronic obstructive pulmonary disease": "copd",
+    "asthma": "asthma", "asthmatic": "asthma", "reactive airway disease": "asthma",
+    "osteoarthritis": "osteoarthritis", "oa": "osteoarthritis", "osteoarthritic": "osteoarthritis",
+    "degenerative joint disease": "osteoarthritis", "djd": "osteoarthritis",
+    "gerd": "gastroesophageal", "reflux": "gastroesophageal",
+    "anxiety": "anxiety", "hypothyroidism": "hypothyroidism",
 }
 
 
@@ -99,7 +175,7 @@ def _find_diagnoses(query: str, diagnoses: Iterable[str]) -> List[Dict[str, Any]
         hits = [dx for dx in diagnoses if target in dx.lower()]
         if len(hits) != 1:
             continue
-        for m in list(re.finditer(r"\b" + re.escape(alias) + r"\b", q)):
+        for m in list(re.finditer(r"\b" + re.escape(alias) + r"s?\b", q)):
             take(m, hits[0], "alias")
     found.sort(key=lambda f: f.pop("pos"))
     unique, seen = [], set()
@@ -108,49 +184,6 @@ def _find_diagnoses(query: str, diagnoses: Iterable[str]) -> List[Dict[str, Any]
             seen.add(f["value"])
             unique.append(f)
     return unique
-
-
-class InvalidDate(ValueError):
-    pass
-
-
-def _single_date(text: str, default_year: Optional[int] = None) -> Optional[Dict[str, Any]]:
-    """
-    Parse one date expression into a range. Returns None if there is no date
-    expression; raises InvalidDate for one that looks like a date but isn't
-    (2025-13-01), so the caller doesn't silently fall back to a coarser match.
-    """
-    m = _ISO_DATE.search(text)
-    if m:
-        try:
-            d = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        except ValueError:
-            raise InvalidDate(m.group(0))
-        return {"from": date_to_int(d), "to": date_to_int(d), "matched": m.group(0), "granularity": "day"}
-    m = _US_DATE.search(text)
-    if m:
-        try:
-            d = date(int(m.group(3)), int(m.group(1)), int(m.group(2)))
-        except ValueError:
-            raise InvalidDate(m.group(0))
-        return {"from": date_to_int(d), "to": date_to_int(d), "matched": m.group(0), "granularity": "day"}
-    m = _MONTH_YEAR.search(text)
-    if m:
-        month, year = _MONTHS[m.group(1).lower()], int(m.group(2))
-        last = calendar.monthrange(year, month)[1]
-        return {"from": date_to_int(date(year, month, 1)), "to": date_to_int(date(year, month, last)),
-                "matched": m.group(0), "granularity": "month"}
-    m = re.fullmatch(r"\s*(" + _MONTH_NAME[3:-1] + r")\.?\s*", text, re.IGNORECASE)
-    if m and default_year:  # bare month inside a range: "March to June 2025"
-        month = _MONTHS[m.group(1).lower()]
-        last = calendar.monthrange(default_year, month)[1]
-        return {"from": date_to_int(date(default_year, month, 1)), "to": date_to_int(date(default_year, month, last)),
-                "matched": m.group(0).strip(), "granularity": "month"}
-    m = re.fullmatch(r"\s*((?:19|20)\d{2})\s*", text)
-    if m:
-        year = int(m.group(1))
-        return {"from": year * 10000 + 101, "to": year * 10000 + 1231, "matched": m.group(1), "granularity": "year"}
-    return None
 
 
 def _find_date_range(query: str) -> Optional[Dict[str, Any]]:
@@ -175,16 +208,9 @@ def _find_date_range(query: str) -> Optional[Dict[str, Any]]:
 
 
 def _find_single_date(query: str) -> Optional[Dict[str, Any]]:
-    for rx in (_ISO_DATE, _US_DATE):
-        m = rx.search(query)
-        if m:
-            return _single_date(m.group(0))
-    m = _MONTH_YEAR.search(query)
-    if m:
-        month, year = _MONTHS[m.group(1).lower()], int(m.group(2))
-        last = calendar.monthrange(year, month)[1]
-        return {"from": date_to_int(date(year, month, 1)), "to": date_to_int(date(year, month, last)),
-                "matched": m.group(0), "granularity": "month"}
+    found = _single_date(query)
+    if found and found["granularity"] in ("day", "month"):
+        return found
     m = _YEAR.search(query)
     if m:
         year = int(m.group(1))
@@ -244,27 +270,37 @@ def analyze_query(query: str, diagnoses: Iterable[str]) -> Dict[str, Any]:
 
 
 _RELATIVE = re.compile(r"\s+(?:who|whose|that|which)\s+", re.IGNORECASE)
+# Robustness fix: the split used to need a relative clause ("patients who presented with X"),
+# so "patients with X", "patients complaining of X" and "X: patients presenting with Y" got no
+# two-hop selection. A condition is now also a marker + the words up to a boundary.
+_CONDITION = re.compile(r"\b(?:presenting with|presented with|complaining of|complained of|reporting|reported|"
+                        r"having|had|with)\s+(.+?)(?=\s+(?:given|prescribed|receive|received|get|got|put|on|in|during|"
+                        r"what|which|-|—)\b|[?.,:;!\-—]|$)", re.IGNORECASE)
 
 
 def split_condition(residual: str) -> Optional[Dict[str, str]]:
     """
-    Split a multi-note question into what is ASKED and the CONDITION a note
-    must meet, at the first relative clause:
+    Split a multi-note question into what is ASKED and the CONDITION a note must meet:
 
         "Which medications were prescribed to patients who presented with fatigue ?"
-        -> ask       "Which medications were prescribed to patients"
-           condition "presented with fatigue"
+        -> ask "Which medications were prescribed to patients", condition "presented with fatigue"
+        "What drugs were the patients with dizziness given?"
+        -> ask "What drugs were the patients given", condition "with dizziness"
 
-    These are two hops that usually live in different sections of a note
-    (the symptom in SUBJECTIVE, the drug in PLAN). Retrieval finds the notes
-    with the whole question, then picks each note's answer section with the
-    ask alone. Returns None if there is no relative clause or a side is empty.
+    These are two hops that usually live in different sections of a note (the symptom
+    in SUBJECTIVE, the drug in PLAN). Retrieval finds the notes with the whole question,
+    then picks each note's answer section with the ask alone. Returns None if no
+    condition is found or a side is empty.
     """
     m = _RELATIVE.search(residual)
-    if not m:
-        return None
-    ask = residual[:m.start()].strip(" ?.!,")
-    condition = residual[m.end():].strip(" ?.!,")
+    if m:
+        ask, condition = residual[:m.start()].strip(" ?.!,"), residual[m.end():].strip(" ?.!,")
+    else:
+        m = _CONDITION.search(residual)
+        if not m:
+            return None
+        condition = m.group(0).strip(" ?.!,")
+        ask = re.sub(r"\s+", " ", (residual[:m.start()] + " " + residual[m.end():])).strip(" ?.!,:-—")
     if len(ask.split()) < 2 or len(condition.split()) < 2:
         return None
     return {"ask": ask, "condition": condition}
@@ -287,6 +323,10 @@ def residual_query(query: str, extracted: List[Dict[str, Any]]) -> str:
     out = re.sub(r"\b(?:whose note is dated|dated|seen on|in|on|during|from|between)\s*(?=[?.!,]|$)", " ", out)
     out = re.sub(r"\b(?:or|and)\s*(?=[?.!,]|$)", " ", out)  # "with asthma or COPD" -> "with"
     out = re.sub(r"\b(?:or|and)\s+(?=(?:or|and)\b)", " ", out)
+    # A preposition left in front of another function word or the end ("prescribed in to patients",
+    # "patients in given") once its date was removed
+    out = re.sub(r"\b(?:in|on|during|from|at)\s+(?=(?:to|given|for|of|the|visit|patients?|-)\b|[?.!,:]|$)", " ", out)
+    out = re.sub(r"^\s*[:\-—,]\s*", "", out)
     return re.sub(r"\s+", " ", out).strip()
 
 

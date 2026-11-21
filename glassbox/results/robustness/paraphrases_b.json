@@ -1,0 +1,4666 @@
+{
+ "set": "b",
+ "tag": "",
+ "overall": {
+  "n": 189,
+  "evidence_original": 0.9489,
+  "evidence_paraphrase": 0.5785,
+  "evidence_paraphrase_ci95": [
+   0.5115,
+   0.6437
+  ],
+  "recall_paraphrase": 0.6883,
+  "grounded_accuracy": 0.5022,
+  "grounded_accuracy_ci95": [
+   0.4352,
+   0.5679
+  ],
+  "accuracy": 0.5974,
+  "abstained": 0.1958,
+  "med_f1": 0.7711
+ },
+ "by_type": {
+  "clinical_fact": {
+   "n": 126,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.5794,
+   "evidence_paraphrase_ci95": [
+    0.4921,
+    0.6667
+   ],
+   "recall_paraphrase": 0.5873,
+   "grounded_accuracy": 0.5397,
+   "grounded_accuracy_ci95": [
+    0.4524,
+    0.627
+   ],
+   "accuracy": 0.6032,
+   "abstained": 0.2143,
+   "med_f1": 0.8889
+  },
+  "aggregate": {
+   "n": 63,
+   "evidence_original": 0.8466,
+   "evidence_paraphrase": 0.5767,
+   "evidence_paraphrase_ci95": [
+    0.4762,
+    0.6799
+   ],
+   "recall_paraphrase": 0.8902,
+   "grounded_accuracy": 0.4272,
+   "grounded_accuracy_ci95": [
+    0.332,
+    0.5278
+   ],
+   "accuracy": 0.586,
+   "abstained": 0.1587,
+   "med_f1": 0.731
+  }
+ },
+ "by_group": {
+  "aggregate source=manual": {
+   "n": 20,
+   "evidence_original": 0.8667,
+   "evidence_paraphrase": 0.5833,
+   "evidence_paraphrase_ci95": [
+    0.4,
+    0.7583
+   ],
+   "recall_paraphrase": 1.0,
+   "grounded_accuracy": 0.4625,
+   "grounded_accuracy_ci95": [
+    0.2875,
+    0.6458
+   ],
+   "accuracy": 0.5875,
+   "abstained": 0.15,
+   "med_f1": 0.7154
+  },
+  "aggregate source=qwen": {
+   "n": 42,
+   "evidence_original": 0.8333,
+   "evidence_paraphrase": 0.5794,
+   "evidence_paraphrase_ci95": [
+    0.4484,
+    0.7103
+   ],
+   "recall_paraphrase": 0.8512,
+   "grounded_accuracy": 0.4206,
+   "grounded_accuracy_ci95": [
+    0.3056,
+    0.5397
+   ],
+   "accuracy": 0.5913,
+   "abstained": 0.1667,
+   "med_f1": 0.7452
+  },
+  "aggregate source=qwen (hand-reviewed)": {
+   "n": 1,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.3333,
+   "evidence_paraphrase_ci95": [
+    0.3333,
+    0.3333
+   ],
+   "recall_paraphrase": 0.3333,
+   "grounded_accuracy": 0,
+   "grounded_accuracy_ci95": [
+    0.0,
+    0.0
+   ],
+   "accuracy": 0.3333,
+   "abstained": 0.0,
+   "med_f1": 0.5
+  },
+  "clinical_fact source=manual": {
+   "n": 40,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 1.0,
+   "evidence_paraphrase_ci95": [
+    1.0,
+    1.0
+   ],
+   "recall_paraphrase": 1.0,
+   "grounded_accuracy": 0.95,
+   "grounded_accuracy_ci95": [
+    0.875,
+    1.0
+   ],
+   "accuracy": 0.95,
+   "abstained": 0.075,
+   "med_f1": 1.0
+  },
+  "clinical_fact source=qwen": {
+   "n": 86,
+   "evidence_original": 1.0,
+   "evidence_paraphrase": 0.3837,
+   "evidence_paraphrase_ci95": [
+    0.2791,
+    0.4884
+   ],
+   "recall_paraphrase": 0.3953,
+   "grounded_accuracy": 0.3488,
+   "grounded_accuracy_ci95": [
+    0.2442,
+    0.4535
+   ],
+   "accuracy": 0.4419,
+   "abstained": 0.2791,
+   "med_f1": 0.8333
+  }
+ },
+ "rows": [
+  {
+   "qid": "realistic-cf-054",
+   "type": "clinical_fact",
+   "question": "the asthma pt I saw on June 23rd 2026 - when do they need to come back in? how many weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260623,
+    "date_to": 20260623
+   },
+   "redacted_question": "the asthma pt I saw on June 23rd 2026 - when do they need to come back in? how many weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "They need to come back in in 2 weeks."
+  },
+  {
+   "qid": "realistic-cf-057",
+   "type": "clinical_fact",
+   "question": "Looking at the COPD visit from 23/08/2025... sorry, August 23, 2025. What labs did we order?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250823,
+    "date_to": 20250823
+   },
+   "redacted_question": "Looking at the COPD visit from 23/08/2025... sorry, August 23, 2025. What labs did we order?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "We ordered ABG and spirometry."
+  },
+  {
+   "qid": "realistic-cf-060",
+   "type": "clinical_fact",
+   "question": "Pulse for the coronary artery disease patient, visit of 6 July 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250706,
+    "date_to": 20250706
+   },
+   "redacted_question": "Pulse for the coronary artery disease patient, visit of 6 July 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The pulse for the coronary artery disease patient on the visit of 6 July 2025 is not explicitly stated in the provided notes."
+  },
+  {
+   "qid": "realistic-cf-063",
+   "type": "clinical_fact",
+   "question": "What was the CAD patient seen on 26 January 2026 put on, medication-wise?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260126,
+    "date_to": 20260126
+   },
+   "redacted_question": "What was the CAD patient seen on 26 January 2026 put on, medication-wise?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The CAD patient seen on 26 January 2026 was put on Atorvastatin 40mg PO QHS."
+  },
+  {
+   "qid": "realistic-cf-066",
+   "type": "clinical_fact",
+   "question": "Type 2 diabetic seen 07/19/2026. What was their heart rate?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260719,
+    "date_to": 20260719
+   },
+   "redacted_question": "Type 2 diabetic seen 07/19/2026. What was their heart rate?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate of the patient was 96."
+  },
+  {
+   "qid": "realistic-cf-069",
+   "type": "clinical_fact",
+   "question": "copd pt 2025-07-01, which drug was prescribed",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250701,
+    "date_to": 20250701
+   },
+   "redacted_question": "copd pt 2025-07-01, which drug was prescribed",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Albuterol/Ipratropium inhaler was prescribed."
+  },
+  {
+   "qid": "realistic-cf-072",
+   "type": "clinical_fact",
+   "question": "I need the HR from the hypertension visit on Nov. 16, 2025.",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20251116,
+    "date_to": 20251116
+   },
+   "redacted_question": "I need the HR from the hypertension visit on Nov. 16, 2025.",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate (HR) from the hypertension visit on Nov. 16, 2025 was 61."
+  },
+  {
+   "qid": "realistic-cf-075",
+   "type": "clinical_fact",
+   "question": "What was the presenting complaint of the CKD stage 3 patient seen on the 16th of June 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250616,
+    "date_to": 20250616
+   },
+   "redacted_question": "What was the presenting complaint of the CKD stage 3 patient seen on the 16th of June 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The presenting complaint of the CKD stage 3 patient seen on the 16th of June 2025 was nausea."
+  },
+  {
+   "qid": "realistic-cf-078",
+   "type": "clinical_fact",
+   "question": "Coronary artery disease, 24 Oct 2024 \u2014 what did the BP read?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20241024,
+    "date_to": 20241024
+   },
+   "redacted_question": "Coronary artery disease, 24 Oct 2024 \u2014 what did the BP read?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP read 153/81."
+  },
+  {
+   "qid": "realistic-cf-081",
+   "type": "clinical_fact",
+   "question": "Osteoarthritis follow-up: the patient seen 2026-08-04 should return after how many weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260804,
+    "date_to": 20260804
+   },
+   "redacted_question": "Osteoarthritis follow-up: the patient seen 2026-08-04 should return after how many weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The patient should return after 12 weeks."
+  },
+  {
+   "qid": "realistic-cf-084",
+   "type": "clinical_fact",
+   "question": "What brought the asthma patient in on July 30, 2026?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260730,
+    "date_to": 20260730
+   },
+   "redacted_question": "What brought the asthma patient in on July 30, 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The patient presented with wheezing."
+  },
+  {
+   "qid": "realistic-cf-087",
+   "type": "clinical_fact",
+   "question": "Blood pressure please for the asthmatic seen on New Year's Eve 2024 (2024-12-31).",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241231,
+    "date_to": 20241231
+   },
+   "redacted_question": "Blood pressure please for the asthmatic seen on [NAME] 2024 (2024-12-31).",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "identifier_in_question",
+   "med_f1": null,
+   "answer": "This can't be determined from the de-identified records: the question asks about a specific person, and identities are removed from the records."
+  },
+  {
+   "qid": "realistic-cf-090",
+   "type": "clinical_fact",
+   "question": "For the chronic kidney disease patient (stage 3) on 10/09/2024 \u2014 I mean October 9 2024 \u2014 what's the follow up interval?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241009,
+    "date_to": 20241009
+   },
+   "redacted_question": "For the chronic kidney disease patient (stage 3) on 10/09/2024 \u2014 I mean October 9 2024 \u2014 what's the follow up interval?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow up interval is 8 weeks."
+  },
+  {
+   "qid": "realistic-cf-093",
+   "type": "clinical_fact",
+   "question": "Which bloodwork was requested at the CKD visit on 13 October 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251013,
+    "date_to": 20251013
+   },
+   "redacted_question": "Which bloodwork was requested at the CKD visit on 13 October 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The requested bloodwork at the CKD visit on 13 October 2025 included eGFR and phosphorus."
+  },
+  {
+   "qid": "realistic-cf-096",
+   "type": "clinical_fact",
+   "question": "What heartrate did the copd patient have on feb 1 2026?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260201,
+    "date_to": 20260201
+   },
+   "redacted_question": "What heartrate did the copd patient have on feb 1 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The COPD patient had a heart rate of 66 on February 1, 2026."
+  },
+  {
+   "qid": "realistic-cf-099",
+   "type": "clinical_fact",
+   "question": "The patient with major depression seen on January 4, 2025: what were they prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250104,
+    "date_to": 20250104
+   },
+   "redacted_question": "The patient with major depression seen on January 4, 2025: what were they prescribed?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The patient was prescribed Fluoxetine 20mg PO daily."
+  },
+  {
+   "qid": "realistic-cf-102",
+   "type": "clinical_fact",
+   "question": "BP reading, hypertensive patient, 19 Sep 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250919,
+    "date_to": 20250919
+   },
+   "redacted_question": "BP reading, hypertensive patient, 19 Sep 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP reading on 19 Sep 2025 was 133/85."
+  },
+  {
+   "qid": "realistic-cf-105",
+   "type": "clinical_fact",
+   "question": "On 2024-12-09 a COPD patient was seen. What were they complaining of?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20241209,
+    "date_to": 20241209
+   },
+   "redacted_question": "On 2024-12-09 a COPD patient was seen. What were they complaining of?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The COPD patient was complaining of sputum production."
+  },
+  {
+   "qid": "realistic-cf-108",
+   "type": "clinical_fact",
+   "question": "osteoarthritis visit may 21 2026 - chief complaint?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260521,
+    "date_to": 20260521
+   },
+   "redacted_question": "osteoarthritis visit may 21 2026 - chief complaint?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The chief complaint for the osteoarthritis visit on May 21, 2026 was reduced range of motion."
+  },
+  {
+   "qid": "realistic-cf-111",
+   "type": "clinical_fact",
+   "question": "What symptom did the depressed patient report at the October 11, 2025 appointment?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "date_from": 20251011,
+    "date_to": 20251011
+   },
+   "redacted_question": "What symptom did the depressed patient report at the October 11, 2025 appointment?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the symptom reported by the depressed patient at the October 11, 2025 appointment."
+  },
+  {
+   "qid": "realistic-cf-114",
+   "type": "clinical_fact",
+   "question": "Can you tell me which medication the osteoarthritis patient got on March 10th, 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250310,
+    "date_to": 20250310
+   },
+   "redacted_question": "Can you tell me which medication the osteoarthritis patient got on March 10th, 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The patient got Celecoxib 200mg PO daily and Acetaminophen 650mg PO Q6H PRN on March 10th, 2025."
+  },
+  {
+   "qid": "realistic-cf-117",
+   "type": "clinical_fact",
+   "question": "Heart rate for the coronary artery disease encounter on 2025-01-14, please.",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250114,
+    "date_to": 20250114
+   },
+   "redacted_question": "Heart rate for the coronary artery disease encounter on 2025-01-14, please.",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate for the coronary artery disease encounter on 2025-01-14 was 97."
+  },
+  {
+   "qid": "realistic-cf-120",
+   "type": "clinical_fact",
+   "question": "When is the asthma patient from 12 April 2025 due back (weeks)?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250412,
+    "date_to": 20250412
+   },
+   "redacted_question": "When is the asthma patient from 12 April 2025 due back (weeks)?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The asthma patient is due back in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-123",
+   "type": "clinical_fact",
+   "question": "MDD patient, seen April 13 2026. Follow-up planned in how many weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260413,
+    "date_to": 20260413
+   },
+   "redacted_question": "MDD patient, seen April 13 2026. Follow-up planned in how many weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "Follow-up with PCP in 8 weeks."
+  },
+  {
+   "qid": "realistic-cf-126",
+   "type": "clinical_fact",
+   "question": "What lab tests were ordered for the asthma patient on 6 May 2026?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260506,
+    "date_to": 20260506
+   },
+   "redacted_question": "What lab tests were ordered for the asthma patient on 6 May 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The lab tests ordered for the asthma patient on 6 May 2026 were peak flow and spirometry."
+  },
+  {
+   "qid": "realistic-cf-129",
+   "type": "clinical_fact",
+   "question": "How many weeks until the next visit for the coronary artery disease patient seen on April 7, 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250407,
+    "date_to": 20250407
+   },
+   "redacted_question": "How many weeks until the next visit for the coronary artery disease patient seen on April 7, 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The next visit for the coronary artery disease patient is in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-132",
+   "type": "clinical_fact",
+   "question": "Labs ordered for the essential hypertension appointment of 24 November 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20251124,
+    "date_to": 20251124
+   },
+   "redacted_question": "Labs ordered for the essential hypertension appointment of 24 November 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the essential hypertension appointment of 24 November 2025 include a renal function panel and a BMP."
+  },
+  {
+   "qid": "realistic-cf-135",
+   "type": "clinical_fact",
+   "question": "Depression patient seen Dec 31 2024 \u2014 how many weeks till follow up?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20241231,
+    "date_to": 20241231
+   },
+   "redacted_question": "Depression patient seen Dec 31 2024 \u2014 how many weeks till follow up?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is in 2 weeks."
+  },
+  {
+   "qid": "realistic-cf-138",
+   "type": "clinical_fact",
+   "question": "For the CKD 3 patient on 2026-08-08, what investigations were ordered?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260808,
+    "date_to": 20260808
+   },
+   "redacted_question": "For the CKD 3 patient on 2026-08-08, what investigations were ordered?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "Creatinine and phosphorus were ordered for the CKD 3 patient on 2026-08-08."
+  },
+  {
+   "qid": "realistic-cf-141",
+   "type": "clinical_fact",
+   "question": "kidney disease stage 3, visit 30 October 2024: follow-up in how many weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241030,
+    "date_to": 20241030
+   },
+   "redacted_question": "kidney disease stage 3, visit 30 October 2024: follow-up in how many weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "Follow-up in 2 weeks."
+  },
+  {
+   "qid": "realistic-cf-144",
+   "type": "clinical_fact",
+   "question": "What did we order lab-wise for the asthma visit on April 15 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250415,
+    "date_to": 20250415
+   },
+   "redacted_question": "What did we order lab-wise for the asthma visit on April 15 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "We ordered spirometry and peak flow for the asthma visit on April 15, 2025."
+  },
+  {
+   "qid": "realistic-cf-147",
+   "type": "clinical_fact",
+   "question": "Osteoarthritis patient 8 April 2026. When should they be followed up, in weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260408,
+    "date_to": 20260408
+   },
+   "redacted_question": "Osteoarthritis patient 8 April 2026. When should they be followed up, in weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The patient should be followed up in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-150",
+   "type": "clinical_fact",
+   "question": "Which diabetes medication was prescribed to the type 2 diabetic on 18 September 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250918,
+    "date_to": 20250918
+   },
+   "redacted_question": "Which diabetes medication was prescribed to the type 2 diabetic on 18 September 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Insulin glargine 20 units SubQ at bedtime was prescribed to the type 2 diabetic on 18 September 2025."
+  },
+  {
+   "qid": "realistic-cf-153",
+   "type": "clinical_fact",
+   "question": "Heart rate of the major depressive disorder patient seen 22 March 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250322,
+    "date_to": 20250322
+   },
+   "redacted_question": "Heart rate of the major depressive disorder patient seen 22 March 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate of the major depressive disorder patient seen on 22 March 2025 was 81."
+  },
+  {
+   "qid": "realistic-cf-156",
+   "type": "clinical_fact",
+   "question": "osteoarthritis appt 1 feb 2026, meds prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260201,
+    "date_to": 20260201
+   },
+   "redacted_question": "osteoarthritis appt 1 feb 2026, meds prescribed?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Tramadol 50mg PO Q6H PRN was prescribed."
+  },
+  {
+   "qid": "realistic-cf-159",
+   "type": "clinical_fact",
+   "question": "Asthma patient, March 9 2025. What was the pulse rate?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250309,
+    "date_to": 20250309
+   },
+   "redacted_question": "Asthma patient, March 9 2025. What was the pulse rate?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The pulse rate was 90."
+  },
+  {
+   "qid": "realistic-cf-162",
+   "type": "clinical_fact",
+   "question": "Why did the type 2 diabetes patient come in on November 20, 2024? What symptom?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241120,
+    "date_to": 20241120
+   },
+   "redacted_question": "Why did the type 2 diabetes patient come in on November 20, 2024? What symptom?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The 69-year-old male came in on November 20, 2024, with polydipsia."
+  },
+  {
+   "qid": "realistic-cf-165",
+   "type": "clinical_fact",
+   "question": "What was the complaint at the hypertension visit on 7 Nov 2024?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20241107,
+    "date_to": 20241107
+   },
+   "redacted_question": "What was the complaint at the hypertension visit on 7 Nov 2024?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The patient's complaint at the hypertension visit on 7 Nov 2024 was shortness of breath."
+  },
+  {
+   "qid": "realistic-cf-168",
+   "type": "clinical_fact",
+   "question": "Blood presure for the essential hypertension pt on October 5 2024?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20241005,
+    "date_to": 20241005
+   },
+   "redacted_question": "Blood presure for the essential hypertension pt on October 5 2024?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The blood pressure for the essential hypertension patient on October 5, 2024 was 157/64."
+  },
+  {
+   "qid": "realistic-cf-171",
+   "type": "clinical_fact",
+   "question": "The hypertension patient seen on May 31, 2025 \u2014 follow-up scheduled after how many weeks?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250531,
+    "date_to": 20250531
+   },
+   "redacted_question": "The hypertension patient seen on May 31, 2025 \u2014 follow-up scheduled after how many weeks?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The hypertension patient seen on May 31, 2025, has a follow-up scheduled after 8 weeks."
+  },
+  {
+   "qid": "realistic-ag-027",
+   "type": "aggregate",
+   "question": "In May 2025, which meds were given to type 2 diabetics who came in with polyuria?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "In May 2025, which meds were given to type 2 diabetics who came in with polyuria?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "The patient who came in with polyuria in May 2025 was given Glipizide 5mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-030",
+   "type": "aggregate",
+   "question": "Diabetic patients complaining of polydipsia during May 2025 \u2014 what were they prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "Diabetic patients complaining of polydipsia during May 2025 \u2014 what were they prescribed?",
+   "grounded_accuracy": 0.25,
+   "accuracy": 0.25,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.4,
+   "answer": "The diabetic patients complaining of polydipsia during May 2025 were prescribed Glipizide 5mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-033",
+   "type": "aggregate",
+   "question": "Sept 2024: COPD patients with dyspnea. List their medications.",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20240901,
+    "date_to": 20240930
+   },
+   "redacted_question": "Sept 2024: COPD patients with dyspnea. List their medications.",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The COPD patients with dyspnea in September 2024 are prescribed Tiotropium 18mcg inhaler daily and Prednisone 10mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-036",
+   "type": "aggregate",
+   "question": "What were the osteoarthritis patients with swelling put on in Feb 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "What were the osteoarthritis patients with swelling put on in Feb 2025?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "The osteoarthritis patients with swelling in February 2025 were put on Tramadol 50mg PO Q6H PRN."
+  },
+  {
+   "qid": "realistic-ag-039",
+   "type": "aggregate",
+   "question": "Which drugs did hypertensive patients presenting with dizziness receive in May 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "Which drugs did hypertensive patients presenting with dizziness receive in May 2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "The hypertensive patients presenting with dizziness in May 2025 received Losartan 50mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-042",
+   "type": "aggregate",
+   "question": "Depressed patients who had poor concentration, December 2024. What medications?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "date_from": 20241201,
+    "date_to": 20241231
+   },
+   "redacted_question": "Depressed patients who had poor concentration, December 2024. What medications?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the medications for the patients who had poor concentration in December 2024."
+  },
+  {
+   "qid": "realistic-ag-045",
+   "type": "aggregate",
+   "question": "Medications for CKD stage 3 patients with edema seen in May 2026?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "Medications for CKD stage 3 patients with edema seen in May 2026?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.7499999999999999,
+   "answer": "The medications for CKD stage 3 patients with edema seen in May 2026 include Sodium bicarbonate 650mg PO TID and EPO 4000 units SubQ weekly."
+  },
+  {
+   "qid": "realistic-ag-048",
+   "type": "aggregate",
+   "question": "What did the chronic kidney disease patients with nausea get prescribed in June 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "What did the chronic kidney disease patients with nausea get prescribed in June 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5714285714285715,
+   "answer": "The chronic kidney disease patients with nausea in June 2025 were prescribed Sodium bicarbonate 650mg PO TID."
+  },
+  {
+   "qid": "realistic-ag-051",
+   "type": "aggregate",
+   "question": "copd patients w/ sputum production in june 2025 - meds?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "copd patients w/ sputum production in june 2025 - meds?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.4,
+   "answer": "The copd patients with sputum production in June 2025 were prescribed Prednisone 10mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-054",
+   "type": "aggregate",
+   "question": "Give me the medications prescribed to major depressive disorder patients reporting fatigue in June 2025.",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "Give me the medications prescribed to major depressive disorder patients reporting fatigue in June 2025.",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "The medications prescribed to major depressive disorder patients reporting fatigue in June 2025 include Bupropion XL 150mg PO daily and Escitalopram 10mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-057",
+   "type": "aggregate",
+   "question": "For COPD patients seen with wheezing in May 2026, which medications were prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "For COPD patients seen with wheezing in May 2026, which medications were prescribed?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8571428571428571,
+   "answer": "Albuterol/Ipratropium inhaler QID and Prednisone 10mg PO daily were prescribed for COPD patients seen with wheezing in May 2026."
+  },
+  {
+   "qid": "realistic-ag-060",
+   "type": "aggregate",
+   "question": "Type 2 diabetes patients with neuropathy in April 2026 \u2014 what were they on?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "Type 2 diabetes patients with neuropathy in April 2026 \u2014 what were they on?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The 39-year-old female was on treatment for Type 2 diabetes mellitus, but the specific medications are not listed. The 28-year-old male was also on treatment for Type 2 diabetes mellitus, but the specific medications are not listed."
+  },
+  {
+   "qid": "realistic-ag-063",
+   "type": "aggregate",
+   "question": "In January 2025, depression patients with anhedonia were prescribed what?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "In January 2025, depression patients with anhedonia were prescribed what?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "In January 2025, depression patients with anhedonia were prescribed Sertraline 50mg PO daily, Bupropion XL 150mg PO daily, and Escitalopram 10mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-066",
+   "type": "aggregate",
+   "question": "COPD, sputum production, April 2026. Which drugs were prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "COPD, sputum production, April 2026. Which drugs were prescribed?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the specific drugs prescribed for COPD and sputum production in April 2026."
+  },
+  {
+   "qid": "realistic-ag-069",
+   "type": "aggregate",
+   "question": "What medications did osteoarthritis patients with morning stiffness receive in Dec 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20251201,
+    "date_to": 20251231
+   },
+   "redacted_question": "What medications did osteoarthritis patients with morning stiffness receive in Dec 2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "The osteoarthritis patients with morning stiffness in December 2025 received Celecoxib 200mg PO daily and Tramadol 50mg PO Q6H PRN."
+  },
+  {
+   "qid": "realistic-ag-072",
+   "type": "aggregate",
+   "question": "Osteoarthritis patients reporting morning stiffness in July 2026: list the prescriptions.",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260701,
+    "date_to": 20260731
+   },
+   "redacted_question": "Osteoarthritis patients reporting morning stiffness in July 2026: list the prescriptions.",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "The prescriptions for osteoarthritis patients reporting morning stiffness in July 2026 include Tramadol 50mg PO Q6H PRN, Acetaminophen 650mg PO Q6H PRN, and Celecoxib 200mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-075",
+   "type": "aggregate",
+   "question": "Which meds were the CKD3 patients with nausea given in May 2026?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260501,
+    "date_to": 20260531
+   },
+   "redacted_question": "Which meds were the CKD3 patients with nausea given in May 2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.7499999999999999,
+   "answer": "The CKD3 patients with nausea given in May 2026 were given Sodium bicarbonate 650mg PO TID and EPO 4000 units SubQ weekly."
+  },
+  {
+   "qid": "realistic-ag-078",
+   "type": "aggregate",
+   "question": "CAD patients who complained of fatigue in February 2025 \u2014 medications prescribed?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "CAD patients who complained of fatigue in February 2025 \u2014 medications prescribed?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The patient was prescribed Aspirin 81mg PO daily for fatigue in February 2025."
+  },
+  {
+   "qid": "realistic-ag-081",
+   "type": "aggregate",
+   "question": "What were chronic kidney disease stage 3 patients presenting with edema prescribed in October 2025?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "What were chronic kidney disease stage 3 patients presenting with edema prescribed in October 2025?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "In October 2025, chronic kidney disease stage 3 patients presenting with edema were prescribed EPO 4000 units SubQ weekly, Sodium bicarbonate 650mg PO TID, and calcium carbonate 500mg PO TID with meals."
+  },
+  {
+   "qid": "realistic-ag-084",
+   "type": "aggregate",
+   "question": "Which medications were given in September 2025 to MDD patients with poor concentration?",
+   "groups": [
+    "source=manual"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Which medications were given in September 2025 to MDD patients with poor concentration?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Sertraline 50mg PO daily, Fluoxetine 20mg PO daily, Bupropion XL 150mg PO daily were given in September 2025 to MDD patients with poor concentration."
+  },
+  {
+   "qid": "realistic-cf-055",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the CKD stage 3 pt noted on 29-Sep-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20240901,
+    "date_to": 20241231
+   },
+   "redacted_question": "What HR was recorded for the CKD stage 3 pt noted on 29-Sep-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate recorded for the CKD stage 3 patient on 29-Sep-2024 was 96."
+  },
+  {
+   "qid": "realistic-cf-056",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the T2DM pt dated 10/02/2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241002,
+    "date_to": 20241002
+   },
+   "redacted_question": "What BP was recorded for the T2DM pt dated 10/02/2024?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the T2DM pt dated 10/02/2024 was 135/88."
+  },
+  {
+   "qid": "realistic-cf-058",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the pt with essential hypertension seen on 29/09/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250929,
+    "date_to": 20250929
+   },
+   "redacted_question": "What med was prescribed for the pt with essential hypertension seen on 29/09/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Hydrochlorothiazide 25mg PO daily was prescribed for the pt with essential hypertension seen on 29/09/2025."
+  },
+  {
+   "qid": "realistic-cf-059",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the OA patient on 7/9/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260709,
+    "date_to": 20260709
+   },
+   "redacted_question": "What symptom or complaint was documented for the OA patient on 7/9/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-061",
+   "type": "clinical_fact",
+   "question": "What BP was\u5f55 for the major depressive disorder pt noted on 12/05/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20261205,
+    "date_to": 20261205
+   },
+   "redacted_question": "What BP was\u5f55 for the major depressive disorder pt noted on 12/05/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-062",
+   "type": "clinical_fact",
+   "question": "Which labs were ordered for the Type 2 diabetes mellitus patient seen on 4-Nov-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251101,
+    "date_to": 20251231
+   },
+   "redacted_question": "Which labs were ordered for the Type 2 diabetes mellitus patient seen on 4-Nov-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the Type 2 diabetes mellitus patient seen on 4-Nov-2025 were fasting glucose and lipid panel."
+  },
+  {
+   "qid": "realistic-cf-064",
+   "type": "clinical_fact",
+   "question": "What symptom(s) or complaint(s) were documented for the patient with asthma on 19-Jan-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom(s) or complaint(s) were documented for the patient with asthma on 19-Jan-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the symptom(s) or complaint(s) documented for the patient with asthma on 19-Jan-2026."
+  },
+  {
+   "qid": "realistic-cf-065",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up scheduled for the asthma pt noted on 04/01/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260401,
+    "date_to": 20260401
+   },
+   "redacted_question": "In how many weeks is the follow-up scheduled for the asthma pt noted on 04/01/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is scheduled in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-067",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the CKD stage III pt on 15-Feb-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250201,
+    "date_to": 20251231
+   },
+   "redacted_question": "What BP was recorded for the CKD stage III pt on 15-Feb-2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the CKD stage III pt on 15-Feb-2025 was 131/74."
+  },
+  {
+   "qid": "realistic-cf-068",
+   "type": "clinical_fact",
+   "question": "Which labs were ordered for the OA patient noted on 4-Aug-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250801,
+    "date_to": 20251231
+   },
+   "redacted_question": "Which labs were ordered for the OA patient noted on 4-Aug-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the OA patient on 4-Aug-2025 were ESR and CRP."
+  },
+  {
+   "qid": "realistic-cf-070",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the CKD stage III patient noted on 20/12/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251220,
+    "date_to": 20251220
+   },
+   "redacted_question": "What symptom or complaint was documented for the CKD stage III patient noted on 20/12/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the CKD stage III patient noted on 20/12/2025 was decreased appetite."
+  },
+  {
+   "qid": "realistic-cf-071",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up scheduled for the patient diagnosed with major depressive disorder, noting the visit date as 19-Jun-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260601,
+    "date_to": 20261231
+   },
+   "redacted_question": "In how many weeks is the follow-up scheduled for the patient diagnosed with major depressive disorder, noting the visit date as 19-Jun-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is scheduled in 4 weeks for the patient diagnosed with major depressive disorder on 19-Jun-2026."
+  },
+  {
+   "qid": "realistic-cf-073",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the CKD stage III pt on 10/11/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20251011,
+    "date_to": 20251011
+   },
+   "redacted_question": "What BP was recorded for the CKD stage III pt on 10/11/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-074",
+   "type": "clinical_fact",
+   "question": "What Rx was given to the DSM-5 MDD pt noted on 24-9-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder"
+   },
+   "redacted_question": "What Rx was given to the DSM-5 MDD pt noted on 24-9-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the information about the Rx given to the DSM-5 MDD pt noted on 24-9-2024."
+  },
+  {
+   "qid": "realistic-cf-076",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the Type 2 diabetes mellitus pt's follow-up planned, note dated 06/03/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260603,
+    "date_to": 20260603
+   },
+   "redacted_question": "In how many weeks is the Type 2 diabetes mellitus pt's follow-up planned, note dated 06/03/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The Type 2 diabetes mellitus pt's follow-up is planned in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-077",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the CKD stage III pt noted on 17-Apr-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260401,
+    "date_to": 20261231
+   },
+   "redacted_question": "What HR was recorded for the CKD stage III pt noted on 17-Apr-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain a heart rate (HR) recorded for the CKD stage III patient on 17-Apr-2026."
+  },
+  {
+   "qid": "realistic-cf-079",
+   "type": "clinical_fact",
+   "question": "What medication was prescribed for the OA patient on 30-Sep-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20240901,
+    "date_to": 20241231
+   },
+   "redacted_question": "What medication was prescribed for the OA patient on 30-Sep-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the medication prescribed for the OA patient on 30-Sep-2024."
+  },
+  {
+   "qid": "realistic-cf-080",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the CKD stage III patient on 22-Jan-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom or complaint was documented for the CKD stage III patient on 22-Jan-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the CKD stage III patient on 22-Jan-2026 is not found in the provided notes."
+  },
+  {
+   "qid": "realistic-cf-082",
+   "type": "clinical_fact",
+   "question": "What HR was noted for the dx'd MDD pt on 10-Jan-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250101,
+    "date_to": 20251231
+   },
+   "redacted_question": "What HR was noted for the dx'd MDD pt on 10-Jan-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the HR noted for the dx'd MDD pt on 10-Jan-2025."
+  },
+  {
+   "qid": "realistic-cf-083",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the CKD stage 3 pt noted on 3/3/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250303,
+    "date_to": 20250303
+   },
+   "redacted_question": "What med was prescribed for the CKD stage 3 pt noted on 3/3/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Sodium bicarbonate 650mg PO TID was prescribed for the CKD stage 3 pt noted on 3/3/2025."
+  },
+  {
+   "qid": "realistic-cf-085",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up scheduled for the CAD patient noted on 30-Jan-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "In how many weeks is the follow-up scheduled for the CAD patient noted on 30-Jan-2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "12 weeks"
+  },
+  {
+   "qid": "realistic-cf-086",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the T2DM pt on 25/05/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250525,
+    "date_to": 20250525
+   },
+   "redacted_question": "What HR was recorded for the T2DM pt on 25/05/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate recorded for the T2DM patient on 25/05/2025 was 91."
+  },
+  {
+   "qid": "realistic-cf-088",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the asthma pt noted on 13-Apr-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260401,
+    "date_to": 20261231
+   },
+   "redacted_question": "What med was prescribed for the asthma pt noted on 13-Apr-2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN was prescribed for the asthma pt noted on 13-Apr-2026."
+  },
+  {
+   "qid": "realistic-cf-089",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the pt with essential hypertension seen on 16-Jul-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250701,
+    "date_to": 20251231
+   },
+   "redacted_question": "What symptom or complaint was documented for the pt with essential hypertension seen on 16-Jul-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the pt with essential hypertension seen on 16-Jul-2025 was dizziness."
+  },
+  {
+   "qid": "realistic-cf-091",
+   "type": "clinical_fact",
+   "question": "On 28/08/2026, what was the heart rate for the CKD stage 3 patient?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260828,
+    "date_to": 20260828
+   },
+   "redacted_question": "On 28/08/2026, what was the heart rate for the CKD stage 3 patient?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate for the CKD stage 3 patient on 28/08/2026 was 86."
+  },
+  {
+   "qid": "realistic-cf-092",
+   "type": "clinical_fact",
+   "question": "What BP was documented for the asthma pt on 6/6/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250606,
+    "date_to": 20250606
+   },
+   "redacted_question": "What BP was documented for the asthma pt on 6/6/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP documented for the asthma pt on 6/6/2025 was 149/75."
+  },
+  {
+   "qid": "realistic-cf-094",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the asthma pt noted on 7/6/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250706,
+    "date_to": 20250706
+   },
+   "redacted_question": "What med was prescribed for the asthma pt noted on 7/6/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-095",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the Type 2 diabetes mellitus pt on 8/Oct/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus"
+   },
+   "redacted_question": "What symptom or complaint was documented for the Type 2 diabetes mellitus pt on 8/Oct/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the Type 2 diabetes mellitus patient on 8/Oct/2025 was fatigue."
+  },
+  {
+   "qid": "realistic-cf-097",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the pt with major depressive disorder on 2026-01-20?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260120,
+    "date_to": 20260120
+   },
+   "redacted_question": "What BP was recorded for the pt with major depressive disorder on 2026-01-20?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the pt with major depressive disorder on 2026-01-20 was 143/64."
+  },
+  {
+   "qid": "realistic-cf-098",
+   "type": "clinical_fact",
+   "question": "Which labs were ordered for the Type 2 diabetes mellitus patient seen on 15-May-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260501,
+    "date_to": 20261231
+   },
+   "redacted_question": "Which labs were ordered for the Type 2 diabetes mellitus patient seen on 15-May-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the Type 2 diabetes mellitus patient seen on 15-May-2026 were lipid panel and fasting glucose."
+  },
+  {
+   "qid": "realistic-cf-100",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the Type 2 DM patient on 17-Apr-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260401,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom or complaint was documented for the Type 2 DM patient on 17-Apr-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the Type 2 DM patient on 17-Apr-2026 is not found in the provided notes."
+  },
+  {
+   "qid": "realistic-cf-101",
+   "type": "clinical_fact",
+   "question": "On 26/06/2026, what heart rate was documented for the COPD patient?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260626,
+    "date_to": 20260626
+   },
+   "redacted_question": "On 26/06/2026, what heart rate was documented for the COPD patient?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate documented for the COPD patient on 26/06/2026 was 100."
+  },
+  {
+   "qid": "realistic-cf-103",
+   "type": "clinical_fact",
+   "question": "Which labs were ordered for the pt w/ essential hypertension, 7/02/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250702,
+    "date_to": 20250702
+   },
+   "redacted_question": "Which labs were ordered for the pt w/ essential hypertension, 7/02/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the pt with essential hypertension on 7/02/2025 were a renal function panel and BMP."
+  },
+  {
+   "qid": "realistic-cf-104",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the Type 2 diabetes mellitus pt with a note dtg 2026-08-10?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260810,
+    "date_to": 20260810
+   },
+   "redacted_question": "What med was prescribed for the Type 2 diabetes mellitus pt with a note dtg 2026-08-10?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Insulin glargine 20 units SubQ at bedtime was prescribed for the Type 2 diabetes mellitus patient with a note dtg 2026-08-10."
+  },
+  {
+   "qid": "realistic-cf-106",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up planned for the MDD patient noted on 05/03/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250503,
+    "date_to": 20250503
+   },
+   "redacted_question": "In how many weeks is the follow-up planned for the MDD patient noted on 05/03/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is planned in 2 weeks."
+  },
+  {
+   "qid": "realistic-cf-107",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the CAD pt noted on 3-Oct-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20241001,
+    "date_to": 20241231
+   },
+   "redacted_question": "What med was prescribed for the CAD pt noted on 3-Oct-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.0,
+   "answer": "Metoprolol tartrate 25mg PO BID was prescribed for the CAD pt noted on 3-Oct-2024."
+  },
+  {
+   "qid": "realistic-cf-109",
+   "type": "clinical_fact",
+   "question": "On 30/09/2024, what heart rate was recorded for the patient with Coronary artery disease?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20240930,
+    "date_to": 20240930
+   },
+   "redacted_question": "On 30/09/2024, what heart rate was recorded for the patient with Coronary artery disease?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate recorded for the patient on 30/09/2024 was 77."
+  },
+  {
+   "qid": "realistic-cf-110",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the asthma pt noted on 12-Jan-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250101,
+    "date_to": 20251231
+   },
+   "redacted_question": "What med was prescribed for the asthma pt noted on 12-Jan-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.0,
+   "answer": "The asthma pt noted on 12-Jan-2025 was prescribed Fluticasone 110mcg inhaler 2 puffs BID."
+  },
+  {
+   "qid": "realistic-cf-112",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up planned for the OA pt noted on 25/05/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250525,
+    "date_to": 20250525
+   },
+   "redacted_question": "In how many weeks is the follow-up planned for the OA pt noted on 25/05/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is planned for 2 weeks from 25/05/2025."
+  },
+  {
+   "qid": "realistic-cf-113",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the OA pt noted on 26-Oct-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20251001,
+    "date_to": 20251231
+   },
+   "redacted_question": "What HR was recorded for the OA pt noted on 26-Oct-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate recorded for the OA pt on 26-Oct-2025 is 60."
+  },
+  {
+   "qid": "realistic-cf-115",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the asthma patient on 4-Oct-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241001,
+    "date_to": 20241231
+   },
+   "redacted_question": "What symptom or complaint was documented for the asthma patient on 4-Oct-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the asthma patient on 4-Oct-2024 was dyspnea."
+  },
+  {
+   "qid": "realistic-cf-116",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up pt with Osteoarthritis ( note dt 08-02-2026 ) scheduled?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis"
+   },
+   "redacted_question": "In how many weeks is the follow-up pt with Osteoarthritis ( note dt 08-02-2026 ) scheduled?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up for the pt with Osteoarthritis scheduled in 12 weeks."
+  },
+  {
+   "qid": "realistic-cf-118",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the CAD pt noted on 19-Mar-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260301,
+    "date_to": 20261231
+   },
+   "redacted_question": "What med was prescribed for the CAD pt noted on 19-Mar-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain a prescription for a medication on 19-Mar-2026."
+  },
+  {
+   "qid": "realistic-cf-119",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the COPD pt on 10-Aug-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250801,
+    "date_to": 20251231
+   },
+   "redacted_question": "What symptom or complaint was documented for the COPD pt on 10-Aug-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the COPD patient on 10-Aug-2025 is wheezing."
+  },
+  {
+   "qid": "realistic-cf-121",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the T2DM pt noted on 26-Jul-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250701,
+    "date_to": 20251231
+   },
+   "redacted_question": "What med was prescribed for the T2DM pt noted on 26-Jul-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the prescription for the T2DM patient noted on 26-Jul-2025."
+  },
+  {
+   "qid": "realistic-cf-122",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the T2DM patient on 9/9/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250909,
+    "date_to": 20250909
+   },
+   "redacted_question": "What symptom or complaint was documented for the T2DM patient on 9/9/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The patient reported fatigue since the last visit."
+  },
+  {
+   "qid": "realistic-cf-124",
+   "type": "clinical_fact",
+   "question": "On 27/04/2025, what heart rate was recorded for the patient with a diagnosis of Coronary artery disease?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250427,
+    "date_to": 20250427
+   },
+   "redacted_question": "On 27/04/2025, what heart rate was recorded for the patient with a diagnosis of Coronary artery disease?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate recorded for the patient on 27/04/2025 was 64."
+  },
+  {
+   "qid": "realistic-cf-125",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the COPD pt noted on 30/05/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250530,
+    "date_to": 20250530
+   },
+   "redacted_question": "What BP was recorded for the COPD pt noted on 30/05/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the COPD pt noted on 30/05/2025 was 110/92."
+  },
+  {
+   "qid": "realistic-cf-127",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the OA pt noted 7/8/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250708,
+    "date_to": 20250708
+   },
+   "redacted_question": "What med was prescribed for the OA pt noted 7/8/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-128",
+   "type": "clinical_fact",
+   "question": "On 21/09/2025, what symptom or complaint was documented for the patient with chronic kidney disease stage 3?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250921,
+    "date_to": 20250921
+   },
+   "redacted_question": "On 21/09/2025, what symptom or complaint was documented for the patient with chronic kidney disease stage 3?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the patient with chronic kidney disease stage 3 on 21/09/2025 was fatigue."
+  },
+  {
+   "qid": "realistic-cf-130",
+   "type": "clinical_fact",
+   "question": "On 04/08/2026, what was the heart rate for the Type 2 diabetes mellitus patient?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260408,
+    "date_to": 20260408
+   },
+   "redacted_question": "On 04/08/2026, what was the heart rate for the Type 2 diabetes mellitus patient?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-131",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the asthma pt whose note is dt 13-Nov-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20251101,
+    "date_to": 20251231
+   },
+   "redacted_question": "What BP was recorded for the asthma pt whose note is dt 13-Nov-2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the asthma pt on 13-Nov-2025 was 138/85."
+  },
+  {
+   "qid": "realistic-cf-133",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the T2DM pt noted on 20/10/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251020,
+    "date_to": 20251020
+   },
+   "redacted_question": "What med was prescribed for the T2DM pt noted on 20/10/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Glipizide 5mg PO daily was prescribed for the T2DM pt noted on 20/10/2025."
+  },
+  {
+   "qid": "realistic-cf-134",
+   "type": "clinical_fact",
+   "question": "What symptom\u6216complaint was documented for the CKD stage 3 patient on 14-Aug-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260801,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom\u6216complaint was documented for the CKD stage 3 patient on 14-Aug-2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the CKD stage 3 patient on 14-Aug-2026 was decreased appetite."
+  },
+  {
+   "qid": "realistic-cf-136",
+   "type": "clinical_fact",
+   "question": "On 30-Jan-2026, what heart rate was documented for the pt withessential hypertension?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "On 30-Jan-2026, what heart rate was documented for the pt withessential hypertension?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The heart rate documented for the pt with essential hypertension on 30-Jan-2026 is not found in the provided notes."
+  },
+  {
+   "qid": "realistic-cf-137",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the patient with a dx of major depressive disorder on 1/1/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260101,
+    "date_to": 20260101
+   },
+   "redacted_question": "What BP was recorded for the patient with a dx of major depressive disorder on 1/1/2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the patient with a dx of major depressive disorder on 1/1/2026 was 154/60."
+  },
+  {
+   "qid": "realistic-cf-139",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the OA pt noted on 10-FEB-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260201,
+    "date_to": 20261231
+   },
+   "redacted_question": "What med was prescribed for the OA pt noted on 10-FEB-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Tramadol 50mg PO Q6H PRN was prescribed for the OA pt noted on 10-FEB-2026."
+  },
+  {
+   "qid": "realistic-cf-140",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the CKD stage 3 patient on 04-Sep-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260901,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom or complaint was documented for the CKD stage 3 patient on 04-Sep-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the CKD stage 3 patient on 04-Sep-2026 was fatigue."
+  },
+  {
+   "qid": "realistic-cf-142",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the OA pt noted on 2/1/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260201,
+    "date_to": 20260201
+   },
+   "redacted_question": "What HR was recorded for the OA pt noted on 2/1/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate (HR) recorded for the OA pt noted on 2/1/2026 was 95."
+  },
+  {
+   "qid": "realistic-cf-143",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the dx of MDD pt on 2/7/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260207,
+    "date_to": 20260207
+   },
+   "redacted_question": "What BP was recorded for the dx of MDD pt on 2/7/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-145",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the CAD pt noted on 26/06/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250626,
+    "date_to": 20250626
+   },
+   "redacted_question": "What med was prescribed for the CAD pt noted on 26/06/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Metoprolol tartrate 25mg PO BID was prescribed for the CAD pt noted on 26/06/2025."
+  },
+  {
+   "qid": "realistic-cf-146",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the pt dx with major depressive disorder on 06-08-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder"
+   },
+   "redacted_question": "What symptom or complaint was documented for the pt dx with major depressive disorder on 06-08-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the pt dx with major depressive disorder on 06-08-2026 was insomnia."
+  },
+  {
+   "qid": "realistic-cf-148",
+   "type": "clinical_fact",
+   "question": "What HR was recorded for the pt dx'd w/ essential hypertension on 13-Sep-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260901,
+    "date_to": 20261231
+   },
+   "redacted_question": "What HR was recorded for the pt dx'd w/ essential hypertension on 13-Sep-2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The HR recorded for the pt dx'd w/ essential hypertension on 13-Sep-2026 was 63."
+  },
+  {
+   "qid": "realistic-cf-149",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the CAD pt noted on 21-FEB-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260201,
+    "date_to": 20261231
+   },
+   "redacted_question": "What BP was recorded for the CAD pt noted on 21-FEB-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the CAD pt on 21-FEB-2026 was 117/85."
+  },
+  {
+   "qid": "realistic-cf-151",
+   "type": "clinical_fact",
+   "question": "On 02-06-2025, what symptom or complaint was documented for the DM type 2 patient?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus"
+   },
+   "redacted_question": "On 02-06-2025, what symptom or complaint was documented for the DM type 2 patient?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom documented for the DM type 2 patient on 02-06-2025 was neuropathy."
+  },
+  {
+   "qid": "realistic-cf-152",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the COPD patient's follow-up scheduled, per the note dated 26-08-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "COPD"
+   },
+   "redacted_question": "In how many weeks is the COPD patient's follow-up scheduled, per the note dated 26-08-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain a follow-up scheduled for the COPD patient on 26-08-2025."
+  },
+  {
+   "qid": "realistic-cf-154",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the OA pt on 5-Jan-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "What BP was recorded for the OA pt on 5-Jan-2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP recorded for the OA pt on 5-Jan-2026 was 149/89."
+  },
+  {
+   "qid": "realistic-cf-155",
+   "type": "clinical_fact",
+   "question": "Which labs were ordered for the patient with a diagnosis of major depressive disorder noted on 8-Jan-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "Which labs were ordered for the patient with a diagnosis of major depressive disorder noted on 8-Jan-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The labs ordered for the patient with a diagnosis of major depressive disorder noted on 8-Jan-2026 were CBC, TSH."
+  },
+  {
+   "qid": "realistic-cf-157",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the pt w/essential hypertension on 2/5/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260205,
+    "date_to": 20260205
+   },
+   "redacted_question": "What symptom or complaint was documented for the pt w/essential hypertension on 2/5/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-158",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up scheduled for the COPD patient noted on 8-Apr-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260401,
+    "date_to": 20261231
+   },
+   "redacted_question": "In how many weeks is the follow-up scheduled for the COPD patient noted on 8-Apr-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is scheduled in 8 weeks."
+  },
+  {
+   "qid": "realistic-cf-160",
+   "type": "clinical_fact",
+   "question": "What BP was recorded for the CAD pt on 23-Jul-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250701,
+    "date_to": 20251231
+   },
+   "redacted_question": "What BP was recorded for the CAD pt on 23-Jul-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the blood pressure for the CAD pt on 23-Jul-2025."
+  },
+  {
+   "qid": "realistic-cf-161",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the asthma pt noted on 31-Dec-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20251201,
+    "date_to": 20251231
+   },
+   "redacted_question": "What med was prescribed for the asthma pt noted on 31-Dec-2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The medications prescribed for the asthma patient on 31-Dec-2025 were Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN and Fluticasone 110mcg inhaler 2 puffs BID."
+  },
+  {
+   "qid": "realistic-cf-163",
+   "type": "clinical_fact",
+   "question": "In how many weeks is follow-up planned for the CAD patient noted on 1-May-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20260501,
+    "date_to": 20261231
+   },
+   "redacted_question": "In how many weeks is follow-up planned for the CAD patient noted on 1-May-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up is planned in 6 weeks for the CAD patient noted on 1-May-2026."
+  },
+  {
+   "qid": "realistic-cf-164",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the T2DM pt noted on 2/3/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20260203,
+    "date_to": 20260203
+   },
+   "redacted_question": "What med was prescribed for the T2DM pt noted on 2/3/2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-166",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the follow-up pt seen on 04-02-2026 for CAD scheduled?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease"
+   },
+   "redacted_question": "In how many weeks is the follow-up pt seen on 04-02-2026 for CAD scheduled?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up for the pt seen on 04-02-2026 for CAD is scheduled in 4 weeks."
+  },
+  {
+   "qid": "realistic-cf-167",
+   "type": "clinical_fact",
+   "question": "On 28/01/2026, what heart rate was documented for the asthma pt?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260128,
+    "date_to": 20260128
+   },
+   "redacted_question": "On 28/01/2026, what heart rate was documented for the asthma pt?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The heart rate documented for the asthma pt on 28/01/2026 was 100."
+  },
+  {
+   "qid": "realistic-cf-169",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the COPD pt noted on 14-Apr-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250401,
+    "date_to": 20251231
+   },
+   "redacted_question": "What med was prescribed for the COPD pt noted on 14-Apr-2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Tiotropium 18mcg inhaler daily was prescribed for the COPD pt noted on 14-Apr-2025."
+  },
+  {
+   "qid": "realistic-cf-170",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the patient with essential hypertension on 22-FEB-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20260201,
+    "date_to": 20261231
+   },
+   "redacted_question": "What symptom or complaint was documented for the patient with essential hypertension on 22-FEB-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the symptom or complaint documented for the patient with essential hypertension on 22-FEB-2026."
+  },
+  {
+   "qid": "realistic-cf-172",
+   "type": "clinical_fact",
+   "question": "What HR was noted for the COPD pt on 8/5/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250805,
+    "date_to": 20250805
+   },
+   "redacted_question": "What HR was noted for the COPD pt on 8/5/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The HR noted for the COPD pt on 8/5/2025 was 83."
+  },
+  {
+   "qid": "realistic-cf-173",
+   "type": "clinical_fact",
+   "question": "What BP was noted for the CAD pt on 10/21/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20251021,
+    "date_to": 20251021
+   },
+   "redacted_question": "What BP was noted for the CAD pt on 10/21/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The BP noted for the CAD pt on 10/21/2025 was 141/68."
+  },
+  {
+   "qid": "realistic-cf-174",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the MDD pt noted on 14-Jan-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250101,
+    "date_to": 20251231
+   },
+   "redacted_question": "What med was prescribed for the MDD pt noted on 14-Jan-2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Escitalopram 10mg PO daily was prescribed for the MDD pt noted on 14-Jan-2025."
+  },
+  {
+   "qid": "realistic-cf-175",
+   "type": "clinical_fact",
+   "question": "What symptom or complaint was documented for the asthma pt on 6-Nov-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241101,
+    "date_to": 20241231
+   },
+   "redacted_question": "What symptom or complaint was documented for the asthma pt on 6-Nov-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The symptom or complaint documented for the asthma pt on 6-Nov-2024 was chest tightness."
+  },
+  {
+   "qid": "realistic-cf-176",
+   "type": "clinical_fact",
+   "question": "What HR was noted for the OA pt on 24-Sep-2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250901,
+    "date_to": 20251231
+   },
+   "redacted_question": "What HR was noted for the OA pt on 24-Sep-2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The HR noted for the OA pt on 24-Sep-2025 was 96."
+  },
+  {
+   "qid": "realistic-cf-177",
+   "type": "clinical_fact",
+   "question": "What med was prescribed for the asthma pt noted on 27-FEB-2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260201,
+    "date_to": 20261231
+   },
+   "redacted_question": "What med was prescribed for the asthma pt noted on 27-FEB-2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the prescription for the asthma patient noted on 27-FEB-2026."
+  },
+  {
+   "qid": "realistic-cf-178",
+   "type": "clinical_fact",
+   "question": "What SYMPTOM or COMPLAINT was doc'd for the COPD pt on 6/4/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250604,
+    "date_to": 20250604
+   },
+   "redacted_question": "What SYMPTOM or COMPLAINT was doc'd for the COPD pt on 6/4/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-cf-179",
+   "type": "clinical_fact",
+   "question": "In how many weeks is the CKD stage 3 pt's follow-up scheduled, note dt 21-Nov-2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20241101,
+    "date_to": 20241231
+   },
+   "redacted_question": "In how many weeks is the CKD stage 3 pt's follow-up scheduled, note dt 21-Nov-2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": null,
+   "answer": "The follow-up for the CKD stage 3 patient is scheduled in 4 weeks, as noted on 2024-11-29."
+  },
+  {
+   "qid": "realistic-ag-028",
+   "type": "aggregate",
+   "question": "Which meds were prescribed toEss HTN pts with dizziness inJun 2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Essential hypertension"
+   },
+   "redacted_question": "Which meds were prescribed toEss HTN pts with dizziness inJun 2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the medications prescribed to patients with essential hypertension and dizziness in June 2026."
+  },
+  {
+   "qid": "realistic-ag-029",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to asthma pts presenting with wheezing 2/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 0.75,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "Which meds were prescribed to asthma pts presenting with wheezing 2/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "The asthma patients presenting with wheezing in February 2025 were prescribed Montelukast 10mg PO QHS, Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN, Fluticasone 110mcg inhaler 2 puffs BID."
+  },
+  {
+   "qid": "realistic-ag-031",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to asthma pts presenting with cough in Jul 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 0.6666666666666666,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "Which meds were dispensed to asthma pts presenting with cough in Jul 2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The asthma patients presenting with cough in July 2025 were dispensed Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN, Fluticasone 110mcg inhaler 2 puffs BID, and Montelukast 10mg PO QHS."
+  },
+  {
+   "qid": "realistic-ag-032",
+   "type": "aggregate",
+   "question": "WHICH MEDICATIONS WERE PRESCRIBED FOR CHRONIC KIDNEY DISEASE STAGE III PTs WHO COMPLAINTED OF DECREASED APPETITE IN MARCH 2026? Date: 01/03/2026",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260103,
+    "date_to": 20260103
+   },
+   "redacted_question": "WHICH MEDICATIONS WERE PRESCRIBED FOR CHRONIC KIDNEY DISEASE STAGE III PTs WHO COMPLAINTED OF DECREASED APPETITE IN MARCH 2026? Date: 01/03/2026",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Calcium carbonate 500mg PO TID with meals was prescribed for the chronic kidney disease stage III patients who complained of decreased appetite on 01/03/2026."
+  },
+  {
+   "qid": "realistic-ag-034",
+   "type": "aggregate",
+   "question": "Which medls were prescrbd to CAD pts w/ fatigue in Sep 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20240901,
+    "date_to": 20240930
+   },
+   "redacted_question": "Which medls were prescrbd to CAD pts w/ fatigue in Sep 2024?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Metoprolol tartrate 25mg PO BID was prescribed to the CAD patient with fatigue in September 2024."
+  },
+  {
+   "qid": "realistic-ag-035",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to dx-coded T2DM pts with fatigue in Sep 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Which meds were dispensed to dx-coded T2DM pts with fatigue in Sep 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.4,
+   "answer": "Insulin glargine 20 units SubQ at bedtime and Glipizide 5mg PO daily were dispensed to dx-coded T2DM pts with fatigue in Sep 2025."
+  },
+  {
+   "qid": "realistic-ag-037",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to COPD pts with wheezing symptoms on or around Feb 15, 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.25,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250215,
+    "date_to": 20250215
+   },
+   "redacted_question": "Which meds were dispensed to COPD pts with wheezing symptoms on or around Feb 15, 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "retrieval_fallback",
+   "med_f1": null,
+   "answer": "No records match the conditions in the question (diagnosis and/or date)."
+  },
+  {
+   "qid": "realistic-ag-038",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to CKD stage 3 pts w/ nausea in Sep 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Which meds were prescribed to CKD stage 3 pts w/ nausea in Sep 2025?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.7499999999999999,
+   "answer": "EPO 4000 units SubQ weekly and Calcium carbonate 500mg PO TID with meals were prescribed to CKD stage 3 patients with nausea in September 2025."
+  },
+  {
+   "qid": "realistic-ag-040",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to major depressive disorder pts w/ fatigue in May 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.6666666666666666,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "Which meds were prescribed to major depressive disorder pts w/ fatigue in May 2025?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "Escitalopram 10mg PO daily, Bupropion XL 150mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-041",
+   "type": "aggregate",
+   "question": "Which medns were prescrbed for CAD pts w/ fatigue in Jan 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "Which medns were prescrbed for CAD pts w/ fatigue in Jan 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the medications prescribed for CAD patients with fatigue in January 2025."
+  },
+  {
+   "qid": "realistic-ag-043",
+   "type": "aggregate",
+   "question": "Which Meds Were Rx'd to OA Pt's w/ Morning Stiffness Oct 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis"
+   },
+   "redacted_question": "Which Meds Were Rx'd to OA Pt's w/ [NAME] 2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "identifier_in_question",
+   "med_f1": null,
+   "answer": "This can't be determined from the de-identified records: the question asks about a specific person, and identities are removed from the records."
+  },
+  {
+   "qid": "realistic-ag-044",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to MDD pts presenting w/ anhedonia 10/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "Which meds were dispensed to MDD pts presenting w/ anhedonia 10/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Bupropion XL 150mg PO daily and Fluoxetine 20mg PO daily were dispensed to the MDD patient presenting with anhedonia on 10/2025."
+  },
+  {
+   "qid": "realistic-ag-046",
+   "type": "aggregate",
+   "question": "Which medns were prescribed to T2DM pts who presented w/ polydipsia in 2025-11-XX?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251101,
+    "date_to": 20251130
+   },
+   "redacted_question": "Which medns were prescribed to T2DM pts who presented w/ polydipsia in 2025-11-XX?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "Metformin 500mg PO BID was prescribed to T2DM pts who presented with polydipsia in 2025-11-24."
+  },
+  {
+   "qid": "realistic-ag-047",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to OA pts with decreased ROM in Jun 2026?",
+   "groups": [
+    "source=qwen (hand-reviewed)"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 0.3333333333333333,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260601,
+    "date_to": 20260630
+   },
+   "redacted_question": "Which meds were dispensed to OA pts with decreased ROM in Jun 2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "Celecoxib 200mg PO daily was dispensed to OA patients with decreased ROM in June 2026."
+  },
+  {
+   "qid": "realistic-ag-049",
+   "type": "aggregate",
+   "question": "Which medxs were prescribed to CAD pts presenting with exertional dyspnea in Oct 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "Which medxs were prescribed to CAD pts presenting with exertional dyspnea in Oct 2025?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "Aspirin 81mg PO daily and Clopidogrel 75mg PO daily were prescribed to CAD patients presenting with exertional dyspnea in October 2025."
+  },
+  {
+   "qid": "realistic-ag-050",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to HTN patients w/ chest pain, dt: 07/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "Which meds were dispensed to HTN patients w/ chest pain, dt: 07/2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Hydrochlorothiazide 25mg PO daily was dispensed to the HTN patient with chest pain on 07/2025."
+  },
+  {
+   "qid": "realistic-ag-052",
+   "type": "aggregate",
+   "question": "Which medicae were prescribed to pt with essential HTN who had chest pain in 2/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "Which medicae were prescribed to pt with essential HTN who had chest pain in 2/2025?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "Hydrochlorothiazide 25mg PO daily, Losartan 50mg PO daily, Amlodipine 5mg PO daily were prescribed to the pt with essential HTN who had chest pain in 2/2025."
+  },
+  {
+   "qid": "realistic-ag-053",
+   "type": "aggregate",
+   "question": "Which meds were ordered for COPD pts with wheezing in Nov 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Which meds were ordered for COPD pts with wheezing in Nov 2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Prednisone 10mg PO daily was ordered for COPD patients with wheezing in Nov 2024."
+  },
+  {
+   "qid": "realistic-ag-055",
+   "type": "aggregate",
+   "question": "Which medns were prescribed to asthmatics w/ dyspnea 7/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250701,
+    "date_to": 20250731
+   },
+   "redacted_question": "Which medns were prescribed to asthmatics w/ dyspnea 7/2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Montelukast 10mg PO QHS and Fluticasone 110mcg inhaler 2 puffs BID were prescribed to asthmatics with dyspnea in July 2025."
+  },
+  {
+   "qid": "realistic-ag-056",
+   "type": "aggregate",
+   "question": "Which medns were prescrbed for Maj Depress Dis\u00f6rd patients presenting with anhedonia in Nov 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Which medns were prescrbed for [NAME] patients presenting with anhedonia in Nov 2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "identifier_in_question",
+   "med_f1": null,
+   "answer": "This can't be determined from the de-identified records: the question asks about a specific person, and identities are removed from the records."
+  },
+  {
+   "qid": "realistic-ag-058",
+   "type": "aggregate",
+   "question": "Which meds were given to CKD stage III patients with fatigue inApr2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.25,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3"
+   },
+   "redacted_question": "Which meds were given to CKD stage III patients with fatigue inApr2026?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "The records provided do not contain the medications given to CKD stage III patients with fatigue in Apr2026."
+  },
+  {
+   "qid": "realistic-ag-059",
+   "type": "aggregate",
+   "question": "Which meds were given to OA patients w/ joint pain in 04/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20250401,
+    "date_to": 20250430
+   },
+   "redacted_question": "Which meds were given to OA patients w/ joint pain in 04/2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "The patients were given Celecoxib 200mg PO daily and Ibuprofen 400mg PO TID with food."
+  },
+  {
+   "qid": "realistic-ag-061",
+   "type": "aggregate",
+   "question": "Which medts were_dx'd to MDD pts w/ insomnia in Nov 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20251101,
+    "date_to": 20251130
+   },
+   "redacted_question": "Which medts were_dx'd to MDD pts w/ insomnia in Nov 2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Fluoxetine, Escitalopram, Sertraline, Bupropion XL were_dx'd to MDD pts w/ insomnia in Nov 2025."
+  },
+  {
+   "qid": "realistic-ag-062",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to asthma pts complaining of cough in Apr 2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260401,
+    "date_to": 20260430
+   },
+   "redacted_question": "Which meds were dispensed to asthma pts complaining of cough in Apr 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The asthma patients complaining of cough in April 2026 were dispensed Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN and Fluticasone 110mcg inhaler 2 puffs BID."
+  },
+  {
+   "qid": "realistic-ag-064",
+   "type": "aggregate",
+   "question": "Which medICAIDs were prescrIBed to pt's dx'd w/ EssentIal HTN who c/o chest pAIN in JUN 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "Which medICAIDs were prescrIBed to pt's dx'd w/ EssentIal HTN who c/o chest pAIN in JUN 2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "The medications prescribed to the pt's dx'd w/ Essential HTN who c/o chest pAIN in JUN 2025 were Lisinopril 10mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-065",
+   "type": "aggregate",
+   "question": "Which medcs were prescribed to asthma pts dx'd Jan 2025 with dyspnea?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250101,
+    "date_to": 20250131
+   },
+   "redacted_question": "Which medcs were prescribed to asthma pts dx'd Jan 2025 with dyspnea?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "The asthma patients diagnosed with dyspnea in January 2025 were prescribed Montelukast 10mg PO QHS, Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN, and Fluticasone 110mcg inhaler 2 puffs BID."
+  },
+  {
+   "qid": "realistic-ag-067",
+   "type": "aggregate",
+   "question": "Which meds were given to CAD pts w/chest pain dx in Sep 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.3333333333333333,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Which meds were given to CAD pts w/chest pain dx in Sep 2025?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "Aspirin 81mg PO daily and Atorvastatin 40mg PO QHS were given to CAD pts with chest pain dx in Sep 2025."
+  },
+  {
+   "qid": "realistic-ag-068",
+   "type": "aggregate",
+   "question": "Which medns were prescribed to Ess hypertens patients with dizziness in 2026-Aug?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.25,
+   "filters": {
+    "date_from": 20260101,
+    "date_to": 20261231
+   },
+   "redacted_question": "Which medns were prescribed to Ess hypertens patients with dizziness in 2026-Aug?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "Amlodipine 5mg PO daily was prescribed to an Ess hypertens patient with dizziness in 2026-Aug."
+  },
+  {
+   "qid": "realistic-ag-070",
+   "type": "aggregate",
+   "question": "Which medocs were prescrbd to T2DM pts w/ neuropth in Oct 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 0.5,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20251001,
+    "date_to": 20251031
+   },
+   "redacted_question": "Which medocs were prescrbd to T2DM pts w/ neuropth in Oct 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 1.0,
+   "abstain_reason": "model_insufficient",
+   "med_f1": null,
+   "answer": "Insufficient"
+  },
+  {
+   "qid": "realistic-ag-071",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to CAD patients with fatigue in May 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Coronary artery disease",
+    "date_from": 20250501,
+    "date_to": 20250531
+   },
+   "redacted_question": "Which meds were prescribed to CAD patients with fatigue in May 2025?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "Clopidogrel 75mg PO daily was prescribed to a CAD patient with fatigue in May 2025."
+  },
+  {
+   "qid": "realistic-ag-073",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to T2DM patients with blurred vision on Oct 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241001,
+    "date_to": 20241031
+   },
+   "redacted_question": "Which meds were dispensed to T2DM patients with blurred vision on Oct 2024?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "Metformin 1000mg PO daily was dispensed to T2DM patients with blurred vision in October 2024."
+  },
+  {
+   "qid": "realistic-ag-074",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to asthma pts presenting with dyspnea 2/2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250201,
+    "date_to": 20250228
+   },
+   "redacted_question": "Which meds were dispensed to asthma pts presenting with dyspnea 2/2025?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.5,
+   "answer": "The asthma patients presenting with dyspnea in February 2025 were dispensed Fluticasone 110mcg inhaler 2 puffs BID and Montelukast 10mg PO QHS."
+  },
+  {
+   "qid": "realistic-ag-076",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to T2DM patients with polydipsia in Dec 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241201,
+    "date_to": 20241231
+   },
+   "redacted_question": "Which meds were prescribed to T2DM patients with polydipsia in Dec 2024?",
+   "grounded_accuracy": 0,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Metformin 1000mg PO daily and Glipizide 5mg PO daily were prescribed to T2DM patients with polydipsia in Dec 2024."
+  },
+  {
+   "qid": "realistic-ag-077",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to T2DM patients with polydipsia in Nov 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Type 2 diabetes mellitus",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Which meds were prescribed to T2DM patients with polydipsia in Nov 2024?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "The T2DM patients with polydipsia in Nov 2024 were prescribed Metformin 500mg PO BID and Metformin 1000mg PO daily."
+  },
+  {
+   "qid": "realistic-ag-079",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to COPD pts w/ sputum production in Sep 2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20260901,
+    "date_to": 20260930
+   },
+   "redacted_question": "Which meds were prescribed to COPD pts w/ sputum production in Sep 2026?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The COPD patients with sputum production in September 2026 were prescribed Tiotropium 18mcg inhaler daily and Albuterol/Ipratropium inhaler QID."
+  },
+  {
+   "qid": "realistic-ag-080",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to asthma pts w/ chest tightness on exam in Apr 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20250401,
+    "date_to": 20250430
+   },
+   "redacted_question": "Which meds were dispensed to asthma pts w/ chest tightness on exam in Apr 2025?",
+   "grounded_accuracy": 0,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Albuterol HFA 90mcg inhaler 2 puffs Q4H PRN was dispensed to asthma patients with chest tightness on exam in Apr 2025."
+  },
+  {
+   "qid": "realistic-ag-082",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to COPD pts w/dyspnea in Sep 2025?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.6666666666666666,
+   "recall_original": 1.0,
+   "evidence_para": 0.3333333333333333,
+   "recall_para": 0.5,
+   "filters": {
+    "diagnosis": "COPD",
+    "date_from": 20250901,
+    "date_to": 20250930
+   },
+   "redacted_question": "Which meds were prescribed to COPD pts w/dyspnea in Sep 2025?",
+   "grounded_accuracy": 0.3333333333333333,
+   "accuracy": 0.3333333333333333,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Albuterol/Ipratropium inhaler QID was prescribed to COPD patients with dyspnea in September 2025."
+  },
+  {
+   "qid": "realistic-ag-083",
+   "type": "aggregate",
+   "question": "Which meds were given to OA pts with morning stiffness in Aug 2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Osteoarthritis",
+    "date_from": 20260801,
+    "date_to": 20260831
+   },
+   "redacted_question": "Which meds were given to OA pts with morning stiffness in Aug 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Tramadol 50mg PO Q6H PRN and Acetaminophen 650mg PO Q6H PRN were given to OA patients with morning stiffness in Aug 2026."
+  },
+  {
+   "qid": "realistic-ag-085",
+   "type": "aggregate",
+   "question": "Which meds were prescribed to asthma pts who had cough in Nov 2024?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 0.5,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20241101,
+    "date_to": 20241130
+   },
+   "redacted_question": "Which meds were prescribed to asthma pts who had cough in Nov 2024?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "The medications prescribed to asthma patients who had a cough in November 2024 include Fluticasone 110mcg inhaler 2 puffs BID and Montelukast 10mg PO QHS."
+  },
+  {
+   "qid": "realistic-ag-086",
+   "type": "aggregate",
+   "question": "Chkd for medxn in pts w/ CKD stage III dx'd w/ nausea prsntng in Sept 2026.",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 0.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Chronic kidney disease stage 3",
+    "date_from": 20260901,
+    "date_to": 20260930
+   },
+   "redacted_question": "Chkd for medxn in pts w/ CKD stage III dx'd w/ nausea prsntng in Sept 2026.",
+   "grounded_accuracy": 0,
+   "accuracy": 0,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.0,
+   "answer": "The patients with chronic kidney disease stage III diagnosed with nausea presenting in September 2026 had a consultation note on 2026-09-03, 2026-09-11, and 2026-09-09."
+  },
+  {
+   "qid": "realistic-ag-087",
+   "type": "aggregate",
+   "question": "Which meds were dispensed to pts dx with MDD presenting with fatigue in Jan 2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Major depressive disorder",
+    "date_from": 20260101,
+    "date_to": 20260131
+   },
+   "redacted_question": "Which meds were dispensed to pts dx with MDD presenting with fatigue in Jan 2026?",
+   "grounded_accuracy": 1,
+   "accuracy": 1,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 1.0,
+   "answer": "Fluoxetine 20mg PO daily was dispensed to the patient diagnosed with major depressive disorder presenting with fatigue in January 2026."
+  },
+  {
+   "qid": "realistic-ag-088",
+   "type": "aggregate",
+   "question": "Which medls were prescribed to asthma pts who presented with dyspnea 3/2026?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 0.5,
+   "recall_original": 1.0,
+   "evidence_para": 0.5,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Asthma",
+    "date_from": 20260301,
+    "date_to": 20260331
+   },
+   "redacted_question": "Which medls were prescribed to asthma pts who presented with dyspnea 3/2026?",
+   "grounded_accuracy": 0.5,
+   "accuracy": 0.5,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.6666666666666666,
+   "answer": "Fluticasone 110mcg inhaler 2 puffs BID was prescribed to asthma patients who presented with dyspnea in March 2026."
+  },
+  {
+   "qid": "realistic-ag-089",
+   "type": "aggregate",
+   "question": "Which medxs were prescribed to essential HTN pts who presented with headache in 2025-06?",
+   "groups": [
+    "source=qwen"
+   ],
+   "evidence_original": 1.0,
+   "recall_original": 1.0,
+   "evidence_para": 1.0,
+   "recall_para": 1.0,
+   "filters": {
+    "diagnosis": "Essential hypertension",
+    "date_from": 20250601,
+    "date_to": 20250630
+   },
+   "redacted_question": "Which medxs were prescribed to essential HTN pts who presented with headache in 2025-06?",
+   "grounded_accuracy": 0.6666666666666666,
+   "accuracy": 0.6666666666666666,
+   "abstained": 0.0,
+   "abstain_reason": null,
+   "med_f1": 0.8,
+   "answer": "The medxs prescribed to essential HTN pts who presented with headache in 2025-06 were Amlodipine 5mg PO daily and Hydrochlorothiazide 25mg PO daily."
+  }
+ ]
+}

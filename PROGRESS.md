@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-20 (Day 3a: audit fixes complete; generation next)
+**Last updated:** 2026-11-22 (Day 3: generation complete; robustness and overfitting checks done)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -21,12 +21,13 @@
 4. [Stage: QA evaluation set](#4-stage-qa-evaluation-set)
 5. [Stage: PII redaction](#5-stage-pii-redaction)
 6. [Stage: Retrieval](#6-stage-retrieval)
-7. [Stages not built yet](#7-stages-not-built-yet)
-8. [Tests](#8-tests)
-9. [How to run](#9-how-to-run)
-10. [Key decisions log](#10-key-decisions-log)
-11. [Known issues / open items](#11-known-issues--open-items)
-12. [Daily log](#12-daily-log)
+7. [Stage: Cited generation](#7-stage-cited-generation)
+8. [Robustness and overfitting checks](#8-robustness-and-overfitting-checks)
+9. [Tests](#9-tests)
+10. [How to run](#10-how-to-run)
+11. [Key decisions log](#11-key-decisions-log)
+12. [Known issues / open items](#12-known-issues--open-items)
+13. [Daily log](#13-daily-log)
 
 ---
 
@@ -39,7 +40,8 @@
 | PII redaction (incl. address recognizer, clinical-term guard) | ✅ Done | `glassbox/src/redaction/` |
 | Question redaction | ✅ Done | `glassbox/src/redaction/query.py` |
 | Retrieval (query analysis, two-hop selection) | ✅ Done | `glassbox/src/retrieval/` |
-| Citation-based generation (with abstain rule) | ⬜ Day 3 | `glassbox/src/generation/` |
+| Citation-based generation (with abstain guard) | ✅ Done | `glassbox/src/generation/` |
+| Robustness / overfitting checks | ✅ Done (held-out results below) | `glassbox/src/robustness/` |
 | Claim verification (NLI, claims rewritten with the question's subject) | ⬜ Day 4 | `glassbox/src/verification/` |
 | End-to-end orchestrator with traces | ⬜ Day 5 | (planned `glassbox/run.py`) |
 | Audit dashboard (Streamlit) | ⬜ Days 5–6 | `glassbox/src/dashboard/` |
@@ -56,6 +58,18 @@
 | Answerable questions whose answer is in the retrieved context | **0.949**, 95% CI [0.922, 0.972] (Day 2: 0.840) |
 | Context shown to the LLM per question | ~955 characters (whole-note retrieval: ~2,600) |
 | Identity questions answerable from the redacted index | **0.000** (raw index with BM25: 1.000) |
+| **Grounded answer accuracy** (answerable test questions, §7) | **0.858** [0.815, 0.899] (no-privacy baseline: 0.833) |
+| Identity questions answered by the system (§7) | **0** of 84 (guard off: 84 of 84, all from other people's notes) |
+
+**How far these numbers generalise (§8). Read before quoting anything above.**
+
+| | Template wording (above) | Held-out paraphrases (set B) |
+|---|---|---|
+| Retrieval evidence | 0.949 | **0.579** [0.512, 0.644] (before the robustness fixes: 0.324) |
+| Grounded answer accuracy | 0.858 | **0.502** [0.435, 0.568] |
+| Redaction, fully masked, held-out OOD notes | 0.999 F1 in-distribution | **0.819** (before fixes: 0.672) |
+
+The headline numbers hold for questions and notes shaped like the generators' templates. On held-out wording and note formats the system is clearly weaker; §8 gives the causes.
 
 ---
 
@@ -65,10 +79,10 @@
 |---|---|---|---|
 | 1 | Nov 20 | Cleanup, reproducible datasets, QA set v2, redaction fixes, test suite | ✅ |
 | 2 | Nov 20 | Retrieval: chunking, ChromaDB + BM25 indexes (redacted and raw), access control, logging, leak audit; then query analysis, note grouping, fusion tuning | ✅ |
-| — | Nov 20 | Independent audit of Days 1–2 (§11.1) | ✅ |
-| 3a | Nov 20 | Audit fixes (§11.1): address recognizer, clinical-term guard, names in clinical context, question redaction, query-analysis ranges / "or" / invalid dates, low-information demotion, note-ordered and two-hop selection, QA set ×3, bootstrap CIs, `requirements.txt` | ✅ |
-| 3 | Nov 22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation. **Abstain** when the question names a person (`identifiers` from question redaction) or retrieval fell back to unfiltered search | ⬜ |
-| 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set. **Rewrite each claim with the question's subject before verifying** (§11.1 #1) | ⬜ |
+| — | Nov 20 | Independent audit of Days 1–2 (§12.1) | ✅ |
+| 3a | Nov 20 | Audit fixes (§12.1): address recognizer, clinical-term guard, names in clinical context, question redaction, query-analysis ranges / "or" / invalid dates, low-information demotion, note-ordered and two-hop selection, QA set ×3, bootstrap CIs, `requirements.txt` | ✅ |
+| 3 | Nov 21–22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation, abstain guard (§7). Then robustness and overfitting checks, general fixes, held-out evaluation (§8) | ✅ |
+| 4 | Nov 23 | Verification: NLI verifier, 4 labels, corrupted-claim test set. **Rewrite each claim with the question's subject before verifying** (§12.1 #1) | ⬜ |
 | 5 | Nov 24 | Orchestrator with trace JSON; start the dashboard; threshold sweep overnight. (The redaction fixes planned for this day were done on Day 3a.) | ⬜ |
 | 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots, with 95% confidence intervals; abstention and false-attribution rates as privacy metrics | ⬜ |
 | 7 | Nov 26 | README and report refresh | ⬜ |
@@ -172,7 +186,7 @@
   - *Masked recall* counts an entity as protected if any redaction covers it (IoU ≥ 0.5), whatever the type.
   - *Char leakage* is the share of ground-truth PII characters left visible.
 - Metrics are computed on the spans actually redacted (after overlap resolution), i.e. on what downstream stages really see.
-- **Independent check (audit, §11.1):** a plain string search of every ground-truth PII value in the redacted notes, outside the project's evaluator.
+- **Independent check (audit, §12.1):** a plain string search of every ground-truth PII value in the redacted notes, outside the project's evaluator.
 
 **Current results** (confidence 0.5, IoU 0.5). Source: `glassbox/results/redaction/{synthetic,realistic}_t0.50.json`
 
@@ -196,7 +210,7 @@ Realistic set, by type (Day 1 values in brackets):
 - **Exact PII values still verbatim in the redacted notes:** 2 of 18,041 (two provider names) on the realistic set; 1 of 838 on the synthetic set (Day 2: 285, of which 234 addresses).
 - **Why NAME precision rose too:** the audit showed 965 of the ~1,130 "wrong" NAME detections were fragments of addresses. A whole-address span replaces them.
 - **Remaining "errors" are mostly scoring artefacts:** "Dr. William Warren" is gold, "William Warren" was masked (the title stays). The name is hidden; the span just doesn't match. 3 surnames that are also place names (Madison, Medina, Valencia) are tagged ADDRESS instead of NAME; still masked.
-- **Read these numbers with care.** They are measured on synthetic notes whose addresses come from one generator (Faker), so the address recognizer is close to the data's format by construction. Generalisation is covered separately by hand-written tests on formats not in the data (§8), and by the stated limitations in §11.
+- **Read these numbers with care.** They are measured on synthetic notes whose addresses come from one generator (Faker), so the address recognizer is close to the data's format by construction. Generalisation is covered separately by hand-written tests on formats not in the data (§9), and by the stated limitations in §12.
 
 **Problems found and fixed on Day 1.** Scaling to the 2,500-note set exposed these; they make good "engineering insight" material for the report.
 
@@ -211,7 +225,7 @@ Realistic set, by type (Day 1 values in brackets):
 
 Overall realistic F1 went from **0.838 (old README) to 0.893** on Day 1.
 
-**Problems found and fixed on Day 3a** (from the audit, §11.1):
+**Problems found and fixed on Day 3a** (from the audit, §12.1):
 
 | Problem | Symptom | Fix | Effect (realistic) |
 |---|---|---|---|
@@ -288,7 +302,7 @@ This is the "Query Analysis" box from the README's architecture diagram. It read
 ### 6.4 Selection: which chunks fill the k slots
 Three steps, each measured in §6.8.
 
-1. **Low-information demotion** (Day 3a). After redaction, header, contact and signature sections ("PATIENT: [NAME] / MRN: [PATIENT_ID] / DOB: [DATE_OF_BIRTH]") are only placeholders and form labels. They can't answer anything, yet they match "patient" questions well, and they are what invites the misattribution risk in §11.1 #1. A chunk is *low-information* if it contains a placeholder and, after removing placeholders, form labels and numbers, fewer than 3 words remain. These chunks are moved behind all others, not dropped. This flags exactly the patient_info, contact and signature sections (2,500 / 2,499 / 1,001 of them) and no chunk of the raw index, so the baseline is unaffected.
+1. **Low-information demotion** (Day 3a). After redaction, header, contact and signature sections ("PATIENT: [NAME] / MRN: [PATIENT_ID] / DOB: [DATE_OF_BIRTH]") are only placeholders and form labels. They can't answer anything, yet they match "patient" questions well, and they are what invites the misattribution risk in §12.1 #1. A chunk is *low-information* if it contains a placeholder and, after removing placeholders, form labels and numbers, fewer than 3 words remain. These chunks are moved behind all others, not dropped. This flags exactly the patient_info, contact and signature sections (2,500 / 2,499 / 1,001 of them) and no chunk of the raw index, so the baseline is unaffected.
 2. **Note-grouped selection.** Each note contributes at most 2 chunks (`PER_NOTE`) before any note contributes more; leftover slots are filled in score order.
    - Day 2 version: the capped chunks stayed in score order, interleaving notes. A qualifying note's second chunk often fell below the cut-off.
    - Day 3a version: notes are ordered by their best chunk, and each note's chunks are placed together.
@@ -393,7 +407,7 @@ Three steps, each measured in §6.8.
 
 - **Redaction costs nothing measurable for clinical and aggregate questions, and completely blocks identity lookups.** That's the central privacy-utility result at the retrieval level.
 - The redacted index scores *higher* than raw. Redaction doesn't add information: the difference comes from the low-information demotion, which can only recognise header sections once their values are placeholders. In the raw index those sections hold real names and compete for slots. The report should present this as "redaction costs nothing", not "redaction helps".
-- One identity question (1/84) is found by BM25 on the redacted *whole-note* index: the redacted question "What symptom did Mrs. [NAME] report?" matched one of the few notes where the title "Mrs." survives in front of `[NAME]`. Titles are quasi-identifiers (§11).
+- One identity question (1/84) is found by BM25 on the redacted *whole-note* index: the redacted question "What symptom did Mrs. [NAME] report?" matched one of the few notes where the title "Mrs." survives in front of `[NAME]`. Titles are quasi-identifiers (§12).
 
 **Chunking: data minimization vs. evidence** (redacted index, query analysis on, hybrid):
 
@@ -467,27 +481,144 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 
 ---
 
-## 7. Stages not built yet
+## 7. Stage: Cited generation
 
-- **Generation (Day 3).** Qwen2.5-7B-Instruct 4-bit via MLX (already downloaded, runs locally so no data leaves the machine). The prompt gives numbered chunks `[C1]…[Ck]` and requires JSON output `{"answer", "claims": [{"text", "citations"}]}`. Output is parsed, retried once on bad JSON, and has its citations validated (the model writes both `C1` and `[C1]`, so citations are normalised).
-  - **Abstain rule (from the audit).** If question redaction found an identifier, or retrieval fell back to unfiltered search, the system must answer "can't be determined from the de-identified records" instead of answering from whatever notes were retrieved. In the audit smoke test, Qwen answered "What is John Wilkerson's medication?" from a redacted note, treating `[NAME]` as John.
-  - Speed measured in the audit: model loads in 1.3 s, answers in ~2.6 s, peak memory 4.5 GB. A 390-question run takes ~17 minutes.
-- **Verification (Day 4).** An NLI model checks each claim against its cited chunk and assigns **Supported**, **Contradicted**, **Unsupported** or **Uncertain**.
-  - Candidate models, already downloaded: `cross-encoder/nli-deberta-v3-base` and `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`.
-  - Evaluated on deliberately corrupted claims (swapped drug or dose, invented symptom, wrong citation), so verifier accuracy has exact ground truth.
-  - **Claims are rewritten with the question's subject before verifying** (from the audit). Both NLI models label "The patient is prescribed X" as *entailment* against a redacted note, but "John Wilkerson is prescribed X" as *neutral*. Without the rewrite, a misattributed answer would be marked Supported.
+**What.** Stage 3 of the pipeline. A local LLM answers each question **only from the retrieved, redacted sections**, splits the answer into claims, and cites the section(s) each claim comes from. It refuses when it can't answer honestly. Code: `glassbox/src/generation/` (`prompt.py`, `parse.py`, `generator.py`, `evaluate.py`).
+
+**Model.** Qwen2.5-7B-Instruct, 4-bit, run locally with MLX on the Apple GPU, so no data leaves the machine. Greedy decoding (temperature 0), so a re-run reproduces the same output. Measured: loads in 1.3 s, ~3.8 s per answer (3.0 s fact, 5.4 s aggregate), peak memory 4.5 GB.
+
+### 7.1 Design
+- **Abstain guard, before the model is called** (`generator.py: abstain_reason`):
+  1. *identifier_in_question*: question redaction (§6.6) found a name, ID, phone, … and the index is the redacted one. The records can't say who `[NAME]` is, so any answer would attribute someone else's note to the person asked about.
+  2. *retrieval_fallback*: the question's diagnosis/date constraints match no note, so the retrieved notes don't satisfy the question.
+  - Why code, not a prompt instruction: the audit showed the model treats `[NAME]` as the person asked about (§12.1 #1). A rule can't be argued out of, costs nothing, and the log says exactly why the system refused. The guard-off experiment (§7.3) measures what happens without it.
+  - The model can also refuse itself (`"insufficient": true`) when the sources don't contain the answer.
+- **Prompt** (`prompt.py`): sources numbered `[C1] (Note 1) …`, each with its non-PII context line. The "Note n" label is an opaque per-prompt number that tells the model which sections come from the same visit (so it can connect a note's symptom to its own plan) without revealing any identifier. Rules: use only the sources; every claim cites; copy doses exactly; never guess bracketed values or assume `[NAME]` is someone in the question; for multi-patient questions check each note against every condition; say when the answer isn't there.
+- **Output**: JSON `{"answer", "claims": [{"text", "citations"}], "insufficient"}`. JSON rather than inline markers gives the Day 4 verifier clean claim-by-claim input and makes malformed output detectable.
+- **Parsing** (`parse.py`): strips code fences, takes the first complete JSON object, retries once with the error message if unusable. Citations are normalised (`C2`, `[C2]`, `c2`, `Source 2` → the chunk ID); citations to sources that weren't shown are dropped and recorded; claims left without a citation are flagged.
+- **Logging**: one JSON line per question in `glassbox/logs/generation/`: the redacted question (never the original), chunk IDs shown, prompt hash and version, raw model output, parsed claims and citation problems, abstain reason, retries, tokens, latency. Stage 3 of the audit trail.
+
+### 7.2 Prompt development (dev split only)
+
+| Prompt | Change | Dev accuracy (plain) | All items correct | Drug precision |
+|---|---|---|---|---|
+| v1 | Basic rules | 0.890 | 0.790 | 0.957 |
+| **v2 (chosen)** | + "Note n" labels, check each note against every condition, copy exact doses | **0.941** | **0.864** | 0.949 |
+| v3 | v2 with claims before the answer in the JSON | 0.924 | 0.827 | 0.957 |
+
+- v1's errors were almost all aggregate questions: incomplete drug lists, a drug from a note that didn't meet the conditions, drug names without doses.
+- v3 tested whether writing claims first (note by note) improves the combined answer. It didn't, so v2 stays. All three runs are kept in `results/generation/realistic_t0.50_dev_v{1,2,3}.json`.
+- The first v2 run showed identity abstention 0.972: question redaction had missed "Tiffany Price" (spaCy doesn't tag it; "Price" is also a noun). Fixed with a question-only name rule (§6.6); now all 160 identity questions in both datasets are caught.
+
+### 7.3 Results (realistic test split, 273 questions; `results/generation/realistic_t0.50.json`)
+
+**Metrics.** *Grounded accuracy* is the headline: the share of gold answer items that are in the answer **and** in a section the answer cites from a gold note. Plain accuracy (gold items anywhere in the answer) is shown for comparison; the robustness check (§8.4) showed it rewards listing everything. *Drug-list F1* balances finding the right drugs against including wrong ones.
+
+| | Grounded accuracy (95% CI) | Plain accuracy | All items correct | Drug-list F1 | Identity questions answered |
+|---|---|---|---|---|---|
+| **GlassBox (redacted, guard on)** | **0.858** [0.815, 0.899] | 0.919 | 0.836 | 0.855 | **0 / 84** |
+| Fact questions | 0.976 | 1.000 | 1.000 | 1.000 | |
+| Aggregate questions | 0.622 | 0.757 | 0.508 | 0.795 | |
+| No-privacy baseline (raw index) | 0.833 [0.788, 0.877] | 0.899 | 0.804 | 0.826 | 48 / 84 |
+| Guard off (redacted, identity questions only) | | | | | **84 / 84** |
+
+- **Privacy at answer level.** With the guard, the system refuses every identity question. With the guard off, the model answers **all 84**, every time from *other people's* notes (0% cite the person's own note); 17.9% of those answers happen to contain the person's real medication or diagnosis, by coincidence, because common drugs and diagnoses repeat. That is the misattribution the audit predicted (§12.1 #1), now measured.
+- **No utility cost from redaction.** Redacted 0.858 vs raw 0.833 grounded accuracy (CIs overlap). As in retrieval, redacted isn't *better* because of redaction: part of the difference is the low-information demotion (§6.4).
+- **On the raw baseline**, the model answered 48 of 84 identity questions; 19% of answers contained the right value from the person's own note. With dense-weighted fusion the raw hybrid index finds the named person only 35% of the time (§6.7).
+- **Citations:** 99.5% of claims cite a valid source; JSON parsed first time for 100% of answers (raw: 99.5%); no answerable question was wrongly refused.
+- **Dev → test:** 0.941 → 0.919 plain accuracy, so the prompt isn't overfitted to dev.
+- **Weak spot: aggregate questions.** Grounded 0.622 against a retrieval ceiling of 0.847. The 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition; only 67% of its citations in aggregate answers come from gold notes.
+
+### 7.4 Not built yet
+- **Verification (Day 4).** An NLI model checks each claim against its cited chunk: **Supported / Contradicted / Unsupported / Uncertain**. Candidates (downloaded): `cross-encoder/nli-deberta-v3-base` and `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`. Evaluated on deliberately corrupted claims. Claims are rewritten with the question's subject before verifying: both models call "The patient is prescribed X" *entailed* by a redacted note but "John Wilkerson is prescribed X" *neutral*.
 - **Orchestrator, dashboard, experiments (Days 5–6).** See §2.
 
 ---
 
-## 8. Tests
+## 8. Robustness and overfitting checks
 
-`python -m pytest glassbox/tests` → **70 passed, 1 xfailed**.
+**Why.** Every number above is measured on questions and notes produced by our own generators, and several components (query analysis, redaction patterns, the prompt) were developed while looking at that data. The question is whether the numbers measure the system or the templates. Each check below tries to make a number *harder* to earn.
+
+### 8.1 Protocol
+- **Development sets (set A)**, built 2026-11-21 *after* the system was frozen, used to find problems and develop fixes:
+  - `paraphrases_a.jsonl`: all 189 answerable test questions reworded with templates that differ from the QA builder's (other sentence structures, 5 date formats, 4 month formats, diagnosis written canonically / as a listed alias / as a common abbreviation not in our table).
+  - `ood_notes_a.json`: 240 free-text notes (3 narrative templates the generators never use, names from 8 Faker locales, addresses with full state names or no commas, other DOB/ID formats), exact PII spans recorded.
+- **Held-out sets (set B)**, built and **committed before any fix** (commit `2f0bb6b`; Qwen half in `a0047eb`), never used while developing fixes, evaluated once:
+  - `paraphrases_b.jsonl`: 60 test questions reworded by hand (Claude; typos, two-sentence questions, ordinal dates, shorthand) + the other 129 reworded by the local Qwen model, which has never seen the query-analysis code. Each checked for the original's facts (date, diagnosis, symptom); 1 hand-reviewed ("decreased ROM" = "reduced range of motion"). Qwen's accepted paraphrases were kept exactly as written, including ambiguous day-first dates.
+  - `ood_notes_b.json`: 240 notes with 4 new templates (referral letter, nursing note, ED triage, phone message), 8 other locales, and PII formats in neither set A nor the data (PO boxes, multi-line addresses, `D.O.B. 3.4.1975`, `Acct #`, extensions).
+- **Known limitation:** no human outside the project wrote set B. The hand-written half was written by someone who had seen set A's failures, and it does score much higher (§8.3), so **the Qwen half is the number to trust**.
+- Before/after on set B: the same frozen data scored with the pre-fix code (a checkout of `2f0bb6b`) and the fixed code.
+- Code: `glassbox/src/robustness/` (`paraphrase.py`, `manual_paraphrases.py`, `heldout_paraphrases.py`, `ood_notes.py`, `evaluate_paraphrases.py`). Results: `glassbox/results/robustness/`.
+
+### 8.2 What held up
+
+| Check | Result |
+|---|---|
+| Dev → test gap, retrieval evidence | 0.968 → 0.949: settings chosen on dev aren't overfitted to dev |
+| Dev → test gap, generation | 0.941 → 0.919 (CIs overlap) |
+| Leakage between splits | 13 / 273 test questions share a gold note with a dev question |
+| New random dataset (generator seed 7, 2,500 new notes) | Redaction F1 0.999 again: the headline isn't the luck of one draw |
+| Identity guard on varied phrasing (possessive, lowercase, sentence-initial, "Mr./Ms. Surname", bare/lowercase IDs, "MRN …") | 100% caught; first name alone 88% before the fix, 100% after |
+| Clinical damage on out-of-distribution notes | No drug or symptom redacted in any set, before or after fixes |
+| Answerable questions wrongly refused (template wording) | 0 / 189 |
+
+### 8.3 Template overfitting in query analysis (the main finding)
+
+| Retrieval evidence | Template wording | Set A (dev) | Set B (held out) |
+|---|---|---|---|
+| Before fixes | 0.949 | **0.450** [0.383, 0.519] | **0.324** [0.261, 0.388] |
+| After fixes | 0.949 | 0.932 [0.900, 0.960] | **0.579** [0.512, 0.644] |
+| After fixes, grounded answer accuracy | 0.858 | — | **0.502** [0.435, 0.568] |
+
+Set B by author (after fixes):
+
+| | Fact evidence | Fact grounded accuracy | Aggregate evidence | Aggregate grounded accuracy | Refused |
+|---|---|---|---|---|---|
+| Hand-written (60) | 1.000 | 0.950 | 0.583 | 0.463 | 7.5% / 15% |
+| **Qwen-written (129)** | **0.384** | **0.349** | **0.579** | **0.421** | 27.9% / 16.7% |
+
+- **Diagnosis (set A, before fixes).** Ranking was fine: when the filters came out right, paraphrased fact questions still scored 0.971. Query analysis wasn't: it understood ISO and US numeric dates only, shrank "23 Aug 2025" to the whole month, didn't know common abbreviations (HTN, MDD, OA, T2DM), and two-hop selection only triggered on a "who …" clause (aggregate evidence 1.000 with the split, 0.614 without). Question redaction turned "9/7/2026" into `[ADDRESS]` and "Emphysema" into `[NAME]`.
+- **General fixes made** (developed on set A only): a date grammar for written, abbreviated, day-first, ordinal, `M/YYYY` and `YYYY-MM` forms, and unambiguous day-first numeric dates (`23/08/2025`); a standard clinical-abbreviation and synonym table, plurals included (it also contains the forms set A used); a condition/ask split that works without a relative clause ("patients with X", "complaining of X"); dates and disease words no longer tagged as PII in questions. On the original 550 QA questions (both datasets) query analysis output is unchanged, and the redacted notes are byte-identical, so all earlier results stay valid.
+- **Why set B is still at 0.579** (Qwen half, 129 questions): "29-Sep-2024" (day-month-year with dashes) loses the day (42 questions); European day-first numeric dates are read in US order (16, e.g. "04/01/2026" meant 4 January); other unhandled formats ("24-9-2024", "8/Oct/2025"; 9); two-hop split misses "w/" (13 aggregates); Title-Case questions trigger the name rule ("Morning Stiffness" → `[NAME]`) and the system refuses (2).
+- **What the report should claim:** on template wording, 0.949 evidence / 0.858 grounded accuracy; on unseen natural wording, 0.58 / 0.50. The gap is a stated limitation: rule-based query analysis covers the formats its author thought of. Natural follow-up work: a date parser library, trying both day/month orders when one matches no note, or LLM-based query parsing (slower, less auditable).
+- Not fixed after seeing set B, deliberately: any fix now would make set B development data. A further round would need a new held-out set C.
+
+### 8.4 Metric gaming
+- Plain accuracy credited a gold item found *anywhere* in the answer. One aggregate answer scored 1.0 by listing four drugs from four wrong notes; the right drug was there by coincidence. Pasting all retrieved text would score 0.949, more than the model's 0.919, at much worse precision.
+- Fix: **grounded accuracy** (headline) and **drug-list F1**, plus 3 test answers that score above what retrieval provided flagged as "right for the wrong reason". Test numbers: plain 0.919 → grounded 0.858; aggregate 0.757 → 0.622.
+
+### 8.5 Redaction on out-of-distribution notes
+
+Share of PII values fully masked (for names: every personal-name word hidden; titles and degrees such as "Dott." or "B.A." excluded):
+
+| | Set A (dev): before | Set A: after | **Set B (held out): before** | **Set B: after** |
+|---|---|---|---|---|
+| Overall | 0.815 | 0.986 | **0.672** | **0.819** |
+| Address | 0.40 | 1.00 | 0.29 | 0.29 |
+| Date of birth | 0.46 | 1.00 | 0.32 | 1.00 |
+| Patient ID | 0.57 | 1.00 | 0.03 | 0.70 |
+| Phone | 1.00 | 1.00 | 0.84 | 0.84 |
+| Email | 1.00 | 1.00 | 1.00 | 1.00 |
+| Names | 0.92 | 0.97 | 0.88 | 0.89 |
+
+- **Fixes** (developed on set A): addresses with full state names or no commas; DOBs with 1–2 digit day/month, `-`/`.` separators, `04-Mar-1975`, context-gated "March 5, 1975"; 6–9 digit IDs next to record-type words ("Record number", "Medical Record #", "Acct"); accented letters in the name patterns; "Pt" and dates no longer redacted. The template-data results are unchanged (redacted notes byte-identical).
+- **Generalised on set B:** DOBs 0.32 → 1.00 (including formats set A never had), IDs 0.03 → 0.70.
+- **Didn't:** PO boxes, multi-line addresses and addresses without a ZIP are still 0%; some phone formats (bare 10 digits without a context word, `###-###-#### ext ##`) 0.84.
+- **Bias by name origin (set B, after fixes):** English (GB/IE) 0.97, Swedish 0.97, Danish 0.93, Dutch 0.87, Spanish (Spain) 0.73, Vietnamese 0.70, **Turkish 0.57**. spaCy's NER misses names from some cultures far more often. This belongs in the report's ethics discussion.
+- **Correction to an earlier figure:** the first set A run reported German names at 0.50. That was a scoring artefact: Faker puts titles and degrees inside some names ("Univ.Prof. Leyla Ullrich"), and the strict metric counted a visible title as a leak. With the title-aware metric, pre-fix German names score 0.93. The metric was corrected before set B was scored, and set B uses it for both versions.
+- Seed replication (same generator, new seed): F1 0.999. Together with set B this pins down what 0.999 means: stable within the generator's formats, not evidence for other formats.
+
+---
+
+## 9. Tests
+
+`python -m pytest glassbox/tests` → **126 passed, 1 skipped, 1 xfailed**. The skipped test loads the real 7B model; run it with `GLASSBOX_SLOW=1` (passes).
 
 | File | Covers |
 |---|---|
-| `tests/test_generalization.py` | Redaction on formats not in the data: dash IDs, MRN, numeric MRN after a label, US and written dates, 3 phone formats, full address. Day 3a: 5 address formats as single spans, street line only with context, case-sensitivity, clinical terms kept (drugs, SpO2, BP), field label "Email" kept, names before credentials / after labels / after "Dr.". Plus regression tests for each Day 1 redaction fix. |
-| `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; ranges, several diagnoses, "May, 2025", invalid dates; no filters for identity questions; residual query; Chroma/Python filter agreement incl. `$in`. Selection: note grouping (both versions), filtered BM25 keeping zero-score chunks, auto-k, low-information classifier, ask/condition split, two-hop picks each gold note's answer section. Question redaction: names removed, clinical questions unchanged, the name never reaches the log. |
+| `tests/test_generalization.py` | Redaction on formats not in the data: dash IDs, MRN, numeric MRN after a label, US and written dates, 3 phone formats, full address. Day 3a: 5 address formats as single spans, street line only with context, case-sensitivity, clinical terms kept (drugs, SpO2, BP), field label "Email" kept, names before credentials / after labels / after "Dr.". Day 3 robustness: full state names and no-comma addresses, DOB variants, record numbers with/without context, accented names, "Pt"/dates/disease words kept. Plus regression tests for each Day 1 redaction fix. |
+| `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; ranges, several diagnoses, "May, 2025", invalid dates; no filters for identity questions; residual query; Chroma/Python filter agreement incl. `$in`. Selection: note grouping (both versions), filtered BM25 keeping zero-score chunks, auto-k, low-information classifier, ask/condition split, two-hop picks each gold note's answer section. Question redaction: names removed, clinical questions unchanged, the name never reaches the log. Day 3 robustness: written / day-first / ordinal / `M/YYYY` / `YYYY-MM` dates, standard abbreviations, condition split without "who", original-template analysis unchanged. |
+| `tests/test_generation.py` (Day 3) | Parser (fences, prose around JSON, truncated or malformed JSON, citation normalisation, invalid citations, uncited claims), the abstain guard (identifier / fallback / raw baseline), the guard never calling the model, prompt construction (note labels, no internal IDs in the prompt), question-name rules (spaCy misses, first name alone, possessives, diagnoses and drugs left alone), grounded accuracy (right drug from the wrong note scores 0). End-to-end test with the real model (`GLASSBOX_SLOW=1`). |
 
 - The full-address test was a strict `xfail` until Day 3a; it now passes.
 - The one remaining strict `xfail` documents a known limitation: an all-lowercase address ("42 oak street, springfield, il 62704") is only partly caught, because the address patterns use capitalisation.
@@ -495,7 +626,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 
 ---
 
-## 9. How to run
+## 10. How to run
 
 Setup (Python 3.11, Apple-silicon Mac):
 
@@ -525,13 +656,23 @@ python -m glassbox.src.retrieval.evaluate --dataset realistic --ablate  # select
 python -m glassbox.src.qa.build_qa_set --notes glassbox/data/raw/realistic/synthetic_notes.jsonl \
     --profile realistic --output glassbox/data/raw/realistic/qa_eval_set.jsonl
 
+# Generation (~45 min for all three configurations; --split dev for prompt work)
+python -m glassbox.src.generation.evaluate --dataset realistic
+python -m glassbox.src.generation.evaluate --rescore           # re-score saved answers, no model calls
+
+# Robustness (set A = development, set B = held out)
+python -m glassbox.src.robustness.paraphrase                    # rebuild paraphrase set A
+python glassbox/src/robustness/evaluate_paraphrases.py --set b --generate
+python -m glassbox.src.robustness.ood_notes --set b              # OOD redaction (frozen notes)
+
 # Tests
 python -m pytest glassbox/tests
+GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-model test
 ```
 
 ---
 
-## 10. Key decisions log
+## 11. Key decisions log
 
 | Date | Decision | Why | Alternatives considered |
 |---|---|---|---|
@@ -557,23 +698,34 @@ python -m pytest glassbox/tests
 | Nov 20 (3a) | Demote, not drop, placeholder-only chunks | They answer nothing and invite misattribution; demoting keeps them available if nothing else matches | Drop them (loses the ability to show the header in the dashboard) |
 | Nov 20 (3a) | Two-hop selection via ask/condition split | Aggregate questions need a qualifying section and an answer section per note | Answer-type section prior ("medications" → plan): rejected, hard-codes section names; whole-note chunks (2.7× context) |
 | Nov 20 (3a) | Fusion weights (2.0, 1.0) | Re-tuned on the 3× dev split with the final selection; plateau starts at 2.0 and it's best at k = 3 | (1.0, 1.0): 0.943 vs 0.968 dev |
+| Nov 21 (3) | Abstain guard in code, before the model | The model treats `[NAME]` as the person asked about; guard off it answers 84/84 identity questions from other people's notes | Prompt instruction only (can be ignored by the model) |
+| Nov 21 (3) | JSON output with per-claim citations | Clean input for the Day 4 verifier; malformed output is detectable and retried | Free text with inline [C1] markers |
+| Nov 21 (3) | Greedy decoding (temperature 0) | Reproducible numbers | Sampling |
+| Nov 21 (3) | Prompt v2 ("Note n" labels, note-by-note rule, exact doses) | Best on dev (0.941 vs 0.890 v1, 0.924 v3) | v3 claims-first JSON |
+| Nov 21 (3) | Grounded accuracy + drug-list F1 as headline metrics | Plain accuracy rewarded listing everything (right drug from the wrong note scored 1.0) | Plain keyword accuracy |
+| Nov 21 (3) | Robustness protocol: development set A, held-out set B committed before fixes, evaluated once | Measure generalisation honestly after looking at failures | Fix and re-measure on the same set (overfits to it) |
+| Nov 21 (3) | No fixes after seeing set B | Keeps set B a held-out measurement; a further round would need a new set C | Fix the set B failures and report set B again |
 | Nov 20 (3a) | Triple the QA set; report bootstrap 95% CIs | CI was ±0.08; method differences were noise | Keep 130 questions |
 | Nov 20 | Add evidence and context-size metrics | Note recall alone hid that answer-bearing sections weren't retrieved; context size makes minimization measurable | Recall@k / MRR only |
 
 ---
 
-## 11. Known issues / open items
+## 12. Known issues / open items
 
-- **Misattribution under redaction (critical; Days 3–4).** See §11.1 #1. Retrieval can't find a named person in the redacted index, but an LLM given redacted notes may still attribute one of them to that person, and a claim like "The patient is prescribed X" verifies as Supported. Fixes are planned: the abstain rule (Day 3), claims rewritten with the question's subject (Day 4), and abstention / false-attribution rates as privacy metrics (Day 6).
+- **Generalisation to unseen wording (§8.3).** Held-out paraphrases: retrieval evidence 0.579, grounded accuracy 0.502, against 0.949 / 0.858 on template wording. Main causes: "29-Sep-2024"-style dates, European day-first numeric dates read in US order, other date formats, "w/" not recognised as a condition marker, Title-Case questions tripping the question-name rule (the system then refuses).
+- **Redaction on unseen note formats (§8.5).** Held-out OOD notes: 0.819 fully masked. PO boxes, multi-line addresses and addresses without a ZIP are not caught; names of Turkish (0.57), Vietnamese (0.70) and Spanish (0.73) origin are missed more often than English ones (0.97).
+- **Aggregate answers (§7.3).** Grounded accuracy 0.622 against a retrieval ceiling of 0.847: the 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition.
+- **Brand-name drugs in questions** ("What is prescribed for Jardiance?") can trip the single-name rule; the system then refuses (privacy preferred over answering).
+- **Misattribution under redaction (§12.1 #1).** Fixed for questions that name someone: the abstain guard refuses 84/84 (guard off: 84/84 answered from other people's notes). Still open: claims rewritten with the question's subject before verification (Day 4).
 - **Titles are quasi-identifiers.** "Mrs. [NAME]" keeps the title, which reveals gender and let one redacted identity question match its note. Option: redact titles with the name; worth one sentence in the report either way.
 - **Redaction generalisation limits** (for the report's limitations section; found by probing, not in the data): all-lowercase addresses are only partly caught; insurance member numbers, hospital names and birth years before 1936 are not redacted. Lowercase names, relatives' names, valid SSNs and numeric MRNs after a label are.
-- **The redaction numbers are in-distribution.** 0.999 F1 is measured on synthetic notes from the same generator the recognizers were checked against. The hand-written generalisation tests (§8) are the evidence for other formats.
+- **The redaction numbers are in-distribution.** 0.999 F1 is measured on synthetic notes from the same generator the recognizers were checked against. The hand-written generalisation tests (§9) are the evidence for other formats.
 - **Remaining aggregate misses** (test aggregate evidence 0.847): the ask "Which medications were prescribed" sometimes ranks LAB ORDERS above a plan line that never says "medication".
 - **Query analysis is template-evaluated.** The QA questions come from templates; free-text handling is unit-tested only.
 - **The audit log stores raw PII values.** That's needed for the audit trail, but the log is itself a sensitive artifact. The report should say so. (Retrieval logs no longer contain PII from questions.)
 - **The docs are stale.** The README and `report_draft.md` show old numbers (0.838 / 0.869 / 0.858, 62.5%, 8/8) and old data paths. Refresh on Day 7.
 
-### 11.1 Audit of Days 1–2 (Nov 20)
+### 12.1 Audit of Days 1–2 (Nov 20)
 
 An independent check of everything built so far, using throwaway scripts rather than the project's own evaluators.
 
@@ -590,10 +742,10 @@ An independent check of everything built so far, using throwaway scripts rather 
 
 | # | Severity | Finding | Evidence | Fix (day) |
 |---|---|---|---|---|
-| 1 | Critical | **Misattribution under redaction.** Asked "What is John Wilkerson's medication?" with a redacted note as context, Qwen answered with that note's drug, treating `[NAME]` as John. It phrased the claim "The patient is prescribed …", which both NLI models label *entailment* (Supported). "Identity recall 0.000" only shows retrieval can't find the person; without a guard the full system would still give a confident, verified, wrong answer. | Smoke test. With the name in the claim ("John Wilkerson is prescribed …") both models say *neutral* (Unsupported). | Abstain rule (Day 3); rewrite claims with the question's subject before verifying (Day 4); report abstention and false-attribution rates as privacy metrics (Day 6) **Status: planned, Days 3–4** (needs generation/verification). |
+| 1 | Critical | **Misattribution under redaction.** Asked "What is John Wilkerson's medication?" with a redacted note as context, Qwen answered with that note's drug, treating `[NAME]` as John. It phrased the claim "The patient is prescribed …", which both NLI models label *entailment* (Supported). "Identity recall 0.000" only shows retrieval can't find the person; without a guard the full system would still give a confident, verified, wrong answer. | Smoke test. With the name in the claim ("John Wilkerson is prescribed …") both models say *neutral* (Unsupported). | Abstain rule (Day 3); rewrite claims with the question's subject before verifying (Day 4); report abstention and false-attribution rates as privacy metrics (Day 6) **Status: ✅ guard fixed Day 3** (0/84 identity questions answered; §7.3); claim rewriting for the verifier is Day 4. |
 | 2 | Critical | **The question itself isn't redacted.** A name typed into the question reaches the LLM prompt, the query embedding and the retrieval log. | `retriever.py` uses the raw query | Redact the question at entry; detected identifiers also trigger the abstain rule in #1 (Day 3) **Status: ✅ fixed Day 3a** (§6.6). |
 | 3 | Important | **Aggregate evidence 0.52 is a two-hop selection problem.** 6 of 21 aggregate test questions have zero evidence despite recall 1.0. The qualifying symptom is in *subjective*, the medication in *plan*; after the qualifying sections, the remaining slots go to *other* notes' plan sections. | e.g. ag-012, ag-020, ag-027 retrieve every gold note's subjective section, then non-gold plans | After selecting qualifying notes, add each one's answer section (plan / medications) (Day 3) **Status: ✅ fixed Day 3a**: two-hop selection, test aggregate evidence 0.553 → 0.847 (§6.4, §6.8). |
-| 4 | Important | **NAME precision 0.84 is mostly an address problem.** Of ~1,130 NAME spans not matching gold exactly, 965 are address fragments and 92 are "Dr. X" where gold includes the title (name masked, scored as an error). Pure false positives: 148 (§11). | Audit log vs. gold spans | Day 5 address fix also raises NAME precision **Status: ✅ fixed Day 3a**: NAME precision 0.841 → 0.999, "Email" kept (§5). |
+| 4 | Important | **NAME precision 0.84 is mostly an address problem.** Of ~1,130 NAME spans not matching gold exactly, 965 are address fragments and 92 are "Dr. X" where gold includes the title (name masked, scored as an error). Pure false positives: 148 (§12). | Audit log vs. gold spans | Day 5 address fix also raises NAME precision **Status: ✅ fixed Day 3a**: NAME precision 0.841 → 0.999, "Email" kept (§5). |
 | 5 | Important | **Context spent on placeholders.** 18% of context slots go to `patient_info` / `contact` sections, mostly `[NAME]`-style tags after redaction; they also invite #1. | Per-question retrieved sections | Drop or rank them lower for non-identity questions (Day 3) **Status: ✅ fixed Day 3a**: low-information demotion (§6.4). |
 | 6 | Important | **No `requirements.txt` or install steps**; matplotlib not installed (needed for plots). | Repo root | Day 5 **Status: ✅ fixed Day 3a**: `requirements.txt`, matplotlib 3.10.9 installed. |
 | 7 | Important | **Small test split.** 63 answerable test questions; 95% bootstrap CI for evidence 0.840 is [0.757, 0.915]. Hybrid vs. dense differ on 8 questions (mean −0.008): not significant, report as "tied". | Bootstrap, 5,000 resamples | Enlarge QA set, CIs on plots (Day 6) **Status: ✅ fixed Day 3a**: QA set ×3, bootstrap CIs in every summary (§4, §6.7). |
@@ -603,7 +755,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 
 ---
 
-## 12. Daily log
+## 13. Daily log
 
 ### Day 1: Nov 20
 - Removed the clutter: empty `*mkdir` dirs, `-p`, nested `glassbox/glassbox`, `hello.txt`.
@@ -629,11 +781,11 @@ An independent check of everything built so far, using throwaway scripts rather 
   - Dev-split fusion tuning.
   - Fixed filtered BM25 dropping zero-score chunks.
 - Result (realistic test, redacted): answerable evidence 0.048 → **0.840**, recall 0.645 → **1.000**, identity 0.000.
-- Found clinical over-redaction ("Glipizide" → `[NAME]`; §11).
+- Found clinical over-redaction ("Glipizide" → `[NAME]`; §12).
 - Tests: 12 → 35.
 
 ### Audit: Nov 20
-- Independent audit of Days 1–2 (§11.1): reproducibility, QA gold, leakage and headline numbers all verified.
+- Independent audit of Days 1–2 (§12.1): reproducibility, QA gold, leakage and headline numbers all verified.
 - Found the misattribution risk (critical, fixed in Days 3–4), unredacted questions, and the root cause of weak aggregate evidence.
 - Moved the address and clinical-term redaction fixes from Day 7 to Day 5; plan in §2 updated.
 - Pushed `pipeline-build` to GitHub.
@@ -649,4 +801,14 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Result (realistic test, redacted): answerable evidence 0.840 → **0.949** [0.922, 0.972]; aggregate 0.553 → 0.847; identity 0.000; context ~955 characters.
 - `requirements.txt`; matplotlib installed.
 - Tests: 35 → 71 (70 passed, 1 documented xfail).
+
+### Day 3: Nov 21–22 (generation, robustness)
+- Built cited generation with Qwen2.5-7B-Instruct (MLX): abstain guard, JSON claims with citations, parser with retry, audit log (§7).
+- Prompt v1 → v2 → v3 compared on dev; v2 chosen (0.941 plain dev accuracy).
+- Question-only name rule after "Tiffany Price" slipped past spaCy.
+- Test results: grounded accuracy 0.858 (raw baseline 0.833); identity questions answered 0/84; guard off 84/84, all from other people's notes.
+- Robustness and overfitting checks (§8): dev/test gaps, split leakage, seed replication, guard perturbations all fine. Found template overfitting in query analysis (paraphrases 0.949 → 0.450), redaction overfitting to the generator's formats, a gameable answer metric, and a scoring artefact in name-bias numbers (corrected).
+- Froze held-out set B before any fix (commits `2f0bb6b`, `a0047eb`), made general fixes on set A, evaluated set B once: retrieval 0.324 → 0.579, grounded accuracy 0.502, OOD redaction 0.672 → 0.819.
+- Original-template results unchanged by the fixes (query analysis identical on all 550 QA questions; redacted notes byte-identical).
+- Tests: 71 → 128 (126 passed, 1 skipped slow-model test which passes with `GLASSBOX_SLOW=1`, 1 documented xfail).
 
