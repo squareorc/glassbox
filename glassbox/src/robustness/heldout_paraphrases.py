@@ -127,5 +127,15 @@ def freeze(review_decisions: dict = None):
     print(f"froze {len(out)} paraphrases -> {OUT}")
 
 
+# Hand-review decisions for Qwen paraphrases that failed the automatic fact check (2026-11-21).
+# Decided on meaning alone, before set B was evaluated.
+REVIEW_DECISIONS = {
+    # "decreased ROM" = "reduced range of motion" (ROM is the standard abbreviation); facts kept
+    "realistic-ag-047": "Which meds were dispensed to OA pts with decreased ROM in Jun 2026?",
+}
+
 if __name__ == "__main__":
-    {"generate": generate, "freeze": freeze}[sys.argv[1]]()
+    if sys.argv[1] == "freeze":
+        freeze(REVIEW_DECISIONS)
+    else:
+        generate()
