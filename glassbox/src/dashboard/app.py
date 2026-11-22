@@ -12,6 +12,10 @@ Pages
     Stored traces   table of saved traces (filter by verdict / type / abstention); pick
                     one to audit it. Reads trace files only, no recomputation.
 
+Traces of questions asked here (Demo and Ask pages) are saved under logs/traces/live/,
+apart from the evaluation run's traces, so the "Evaluation run" table always shows
+exactly the 390 evaluated questions.
+
 Trace view: one panel per pipeline stage (question redaction, query analysis,
 retrieval, answer, verification) plus timings and the raw trace JSON.
 
@@ -31,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from glassbox.src.dashboard.traces import (ABSTAIN_EXPLANATION, LABEL_COLOUR, TRACE_ROOT,  # noqa: E402
+from glassbox.src.dashboard.traces import (ABSTAIN_EXPLANATION, LABEL_COLOUR, LIVE, TRACE_ROOT,  # noqa: E402
                                            VERDICT_COLOUR, chunk_anchor, load_rows, load_trace,
                                            source_label, trace_sets)
 
@@ -175,7 +179,8 @@ def show_trace(trace, original=None):
 @st.cache_resource(show_spinner="Loading the retriever, the 7B generator and the NLI verifier…")
 def get_pipeline(dataset: str, config: str):
     from glassbox.src.pipeline import GlassBox
-    return GlassBox(dataset, config, trace_dir=TRACES / dataset / config, preload=True)
+    # Questions asked in the dashboard are kept apart from the evaluation run's traces
+    return GlassBox(dataset, config, trace_dir=TRACES / LIVE / dataset / config, preload=True)
 
 
 @st.cache_data
@@ -215,17 +220,24 @@ def page_ask(dataset: str, config: str):
 
 def page_traces(dataset: str, config: str):
     st.header("Stored traces")
+    source = st.radio("Traces", ["Evaluation run (QA set)", "Asked in this dashboard"], horizontal=True)
+    root = TRACES if source.startswith("Evaluation") else TRACES / LIVE
     trace_set = f"{dataset}/{config}"
-    rows = load_rows(trace_set, TRACES)
+    rows = load_rows(trace_set, root)
     if not rows:
-        st.info(f"No traces in `{TRACE_ROOT / trace_set}`. Run `python -m glassbox.run --qa-set --config {config}`.")
+        hint = (f"Run `python -m glassbox.run --qa-set --config {config}`." if root == TRACES
+                else "Ask a question on the Demo or Ask page.")
+        st.info(f"No traces in `{root.relative_to(ROOT) / trace_set}`. {hint}")
         return
     if config == "raw":
         st.warning("Raw baseline traces: questions and chunks are NOT redacted (no-privacy comparison).")
     c1, c2, c3 = st.columns(3)
     verdicts = c1.multiselect("Verdict", sorted({r["verdict"] for r in rows}))
     types = c2.multiselect("Question type", sorted({r["type"] for r in rows}))
-    splits = c3.multiselect("Split", sorted({r["split"] for r in rows if r["split"]}))
+    split_opts = sorted({r["split"] for r in rows if r["split"]})
+    # Open on the test split: the reported numbers (e.g. 0.858 grounded accuracy) are test-split numbers
+    splits = c3.multiselect("Split", split_opts, default=["test"] if "test" in split_opts else [],
+                            help="Reported results are on the test split; dev was used for tuning.")
     shown = [r for r in rows if (not verdicts or r["verdict"] in verdicts) and (not types or r["type"] in types)
              and (not splits or r["split"] in splits)]
     answerable = [r for r in shown if r["type"] not in ("identity", "ad hoc") and r["grounded_accuracy"] is not None]

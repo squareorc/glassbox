@@ -147,3 +147,14 @@ def test_identical_claims_keep_their_own_labels():
     at = AppTest.from_string(RENDER.format(payload=json.dumps(t), original=None), default_timeout=60).run()
     text = " ".join(m.value for m in at.markdown)
     assert "SUPPORTED]" in text and "UNSUPPORTED]" in text
+
+
+def test_live_traces_kept_apart_from_the_evaluation_run(tmp_path):
+    """Questions asked in the dashboard go to live/, which is not listed as an evaluation trace set."""
+    from glassbox.src.dashboard.traces import LIVE, trace_sets
+    for d in ["realistic/redacted", f"{LIVE}/realistic/redacted"]:
+        (tmp_path / d).mkdir(parents=True)
+        (tmp_path / d / "x.json").write_text("{}")
+    assert trace_sets(tmp_path) == ["realistic/redacted"]
+    src = open("glassbox/src/dashboard/app.py").read()
+    assert "trace_dir=TRACES / LIVE / dataset / config" in src

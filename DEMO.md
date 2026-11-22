@@ -51,7 +51,7 @@ Good questions for step 6 (all work on this data):
 
 ### Part C: it works in general, not just on these questions (4 minutes)
 
-1. **Stored traces page.** All 390 evaluation questions, already run. Filter by verdict or question type, click any row and audit it.
+1. **Stored traces page.** All 390 evaluation questions, already run. The table opens on the 273 test-split questions, which the reported numbers use (clear the Split filter to see dev too). Filter by verdict or question type, click any row and audit it. Questions asked live during the demo are kept separately, under "Asked in this dashboard".
    - Answerable test questions: **0.858** grounded accuracy (answer correct *and* cited from the right patient's note), 95% CI [0.815, 0.899].
    - Identity questions answered: **0 of 84** (raw baseline: answered 42, and gave the person's true value for 16).
    - Answers the verifier marks VERIFIED are right 0.906 of the time, vs 0.492 for NOT_VERIFIED, so the verdict is a useful trust signal.

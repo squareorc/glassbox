@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 TRACE_ROOT = Path("glassbox/logs/traces")
+LIVE = "live"   # questions asked in the dashboard: <TRACE_ROOT>/live/<dataset>/<config>/
 
 LABEL_COLOUR = {"SUPPORTED": "green", "CONTRADICTED": "red", "UNSUPPORTED": "orange", "UNCERTAIN": "gray"}
 VERDICT_COLOUR = {"VERIFIED": "green", "PARTLY_VERIFIED": "orange", "NOT_VERIFIED": "orange",
@@ -29,7 +30,8 @@ def trace_sets(root: Path = TRACE_ROOT) -> List[str]:
     """'<dataset>/<config>' folders that hold traces."""
     if not root.exists():
         return []
-    return sorted(str(d.relative_to(root)) for d in root.glob("*/*") if d.is_dir() and any(d.glob("*.json")))
+    return sorted(str(d.relative_to(root)) for d in root.glob("*/*")
+                  if d.is_dir() and d.parent.name != LIVE and any(d.glob("*.json")))
 
 
 def load_trace(path: Path) -> Dict[str, Any]:
