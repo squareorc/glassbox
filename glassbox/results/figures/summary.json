@@ -266,6 +266,41 @@
     }
   },
   "E9": {
-    "status": "not run"
+    "source": "pipeline/synthetic_*.json, pipeline/realistic_*.json",
+    "synthetic_redacted": {
+      "n": 112,
+      "n_answerable": 77,
+      "n_identity": 35,
+      "answerable_grounded_accuracy": 0.9416,
+      "answerable_grounded_accuracy_ci95": [
+        0.8961,
+        0.9805
+      ],
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 74,
+        "ABSTAINED": 35,
+        "CONTRADICTED": 1,
+        "NOT_VERIFIED": 2
+      }
+    },
+    "synthetic_raw": {
+      "n": 112,
+      "n_answerable": 77,
+      "n_identity": 35,
+      "answerable_grounded_accuracy": 0.9156,
+      "answerable_grounded_accuracy_ci95": [
+        0.8636,
+        0.961
+      ],
+      "identity_answered": 25,
+      "verdicts": {
+        "VERIFIED": 94,
+        "NOT_VERIFIED": 4,
+        "ABSTAINED": 10,
+        "PARTLY_VERIFIED": 1,
+        "CONTRADICTED": 3
+      }
+    }
   }
 }

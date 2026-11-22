@@ -30,6 +30,11 @@ Set A was used to develop fixes; set B was written and committed before any fix 
 
 Logs and traces of the redacted system (9,630 records): **0** of 17,603 PII values found (raw-baseline positive control: 7,952 hits).
 
-## E9  Synthetic replication
+## E9  Replication on the second dataset (250 synthetic notes, different generator)
 
-Not run yet: `python -m glassbox.run --qa-set --dataset synthetic [--config raw]`.
+| Metric (test split) | Realistic GlassBox | Synthetic GlassBox | Realistic raw | Synthetic raw |
+|---|---|---|---|---|
+| Questions (answerable / identity) | 189 / 84 | 77 / 35 | 189 / 84 | 77 / 35 |
+| Grounded accuracy (answerable) | 0.858 | 0.942 | 0.833 | 0.916 |
+| 95% CI | [0.815, 0.899] | [0.896, 0.981] | [0.787, 0.876] | [0.864, 0.961] |
+| Identity questions answered | 0 | 0 | 42 | 25 |

@@ -6,9 +6,9 @@
 > - the exact numbers, and how they were measured
 > - what went wrong, and how it was fixed
 >
-> It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
+> It's updated as work happens. `README.md` and `report_draft.md` were refreshed on Day 5 evening from this file; if they ever disagree, **trust this file**.
 
-**Last updated:** 2026-11-22 (Day 5: end-to-end pipeline with audit traces, log PII scan, dashboard skeleton, §14)
+**Last updated:** 2026-11-22 (Day 5 evening: exact dense search §14.6, demo tooling §14.7, figures §15, README and report draft refreshed)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -29,6 +29,7 @@
 12. [Known issues / open items](#12-known-issues--open-items)
 13. [Daily log](#13-daily-log)
 14. [Stage: End-to-end pipeline, audit trace and dashboard](#14-stage-end-to-end-pipeline-audit-trace-and-dashboard)
+15. [Figures and the experiments summary](#15-figures-and-the-experiments-summary-glassboxsrcexperimentsfigurespy)
 
 ---
 
@@ -47,9 +48,10 @@
 | Redaction threshold sweep (privacy-utility curve) | ✅ Done (§5.1) | `glassbox/src/experiments/threshold_sweep.py` |
 | End-to-end orchestrator with traces | ✅ Done (§14) | `glassbox/run.py`, `glassbox/src/pipeline.py` |
 | Log / trace PII scan | ✅ Done (§14.3) | `glassbox/src/experiments/log_pii_scan.py` |
-| Audit dashboard (Streamlit) | ⏳ Skeleton done (§14.4); experiments page Day 6 | `glassbox/src/dashboard/` |
-| Experiments (privacy / utility / faithfulness) | ⬜ Day 6 | `glassbox/results/` |
-| README + report refresh | ⬜ Day 7 | `README.md`, `report_draft.md` |
+| Audit dashboard (Streamlit): demo, audit view, stored traces, experiments | ✅ Done (§14.4, §14.7) | `glassbox/src/dashboard/` |
+| Demo tooling (`glassbox.verify`, `DEMO.md`) | ✅ Done; owner's browser dry run left (§14.7) | `glassbox/verify.py`, `DEMO.md` |
+| Experiments and figures E1–E9 | ✅ Done (§15) | `glassbox/src/experiments/figures.py`, `glassbox/results/figures/` |
+| README + report draft refresh | ✅ Done (Day 5 evening) | `README.md`, `report_draft.md` |
 
 **Headline numbers so far** (realistic set, test split):
 
@@ -91,8 +93,8 @@ The headline numbers hold for questions and notes shaped like the generators' te
 | 3 | Nov 21–22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation, abstain guard (§7). Then robustness and overfitting checks, general fixes, held-out evaluation (§8) | ✅ |
 | 4 | Nov 22 | Verification: NLI verifier, 4 labels, corrupted-claim test set, model and margin chosen on dev (§7.4–7.5). Threshold sweep started overnight | ✅ (a day early) |
 | 5 | Nov 22 | Orchestrator with trace JSON (question → redaction → retrieval → generation → verification); regenerate stale logs; log PII scan; dashboard skeleton (§14) | ✅ (two days early) |
-| 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots, with 95% confidence intervals; abstention and false-attribution rates as privacy metrics | ⬜ |
-| 7 | Nov 26 | README and report refresh | ⬜ |
+| 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots, with 95% confidence intervals; abstention and false-attribution rates as privacy metrics | ✅ (Day 5 evening, §15) |
+| 7 | Nov 26 | README and report refresh | ✅ (Day 5 evening) |
 | 8 | Nov 27 | Polish, buffer, demo rehearsal, backup video | ⬜ |
 
 ---
@@ -809,6 +811,7 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 - **Aggregate answers (§7.3).** Grounded accuracy 0.622 against a retrieval ceiling of 0.847: the 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition.
 - **Brand-name drugs in questions** ("What is prescribed for Jardiance?") can trip the single-name rule; the system then refuses (privacy preferred over answering).
 - **Misattribution under redaction (§12.1 #1).** Fixed for questions that name someone: the abstain guard refuses 84/84 (guard off: 84/84 answered from other people's notes). Day 4 showed verification can't be a second line of defence here (§7.5); protection depends on question redaction catching the identifier.
+- **One synthetic patient name is never redacted** ("Patient Gina Pace (DOB: …", `doc_0197`), and on Day 5 it reached one model answer (§14.3). Fix would be a "Patient <Name>" pattern plus a full re-run; left as a documented example.
 - **Titles are quasi-identifiers.** "Mrs. [NAME]" keeps the title, which reveals gender and let one redacted identity question match its note. Option: redact titles with the name; worth one sentence in the report either way.
 - **Redaction generalisation limits** (for the report's limitations section; found by probing, not in the data): all-lowercase addresses are only partly caught; insurance member numbers, hospital names and birth years before 1936 are not redacted. Lowercase names, relatives' names, valid SSNs and numeric MRNs after a label are.
 - **The redaction numbers are in-distribution.** 0.999 F1 is measured on synthetic notes from the same generator the recognizers were checked against. The hand-written generalisation tests (§9) are the evidence for other formats.
@@ -931,7 +934,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 - **Found that ChromaDB's approximate (HNSW) dense search was the cause of differing raw-baseline runs and "stale" identity answers** (§14.6). Switched to exact search, then re-ran retrieval, generation, verification, both paraphrase sets, all pipeline traces, the threshold sweep and the PII scan (~4 h in the background). GlassBox's own numbers didn't change (every filtered question is identical); the raw baseline now finds named people more often (hybrid identity recall 0.333 → 0.548) and answers 42/84 identity questions, 16 with the person's true value.
 - Determinism checked: generation and verification were run twice from scratch with exact search; all 900 stored answers identical, summaries identical apart from timings.
 - Demo tooling (PLAN 6.3): Demo page in the dashboard (six one-click steps incl. "try to fool the verifier"), `python -m glassbox.verify` (re-runs 10 stored questions live: 10/10 identical in 34 s), `DEMO.md` script. Tests 161 → 170 (165 fast + 4 slow + 1 xfail).
-- Evening: headless real-model dry run of the dashboard (every button, no errors); live traces separated from the evaluation run; Stored traces open on the test split; figures E1–E8 (`experiments/figures.py`, §15) and an Experiments page; synthetic replication E9 run. Tests 167 + 4 slow + 1 xfail.
+- Evening: headless real-model dry run of the dashboard (every button, no errors); live traces separated from the evaluation run; Stored traces open on the test split; figures E1–E8 (`experiments/figures.py`, §15) and an Experiments page; synthetic replication E9 run. Tests 167 + 4 slow + 1 xfail. E9: synthetic GlassBox 0.942 vs raw 0.916, identity 0 vs 25 of 35; the log scan caught one missed synthetic name that reached an answer (§14.3, §15.1); live dashboard traces now totalled separately in the scan.
 
 ---
 
@@ -1016,10 +1019,14 @@ Raw-baseline files are scanned separately as the **positive control**: they must
 
 | Group | Records | Full values | Question text | Name parts |
 |---|---|---|---|---|
-| Redacted system: retrieval logs, generation logs (incl. sweep, paraphrases), traces, committed answers | 9,630 (realistic) + 1,920 (synthetic) | **0** | **0** | **0** |
-| Raw baseline: retrieval logs, raw traces (positive control) | 5,460 (realistic) + 1,920 (synthetic) | 7,952 + 1,800 | 1,680 + 600 | 900 + 360 |
+| Redacted system: retrieval logs, generation logs (incl. sweep, paraphrases), traces, committed answers | 9,630 (realistic) + 2,080 (synthetic) | **0** + 7 (one missed name, below) | **0** | **0** |
+| Raw baseline: retrieval logs, raw traces (positive control) | 5,460 (realistic) + 2,080 (synthetic) | 7,952 + 4,487 | 1,680 + 650 | 900 + 399 |
+
+Traces of questions asked live in the dashboard (`logs/traces/live/`) are scanned too but totalled separately (`live`, `live_baseline` in the JSON), so the committed numbers above don't change with every demo. After the Day 5 dry runs: 9 live GlassBox traces, 0 hits.
 
 **Problem found and fixed.** The first run found one real leak: the Nov 21 prompt-development runs v1 and v2 (`logs/generation/realistic/redacted_v{1,2}.jsonl` and the committed `results/generation/realistic_t0.50_dev_v{1,2}_answers.jsonl`) contained the full name from QA question `realistic-id-019` ("What symptom did … report?"). Those runs predate the question-only name rule (§7, "Tiffany Price"), which was added *because* of this question. The name was replaced by `[NAME]` in the four files (3 occurrences each); no score depends on it. Re-running prompt development (25 min of GPU) would have changed nothing measured. The name remains in git history (synthetic data; noted in §12). The first scan also produced three false positives (title "Mrs" counted as part of a name), which led to the title exclusion above.
+
+**A redaction miss that reached an answer (found Day 5 evening, synthetic set).** When the synthetic traces were added for E9 (§15.1), the scan reported 7 hits on the privacy side, all the same value: the patient name in synthetic note `doc_0197` ("Patient Gina Pace (DOB: …"). This is the 1 of 838 synthetic PII values that redaction already left verbatim (§5): spaCy's NER doesn't tag it in that position, and the name-after-label pattern needs a colon. Two aggregate questions retrieved that note's chunk, and in one (`synthetic-ag-010`) the model copied the name into a claim. So a single missed value travelled index → prompt → answer → trace, and the scan caught it. Not fixed: a "Patient <Name>" pattern would mean re-redacting both datasets and re-running every experiment for one in-distribution miss, days before the deadline. It's the clearest example for the report of why redaction recall matters end to end and why the log scan exists. Realistic set: still 0.
 
 **What the leak-audit examples are.** `results/retrieval/*_t0.50.json` lists example values in its `leak_audit` section on purpose: it records *which* PII leaked into the index (§6.8). That file is a measurement, not a system log, and isn't part of this scan.
 
@@ -1134,8 +1141,24 @@ The full experiments take hours (390 questions × 3 configurations ≈ 1 h; thre
 | E6 `E6_retrieval_ablation.png` | Retrieval design steps | evidence 0.840 → 0.854 → 0.919 → 0.949 |
 | E7 `E7_verification.png` | Corrupted claims caught per kind; grounded accuracy by verdict | 99.4% overall (drug swap 97.0%, wrong citation 99.4%, the rest 100%); VERIFIED 0.906 vs NOT_VERIFIED 0.492 |
 | E8 `E8_robustness.png` | Retrieval on reworded questions before/after fixes; end-to-end on set B | set A 0.450 → 0.932; set B 0.324 → 0.579; grounded 0.858 template vs 0.502 set B |
-| E9 `tables.md` | Replication on the 250-note synthetic dataset | see §15.1 |
+| E9 `tables.md` | Replication on the 250-note synthetic dataset | GlassBox 0.942 vs raw 0.916 grounded accuracy; identity answered 0 vs 25 of 35 (§15.1) |
 
 **Design choices.** One colour per system everywhere: blue = GlassBox, orange = raw baseline, green = guard off, grey = "before a fix". The palette was checked with a colour-vision-deficiency validator (it passes; green has low contrast on white, so every bar has a direct value label). Axes that don't start at zero say so in the axis label (E1a, E3). The threshold sweep uses three small panels rather than one chart with two y-axes.
 
 **Dashboard.** The Experiments page shows the same figures with one-line captions, ordered for a demo (utility, identity, verification, threshold first; limitations after).
+
+### 15.1 E9: replication on the synthetic dataset
+
+**What.** The end-to-end pipeline was run on the second dataset: 250 synthetic notes from a different generator (single-paragraph notes, 3 templates, 8 conditions), 160 questions, GlassBox and raw configurations. `python -m glassbox.run --qa-set --dataset synthetic [--config raw]`; results `glassbox/results/pipeline/synthetic_{redacted,raw}.json`. Nothing was tuned on this dataset.
+
+| Test split | Realistic GlassBox | **Synthetic GlassBox** | Realistic raw | Synthetic raw |
+|---|---|---|---|---|
+| Questions (answerable / identity) | 189 / 84 | 77 / 35 | 189 / 84 | 77 / 35 |
+| Grounded accuracy (95% CI) | 0.858 [0.815, 0.899] | **0.942** [0.896, 0.981] | 0.833 [0.788, 0.877] | 0.916 [0.864, 0.961] |
+| Clinical fact / aggregate | 0.976 / 0.622 | 1.000 / 0.786 | 0.980 / 0.540 | 0.946 / 0.833 |
+| Identity questions answered | 0 | **0** | 42 | 25 |
+| VERIFIED answers: grounded accuracy | 0.906 (n = 165) | 0.960 (n = 74) | 0.887 | 0.949 |
+
+- **The pattern replicates:** no measurable utility cost from privacy (CIs overlap), every identity question refused by GlassBox while the raw baseline answers most of them, and VERIFIED answers are the accurate ones.
+- **Absolute numbers are higher** because the synthetic notes are single short paragraphs (retrieval evidence 1.000 there, §6.8), so this is a replication of the *comparison*, not a harder test.
+- **PII:** the scan of these traces found the one name the redactor misses on this dataset, copied into one answer (§14.3).

@@ -129,11 +129,15 @@ def main():
         if not files:
             continue
         matcher, questions, name_parts, n_values = dataset_secrets(dataset)
-        totals = {"privacy": defaultdict(int), "baseline": defaultdict(int)}
+        # "live": traces of questions asked in the dashboard (logs/traces/live/). Scanned like the
+        # rest, but totalled apart so the committed evaluation numbers don't change with every demo.
+        totals = {"privacy": defaultdict(int), "baseline": defaultdict(int), "live": defaultdict(int),
+                  "live_baseline": defaultdict(int)}
         by_dir: Dict[str, Dict[str, Any]] = {}
         for path in files:
             r = scan_file(path, matcher, questions, name_parts)
-            group = "baseline" if is_baseline(path) else "privacy"
+            group = ("live_" if "live" in path.parts else "") + ("baseline" if is_baseline(path) else "privacy")
+            group = "live" if group == "live_privacy" else group
             key = str(path.parent) if path.suffix == ".json" else str(path)   # traces: one entry per folder
             agg = by_dir.setdefault(key, {"group": group, "files": 0, "records": 0, "full_value": 0,
                                           "identity_question_text": 0, "name_part": 0, "examples": {}})
@@ -144,12 +148,12 @@ def main():
             for k, ex in r["examples"].items():
                 agg["examples"].setdefault(k, []).extend(ex[: 5 - len(agg["examples"].get(k, []))])
         report["files"].update(by_dir)
-        report["totals"][dataset] = {"pii_values_searched": n_values, **{g: dict(t) for g, t in totals.items()}}
+        report["totals"][dataset] = {"pii_values_searched": n_values, **{g: dict(t) for g, t in totals.items() if t}}
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, indent=2))
     for key, r in report["files"].items():
-        flag = "" if r["group"] == "baseline" or not (r["full_value"] or r["identity_question_text"] or r["name_part"]) else "  <-- LEAK"
+        flag = "" if r["group"].endswith("baseline") or not (r["full_value"] or r["identity_question_text"] or r["name_part"]) else "  <-- LEAK"
         print(f"{r['group']:<8} {key:<62} records {r['records']:>6}  full {r['full_value']:>6}  "
               f"question {r['identity_question_text']:>4}  name-part {r['name_part']:>4}{flag}")
     print(json.dumps(report["totals"], indent=2))

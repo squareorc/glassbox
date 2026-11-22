@@ -363,13 +363,13 @@ def e8(summary):
 # ------------------------------------------------------------------ E9 synthetic replication
 def e9(summary, tables):
     files = {c: R / "pipeline" / f"synthetic_{c}.json" for c in ["redacted", "raw"]}
-    real = {c: load(f"pipeline/realistic_{c}.json")["summary"] for c in ["redacted", "raw"]}
+    real = {c: load(f"pipeline/realistic_{c}.json")["summary"]["test"] for c in ["redacted", "raw"]}
     if not all(f.exists() for f in files.values()):
         tables.append("## E9  Synthetic replication\n\nNot run yet: `python -m glassbox.run --qa-set --dataset synthetic "
                       "[--config raw]`.")
         summary["E9"] = {"status": "not run"}
         return
-    syn = {c: json.loads(f.read_text())["summary"] for c, f in files.items()}
+    syn = {c: json.loads(f.read_text())["summary"]["test"] for c, f in files.items()}
 
     def row(label, key, fmt="{:.3f}"):
         cells = []

@@ -1,0 +1,151 @@
+{
+  "dataset": "synthetic",
+  "config": {
+    "name": "redacted",
+    "dataset": "synthetic",
+    "index": "redacted-t0.50-section",
+    "index_source": "redacted",
+    "baseline_mode": false,
+    "redaction_threshold": 0.5,
+    "question_redaction": true,
+    "question_redaction_threshold": 0.5,
+    "abstain_guard": true,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "retrieval_method": "hybrid",
+    "fusion_weights": [
+      2.0,
+      1.0
+    ],
+    "per_note": 2,
+    "auto_k": {
+      "single_note": 5,
+      "multi_note": 10
+    },
+    "generator_model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "prompt_version": "v2",
+    "max_tokens": 400,
+    "verifier_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "verifier_margin": 0.0
+  },
+  "split": "all",
+  "types": null,
+  "limit": null,
+  "summary": {
+    "dev": {
+      "n": 48,
+      "n_answerable": 33,
+      "n_identity": 15,
+      "answerable_grounded_accuracy": 0.9394,
+      "answerable_grounded_accuracy_ci95": [
+        0.8788,
+        0.9848
+      ],
+      "clinical_fact_grounded_accuracy": 1.0,
+      "aggregate_grounded_accuracy": 0.7778,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 33,
+        "ABSTAINED": 15
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 33,
+          "grounded_accuracy": 0.9394
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.4,
+        "retrieval": 0.3,
+        "generation": 2800.1,
+        "verification": 48.2,
+        "total": 2849.6
+      },
+      "latency_ms_median_when_model_called": 3160.1
+    },
+    "test": {
+      "n": 112,
+      "n_answerable": 77,
+      "n_identity": 35,
+      "answerable_grounded_accuracy": 0.9416,
+      "answerable_grounded_accuracy_ci95": [
+        0.8961,
+        0.9805
+      ],
+      "clinical_fact_grounded_accuracy": 1.0,
+      "aggregate_grounded_accuracy": 0.7857,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 74,
+        "ABSTAINED": 35,
+        "CONTRADICTED": 1,
+        "NOT_VERIFIED": 2
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 74,
+          "grounded_accuracy": 0.9595
+        },
+        "NOT_VERIFIED": {
+          "n": 2,
+          "grounded_accuracy": 0.75
+        },
+        "CONTRADICTED": {
+          "n": 1,
+          "grounded_accuracy": 0.0
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.2,
+        "retrieval": 0.3,
+        "generation": 2841.0,
+        "verification": 45.2,
+        "total": 2890.9
+      },
+      "latency_ms_median_when_model_called": 3272.5
+    },
+    "all": {
+      "n": 160,
+      "n_answerable": 110,
+      "n_identity": 50,
+      "answerable_grounded_accuracy": 0.9409,
+      "answerable_grounded_accuracy_ci95": [
+        0.9045,
+        0.9727
+      ],
+      "clinical_fact_grounded_accuracy": 1.0,
+      "aggregate_grounded_accuracy": 0.7833,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 107,
+        "ABSTAINED": 50,
+        "CONTRADICTED": 1,
+        "NOT_VERIFIED": 2
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 107,
+          "grounded_accuracy": 0.9533
+        },
+        "NOT_VERIFIED": {
+          "n": 2,
+          "grounded_accuracy": 0.75
+        },
+        "CONTRADICTED": {
+          "n": 1,
+          "grounded_accuracy": 0.0
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.3,
+        "retrieval": 0.3,
+        "generation": 2836.6,
+        "verification": 45.5,
+        "total": 2885.8
+      },
+      "latency_ms_median_when_model_called": 3243.5
+    }
+  }
+}

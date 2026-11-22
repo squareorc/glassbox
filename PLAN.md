@@ -137,7 +137,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 
 ## Phase 6: Experiments, figures, dashboard (Nov 25) ⏳
 
-### 6.1 Experiment set (all on realistic test unless noted; CIs everywhere)
+### 6.1 Experiment set ✅ (all on realistic test unless noted; CIs everywhere)
 | # | Experiment | Source | Figure / table |
 |---|---|---|---|
 | E1 | Redaction quality per type; masking; OOD sets A/B before/after; name-origin bias | `results/redaction`, `results/robustness` | Bar chart per type; OOD before/after table; bias bar chart |
@@ -151,7 +151,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 | E9 | Synthetic (250-note) replication of headline numbers | run generation + verification on synthetic | Table |
 - Script: `glassbox/src/experiments/figures.py` → `glassbox/results/figures/*.png` and a `summary.json` of every headline number.
 - **Done when:** every figure regenerates from committed results with one command; numbers match `PROGRESS.md`.
-- **Result (Day 5 evening):** E1–E8 as 8 figures + `tables.md` + `summary.json`; a test regenerates them and checks headline numbers. E9 from `glassbox.run --qa-set --dataset synthetic`. PROGRESS §15.
+- **Result (Day 5 evening):** E1–E8 as 8 figures + `tables.md` + `summary.json`; a test regenerates them and checks headline numbers. E9 run: synthetic GlassBox 0.942 vs raw 0.916, identity 0 vs 25/35. PROGRESS §15, §15.1.
 
 ### 6.3 Demo tooling ⏳ (built and checked; owner's browser dry run left)
 - **Demo page** in the dashboard (`glassbox/src/dashboard/demo_script.py`): 4 one-click live questions (fact, aggregate, named person GlassBox vs raw side by side, no-matching-record), "try to fool the verifier" (edit a claim, re-verify live), free question box; talking points; explicit "Load models" step. ✅ built, headless-tested
@@ -170,8 +170,8 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 
 | | Task | Done when |
 |---|---|---|
-| 7.1 | `README.md` rewrite: purpose, architecture diagram, setup, quick start (`run.py`, dashboard), results summary with figures, limitations, reproduction commands | All numbers from `summary.json`; old numbers removed |
-| 7.2 | `report_draft.md` refresh: methods per stage, experiments E1–E9, limitations (held-out gap, name bias, verification vs misattribution, synthetic data) | Consistent with `PROGRESS.md` |
+| 7.1 ✅ | `README.md` rewrite: purpose, architecture diagram, setup, quick start (`run.py`, dashboard), results summary with figures, limitations, reproduction commands | All numbers from `summary.json`; old numbers removed |
+| 7.2 ✅ | `report_draft.md` refresh: methods per stage, experiments E1–E9, limitations (held-out gap, name bias, verification vs misattribution, synthetic data) | Consistent with `PROGRESS.md` |
 | 7.3 | `PROGRESS.md` final pass: status, final numbers, daily log | Groupmate can write the report from it |
 | 7.4 | Remove or archive stale docs (`REALISTIC_DATASET_EVALUATION.md`, `demo_dashboard.html`) after checking with the owner | Owner approved |
 

@@ -324,6 +324,55 @@
       "name_part": 0,
       "examples": {}
     },
+    "glassbox/logs/traces/live/realistic/raw": {
+      "group": "live_baseline",
+      "files": 2,
+      "records": 2,
+      "full_value": 26,
+      "identity_question_text": 2,
+      "name_part": 0,
+      "examples": {
+        "full_value": [
+          {
+            "qid": null,
+            "value_tokens": 2
+          },
+          {
+            "qid": null,
+            "value_tokens": 2
+          },
+          {
+            "qid": null,
+            "value_tokens": 2
+          },
+          {
+            "qid": null,
+            "value_tokens": 2
+          },
+          {
+            "qid": null,
+            "value_tokens": 1
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": null
+          },
+          {
+            "qid": null
+          }
+        ]
+      }
+    },
+    "glassbox/logs/traces/live/realistic/redacted": {
+      "group": "live",
+      "files": 9,
+      "records": 9,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
     "glassbox/logs/traces/realistic/raw": {
       "group": "baseline",
       "files": 390,
@@ -593,6 +642,104 @@
       "identity_question_text": 0,
       "name_part": 0,
       "examples": {}
+    },
+    "glassbox/logs/traces/synthetic/raw": {
+      "group": "baseline",
+      "files": 160,
+      "records": 160,
+      "full_value": 2687,
+      "identity_question_text": 50,
+      "name_part": 39,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "synthetic-ag-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-ag-000",
+            "value_tokens": 3
+          },
+          {
+            "qid": "synthetic-ag-000",
+            "value_tokens": 1
+          },
+          {
+            "qid": "synthetic-ag-000",
+            "value_tokens": 3
+          },
+          {
+            "qid": "synthetic-ag-000",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-003"
+          },
+          {
+            "qid": "synthetic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-003"
+          },
+          {
+            "qid": "synthetic-id-004"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/traces/synthetic/redacted": {
+      "group": "privacy",
+      "files": 160,
+      "records": 160,
+      "full_value": 7,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "synthetic-ag-004",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-ag-010",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-ag-010",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-ag-010",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-ag-010",
+            "value_tokens": 2
+          }
+        ]
+      }
     }
   },
   "totals": {
@@ -609,21 +756,33 @@
         "full_value": 7952,
         "identity_question_text": 1680,
         "name_part": 900
+      },
+      "live": {
+        "records": 9,
+        "full_value": 0,
+        "identity_question_text": 0,
+        "name_part": 0
+      },
+      "live_baseline": {
+        "records": 2,
+        "full_value": 26,
+        "identity_question_text": 2,
+        "name_part": 0
       }
     },
     "synthetic": {
       "pii_values_searched": 836,
       "privacy": {
-        "records": 1920,
-        "full_value": 0,
+        "records": 2080,
+        "full_value": 7,
         "identity_question_text": 0,
         "name_part": 0
       },
       "baseline": {
-        "records": 1920,
-        "full_value": 1800,
-        "identity_question_text": 600,
-        "name_part": 360
+        "records": 2080,
+        "full_value": 4487,
+        "identity_question_text": 650,
+        "name_part": 399
       }
     }
   }
