@@ -47,6 +47,8 @@ def run_qa(gb: GlassBox, q: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def summarise(traces: List[Dict[str, Any]]) -> Dict[str, Any]:
+    if not traces:
+        return {"n": 0}
     answerable = [t for t in traces if t["qa"]["type"] != "identity"]
     identity = [t for t in traces if t["qa"]["type"] == "identity"]
     ga = [t["qa"]["scores"]["grounded_accuracy"] for t in answerable]
@@ -90,9 +92,10 @@ def print_trace(trace: Dict[str, Any]) -> None:
         print(f"ABSTAINED ({gen['abstain_reason']}): {gen['answer']}")
     else:
         print(f"Answer: {gen['answer']}")
-    labels = {c["claim"]: c["label"] for c in ver["claims"]}
-    for c in gen["claims"]:
-        print(f"  - [{labels.get(c['text'], '-')}] {c['text']}  cites {', '.join(c['citations']) or 'nothing'}")
+    labels = [v["label"] for v in ver["claims"]]   # one per claim, same order
+    for i, c in enumerate(gen["claims"]):
+        lab = labels[i] if i < len(labels) else "-"
+        print(f"  - [{lab}] {c['text']}  cites {', '.join(c['citations']) or 'nothing'}")
     print(f"Verdict: {ver['verdict']} | total {trace['timings_ms']['total']:.0f} ms | trace {trace['trace_id']}")
     if "qa" in trace:
         print(f"Scores: {trace['qa']['scores']}")
@@ -129,30 +132,38 @@ def main(argv=None):
     if sum(bool(x) for x in (args.question, args.qa_id, args.qa_set, args.batch)) != 1:
         p.error("give exactly one of: a question, --qa-id, --qa-set, --batch")
 
-    gb = GlassBox(args.dataset, args.config, args.threshold, verify=not args.no_verify)
     qa_path = DATA_ROOT / "raw" / args.dataset / "qa_eval_set.jsonl"
+    # Resolve the input first, so a bad id or empty selection fails before ~15 s of model loading
+    if args.qa_id:
+        qa_item = next((q for q in load_qa_set(qa_path) if q["qid"] == args.qa_id), None)
+        if qa_item is None:
+            sys.exit(f"no QA question with id {args.qa_id}")
+    elif args.batch:
+        items = read_batch(args.batch)[: args.limit]
+        if not items:
+            sys.exit(f"no questions in {args.batch}")
+    elif args.qa_set:
+        questions = load_qa_set(qa_path, None if args.split == "all" else args.split)
+        if args.types:
+            questions = [q for q in questions if q["type"] in args.types]
+        questions = questions[: args.limit]
+        if not questions:
+            sys.exit("no QA questions match the given --split / --types / --limit")
 
+    gb = GlassBox(args.dataset, args.config, args.threshold, verify=not args.no_verify, preload=True)
     if args.question:
         print_trace(gb.answer(args.question))
         return
     if args.qa_id:
-        q = next((q for q in load_qa_set(qa_path) if q["qid"] == args.qa_id), None)
-        if q is None:
-            sys.exit(f"no QA question with id {args.qa_id}")
-        print_trace(run_qa(gb, q))
+        print_trace(run_qa(gb, qa_item))
         return
     if args.batch:
-        items = read_batch(args.batch)[: args.limit]
         for n, it in enumerate(items, 1):
             t = gb.answer(it["question"], qid=it["qid"])
             print(f"[{n}/{len(items)}] {it['qid']}: {t['verification']['verdict']}", flush=True)
         print(f"Traces in {gb.trace_dir}")
         return
 
-    questions = load_qa_set(qa_path, None if args.split == "all" else args.split)
-    if args.types:
-        questions = [q for q in questions if q["type"] in args.types]
-    questions = questions[: args.limit]
     traces = []
     for n, q in enumerate(questions, 1):
         traces.append(run_qa(gb, q))

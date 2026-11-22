@@ -3,7 +3,7 @@
     "glassbox/logs/generation/realistic/paraphrases_b.jsonl": {
       "group": "privacy",
       "files": 1,
-      "records": 189,
+      "records": 378,
       "full_value": 0,
       "identity_question_text": 0,
       "name_part": 0,
@@ -13,7 +13,7 @@
       "group": "baseline",
       "files": 1,
       "records": 390,
-      "full_value": 413,
+      "full_value": 453,
       "identity_question_text": 120,
       "name_part": 64,
       "examples": {
@@ -328,9 +328,9 @@
       "group": "baseline",
       "files": 390,
       "records": 390,
-      "full_value": 2999,
+      "full_value": 3143,
       "identity_question_text": 120,
-      "name_part": 70,
+      "name_part": 68,
       "examples": {
         "full_value": [
           {
@@ -599,16 +599,16 @@
     "realistic": {
       "pii_values_searched": 17603,
       "privacy": {
-        "records": 9441,
+        "records": 9630,
         "full_value": 0,
         "identity_question_text": 0,
         "name_part": 0
       },
       "baseline": {
         "records": 5460,
-        "full_value": 7768,
+        "full_value": 7952,
         "identity_question_text": 1680,
-        "name_part": 902
+        "name_part": 900
       }
     },
     "synthetic": {

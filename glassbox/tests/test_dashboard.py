@@ -93,11 +93,35 @@ def test_guard_refusal_is_explained():
     assert any("refused" in e.value for e in at.error)
 
 
-def test_both_pages_load():
+def test_all_pages_load_without_loading_models():
     at = AppTest.from_file("../src/dashboard/app.py", default_timeout=60).run()   # relative to this file
     assert not at.exception
-    at.sidebar.radio[0].set_value("Stored traces").run()
-    assert not at.exception
+    assert any(b.label == "Load models" for b in at.button)        # Demo page waits for an explicit load
+    for page in ("Ask", "Stored traces"):
+        at.sidebar.radio[0].set_value(page).run()
+        assert not at.exception
+
+
+SUMMARY = """
+import json, sys
+sys.path.insert(0, ".")
+from glassbox.src.dashboard.app import show_summary
+show_summary(json.loads({payload!r}))
+"""
+
+
+@pytest.mark.parametrize("name", ["verified", "guard", "raw", "unparsed"])
+def test_demo_summary_renders(name):
+    at = AppTest.from_string(SUMMARY.format(payload=json.dumps(variants()[name])), default_timeout=60).run()
+    assert not at.exception, at.exception
+
+
+def test_demo_script_is_well_formed():
+    from glassbox.src.dashboard.demo_script import DEMO_STEPS
+    from glassbox.src.pipeline import CONFIGS
+    assert [s["key"] for s in DEMO_STEPS] == ["fact", "aggregate", "identity", "fallback"]
+    for s in DEMO_STEPS:
+        assert s["question"] and s["point_out"] and set(s["configs"]) <= set(CONFIGS)
 
 
 def test_helpers(tmp_path):
@@ -110,3 +134,16 @@ def test_helpers(tmp_path):
     assert summary_row(variants()["raw"], d / "x.json")["type"] == "ad hoc"
     assert chunk_anchor("doc_0001#plan") == "chunk-doc-0001-plan"
     assert source_label(VERIFIED) == {"doc_0001#plan": "C1", "doc_0001#header": "C2"}
+
+
+def test_identical_claims_keep_their_own_labels():
+    """Verdicts are matched to claims by position, not text (two equal claims, different labels)."""
+    t = copy.deepcopy(VERIFIED)
+    claim = t["generation"]["claims"][0]
+    t["generation"]["claims"] = [claim, dict(claim, citations=["doc_0001#header"])]
+    v = t["verification"]["claims"][0]
+    t["verification"] = {"verdict": "PARTLY_VERIFIED",
+                         "claims": [v, dict(v, label="UNSUPPORTED", premise_chunks=["doc_0001#header"])]}
+    at = AppTest.from_string(RENDER.format(payload=json.dumps(t), original=None), default_timeout=60).run()
+    text = " ".join(m.value for m in at.markdown)
+    assert "SUPPORTED]" in text and "UNSUPPORTED]" in text

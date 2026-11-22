@@ -65,8 +65,8 @@
 | Identity questions answered by the system (§7) | **0** of 84 (guard off: 84 of 84, all from other people's notes) |
 | Corrupted claims caught by the verifier (§7.5) | **99.4%** [98.8, 99.9]; genuine claims wrongly flagged 1.2% (8.8% counting claims that cite incompletely) |
 | Answers the verifier marks VERIFIED vs not | grounded accuracy **0.906** vs 0.492 |
-| End-to-end time per question (§14) | **3.2 s** median (redaction 5 ms, retrieval 29 ms, generation 3.1 s, verification 37 ms) |
-| PII in the redacted system's logs and traces (§14.3) | **0** values of 17,603 searched (raw baseline traces: 2,999 hits) |
+| End-to-end time per question (§14) | **3.2 s** median when the model runs (redaction 4 ms, retrieval 6 ms, verification 37 ms; the rest is generation) |
+| PII in the redacted system's logs and traces (§14.3) | **0** values of 17,603 searched (raw baseline traces: 3,143 hits) |
 
 **How far these numbers generalise (§8). Read before quoting anything above.**
 
@@ -404,8 +404,8 @@ Three steps, each measured in §6.8.
 
   - The plateau starts at 2.0, and 2.0 is also the best plateau point at k = 3, so it's the default.
   - Day 2's tuning (39 dev questions, old selection) had chosen (1.0, 1.0); with 3× the dev questions and the new selection, more dense weight is better.
-  - Dense-only ties on dev, but hybrid is kept: whenever query analysis can't filter, BM25 is what matches exact names, IDs and drug strings (raw-index identity recall: BM25 1.000, dense 0.298).
-  - Side effect: with dense weighted higher, the raw *hybrid* index finds fewer identity targets (0.845 at 1:1 → 0.333 with the current code; 0.345 when tuned on Day 3a). This only concerns the no-privacy baseline. For the privacy comparison, use the strongest attacker on raw data, BM25, which finds 100%.
+  - Dense-only ties on dev, but hybrid is kept: whenever query analysis can't filter, BM25 is what matches exact names, IDs and drug strings (raw-index identity recall: BM25 1.000, dense 0.512).
+  - Side effect: with dense weighted higher, the raw *hybrid* index finds fewer identity targets (0.845 at 1:1 → 0.345 when tuned on Day 3a; 0.548 with exact dense search, Day 5 §14.6: the approximate search had been hiding part of the baseline's identity matches). This only concerns the no-privacy baseline. For the privacy comparison, use the strongest attacker on raw data, BM25, which finds 100%.
 
 ### 6.8 Results (realistic set, test split, 273 questions)
 
@@ -427,14 +427,14 @@ Three steps, each measured in §6.8.
 
 | | Answerable recall | Answerable evidence | Fact evidence | Aggregate recall | Aggregate evidence | Context (chars) |
 |---|---|---|---|---|---|---|
-| No query analysis (k = 5) | 0.310 | 0.096 | 0.135 | 0.168 | 0.018 | 614 |
+| No query analysis (k = 5) | 0.330 | 0.103 | 0.151 | 0.165 | 0.008 | 613 |
 | **With query analysis** | **0.994** | **0.949** | **1.000** | **0.983** | **0.847** | 955 |
 
 **Privacy vs. utility: redacted vs. raw index** (same configuration):
 
 | Index | Answerable recall | Answerable evidence (95% CI) | Identity recall: hybrid | Identity recall: BM25 (strongest attacker) |
 |---|---|---|---|---|
-| Raw (no privacy) | 0.994 | 0.907 [0.870, 0.940] | 0.333 | **1.000** |
+| Raw (no privacy) | 0.994 | 0.907 [0.870, 0.940] | 0.548 | **1.000** |
 | **Redacted (GlassBox)** | **0.994** | **0.949** [0.922, 0.972] | **0.000** | **0.000** |
 
 - **Redaction costs nothing measurable for clinical and aggregate questions, and completely blocks identity lookups.** That's the central privacy-utility result at the retrieval level.
@@ -461,34 +461,34 @@ The gap was 0.840 vs 0.984 on Day 2; two-hop selection closed most of it. Whole 
 Dense and hybrid are statistically tied on test (CIs [0.919, 0.970] and [0.922, 0.972]); report them as tied. Hybrid was chosen on dev and handles exact strings when no filter applies.
 
 <details>
-<summary>Full table: all 24 configurations, realistic test split (@auto); regenerated Day 5 with the current code</summary>
+<summary>Full table: all 24 configurations, realistic test split (@auto); regenerated Day 5 with the current code and exact dense search (§14.6)</summary>
 
 | Index | Chunking | Method | Query analysis | Answerable recall | Answerable evidence | Context (chars) | Fact evidence | Aggregate recall | Aggregate evidence | Identity recall |
 |---|---|---|---|---|---|---|---|---|---|---|
-| redacted | section | dense | off | 0.150 | 0.043 | 607 | 0.056 | 0.164 | 0.018 | 0.000 |
+| redacted | section | dense | off | 0.154 | 0.045 | 609 | 0.064 | 0.161 | 0.008 | 0.000 |
 | redacted | section | bm25 | off | 0.691 | 0.296 | 616 | 0.444 | 0.071 | 0.000 | 0.000 |
-| redacted | section | hybrid | off | 0.310 | 0.096 | 614 | 0.135 | 0.168 | 0.018 | 0.000 |
+| redacted | section | hybrid | off | 0.330 | 0.103 | 613 | 0.151 | 0.165 | 0.008 | 0.000 |
 | redacted | section | dense | on | 0.990 | 0.946 | 945 | 1.000 | 0.970 | 0.839 | 0.000 |
 | redacted | section | bm25 | on | 1.000 | 0.812 | 968 | 0.944 | 1.000 | 0.548 | 0.000 |
 | redacted | section | hybrid | on | 0.994 | 0.949 | 955 | 1.000 | 0.983 | 0.847 | 0.000 |
 | redacted | note | dense | off | 0.143 | 0.156 | 3233 | 0.151 | 0.128 | 0.167 | 0.000 |
 | redacted | note | bm25 | off | 0.684 | 0.689 | 3556 | 1.000 | 0.053 | 0.066 | 0.000 |
-| redacted | note | hybrid | off | 0.291 | 0.307 | 3298 | 0.373 | 0.127 | 0.175 | 0.000 |
+| redacted | note | hybrid | off | 0.302 | 0.318 | 3297 | 0.389 | 0.127 | 0.175 | 0.000 |
 | redacted | note | dense | on | 0.994 | 0.996 | 2605 | 1.000 | 0.983 | 0.987 | 0.000 |
 | redacted | note | bm25 | on | 1.000 | 1.000 | 2578 | 1.000 | 1.000 | 1.000 | 0.000 |
 | redacted | note | hybrid | on | 1.000 | 1.000 | 2598 | 1.000 | 1.000 | 1.000 | 0.000 |
-| raw | section | dense | off | 0.133 | 0.034 | 648 | 0.048 | 0.161 | 0.008 | 0.298 |
+| raw | section | dense | off | 0.138 | 0.040 | 647 | 0.056 | 0.161 | 0.008 | 0.512 |
 | raw | section | bm25 | off | 0.691 | 0.127 | 629 | 0.191 | 0.071 | 0.000 | 1.000 |
-| raw | section | hybrid | off | 0.324 | 0.108 | 644 | 0.159 | 0.161 | 0.008 | 0.333 |
-| raw | section | dense | on | 0.990 | 0.919 | 946 | 1.000 | 0.970 | 0.757 | 0.298 |
+| raw | section | hybrid | off | 0.345 | 0.114 | 641 | 0.167 | 0.161 | 0.008 | 0.548 |
+| raw | section | dense | on | 0.990 | 0.919 | 946 | 1.000 | 0.970 | 0.757 | 0.512 |
 | raw | section | bm25 | on | 1.000 | 0.802 | 964 | 0.929 | 1.000 | 0.548 | 1.000 |
-| raw | section | hybrid | on | 0.994 | 0.907 | 948 | 0.992 | 0.983 | 0.738 | 0.333 |
-| raw | note | dense | off | 0.063 | 0.079 | 3959 | 0.048 | 0.094 | 0.140 | 0.333 |
+| raw | section | hybrid | on | 0.994 | 0.907 | 948 | 0.992 | 0.983 | 0.738 | 0.548 |
+| raw | note | dense | off | 0.063 | 0.079 | 3958 | 0.048 | 0.094 | 0.140 | 0.429 |
 | raw | note | bm25 | off | 0.695 | 0.703 | 3777 | 1.000 | 0.085 | 0.108 | 1.000 |
-| raw | note | hybrid | off | 0.201 | 0.216 | 3863 | 0.246 | 0.111 | 0.156 | 0.405 |
-| raw | note | dense | on | 0.998 | 0.998 | 2785 | 1.000 | 0.995 | 0.995 | 0.333 |
+| raw | note | hybrid | off | 0.206 | 0.221 | 3861 | 0.254 | 0.111 | 0.156 | 0.512 |
+| raw | note | dense | on | 0.998 | 0.998 | 2785 | 1.000 | 0.995 | 0.995 | 0.429 |
 | raw | note | bm25 | on | 1.000 | 1.000 | 2756 | 1.000 | 1.000 | 1.000 | 1.000 |
-| raw | note | hybrid | on | 0.998 | 0.998 | 2774 | 1.000 | 0.995 | 0.995 | 0.405 |
+| raw | note | hybrid | on | 0.998 | 0.998 | 2774 | 1.000 | 0.995 | 0.995 | 0.512 |
 
 </details>
 
@@ -551,12 +551,12 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 | **GlassBox (redacted, guard on)** | **0.858** [0.815, 0.899] | 0.919 | 0.836 | 0.855 | **0 / 84** |
 | Fact questions | 0.976 | 1.000 | 1.000 | 1.000 | |
 | Aggregate questions | 0.622 | 0.757 | 0.508 | 0.795 | |
-| No-privacy baseline (raw index) | 0.833 [0.788, 0.877] | 0.899 | 0.804 | 0.826 | 48 / 84 |
+| No-privacy baseline (raw index) | 0.833 [0.788, 0.877] | 0.899 | 0.804 | 0.826 | 42 / 84 |
 | Guard off (redacted, identity questions only) | | | | | **84 / 84** |
 
-- **Privacy at answer level.** With the guard, the system refuses every identity question. With the guard off, the model answers **all 84**, every time from *other people's* notes (0% cite the person's own note); 17.9% of those answers happen to contain the person's real medication or diagnosis, by coincidence, because common drugs and diagnoses repeat. That is the misattribution the audit predicted (§12.1 #1), now measured.
+- **Privacy at answer level.** With the guard, the system refuses every identity question. With the guard off, the model answers **all 84**, every time from *other people's* notes (0% cite the person's own note); 18.5% of those answers happen to contain the person's real medication or diagnosis, by coincidence, because common drugs and diagnoses repeat. That is the misattribution the audit predicted (§12.1 #1), now measured.
 - **No utility cost from redaction.** Redacted 0.858 vs raw 0.833 grounded accuracy (CIs overlap). As in retrieval, redacted isn't *better* because of redaction: part of the difference is the low-information demotion (§6.4).
-- **On the raw baseline**, the model answered 48 of 84 identity questions; 19% of answers contained the right value from the person's own note. With dense-weighted fusion the raw hybrid index finds the named person only 35% of the time (§6.7).
+- **On the raw baseline**, the model answered 42 of 84 identity questions; for 16 of the 84 (19%) the answer contained the person's true value cited from their own note. The raw hybrid index finds the named person's note 55% of the time (§6.7; 35% before the Day 5 exact-search fix, §14.6), and BM25 alone 100%.
 - **Citations:** 99.5% of claims cite a valid source; JSON parsed first time for 100% of answers (raw: 99.5%); no answerable question was wrongly refused.
 - **Dev → test:** 0.941 → 0.919 plain accuracy, so the prompt isn't overfitted to dev.
 - **Weak spot: aggregate questions.** Grounded 0.622 against a retrieval ceiling of 0.847. The 7B model drops a qualifying patient's drug or includes one from a note that doesn't meet every condition; only 67% of its citations in aggregate answers come from gold notes.
@@ -591,7 +591,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 - **Genuine claims wrongly flagged: 8.8% strict, 1.2% on clean claims.** 15 of the 17 flagged genuine claims restate the question's condition ("…prescribed to the COPD patients who presented with dyspnea in September 2024") while citing only the PLAN section, which doesn't show the symptom or month. The verifier is right that the citation doesn't support the whole claim; the generator cited incompletely (25 of 193 genuine test claims do this). Reported both ways; the ground truth was not relabelled.
 - **Wrong citations** are caught (0.6% pass) but mostly labelled CONTRADICTED rather than the ideal UNSUPPORTED: another note's plan says "Continue Amlodipine", which NLI reads as conflicting with "prescribed Lisinopril". Either label correctly means "not supported".
 - **The verdict tracks correctness on real answers** (test, 189 answerable): claims 211 SUPPORTED, 30 UNSUPPORTED, 1 CONTRADICTED. VERIFIED answers (165) have grounded accuracy **0.906**; NOT VERIFIED answers (21) **0.492**. So the label is a useful warning to the user.
-- **Verification can't catch misattribution under redaction.** On the guard-off identity answers, 93 of 94 claims are SUPPORTED: the evidence does say what the claim says; it just isn't about the person asked about, and redaction removes the only thing that could show that. Subject rewriting lowers this to 57 of 94 (bare claims like "Acetaminophen 650mg PO Q6H PRN" stay entailed). And it can only trigger when question redaction found an identifier, which is exactly when the guard has already refused. **Conclusion for the report: identity protection must be enforced before generation (the guard); claim-level verification checks evidence, not identity.**
+- **Verification can't catch misattribution under redaction.** On the guard-off identity answers, 118 of 118 claims are SUPPORTED (Day 4 on older records: 93 of 94): the evidence does say what the claim says; it just isn't about the person asked about, and redaction removes the only thing that could show that. Subject rewriting lowers this to 78 of 118 (Day 4: 57 of 94; bare claims like "Acetaminophen 650mg PO Q6H PRN" stay entailed). And it can only trigger when question redaction found an identifier, which is exactly when the guard has already refused. **Conclusion for the report: identity protection must be enforced before generation (the guard); claim-level verification checks evidence, not identity.**
 
 ### 7.6 Not built yet
 - **Experiments and dashboard completion (Day 6).** See §2. The orchestrator and dashboard skeleton are in §14.
@@ -675,7 +675,7 @@ Share of PII values fully masked (for names: every personal-name word hidden; ti
 
 ## 9. Tests
 
-`python -m pytest glassbox/tests` → **155 passed, 4 skipped, 1 xfailed** (Day 5). The skipped tests load the real 7B model or the NLI model; run them with `GLASSBOX_SLOW=1` (all pass).
+`python -m pytest glassbox/tests` → **165 passed, 4 skipped, 1 xfailed** (Day 5, after the exact-search fix). The skipped tests load the real 7B model or the NLI model; with `GLASSBOX_SLOW=1`: **169 passed, 1 xfailed**.
 
 | File | Covers |
 |---|---|
@@ -780,8 +780,10 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 | Nov 20 (3a) | Fusion weights (2.0, 1.0) | Re-tuned on the 3× dev split with the final selection; plateau starts at 2.0 and it's best at k = 3 | (1.0, 1.0): 0.943 vs 0.968 dev |
 | Nov 22 (4) | NLI verifier DeBERTa-v3-large (MNLI/FEVER/ANLI/LingNLI/WANLI) | Dev balanced accuracy 0.967 vs 0.830 for DeBERTa-v3-base; same speed | Base model; using the generating LLM to self-check (not independent) |
 | Nov 22 (4) | UNCERTAIN = top-two probability margin, chosen on dev for >= 95% accuracy on confident labels -> 0 | Pre-stated rule; the large model's errors are confident, so a margin can't isolate them | A hand-picked margin |
+| Nov 22 (5) | Exact dense search (NumPy cosine over all chunks) instead of ChromaDB's HNSW index | HNSW returned on average only 35–37 of the true top-50 neighbours on unfiltered questions (as few as 0) and differed between processes; exact search is reproducible and, at 18k chunks, faster | Keep HNSW and raise `ef_search` (still approximate, still not guaranteed reproducible) |
 | Nov 22 (5) | Orchestrator only connects the existing stages; no new logic | A batch run must reproduce the evaluation numbers exactly, which proves the demo system *is* the evaluated system | A separate demo code path (could silently differ) |
 | Nov 22 (5) | One trace file per question; no original question on redacted configs | The trace is the audit record and is safe to share; the question's identifiers are recorded as types/offsets only | Store the original for convenience (would make every trace sensitive) |
+| Nov 22 (5) | Dashboard bound to localhost, telemetry off | It shows typed questions (possible PII); Streamlit's defaults expose it to the LAN and send usage data | Streamlit defaults |
 | Nov 22 (5) | Dashboard reads traces, never recomputes them | What's audited is exactly what happened; works without loading models | Re-run the pipeline on demand for every view |
 | Nov 22 (5) | Scrub the pre-fix name from the v1/v2 prompt-development logs instead of re-running them | Scores don't depend on it; a 25-min re-run would change nothing measured | Re-run prompt development; leave the name in place |
 | Nov 22 (4) | Corrupted-claim set from the system's own answers | Exact ground truth on realistic claims | Hand-written claims (few, less realistic) |
@@ -813,7 +815,7 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 - **Remaining aggregate misses** (test aggregate evidence 0.847): the ask "Which medications were prescribed" sometimes ranks LAB ORDERS above a plan line that never says "medication".
 - **Query analysis is template-evaluated.** The QA questions come from templates; free-text handling is unit-tested only.
 - **The audit log stores raw PII values.** That's needed for the audit trail, but the log is itself a sensitive artifact. The report should say so. (Retrieval logs no longer contain PII from questions.)
-- **Identity-question records in `results/generation/realistic_t0.50_answers.jsonl` predate the Day 3 robustness fixes** (written Nov 22 00:14). For guard-off and raw, 49 identity answers differ in wording or retrieved chunks from what the current code produces, but every score is the same (guard-off 84/84 answered, raw 48/84). The Day 5 traces (`logs/traces/`) reflect the current code; quote those, or re-run `generation.evaluate` on Day 8 if time allows (§14.2).
+- **Approximate search in earlier results (fixed Day 5, §14.6).** Everything committed before the Day 5 fix used ChromaDB's HNSW index for unfiltered dense search. All results were regenerated with exact search; only unfiltered (identity, no-query-analysis) numbers moved. Older documents (README, `report_draft.md`) still carry the old raw-baseline numbers (e.g. raw identity answered 48/84 instead of 42/84).
 - **Git history still contains the one synthetic name** scrubbed from the v1/v2 prompt-development files on Day 5 (§14.3). The data is synthetic, so the fix is the scrub plus this note; rewriting history isn't worth the risk.
 - **The docs are stale.** The README and `report_draft.md` show old numbers (0.838 / 0.869 / 0.858, 62.5%, 8/8) and old data paths. Refresh on Day 7.
 
@@ -918,13 +920,17 @@ An independent check of everything built so far, using throwaway scripts rather 
 
 ### Day 5: Nov 22 (orchestrator, housekeeping, dashboard skeleton)
 - Built the end-to-end pipeline (`glassbox/src/pipeline.py`) and CLI (`glassbox/run.py`): one call goes question → redaction → retrieval → guard → generation → verification and writes one JSON trace per question (§14.1).
-- Batch runs over all 390 QA questions × 3 configurations reproduce the Day 3/4 evaluation exactly: test grounded accuracy 0.858 (raw 0.833); identity answered 0/84 (guard off 84/84, raw 48/84); all 390 redacted answers word-for-word identical (§14.2).
-- End-to-end time: 3.2 s median per question, 96% of it generation.
+- Batch runs over all 390 QA questions × 3 configurations reproduce the Day 3/4 evaluation exactly: test grounded accuracy 0.858 (raw 0.833); identity answered 0/84 (guard off 84/84, raw 42/84 after the exact-search fix, §14.6); all 390 redacted answers word-for-word identical (§14.2).
+- End-to-end time: 3.2 s median per question when the model runs, about 98% of it generation.
 - Regenerated the stale retrieval logs and results with the current code. The headline is unchanged (0.949); ablation and baseline rows moved slightly and the §6.8 full table was refreshed (§14.2).
-- New PII scan of every log, trace and committed answers file (§14.3). Found one real leak: a synthetic patient's name in the Nov 21 prompt-development runs v1/v2 (from before the name-rule fix). Scrubbed; now 0 hits on the privacy side, 2,999 in raw-baseline traces (the positive control).
+- New PII scan of every log, trace and committed answers file (§14.3). Found one real leak: a synthetic patient's name in the Nov 21 prompt-development runs v1/v2 (from before the name-rule fix). Scrubbed; now 0 hits on the privacy side, 3,143 in raw-baseline traces (the positive control).
 - Dashboard skeleton (§14.4): Ask page, stored-traces table, per-stage trace view with citation links and NLI badges.
-- Re-measured guard-off verification on current traces: 74/112 claims still SUPPORTED with subject rewriting (Day 4, older records: 57/94). Same conclusion.
+- Re-measured guard-off verification on current traces: 78/118 claims still SUPPORTED with subject rewriting, 118/118 without (Day 4, older records: 57/94). Same conclusion.
 - Tests: 141 → 160 (155 passed, 4 slow skipped, 1 documented xfail).
+- Review fixes (§14.5): model preloading, question-redaction threshold matched to the evaluation, verdicts matched to claims by position, input validation, dashboard bound to localhost with telemetry off. Tests 160 → 161.
+- **Found that ChromaDB's approximate (HNSW) dense search was the cause of differing raw-baseline runs and "stale" identity answers** (§14.6). Switched to exact search, then re-ran retrieval, generation, verification, both paraphrase sets, all pipeline traces, the threshold sweep and the PII scan (~4 h in the background). GlassBox's own numbers didn't change (every filtered question is identical); the raw baseline now finds named people more often (hybrid identity recall 0.333 → 0.548) and answers 42/84 identity questions, 16 with the person's true value.
+- Determinism checked: generation and verification were run twice from scratch with exact search; all 900 stored answers identical, summaries identical apart from timings.
+- Demo tooling (PLAN 6.3): Demo page in the dashboard (six one-click steps incl. "try to fool the verifier"), `python -m glassbox.verify` (re-runs 10 stored questions live: 10/10 identical in 34 s), `DEMO.md` script. Tests 161 → 170 (165 fast + 4 slow + 1 xfail).
 
 ---
 
@@ -982,15 +988,15 @@ All 390 realistic QA questions × the three configurations (`results/pipeline/re
 |---|---|---|---|
 | Answerable grounded accuracy (95% CI) | **0.858** [0.815, 0.899] | 0.833 [0.788, 0.877] | n/a (identity only) |
 | Clinical fact / aggregate grounded accuracy | 0.976 / 0.622 | 0.980 / 0.540 | |
-| Identity questions answered | **0 / 84** | 48 / 84 | 84 / 84 |
-| Verdicts (273 questions) | VERIFIED 165, NOT_VERIFIED 21, PARTLY 2, CONTRADICTED 1, ABSTAINED 84 | VERIFIED 196, NOT_VERIFIED 34, PARTLY 3, CONTRADICTED 3, NO_CLAIMS 1, ABSTAINED 36 | VERIFIED 56, PARTLY 18, NOT_VERIFIED 10 |
+| Identity questions answered | **0 / 84** | 42 / 84 (see §14.6) | 84 / 84 |
+| Verdicts (273 questions) | VERIFIED 165, NOT_VERIFIED 21, PARTLY 2, CONTRADICTED 1, ABSTAINED 84 | VERIFIED 192, NOT_VERIFIED 33, PARTLY 2, CONTRADICTED 3, NO_CLAIMS 1, ABSTAINED 42 | VERIFIED 56, NOT_VERIFIED 27, PARTLY 1 |
 | Grounded accuracy: VERIFIED vs NOT_VERIFIED | **0.906** vs 0.492 | 0.887 vs 0.492 | |
-| Median time per question | **3.19 s** | 3.11 s | 3.75 s |
+| Median time per question (model called) | **3.24 s** | 3.07 s | 3.58 s |
 
 - **Reproduction check.** Grounded accuracy, CIs and identity counts are identical to the Day 3/4 evaluation (§7.3, §7.5) on both splits (dev 0.896 too). Per question: all 390 redacted answers are word-for-word identical to the evaluation's, and no question's score differs in any configuration. Greedy decoding makes this possible; it also confirms that moving question redaction into the orchestrator changed nothing.
-- **Where the time goes** (redacted, test, median): question redaction 5 ms, retrieval (incl. query analysis) 29 ms, generation 3.1 s, verification 37 ms. Privacy (redaction) and verifiability (NLI) together cost about **2%** of the response time; the 7B model is 96%. Questions the guard refuses never call the model and finish in well under a second. Measured on an M-series Mac with nothing else running on the GPU; the first question of a session also pays ~15 s model loading, excluded by the median.
-- **Guard-off guard check, re-measured.** On the current guard-off traces, 74 of 112 test claims are still SUPPORTED by the NLI verifier with subject rewriting on (Day 4, older records: 57 of 94). The Day 4 conclusion stands: verification checks evidence, not identity; the guard is the protection.
-- **Stale records found.** For guard-off and raw, 49 identity-question answers in the committed `results/generation/realistic_t0.50_answers.jsonl` differ in wording or retrieved chunks from the current code's (that file was written before the Day 3 robustness fixes; e.g. "Mrs. [NAME]" is now redacted to "[NAME]. [NAME]"). Every score is the same. Recorded in §12.
+- **Where the time goes** (redacted, test, median): question redaction 4 ms, retrieval (incl. query analysis) 6 ms, verification 37 ms; the rest of the 3.24 s is generation. Privacy (redaction) and verifiability (NLI) together cost **under 2%** of the response time; the 7B model is about 98%. (Retrieval was 29 ms before the switch to exact dense search, §14.6: a NumPy matrix product over 18,003 embeddings is faster than a ChromaDB query.) Questions the guard refuses never call the model and finish in well under a second. Measured on an M-series Mac with nothing else running on the GPU; the first question of a session also pays ~15 s model loading, excluded by the median.
+- **Guard-off guard check, re-measured.** On the current guard-off traces, 78 of 118 test claims are still SUPPORTED by the NLI verifier with subject rewriting on, and 118 of 118 without it (Day 4, older records: 57 of 94). The Day 4 conclusion stands: verification checks evidence, not identity; the guard is the protection.
+- **Stale records found, then explained.** The first Day 5 batch found 49 guard-off/raw identity answers whose wording or retrieved chunks differed from the committed `results/generation/realistic_t0.50_answers.jsonl`, and raw-baseline retrieval that differed between runs. The cause was not old records but approximate dense search (§14.6). After switching to exact search and re-running everything, all 900 pipeline traces (390 redacted, 390 raw, 120 guard-off) match the evaluation records exactly.
 
 **Housekeeping: retrieval results regenerated.** `retrieval.evaluate` was re-run on both datasets so logs and committed results match the current code (they dated from Nov 20, before the Day 3 robustness fixes). The headline configuration (redacted, section, hybrid, query analysis on) is unchanged: answerable evidence 0.949, identity recall 0.000, leak audit 0.04%. What moved: the no-query-analysis ablation (evidence 0.077 → 0.096), raw-index hybrid identity recall (0.345 → 0.333 section, 0.381 → 0.405 note), and the redacted whole-note BM25 identity recall (0.012 → 0.000, because the question-name rule now also removes the "Mrs." title, §6.8). The §6.8 tables were refreshed from the new results. Synthetic: only raw-baseline rows moved (8 questions).
 
@@ -1009,8 +1015,8 @@ Raw-baseline files are scanned separately as the **positive control**: they must
 
 | Group | Records | Full values | Question text | Name parts |
 |---|---|---|---|---|
-| Redacted system: retrieval logs, generation logs (incl. sweep, paraphrases), traces, committed answers | 9,441 (realistic) + 1,920 (synthetic) | **0** | **0** | **0** |
-| Raw baseline: retrieval logs, raw traces (positive control) | 5,460 (realistic) + 1,920 (synthetic) | 7,768 + 1,800 | 1,680 + 600 | 902 + 360 |
+| Redacted system: retrieval logs, generation logs (incl. sweep, paraphrases), traces, committed answers | 9,630 (realistic) + 1,920 (synthetic) | **0** | **0** | **0** |
+| Raw baseline: retrieval logs, raw traces (positive control) | 5,460 (realistic) + 1,920 (synthetic) | 7,952 + 1,800 | 1,680 + 600 | 900 + 360 |
 
 **Problem found and fixed.** The first run found one real leak: the Nov 21 prompt-development runs v1 and v2 (`logs/generation/realistic/redacted_v{1,2}.jsonl` and the committed `results/generation/realistic_t0.50_dev_v{1,2}_answers.jsonl`) contained the full name from QA question `realistic-id-019` ("What symptom did … report?"). Those runs predate the question-only name rule (§7, "Tiffany Price"), which was added *because* of this question. The name was replaced by `[NAME]` in the four files (3 occurrences each); no score depends on it. Re-running prompt development (25 min of GPU) would have changed nothing measured. The name remains in git history (synthetic data; noted in §12). The first scan also produced three false positives (title "Mrs" counted as part of a name), which led to the title exclusion above.
 
@@ -1030,3 +1036,77 @@ Run with `streamlit run glassbox/src/dashboard/app.py`. The sidebar picks the da
   Plus per-stage timings and the full trace JSON.
 - **Privacy.** Only what the trace holds is shown: redacted text and placeholders. Raw-baseline traces carry a warning banner.
 - **Tested** headlessly with Streamlit's AppTest (`tests/test_dashboard.py`): both pages load and six kinds of trace render without errors. Still to do (Day 6, PLAN 6.2): the experiments page with figures, and a manual check in the browser.
+- **Network exposure (found and fixed, Day 5 review).** Started as a real server, Streamlit listened on every network interface by default (it printed a LAN and a public "External URL") and sends usage statistics to its developer. For a page that shows the question as typed, that's a privacy hole: anyone on the same Wi-Fi could open it. `.streamlit/config.toml` now binds to `localhost` and disables telemetry; checked: the LAN address refuses connections.
+
+### 14.5 Review fixes (Day 5, after the first commit)
+
+A review of the Day 5 code found and fixed:
+
+| Problem | Effect | Fix |
+|---|---|---|
+| Models loaded lazily on the first question | A one-off question (CLI or dashboard) reported ~15 s extra "generation" time | `GlassBox(preload=True)` loads the LLM, NLI model, embedder and redaction pipeline up front; the CLI and dashboard use it. Batch medians were unaffected. |
+| Question redaction used the *index's* threshold | At thresholds other than 0.5 the pipeline would redact questions differently from the evaluated retriever (which always uses 0.5), breaking the "only glue" guarantee | Fixed to the same 0.5 (`QUESTION_REDACTION_THRESHOLD`), recorded in the trace config |
+| Dashboard and CLI matched verdicts to claims by claim text | Two identical claims with different citations would show the same label | Matched by position (the verifier returns one verdict per claim, in order); regression test added |
+| `run.py` with an empty selection crashed after loading models | Confusing error after ~15 s | Inputs validated before any model loads; clear message |
+| Dashboard reachable from the network; telemetry on | See §14.4 | `.streamlit/config.toml` |
+| Raw-baseline trace table had no warning | Un-redacted questions shown without context | Banner on the table page too |
+
+| Dense search used ChromaDB's approximate HNSW index | Missed true neighbours on unfiltered questions and gave different results in different processes | Exact search (§14.6) |
+
+### 14.6 Approximate dense search: finding and fix (Day 5)
+
+**Symptom.** Two things didn't add up during the Day 5 reproduction check (§14.2). (1) On the raw baseline, the same identity question retrieved different chunks in the batch run than in the stored evaluation, and sometimes in two runs of the same code. (2) 49 guard-off/raw identity answers differed from the committed records. Greedy decoding can't explain either, so the variation had to come from retrieval.
+
+**Cause.** ChromaDB answers dense queries with an HNSW graph, an *approximate* nearest-neighbour index. Two properties matter here:
+- **Recall.** On questions with metadata filters, Chroma searches the small filtered set exhaustively, so results are exact. Unfiltered questions, which include every identity question and the no-query-analysis ablation, walk the graph and can miss true neighbours.
+- **Reproducibility.** The graph walk isn't guaranteed to return the same list in a different process (index loading and multi-threaded construction), so ties and near-misses change between runs.
+
+**Measurement** (`dense_backend="hnsw"` vs `"exact"` on the same index, top-50 dense results for all 120 identity questions; the redacted index gets the redacted question):
+
+| Index (chunks) | Mean overlap with the true top-50 | Worst question | Questions with all 50 found | Same top-1 chunk |
+|---|---|---|---|---|
+| raw, section (18,790) | 36.6 / 50 | 1 / 50 | 4 / 120 | 77 / 120 |
+| redacted t0.50, section (18,003) | 35.1 / 50 | 0 / 50 | 25 / 120 | 98 / 120 |
+
+So on an average unfiltered question, about 27–30% of the chunks HNSW returned as the "top 50" weren't in the true top 50.
+
+**Fix.** `Retriever` now loads all chunk embeddings from the Chroma collection once (in chunk order) and ranks by exact cosine similarity with a NumPy matrix product. Ties are broken by chunk position, so the order is fully deterministic. Filtered questions rank only the chunks that pass the filters (the same set Chroma searched exhaustively before). Cost: about 28 MB of memory per index, and retrieval became *faster* (median 29 ms → 6 ms per question). Chroma still stores the index, and `dense_backend="hnsw"` keeps the old behaviour for comparison. Three new tests: exact search equals a brute-force ranking, two separately loaded retrievers return identical rankings, and filtered results equal Chroma's own.
+
+**Alternatives.** Raising HNSW's `ef_search` would raise recall but still wouldn't guarantee exact or reproducible results. A FAISS flat index would be equivalent to the fix but adds a dependency for 18k vectors.
+
+**Re-run** (everything that depends on retrieval, ~4 h in the background): retrieval evaluation (both datasets), generation (all three configurations), verification, paraphrase sets A and B, the three pipeline batches, the threshold sweep and the log PII scan. Not re-run: the Nov 21 prompt-development runs (v1–v3, dev split). They record how prompt v2 was chosen; the comparison was between prompts on the same retrieval, and the score that decided it (grounded accuracy on answerable dev questions) comes from filtered questions, whose retrieval is exact before and after.
+
+**What changed and what didn't:**
+
+| Result | Before (HNSW) | After (exact) |
+|---|---|---|
+| GlassBox headline: answerable evidence (redacted, hybrid, QA) | 0.949 | **0.949** (unchanged) |
+| GlassBox: grounded accuracy / identity answered | 0.858 / 0 of 84 | **0.858 / 0 of 84** (unchanged) |
+| Questions with filters whose retrieval changed | n/a | **0 of 270** |
+| Raw hybrid identity recall@auto, section / note | 0.333 / 0.405 | **0.548 / 0.512** |
+| Raw dense identity recall@auto, section / note | 0.298 / 0.333 | **0.512 / 0.429** |
+| Redacted no-query-analysis ablation: answerable evidence | 0.096 | 0.103 |
+| Raw baseline: identity questions answered (test) | 48 of 84 (mixed old records) | **42 of 84**; 16 of 84 (19%) with the person's true value cited from their own note |
+| Guard off: identity answered / claims SUPPORTED with and without subject rewriting | 84 of 84 / 74 of 112, n/a | 84 of 84 / 78 of 118, 118 of 118 |
+| Paraphrase sets A and B (all metrics) | §8 | identical |
+| Threshold sweep: privacy, retrieval evidence, grounded accuracy at every threshold | §5.1 | identical (only the context size of the refused identity questions moved, e.g. 708 → 643 characters at 0.5) |
+| Synthetic dataset | | only raw-section hybrid @1 rows moved (e.g. identity recall@1 0.514 → 0.486) |
+
+**Checks after the re-run:**
+- **Determinism.** Generation and verification were run twice from scratch with exact search. All 900 stored answers were identical (answer, chunks, citations, refusal, score), and the summaries were identical apart from timings.
+- **Pipeline = evaluation.** All 900 pipeline traces (390 redacted, 390 raw, 120 guard-off) match the evaluation records exactly, the raw baseline included.
+- **Live check.** `python -m glassbox.verify` re-ran 10 stored questions through the full pipeline: 10/10 identical, 34 s.
+- **PII scan.** 0 hits in 9,630 realistic privacy-side records; the raw positive control still finds 7,952 values.
+- **Tests.** 165 passed, 4 skipped, 1 xfailed (fast); 169 passed, 1 xfailed with `GLASSBOX_SLOW=1`.
+
+**Why it matters for the report.** (1) The privacy result was never affected: GlassBox's redacted index already gave 0 identity recall, and its answerable questions are filtered (exact). (2) The no-privacy baseline was *under*-estimated: with exact search it finds and leaks more, so the contrast with GlassBox is stronger than first reported. (3) It's a methods lesson worth one paragraph: an approximate index silently made a baseline weaker and non-reproducible, and the end-to-end reproduction check (§14.2) is what exposed it.
+
+### 14.7 Demo tooling (Day 5, PLAN 6.3)
+
+The full experiments take hours (390 questions × 3 configurations ≈ 1 h; threshold sweep ≈ 2 h). A live demo can't run them, so the demo has three parts that together show the system works:
+
+1. **Demo page** (dashboard, first page; `glassbox/src/dashboard/demo_script.py`). A "Load models" button (~15 s), then six steps, each one button and ~3 s: (1) a clinical fact, verified; (2) an aggregate question with two-hop retrieval; (3) a named person: GlassBox refuses before the model runs, while the raw baseline next to it gives the person's medication (checked against the note: Losartan 50mg); (4) conditions that match no note: refused by rule; (5) "try to fool the verifier": edit a verified claim and re-check it (CONTRADICTED / UNSUPPORTED); (6) the audience's own question. Each step has talking points and a full-trace toggle. The questions were picked from the stored evaluation because they behave the same every time (greedy decoding); all four scripted steps were re-run after the exact-search fix and behave as described.
+2. **Stored traces page.** All 390 evaluation questions, already run, searchable and auditable without loading any model.
+3. **`python -m glassbox.verify`** (~1 min). Re-runs a fixed, stratified sample (seed 0: 4 clinical fact, 3 aggregate, 3 identity) through the whole pipeline and compares retrieved chunks, answer text, citations, refusal reason and score with the committed evaluation file. It prints questions in redacted form only and exits with code 1 on any difference. This proves live that the stored numbers come from the code as it is. Result: 10/10 identical.
+
+`DEMO.md` is the 15-minute script: pre-meeting checklist, what to say at each step, likely questions with answers, and fallbacks if something fails.

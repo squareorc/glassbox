@@ -4,6 +4,9 @@ GlassBox audit dashboard (Streamlit).
     streamlit run glassbox/src/dashboard/app.py
 
 Pages
+    Demo            the scripted demo (glassbox/src/dashboard/demo_script.py, DEMO.md): one-click
+                    questions run live, GlassBox vs raw baseline side by side, "try to fool the
+                    verifier", and a free question box
     Ask             type a question (or pick a QA-set question); the pipeline runs and its
                     trace is shown and saved.
     Stored traces   table of saved traces (filter by verdict / type / abstention); pick
@@ -119,9 +122,9 @@ def show_answer(trace):
     else:
         st.markdown(f"> {gen['answer']}")
     labels = source_label(trace)
-    verdicts = {v["claim"]: v for v in ver.get("claims", [])}
+    verdicts = ver.get("claims", [])   # one verdict per claim, in claim order (verifier.verify_claims)
     for i, c in enumerate(gen.get("claims") or [], 1):
-        v = verdicts.get(c["text"], {})
+        v = verdicts[i - 1] if i - 1 < len(verdicts) else {}
         lab = v.get("label")
         links = " ".join(f"[{labels.get(cid, cid)}](#{chunk_anchor(cid)})" for cid in c["citations"]) or "_no citation_"
         st.markdown(f"**Claim {i}.** {c['text']}  \nCites {links} "
@@ -172,7 +175,7 @@ def show_trace(trace, original=None):
 @st.cache_resource(show_spinner="Loading the retriever, the 7B generator and the NLI verifier…")
 def get_pipeline(dataset: str, config: str):
     from glassbox.src.pipeline import GlassBox
-    return GlassBox(dataset, config, trace_dir=TRACES / dataset / config)
+    return GlassBox(dataset, config, trace_dir=TRACES / dataset / config, preload=True)
 
 
 @st.cache_data
@@ -217,6 +220,8 @@ def page_traces(dataset: str, config: str):
     if not rows:
         st.info(f"No traces in `{TRACE_ROOT / trace_set}`. Run `python -m glassbox.run --qa-set --config {config}`.")
         return
+    if config == "raw":
+        st.warning("Raw baseline traces: questions and chunks are NOT redacted (no-privacy comparison).")
     c1, c2, c3 = st.columns(3)
     verdicts = c1.multiselect("Verdict", sorted({r["verdict"] for r in rows}))
     types = c2.multiselect("Question type", sorted({r["type"] for r in rows}))
@@ -240,11 +245,129 @@ def page_traces(dataset: str, config: str):
         st.caption("Select a row to audit that trace.")
 
 
+CONFIG_LABEL = {"redacted": "GlassBox (redacted)", "raw": "Raw baseline (no privacy)",
+                "redacted_noguard": "Redacted, guard off"}
+
+
+def show_summary(trace):
+    """Compact result for the demo: what was asked, the guard, the answer and its verification."""
+    q, gen, ver = trace["question"], trace["generation"], trace["verification"]
+    st.markdown(f"**{CONFIG_LABEL.get(trace['config']['name'], trace['config']['name'])}** · "
+                + badge(ver["verdict"], VERDICT_COLOUR.get(ver["verdict"], "gray"))
+                + f" · {trace['timings_ms']['total'] / 1000:.1f} s")
+    st.code(q["text"], language=None, wrap_lines=True)
+    if q["redacted"]:
+        st.markdown("Redacted from the question: " + " ".join(badge(r["type"], "violet") for r in q["redacted"]))
+    if gen["abstained"]:
+        st.info(f"**Refused:** {gen['answer']}  \n_{ABSTAIN_EXPLANATION.get(gen['abstain_reason'], '')}_")
+    else:
+        st.markdown(f"> {gen['answer']}")
+        labels = source_label(trace)
+        for i, c in enumerate(gen["claims"]):
+            v = ver["claims"][i] if i < len(ver.get("claims", [])) else {}
+            cites = ", ".join(labels.get(x, x) for x in c["citations"]) or "nothing"
+            st.markdown(f"- {c['text']}  \n  cites {cites} " + (badge(v["label"], LABEL_COLOUR.get(v["label"], "gray"))
+                                                                if v.get("label") else ""))
+    st.caption(f"{trace['retrieval']['k']} chunks retrieved · {trace['retrieval']['context_chars']:,} characters shown to the model")
+
+
+def run_live(dataset, config, question):
+    gb = get_pipeline(dataset, config)
+    return gb.answer(question)
+
+
+def page_demo(dataset: str):
+    from glassbox.src.dashboard.demo_script import DEMO_STEPS, VERIFIER_TIPS
+    st.header("Live demo")
+    st.caption("Every button runs the full pipeline live (question redaction → retrieval → guard → 7B model → NLI "
+               "verification), about 3 s per question. Nothing on this page is pre-recorded.")
+    if dataset != "realistic":
+        st.warning("The demo questions are for the realistic dataset; switch the sidebar to 'realistic'.")
+        return
+    if not st.session_state.get("demo_ready"):
+        st.info("Load the models once before presenting (≈20 s), so every question afterwards takes ≈3 s.")
+        if st.button("Load models", type="primary"):
+            with st.spinner("Loading the retrievers, the 7B generator and the NLI verifier…"):
+                get_pipeline(dataset, "redacted")
+                get_pipeline(dataset, "raw")
+            st.session_state["demo_ready"] = True
+            st.rerun()
+        return
+    talking = st.toggle("Show talking points", value=True)
+    results = st.session_state.setdefault("demo", {})
+
+    for step in DEMO_STEPS:
+        with st.container(border=True):
+            st.subheader(step["title"])
+            st.markdown(f"**Question:** {step['question']}")
+            if st.button("Run", key=f"run_{step['key']}", type="primary"):
+                with st.spinner("Running…"):
+                    results[step["key"]] = {c: run_live(dataset, c, step["question"]) for c in step["configs"]}
+            res = results.get(step["key"])
+            if res:
+                cols = st.columns(len(res))
+                for col, (cfg, trace) in zip(cols, res.items()):
+                    with col:
+                        show_summary(trace)
+                if talking:
+                    st.info("\n".join(f"- {p}" for p in step["point_out"]))
+                for cfg, trace in res.items():
+                    if st.toggle(f"Full audit trace ({CONFIG_LABEL[cfg]})", key=f"full_{step['key']}_{cfg}"):
+                        show_trace(trace, step["question"])
+
+    # ---- 5. try to fool the verifier
+    with st.container(border=True):
+        st.subheader("5 · Try to fool the verifier")
+        fact = results.get("fact", {}).get("redacted")
+        if not fact or not fact["generation"]["claims"]:
+            st.caption("Run step 1 first: this edits its claim and re-checks it against the same evidence.")
+        else:
+            claim = fact["generation"]["claims"][0]
+            chunk_text = {c["chunk_id"]: c["text"] for c in fact["retrieval"]["chunks"]}
+            st.markdown("Edit the claim from step 1, then verify it against the chunk it cites. "
+                        "The verifier is a separate model from the one that wrote the answer.")
+            if talking:
+                st.info("\n".join(f"- {t}" for t in VERIFIER_TIPS))
+            edited = st.text_area("Claim", value=claim["text"], key="fool_text")
+            if st.button("Verify this claim", key="fool_btn", type="primary"):
+                gb = get_pipeline(dataset, "redacted")
+                v = gb.verifier.verify_claims([{"text": edited, "citations": claim["citations"]}], chunk_text)[0]
+                st.session_state["fool_result"] = (edited, v)
+            if "fool_result" in st.session_state:
+                text, v = st.session_state["fool_result"]
+                p = v.get("probabilities") or {}
+                st.markdown(f"“{text}” → " + badge(v["label"], LABEL_COLOUR.get(v["label"], "gray")))
+                if p:
+                    st.caption(f"entailment {p['entailment']:.3f} · neutral {p['neutral']:.3f} · "
+                               f"contradiction {p['contradiction']:.3f}")
+                with st.expander("Evidence it was checked against"):
+                    for cid in claim["citations"]:
+                        st.text(chunk_text[cid])
+
+    # ---- 6. your own question
+    with st.container(border=True):
+        st.subheader("6 · Ask your own question")
+        st.caption("Try a diagnosis and date, a symptom across patients, or a person's name.")
+        own = st.text_input("Question", key="own_q",
+                            placeholder="Which medications were prescribed to COPD patients who presented with sputum production in July 2025?")
+        if st.button("Run", key="run_own", type="primary", disabled=not own):
+            with st.spinner("Running…"):
+                st.session_state["own_trace"] = (run_live(dataset, "redacted", own), own)
+        if "own_trace" in st.session_state:
+            trace, original = st.session_state["own_trace"]
+            show_summary(trace)
+            if st.toggle("Full audit trace", key="full_own"):
+                show_trace(trace, original)
+
+
 def main():
     st.sidebar.title("🔍 GlassBox")
     st.sidebar.caption("Privacy-preserving, verifiable question answering over clinical notes")
-    page = st.sidebar.radio("Page", ["Ask", "Stored traces"])
+    page = st.sidebar.radio("Page", ["Demo", "Ask", "Stored traces"])
     dataset = st.sidebar.selectbox("Dataset", ["realistic", "synthetic"])
+    if page == "Demo":
+        page_demo(dataset)
+        return
     config = st.sidebar.selectbox("Configuration", ["redacted", "raw", "redacted_noguard"],
                                   help="redacted = the GlassBox system · raw = no-privacy baseline · "
                                        "redacted_noguard = abstain guard off")

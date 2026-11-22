@@ -49,6 +49,10 @@ from .retrieval.retriever import (DEFAULT_WEIGHTS, MULTI_NOTE_K, PER_NOTE, SINGL
 from .verification.verifier import Verifier
 
 CONFIGS = ("redacted", "raw", "redacted_noguard")
+# The evaluated retriever redacts questions with redact_query's default threshold, whatever the
+# index's threshold (retrieval/retriever.py). Kept identical here so that a batch run reproduces
+# the evaluation at every threshold, not only at 0.5.
+QUESTION_REDACTION_THRESHOLD = 0.5
 TRACE_ROOT = Path("glassbox/logs/traces")
 TRACE_VERSION = 1
 
@@ -61,7 +65,7 @@ class GlassBox:
     """Holds the loaded retriever, generator and verifier; `answer()` runs one question."""
 
     def __init__(self, dataset: str = "realistic", config: str = "redacted", threshold: float = 0.5,
-                 verify: bool = True, trace_dir: Optional[Path] = None):
+                 verify: bool = True, trace_dir: Optional[Path] = None, preload: bool = False):
         if config not in CONFIGS:
             raise ValueError(f"config must be one of {CONFIGS}")
         self.dataset, self.config, self.threshold = dataset, config, threshold
@@ -76,6 +80,22 @@ class GlassBox:
         self.generator = Generator()
         self.verifier = Verifier() if verify else None
         self.trace_dir = Path(trace_dir) if trace_dir else TRACE_ROOT / dataset / config
+        if preload:
+            self.preload()
+
+    def preload(self) -> None:
+        """
+        Load every model now, so no question's timings include loading (~15 s for the
+        LLM + NLI model + embedder; models otherwise load lazily on first use).
+        """
+        from .generation.generator import _load as load_llm
+        from .retrieval.index import embed_query
+        from .verification.verifier import _load as load_nli
+        load_llm(self.generator.model_id)
+        embed_query("warm-up")
+        redact_query("warm-up", QUESTION_REDACTION_THRESHOLD)
+        if self.verifier:
+            load_nli(self.verifier.model_name, self.verifier.device)
 
     # ------------------------------------------------------------------
     def config_record(self) -> Dict[str, Any]:
@@ -88,6 +108,7 @@ class GlassBox:
             "baseline_mode": self.baseline,
             "redaction_threshold": self.threshold,
             "question_redaction": self.redact_questions,
+            "question_redaction_threshold": QUESTION_REDACTION_THRESHOLD if self.redact_questions else None,
             "abstain_guard": self.use_guard,
             "embedding_model": m.get("embedding_model"),
             "retrieval_method": "hybrid",
@@ -109,7 +130,7 @@ class GlassBox:
         # 1. Question redaction
         t0 = time.perf_counter()
         if self.redact_questions:
-            qr = redact_query(question, self.threshold)
+            qr = redact_query(question, QUESTION_REDACTION_THRESHOLD)
             asked = qr["text"]
         else:
             qr, asked = None, question

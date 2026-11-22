@@ -1,0 +1,9 @@
+# GlassBox dashboard settings (read by `streamlit run` from the repo root).
+# The Ask page shows the question as typed, which can contain PII, so the server
+# listens on this machine only and sends no usage statistics anywhere.
+[server]
+address = "localhost"
+
+[browser]
+gatherUsageStats = false
+serverAddress = "localhost"

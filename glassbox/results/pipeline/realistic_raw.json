@@ -8,6 +8,7 @@
     "baseline_mode": true,
     "redaction_threshold": 0.5,
     "question_redaction": false,
+    "question_redaction_threshold": null,
     "abstain_guard": true,
     "embedding_model": "BAAI/bge-small-en-v1.5",
     "retrieval_method": "hybrid",
@@ -42,10 +43,11 @@
       "clinical_fact_grounded_accuracy": 1.0,
       "aggregate_grounded_accuracy": 0.6265,
       "answerable_abstained": 0.0123,
-      "identity_answered": 17,
+      "identity_answered": 18,
       "verdicts": {
         "VERIFIED": 84,
-        "ABSTAINED": 20,
+        "ABSTAINED": 19,
+        "CONTRADICTED": 1,
         "NOT_VERIFIED": 10,
         "PARTLY_VERIFIED": 3
       },
@@ -65,12 +67,12 @@
       },
       "latency_ms_median": {
         "question_redaction": 0.0,
-        "retrieval": 23.2,
-        "generation": 2929.4,
-        "verification": 39.8,
-        "total": 2987.1
+        "retrieval": 6.4,
+        "generation": 2958.6,
+        "verification": 40.3,
+        "total": 3007.6
       },
-      "latency_ms_median_when_model_called": 2987.1
+      "latency_ms_median_when_model_called": 3007.6
     },
     "test": {
       "n": 273,
@@ -84,12 +86,12 @@
       "clinical_fact_grounded_accuracy": 0.9802,
       "aggregate_grounded_accuracy": 0.5397,
       "answerable_abstained": 0,
-      "identity_answered": 48,
+      "identity_answered": 42,
       "verdicts": {
-        "VERIFIED": 196,
-        "NOT_VERIFIED": 34,
-        "PARTLY_VERIFIED": 3,
-        "ABSTAINED": 36,
+        "VERIFIED": 192,
+        "NOT_VERIFIED": 33,
+        "PARTLY_VERIFIED": 2,
+        "ABSTAINED": 42,
         "CONTRADICTED": 3,
         "NO_CLAIMS": 1
       },
@@ -113,12 +115,12 @@
       },
       "latency_ms_median": {
         "question_redaction": 0.0,
-        "retrieval": 23.0,
-        "generation": 3046.6,
-        "verification": 35.5,
-        "total": 3110.8
+        "retrieval": 6.2,
+        "generation": 3020.5,
+        "verification": 36.4,
+        "total": 3071.6
       },
-      "latency_ms_median_when_model_called": 3110.8
+      "latency_ms_median_when_model_called": 3071.6
     },
     "all": {
       "n": 390,
@@ -132,13 +134,13 @@
       "clinical_fact_grounded_accuracy": 0.9861,
       "aggregate_grounded_accuracy": 0.5657,
       "answerable_abstained": 0.0037,
-      "identity_answered": 65,
+      "identity_answered": 60,
       "verdicts": {
-        "VERIFIED": 280,
-        "NOT_VERIFIED": 44,
-        "PARTLY_VERIFIED": 6,
-        "ABSTAINED": 56,
-        "CONTRADICTED": 3,
+        "VERIFIED": 276,
+        "NOT_VERIFIED": 43,
+        "PARTLY_VERIFIED": 5,
+        "ABSTAINED": 61,
+        "CONTRADICTED": 4,
         "NO_CLAIMS": 1
       },
       "grounded_accuracy_by_verdict": {
@@ -161,12 +163,12 @@
       },
       "latency_ms_median": {
         "question_redaction": 0.0,
-        "retrieval": 23.0,
-        "generation": 3024.3,
-        "verification": 36.2,
-        "total": 3081.4
+        "retrieval": 6.2,
+        "generation": 3007.5,
+        "verification": 37.5,
+        "total": 3055.3
       },
-      "latency_ms_median_when_model_called": 3081.4
+      "latency_ms_median_when_model_called": 3055.3
     }
   }
 }

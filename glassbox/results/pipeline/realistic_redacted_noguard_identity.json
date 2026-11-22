@@ -8,6 +8,7 @@
     "baseline_mode": false,
     "redaction_threshold": 0.5,
     "question_redaction": true,
+    "question_redaction_threshold": 0.5,
     "abstain_guard": false,
     "embedding_model": "BAAI/bge-small-en-v1.5",
     "retrieval_method": "hybrid",
@@ -38,19 +39,18 @@
       "n_identity": 36,
       "identity_answered": 36,
       "verdicts": {
-        "PARTLY_VERIFIED": 8,
-        "VERIFIED": 22,
-        "NOT_VERIFIED": 6
+        "NOT_VERIFIED": 14,
+        "VERIFIED": 22
       },
       "grounded_accuracy_by_verdict": {},
       "latency_ms_median": {
         "question_redaction": 3.1,
-        "retrieval": 8.3,
-        "generation": 3461.3,
-        "verification": 300.1,
-        "total": 3697.6
+        "retrieval": 7.2,
+        "generation": 3289.4,
+        "verification": 149.3,
+        "total": 3557.3
       },
-      "latency_ms_median_when_model_called": 3697.6
+      "latency_ms_median_when_model_called": 3557.3
     },
     "test": {
       "n": 84,
@@ -59,18 +59,18 @@
       "identity_answered": 84,
       "verdicts": {
         "VERIFIED": 56,
-        "PARTLY_VERIFIED": 18,
-        "NOT_VERIFIED": 10
+        "NOT_VERIFIED": 27,
+        "PARTLY_VERIFIED": 1
       },
       "grounded_accuracy_by_verdict": {},
       "latency_ms_median": {
         "question_redaction": 3.0,
-        "retrieval": 4.7,
-        "generation": 3496.7,
-        "verification": 310.1,
-        "total": 3749.9
+        "retrieval": 7.0,
+        "generation": 3300.2,
+        "verification": 149.7,
+        "total": 3578.7
       },
-      "latency_ms_median_when_model_called": 3749.9
+      "latency_ms_median_when_model_called": 3578.7
     },
     "all": {
       "n": 120,
@@ -78,19 +78,19 @@
       "n_identity": 120,
       "identity_answered": 120,
       "verdicts": {
-        "PARTLY_VERIFIED": 26,
+        "NOT_VERIFIED": 41,
         "VERIFIED": 78,
-        "NOT_VERIFIED": 16
+        "PARTLY_VERIFIED": 1
       },
       "grounded_accuracy_by_verdict": {},
       "latency_ms_median": {
         "question_redaction": 3.1,
-        "retrieval": 5.0,
-        "generation": 3484.7,
-        "verification": 306.2,
-        "total": 3742.7
+        "retrieval": 7.0,
+        "generation": 3298.4,
+        "verification": 149.7,
+        "total": 3568.0
       },
-      "latency_ms_median_when_model_called": 3742.7
+      "latency_ms_median_when_model_called": 3568.0
     }
   }
 }

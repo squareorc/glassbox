@@ -129,6 +129,12 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 - **Done when:** the app launches locally and renders any stored trace.
 - **Result:** Ask + Stored traces pages, per-stage trace view; headless AppTest renders 6 trace kinds. Browser check on Day 6. PROGRESS §14.4.
 
+### 5.5 Review fixes ✅
+- Exact dense search instead of ChromaDB HNSW (approximate search missed true neighbours on unfiltered questions and differed between runs; filtered questions unaffected). Re-run: retrieval, generation, verification, paraphrase sets A/B, pipeline traces, threshold sweep.
+- Model preloading, question-redaction threshold matched to the evaluation, verdicts matched by position, input validation, dashboard on localhost with telemetry off.
+- **Done when:** all re-runs finished, every changed number updated in `PROGRESS.md` with before/after, one commit.
+- **Result:** all re-runs done; GlassBox numbers unchanged (0/270 filtered questions changed), raw baseline identity recall 0.333 → 0.548, raw answered 42/84 (16 true values); two runs from scratch identical; 900/900 traces match the evaluation. PROGRESS §14.6.
+
 ## Phase 6: Experiments, figures, dashboard (Nov 25) ⬜
 
 ### 6.1 Experiment set (all on realistic test unless noted; CIs everywhere)
@@ -145,6 +151,12 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 | E9 | Synthetic (250-note) replication of headline numbers | run generation + verification on synthetic | Table |
 - Script: `glassbox/src/experiments/figures.py` → `glassbox/results/figures/*.png` and a `summary.json` of every headline number.
 - **Done when:** every figure regenerates from committed results with one command; numbers match `PROGRESS.md`.
+
+### 6.3 Demo tooling ⏳ (built and checked; owner's browser dry run left)
+- **Demo page** in the dashboard (`glassbox/src/dashboard/demo_script.py`): 4 one-click live questions (fact, aggregate, named person GlassBox vs raw side by side, no-matching-record), "try to fool the verifier" (edit a claim, re-verify live), free question box; talking points; explicit "Load models" step. ✅ built, headless-tested
+- **`python -m glassbox.verify`**: re-runs a fixed stratified sample of 10 stored evaluation questions live and checks chunks / answer / citations / refusal / score are identical; `--tests` adds the test suite. ✅ real-model run: 10/10 identical in 34 s
+- **`DEMO.md`**: pre-meeting checklist, 15-minute script, likely questions with answers, failure fallbacks. ✅ numbers re-checked after the re-runs
+- **Done when:** a full dry run of DEMO.md works end to end in the browser (owner), `glassbox.verify` prints 10/10.
 
 ### 6.2 Dashboard completion ⬜
 - **Experiments page:** headline numbers and figures from `results/figures`.
@@ -166,7 +178,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 | | Task | Status |
 |---|---|---|
 | 8.1 | Full clean-run check: fresh venv from `requirements.txt`, regenerate data → redaction → indexes → evaluations → figures; tests pass | ⬜ |
-| 8.2 | Demo rehearsal (script of 5–6 questions: fact, aggregate, identity refusal, fallback, a corrupted-claim example); backup screen recording | ⬜ |
+| 8.2 | Demo rehearsal following `DEMO.md` (Demo page + `glassbox.verify`); backup screen recording (owner) | ⬜ |
 | 8.3 | Merge `pipeline-build` into `main` (with the owner's approval) | ⬜ |
 | 8.4 | ◻ Generation: prompt rule to cite every section a claim relies on (fixes incomplete citations, §7.5), tuned on dev | ◻ |
 | 8.5 | ◻ Robustness round 2: dash/day-first date formats, day/month ambiguity (try both readings when one matches no note), "w/" as condition marker, Title-Case question guard; evaluated on a **new** held-out set C | ◻ |

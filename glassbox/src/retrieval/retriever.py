@@ -49,6 +49,16 @@ Two-hop answer sections:
     sections for the ASK alone, ranked with the same hybrid method. Each
     result records `selected_by` ("question" or "ask") for the audit trail.
 
+Dense search is EXACT (Day 5 fix):
+    Cosine similarity of the query against every chunk embedding (one matrix
+    product over ~18k x 384 floats, a few ms), ties broken by chunk order. Until
+    Day 5 the dense ranking came from ChromaDB's approximate HNSW index, whose
+    top-50 shared as few as 23-31 chunks with the exact top-50 on identity
+    questions (hundreds of near-identical header chunks) and could differ between
+    processes, so two runs of the same question could retrieve different chunks.
+    ChromaDB is still the store the embeddings are read from;
+    dense_backend="hnsw" keeps the old behaviour for comparison.
+
 Access control:
     The Retriever opens only indexes whose manifest says they were built from
     redacted data. Opening the raw (no-privacy) baseline requires an explicit
@@ -65,6 +75,8 @@ Logging:
 import json
 import re
 import time
+
+import numpy as np
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -86,6 +98,7 @@ PER_NOTE = 2
 CANDIDATES = 50  # per-method candidate pool before fusion
 RRF_K = 60
 METHODS = ("dense", "bm25", "hybrid")
+DENSE_BACKENDS = ("exact", "hnsw")
 # Fusion weights (dense, bm25), chosen on the DEV split (evaluate.py --tune).
 # Day 2 (39 dev questions): plateau for dense weights 1.0-5.0 -> (1.0, 1.0).
 # Day 3 (117 dev questions, two-hop selection): (1.0, 1.0) 0.943, plateau
@@ -116,7 +129,7 @@ class AccessDenied(PermissionError):
 
 class Retriever:
     def __init__(self, index_dir: Path, baseline: bool = False, log_path: Optional[Path] = None,
-                 redact_queries: Optional[bool] = None):
+                 redact_queries: Optional[bool] = None, dense_backend: str = "exact"):
         import chromadb
 
         self.index_dir = Path(index_dir)
@@ -145,13 +158,32 @@ class Retriever:
 
         client = chromadb.PersistentClient(path=str(self.index_dir / "chroma"))
         self.collection = client.get_collection(COLLECTION)
+        if dense_backend not in DENSE_BACKENDS:
+            raise ValueError(f"dense_backend must be one of {DENSE_BACKENDS}")
+        self.dense_backend = dense_backend
+        if dense_backend == "exact":
+            # Every chunk's (normalised) embedding, in chunk order, for exact cosine search
+            stored = self.collection.get(include=["embeddings"])
+            emb = np.asarray(stored["embeddings"], dtype=np.float32)
+            self.embeddings = np.zeros((len(self.chunks), emb.shape[1]), dtype=np.float32)
+            self.embeddings[[self.position[cid] for cid in stored["ids"]]] = emb
 
         self.log_path = Path(log_path) if log_path else None
         if self.log_path:
             self.log_path.parent.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------------
+    def _exact_scores(self, query: str, idxs: np.ndarray) -> List[tuple]:
+        """(chunk index, cosine similarity) for `idxs`, best first; ties by chunk order."""
+        sims = self.embeddings[idxs] @ np.asarray(embed_query(query), dtype=np.float32)
+        order = np.lexsort((idxs, -sims))
+        return [(int(idxs[j]), float(sims[j])) for j in order]
+
     def _dense(self, query: str, n: int, filters: Dict[str, Any]) -> List[tuple]:
+        if self.dense_backend == "exact":
+            idxs = (np.array([i for i, c in enumerate(self.chunks) if matches(c, filters)], dtype=np.int64)
+                    if filters else np.arange(len(self.chunks)))
+            return self._exact_scores(query, idxs)[:n] if len(idxs) else []
         res = self.collection.query(
             query_embeddings=[embed_query(query)], n_results=n, where=chroma_where(filters)
         )
@@ -198,9 +230,13 @@ class Retriever:
         cands = [i for d in doc_ids for i in self.by_doc[d]]
         ranks: List[Dict[int, int]] = []
         if method in ("dense", "hybrid"):
-            res = self.collection.query(query_embeddings=[embed_query(query)], n_results=len(cands),
-                                        where={"doc_id": {"$in": list(doc_ids)}})
-            ranks.append({self.position[cid]: r for r, cid in enumerate(res["ids"][0], 1)})
+            if self.dense_backend == "exact":
+                ranked = self._exact_scores(query, np.array(cands, dtype=np.int64))
+                ranks.append({i: r for r, (i, _) in enumerate(ranked, 1)})
+            else:
+                res = self.collection.query(query_embeddings=[embed_query(query)], n_results=len(cands),
+                                            where={"doc_id": {"$in": list(doc_ids)}})
+                ranks.append({self.position[cid]: r for r, cid in enumerate(res["ids"][0], 1)})
         if method in ("bm25", "hybrid"):
             scores = self.bm25.scores(query)
             ordered = sorted(cands, key=lambda i: (-scores.get(i, 0.0), i))

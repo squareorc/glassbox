@@ -20,8 +20,8 @@
         "DATE_OF_BIRTH": 1.0,
         "PHONE_NUMBER": 0.9995014126641183,
         "EMAIL": 1.0,
-        "PATIENT_ID": 0.5423581733376722,
         "NAME": 0.998004655803126,
+        "PATIENT_ID": 0.5423581733376722,
         "ADDRESS": 0.9934167215273206
       },
       "over_redactions": 4219
@@ -155,7 +155,7 @@
         "claims_cited": 0.9947,
         "grounded_accuracy": 0.8686,
         "json_first_try": 0.9947,
-        "latency_ms": 4912.6,
+        "latency_ms": 3736.0,
         "med_f1": 0.8567,
         "med_precision": 0.9129,
         "med_recall": 0.8463,
@@ -171,7 +171,7 @@
         "claims_cited": 0.9921,
         "grounded_accuracy": 0.9762,
         "json_first_try": 1.0,
-        "latency_ms": 4301.6,
+        "latency_ms": 2942.9,
         "med_f1": 1.0,
         "med_precision": 1.0,
         "med_recall": 1.0,
@@ -187,7 +187,7 @@
         "claims_cited": 1.0,
         "grounded_accuracy": 0.6534,
         "json_first_try": 0.9841,
-        "latency_ms": 6134.7,
+        "latency_ms": 5322.3,
         "med_f1": 0.7975,
         "med_precision": 0.877,
         "med_recall": 0.7828,
@@ -210,7 +210,7 @@
         0.9065
       ]
     },
-    "minutes": 24.0
+    "minutes": 18.5
   },
   "0.40": {
     "threshold": 0.4,
@@ -230,8 +230,647 @@
         "char_leakage": 0.0023606589107097184
       },
       "per_type_f1": {
-        "DATE_OF_BIRTH": 1.0,
+        "EMAIL": 1.0,
         "NAME": 0.998004655803126,
+        "DATE_OF_BIRTH": 1.0,
+        "PATIENT_ID": 1.0,
+        "PHONE_NUMBER": 0.9995014126641183,
+        "ADDRESS": 0.9934167215273206
+      },
+      "over_redactions": 0
+    },
+    "leak_audit": {
+      "n": 18041,
+      "full_leak_rate": 0.0001,
+      "partial_leak_rate": 0.0004,
+      "per_type": {
+        "ADDRESS": {
+          "n": 1509,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "DATE_OF_BIRTH": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "EMAIL": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "NAME": {
+          "n": 6022,
+          "full_leak_rate": 0.0003,
+          "partial_leak_rate": 0.0012
+        },
+        "PATIENT_ID": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "PHONE_NUMBER": {
+          "n": 3010,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        }
+      }
+    },
+    "retrieval_test": {
+      "answerable": {
+        "recall@1": 0.7919,
+        "evidence@1": 0.5185,
+        "context_chars@1": 134.6614,
+        "recall@3": 0.9136,
+        "evidence@3": 0.8034,
+        "context_chars@3": 420.5979,
+        "recall@5": 0.9744,
+        "evidence@5": 0.9145,
+        "context_chars@5": 703.3598,
+        "recall@10": 0.9943,
+        "evidence@10": 0.9489,
+        "context_chars@10": 1166.9418,
+        "recall@auto": 0.9943,
+        "evidence@auto": 0.9489,
+        "context_chars@auto": 955.4709,
+        "mrr": 0.9965,
+        "n": 189
+      },
+      "clinical_fact": {
+        "recall@1": 1.0,
+        "evidence@1": 0.7778,
+        "context_chars@1": 140.9127,
+        "recall@3": 1.0,
+        "evidence@3": 0.9762,
+        "context_chars@3": 425.5079,
+        "recall@5": 1.0,
+        "evidence@5": 1.0,
+        "context_chars@5": 706.8651,
+        "recall@10": 1.0,
+        "evidence@10": 1.0,
+        "context_chars@10": 1024.0714,
+        "recall@auto": 1.0,
+        "evidence@auto": 1.0,
+        "context_chars@auto": 706.8651,
+        "mrr": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "recall@1": 0.3757,
+        "evidence@1": 0.0,
+        "context_chars@1": 122.1587,
+        "recall@3": 0.7407,
+        "evidence@3": 0.4577,
+        "context_chars@3": 410.7778,
+        "recall@5": 0.9233,
+        "evidence@5": 0.7434,
+        "context_chars@5": 696.3492,
+        "recall@10": 0.9828,
+        "evidence@10": 0.8466,
+        "context_chars@10": 1452.6825,
+        "recall@auto": 0.9828,
+        "evidence@auto": 0.8466,
+        "context_chars@auto": 1452.6825,
+        "mrr": 0.9894,
+        "n": 63
+      },
+      "identity": {
+        "recall@1": 0.0,
+        "evidence@1": 0.0,
+        "context_chars@1": 135.0476,
+        "recall@3": 0.0,
+        "evidence@3": 0.0,
+        "context_chars@3": 378.7738,
+        "recall@5": 0.0,
+        "evidence@5": 0.0,
+        "context_chars@5": 643.1905,
+        "recall@10": 0.0,
+        "evidence@10": 0.0,
+        "context_chars@10": 1297.7024,
+        "recall@auto": 0.0,
+        "evidence@auto": 0.0,
+        "context_chars@auto": 643.1905,
+        "mrr": 0.0,
+        "n": 84
+      },
+      "answerable_evidence@auto_ci95": [
+        0.9224,
+        0.9718
+      ]
+    },
+    "generation_test": {
+      "answerable": {
+        "abstained": 0.0,
+        "accuracy": 0.9189,
+        "all_correct": 0.836,
+        "cited_from_gold_note": 0.89,
+        "cited_support": 0.9704,
+        "claims_cited": 0.9947,
+        "grounded_accuracy": 0.858,
+        "json_first_try": 1.0,
+        "latency_ms": 3668.9,
+        "med_f1": 0.8548,
+        "med_precision": 0.926,
+        "med_recall": 0.8388,
+        "ok": 1.0,
+        "n": 189
+      },
+      "clinical_fact": {
+        "abstained": 0.0,
+        "accuracy": 1.0,
+        "all_correct": 1.0,
+        "cited_from_gold_note": 1.0,
+        "cited_support": 0.984,
+        "claims_cited": 0.9921,
+        "grounded_accuracy": 0.9762,
+        "json_first_try": 1.0,
+        "latency_ms": 2921.3,
+        "med_f1": 1.0,
+        "med_precision": 1.0,
+        "med_recall": 1.0,
+        "ok": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "abstained": 0.0,
+        "accuracy": 0.7566,
+        "all_correct": 0.5079,
+        "cited_from_gold_note": 0.6717,
+        "cited_support": 0.9426,
+        "claims_cited": 1.0,
+        "grounded_accuracy": 0.6217,
+        "json_first_try": 1.0,
+        "latency_ms": 5164.1,
+        "med_f1": 0.7949,
+        "med_precision": 0.8955,
+        "med_recall": 0.7722,
+        "ok": 1.0,
+        "n": 63
+      },
+      "identity": {
+        "abstained": 1.0,
+        "accuracy": 0.0,
+        "all_correct": 0.0,
+        "grounded_accuracy": 0.0,
+        "json_first_try": 0.0,
+        "latency_ms": 0.0,
+        "ok": 1.0,
+        "n": 84,
+        "false_attribution": 0.0
+      },
+      "answerable_grounded_accuracy_ci95": [
+        0.8148,
+        0.8986
+      ]
+    },
+    "minutes": 18.3
+  },
+  "0.50": {
+    "threshold": 0.5,
+    "redaction": {
+      "overall": {
+        "precision": 0.9986697705354174,
+        "recall": 0.9987251261016573,
+        "f1": 0.9986974475514786,
+        "tp": 18018,
+        "fp": 24,
+        "fn": 23
+      },
+      "masking": {
+        "n": 18041,
+        "masked_recall": 0.9997782828002882,
+        "fully_masked_rate": 0.991353029211241,
+        "char_leakage": 0.0023606589107097184
+      },
+      "per_type_f1": {
+        "NAME": 0.998004655803126,
+        "DATE_OF_BIRTH": 1.0,
+        "PATIENT_ID": 1.0,
+        "EMAIL": 1.0,
+        "PHONE_NUMBER": 0.9995014126641183,
+        "ADDRESS": 0.9934167215273206
+      },
+      "over_redactions": 0
+    },
+    "leak_audit": {
+      "n": 18041,
+      "full_leak_rate": 0.0001,
+      "partial_leak_rate": 0.0004,
+      "per_type": {
+        "ADDRESS": {
+          "n": 1509,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "DATE_OF_BIRTH": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "EMAIL": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "NAME": {
+          "n": 6022,
+          "full_leak_rate": 0.0003,
+          "partial_leak_rate": 0.0012
+        },
+        "PATIENT_ID": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "PHONE_NUMBER": {
+          "n": 3010,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        }
+      }
+    },
+    "retrieval_test": {
+      "answerable": {
+        "recall@1": 0.7919,
+        "evidence@1": 0.5185,
+        "context_chars@1": 134.6614,
+        "recall@3": 0.9136,
+        "evidence@3": 0.8034,
+        "context_chars@3": 420.5979,
+        "recall@5": 0.9744,
+        "evidence@5": 0.9145,
+        "context_chars@5": 703.3598,
+        "recall@10": 0.9943,
+        "evidence@10": 0.9489,
+        "context_chars@10": 1166.9418,
+        "recall@auto": 0.9943,
+        "evidence@auto": 0.9489,
+        "context_chars@auto": 955.4709,
+        "mrr": 0.9965,
+        "n": 189
+      },
+      "clinical_fact": {
+        "recall@1": 1.0,
+        "evidence@1": 0.7778,
+        "context_chars@1": 140.9127,
+        "recall@3": 1.0,
+        "evidence@3": 0.9762,
+        "context_chars@3": 425.5079,
+        "recall@5": 1.0,
+        "evidence@5": 1.0,
+        "context_chars@5": 706.8651,
+        "recall@10": 1.0,
+        "evidence@10": 1.0,
+        "context_chars@10": 1024.0714,
+        "recall@auto": 1.0,
+        "evidence@auto": 1.0,
+        "context_chars@auto": 706.8651,
+        "mrr": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "recall@1": 0.3757,
+        "evidence@1": 0.0,
+        "context_chars@1": 122.1587,
+        "recall@3": 0.7407,
+        "evidence@3": 0.4577,
+        "context_chars@3": 410.7778,
+        "recall@5": 0.9233,
+        "evidence@5": 0.7434,
+        "context_chars@5": 696.3492,
+        "recall@10": 0.9828,
+        "evidence@10": 0.8466,
+        "context_chars@10": 1452.6825,
+        "recall@auto": 0.9828,
+        "evidence@auto": 0.8466,
+        "context_chars@auto": 1452.6825,
+        "mrr": 0.9894,
+        "n": 63
+      },
+      "identity": {
+        "recall@1": 0.0,
+        "evidence@1": 0.0,
+        "context_chars@1": 135.0476,
+        "recall@3": 0.0,
+        "evidence@3": 0.0,
+        "context_chars@3": 378.7738,
+        "recall@5": 0.0,
+        "evidence@5": 0.0,
+        "context_chars@5": 643.1905,
+        "recall@10": 0.0,
+        "evidence@10": 0.0,
+        "context_chars@10": 1297.7024,
+        "recall@auto": 0.0,
+        "evidence@auto": 0.0,
+        "context_chars@auto": 643.1905,
+        "mrr": 0.0,
+        "n": 84
+      },
+      "answerable_evidence@auto_ci95": [
+        0.9224,
+        0.9718
+      ]
+    },
+    "generation_test": {
+      "answerable": {
+        "abstained": 0.0,
+        "accuracy": 0.9189,
+        "all_correct": 0.836,
+        "cited_from_gold_note": 0.89,
+        "cited_support": 0.9704,
+        "claims_cited": 0.9947,
+        "grounded_accuracy": 0.858,
+        "json_first_try": 1.0,
+        "latency_ms": 3669.0,
+        "med_f1": 0.8548,
+        "med_precision": 0.926,
+        "med_recall": 0.8388,
+        "ok": 1.0,
+        "n": 189
+      },
+      "clinical_fact": {
+        "abstained": 0.0,
+        "accuracy": 1.0,
+        "all_correct": 1.0,
+        "cited_from_gold_note": 1.0,
+        "cited_support": 0.984,
+        "claims_cited": 0.9921,
+        "grounded_accuracy": 0.9762,
+        "json_first_try": 1.0,
+        "latency_ms": 2919.9,
+        "med_f1": 1.0,
+        "med_precision": 1.0,
+        "med_recall": 1.0,
+        "ok": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "abstained": 0.0,
+        "accuracy": 0.7566,
+        "all_correct": 0.5079,
+        "cited_from_gold_note": 0.6717,
+        "cited_support": 0.9426,
+        "claims_cited": 1.0,
+        "grounded_accuracy": 0.6217,
+        "json_first_try": 1.0,
+        "latency_ms": 5167.2,
+        "med_f1": 0.7949,
+        "med_precision": 0.8955,
+        "med_recall": 0.7722,
+        "ok": 1.0,
+        "n": 63
+      },
+      "identity": {
+        "abstained": 1.0,
+        "accuracy": 0.0,
+        "all_correct": 0.0,
+        "grounded_accuracy": 0.0,
+        "json_first_try": 0.0,
+        "latency_ms": 0.0,
+        "ok": 1.0,
+        "n": 84,
+        "false_attribution": 0.0
+      },
+      "answerable_grounded_accuracy_ci95": [
+        0.8148,
+        0.8986
+      ]
+    },
+    "minutes": 18.2
+  },
+  "0.60": {
+    "threshold": 0.6,
+    "redaction": {
+      "overall": {
+        "precision": 0.9986697705354174,
+        "recall": 0.9987251261016573,
+        "f1": 0.9986974475514786,
+        "tp": 18018,
+        "fp": 24,
+        "fn": 23
+      },
+      "masking": {
+        "n": 18041,
+        "masked_recall": 0.9997782828002882,
+        "fully_masked_rate": 0.991353029211241,
+        "char_leakage": 0.0023606589107097184
+      },
+      "per_type_f1": {
+        "PHONE_NUMBER": 0.9995014126641183,
+        "PATIENT_ID": 1.0,
+        "DATE_OF_BIRTH": 1.0,
+        "EMAIL": 1.0,
+        "NAME": 0.998004655803126,
+        "ADDRESS": 0.9934167215273206
+      },
+      "over_redactions": 0
+    },
+    "leak_audit": {
+      "n": 18041,
+      "full_leak_rate": 0.0001,
+      "partial_leak_rate": 0.0004,
+      "per_type": {
+        "ADDRESS": {
+          "n": 1509,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "DATE_OF_BIRTH": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "EMAIL": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "NAME": {
+          "n": 6022,
+          "full_leak_rate": 0.0003,
+          "partial_leak_rate": 0.0012
+        },
+        "PATIENT_ID": {
+          "n": 2500,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        },
+        "PHONE_NUMBER": {
+          "n": 3010,
+          "full_leak_rate": 0.0,
+          "partial_leak_rate": 0.0
+        }
+      }
+    },
+    "retrieval_test": {
+      "answerable": {
+        "recall@1": 0.7919,
+        "evidence@1": 0.5185,
+        "context_chars@1": 134.6614,
+        "recall@3": 0.9136,
+        "evidence@3": 0.8034,
+        "context_chars@3": 420.5979,
+        "recall@5": 0.9744,
+        "evidence@5": 0.9145,
+        "context_chars@5": 703.3598,
+        "recall@10": 0.9943,
+        "evidence@10": 0.9489,
+        "context_chars@10": 1166.9418,
+        "recall@auto": 0.9943,
+        "evidence@auto": 0.9489,
+        "context_chars@auto": 955.4709,
+        "mrr": 0.9965,
+        "n": 189
+      },
+      "clinical_fact": {
+        "recall@1": 1.0,
+        "evidence@1": 0.7778,
+        "context_chars@1": 140.9127,
+        "recall@3": 1.0,
+        "evidence@3": 0.9762,
+        "context_chars@3": 425.5079,
+        "recall@5": 1.0,
+        "evidence@5": 1.0,
+        "context_chars@5": 706.8651,
+        "recall@10": 1.0,
+        "evidence@10": 1.0,
+        "context_chars@10": 1024.0714,
+        "recall@auto": 1.0,
+        "evidence@auto": 1.0,
+        "context_chars@auto": 706.8651,
+        "mrr": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "recall@1": 0.3757,
+        "evidence@1": 0.0,
+        "context_chars@1": 122.1587,
+        "recall@3": 0.7407,
+        "evidence@3": 0.4577,
+        "context_chars@3": 410.7778,
+        "recall@5": 0.9233,
+        "evidence@5": 0.7434,
+        "context_chars@5": 696.3492,
+        "recall@10": 0.9828,
+        "evidence@10": 0.8466,
+        "context_chars@10": 1452.6825,
+        "recall@auto": 0.9828,
+        "evidence@auto": 0.8466,
+        "context_chars@auto": 1452.6825,
+        "mrr": 0.9894,
+        "n": 63
+      },
+      "identity": {
+        "recall@1": 0.0,
+        "evidence@1": 0.0,
+        "context_chars@1": 135.0476,
+        "recall@3": 0.0,
+        "evidence@3": 0.0,
+        "context_chars@3": 378.7738,
+        "recall@5": 0.0,
+        "evidence@5": 0.0,
+        "context_chars@5": 643.1905,
+        "recall@10": 0.0,
+        "evidence@10": 0.0,
+        "context_chars@10": 1297.7024,
+        "recall@auto": 0.0,
+        "evidence@auto": 0.0,
+        "context_chars@auto": 643.1905,
+        "mrr": 0.0,
+        "n": 84
+      },
+      "answerable_evidence@auto_ci95": [
+        0.9224,
+        0.9718
+      ]
+    },
+    "generation_test": {
+      "answerable": {
+        "abstained": 0.0,
+        "accuracy": 0.9189,
+        "all_correct": 0.836,
+        "cited_from_gold_note": 0.89,
+        "cited_support": 0.9704,
+        "claims_cited": 0.9947,
+        "grounded_accuracy": 0.858,
+        "json_first_try": 1.0,
+        "latency_ms": 3671.1,
+        "med_f1": 0.8548,
+        "med_precision": 0.926,
+        "med_recall": 0.8388,
+        "ok": 1.0,
+        "n": 189
+      },
+      "clinical_fact": {
+        "abstained": 0.0,
+        "accuracy": 1.0,
+        "all_correct": 1.0,
+        "cited_from_gold_note": 1.0,
+        "cited_support": 0.984,
+        "claims_cited": 0.9921,
+        "grounded_accuracy": 0.9762,
+        "json_first_try": 1.0,
+        "latency_ms": 2922.7,
+        "med_f1": 1.0,
+        "med_precision": 1.0,
+        "med_recall": 1.0,
+        "ok": 1.0,
+        "n": 126
+      },
+      "aggregate": {
+        "abstained": 0.0,
+        "accuracy": 0.7566,
+        "all_correct": 0.5079,
+        "cited_from_gold_note": 0.6717,
+        "cited_support": 0.9426,
+        "claims_cited": 1.0,
+        "grounded_accuracy": 0.6217,
+        "json_first_try": 1.0,
+        "latency_ms": 5167.8,
+        "med_f1": 0.7949,
+        "med_precision": 0.8955,
+        "med_recall": 0.7722,
+        "ok": 1.0,
+        "n": 63
+      },
+      "identity": {
+        "abstained": 1.0,
+        "accuracy": 0.0,
+        "all_correct": 0.0,
+        "grounded_accuracy": 0.0,
+        "json_first_try": 0.0,
+        "latency_ms": 0.0,
+        "ok": 1.0,
+        "n": 84,
+        "false_attribution": 0.0
+      },
+      "answerable_grounded_accuracy_ci95": [
+        0.8148,
+        0.8986
+      ]
+    },
+    "minutes": 18.3
+  },
+  "0.70": {
+    "threshold": 0.7,
+    "redaction": {
+      "overall": {
+        "precision": 0.9986697705354174,
+        "recall": 0.9987251261016573,
+        "f1": 0.9986974475514786,
+        "tp": 18018,
+        "fp": 24,
+        "fn": 23
+      },
+      "masking": {
+        "n": 18041,
+        "masked_recall": 0.9997782828002882,
+        "fully_masked_rate": 0.991353029211241,
+        "char_leakage": 0.0023606589107097184
+      },
+      "per_type_f1": {
+        "NAME": 0.998004655803126,
+        "DATE_OF_BIRTH": 1.0,
         "PHONE_NUMBER": 0.9995014126641183,
         "PATIENT_ID": 1.0,
         "EMAIL": 1.0,
@@ -340,16 +979,16 @@
         "context_chars@1": 135.0476,
         "recall@3": 0.0,
         "evidence@3": 0.0,
-        "context_chars@3": 402.8571,
+        "context_chars@3": 378.7738,
         "recall@5": 0.0,
         "evidence@5": 0.0,
-        "context_chars@5": 673.9405,
+        "context_chars@5": 643.1905,
         "recall@10": 0.0,
         "evidence@10": 0.0,
-        "context_chars@10": 1332.5952,
+        "context_chars@10": 1297.7024,
         "recall@auto": 0.0,
         "evidence@auto": 0.0,
-        "context_chars@auto": 673.9405,
+        "context_chars@auto": 643.1905,
         "mrr": 0.0,
         "n": 84
       },
@@ -368,7 +1007,7 @@
         "claims_cited": 0.9947,
         "grounded_accuracy": 0.858,
         "json_first_try": 1.0,
-        "latency_ms": 3780.1,
+        "latency_ms": 3695.7,
         "med_f1": 0.8548,
         "med_precision": 0.926,
         "med_recall": 0.8388,
@@ -384,7 +1023,7 @@
         "claims_cited": 0.9921,
         "grounded_accuracy": 0.9762,
         "json_first_try": 1.0,
-        "latency_ms": 3007.1,
+        "latency_ms": 2947.6,
         "med_f1": 1.0,
         "med_precision": 1.0,
         "med_recall": 1.0,
@@ -400,7 +1039,7 @@
         "claims_cited": 1.0,
         "grounded_accuracy": 0.6217,
         "json_first_try": 1.0,
-        "latency_ms": 5326.0,
+        "latency_ms": 5191.9,
         "med_f1": 0.7949,
         "med_precision": 0.8955,
         "med_recall": 0.7722,
@@ -423,646 +1062,7 @@
         0.8986
       ]
     },
-    "minutes": 18.9
-  },
-  "0.50": {
-    "threshold": 0.5,
-    "redaction": {
-      "overall": {
-        "precision": 0.9986697705354174,
-        "recall": 0.9987251261016573,
-        "f1": 0.9986974475514786,
-        "tp": 18018,
-        "fp": 24,
-        "fn": 23
-      },
-      "masking": {
-        "n": 18041,
-        "masked_recall": 0.9997782828002882,
-        "fully_masked_rate": 0.991353029211241,
-        "char_leakage": 0.0023606589107097184
-      },
-      "per_type_f1": {
-        "EMAIL": 1.0,
-        "PATIENT_ID": 1.0,
-        "DATE_OF_BIRTH": 1.0,
-        "PHONE_NUMBER": 0.9995014126641183,
-        "NAME": 0.998004655803126,
-        "ADDRESS": 0.9934167215273206
-      },
-      "over_redactions": 0
-    },
-    "leak_audit": {
-      "n": 18041,
-      "full_leak_rate": 0.0001,
-      "partial_leak_rate": 0.0004,
-      "per_type": {
-        "ADDRESS": {
-          "n": 1509,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "DATE_OF_BIRTH": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "EMAIL": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "NAME": {
-          "n": 6022,
-          "full_leak_rate": 0.0003,
-          "partial_leak_rate": 0.0012
-        },
-        "PATIENT_ID": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "PHONE_NUMBER": {
-          "n": 3010,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        }
-      }
-    },
-    "retrieval_test": {
-      "answerable": {
-        "recall@1": 0.7919,
-        "evidence@1": 0.5185,
-        "context_chars@1": 134.6614,
-        "recall@3": 0.9136,
-        "evidence@3": 0.8034,
-        "context_chars@3": 420.5979,
-        "recall@5": 0.9744,
-        "evidence@5": 0.9145,
-        "context_chars@5": 703.3598,
-        "recall@10": 0.9943,
-        "evidence@10": 0.9489,
-        "context_chars@10": 1166.9418,
-        "recall@auto": 0.9943,
-        "evidence@auto": 0.9489,
-        "context_chars@auto": 955.4709,
-        "mrr": 0.9965,
-        "n": 189
-      },
-      "clinical_fact": {
-        "recall@1": 1.0,
-        "evidence@1": 0.7778,
-        "context_chars@1": 140.9127,
-        "recall@3": 1.0,
-        "evidence@3": 0.9762,
-        "context_chars@3": 425.5079,
-        "recall@5": 1.0,
-        "evidence@5": 1.0,
-        "context_chars@5": 706.8651,
-        "recall@10": 1.0,
-        "evidence@10": 1.0,
-        "context_chars@10": 1024.0714,
-        "recall@auto": 1.0,
-        "evidence@auto": 1.0,
-        "context_chars@auto": 706.8651,
-        "mrr": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "recall@1": 0.3757,
-        "evidence@1": 0.0,
-        "context_chars@1": 122.1587,
-        "recall@3": 0.7407,
-        "evidence@3": 0.4577,
-        "context_chars@3": 410.7778,
-        "recall@5": 0.9233,
-        "evidence@5": 0.7434,
-        "context_chars@5": 696.3492,
-        "recall@10": 0.9828,
-        "evidence@10": 0.8466,
-        "context_chars@10": 1452.6825,
-        "recall@auto": 0.9828,
-        "evidence@auto": 0.8466,
-        "context_chars@auto": 1452.6825,
-        "mrr": 0.9894,
-        "n": 63
-      },
-      "identity": {
-        "recall@1": 0.0,
-        "evidence@1": 0.0,
-        "context_chars@1": 140.3452,
-        "recall@3": 0.0,
-        "evidence@3": 0.0,
-        "context_chars@3": 424.2619,
-        "recall@5": 0.0,
-        "evidence@5": 0.0,
-        "context_chars@5": 708.5952,
-        "recall@10": 0.0,
-        "evidence@10": 0.0,
-        "context_chars@10": 1400.4405,
-        "recall@auto": 0.0,
-        "evidence@auto": 0.0,
-        "context_chars@auto": 708.5952,
-        "mrr": 0.0,
-        "n": 84
-      },
-      "answerable_evidence@auto_ci95": [
-        0.9224,
-        0.9718
-      ]
-    },
-    "generation_test": {
-      "answerable": {
-        "abstained": 0.0,
-        "accuracy": 0.9189,
-        "all_correct": 0.836,
-        "cited_from_gold_note": 0.89,
-        "cited_support": 0.9704,
-        "claims_cited": 0.9947,
-        "grounded_accuracy": 0.858,
-        "json_first_try": 1.0,
-        "latency_ms": 3775.1,
-        "med_f1": 0.8548,
-        "med_precision": 0.926,
-        "med_recall": 0.8388,
-        "ok": 1.0,
-        "n": 189
-      },
-      "clinical_fact": {
-        "abstained": 0.0,
-        "accuracy": 1.0,
-        "all_correct": 1.0,
-        "cited_from_gold_note": 1.0,
-        "cited_support": 0.984,
-        "claims_cited": 0.9921,
-        "grounded_accuracy": 0.9762,
-        "json_first_try": 1.0,
-        "latency_ms": 2996.7,
-        "med_f1": 1.0,
-        "med_precision": 1.0,
-        "med_recall": 1.0,
-        "ok": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "abstained": 0.0,
-        "accuracy": 0.7566,
-        "all_correct": 0.5079,
-        "cited_from_gold_note": 0.6717,
-        "cited_support": 0.9426,
-        "claims_cited": 1.0,
-        "grounded_accuracy": 0.6217,
-        "json_first_try": 1.0,
-        "latency_ms": 5331.8,
-        "med_f1": 0.7949,
-        "med_precision": 0.8955,
-        "med_recall": 0.7722,
-        "ok": 1.0,
-        "n": 63
-      },
-      "identity": {
-        "abstained": 1.0,
-        "accuracy": 0.0,
-        "all_correct": 0.0,
-        "grounded_accuracy": 0.0,
-        "json_first_try": 0.0,
-        "latency_ms": 0.0,
-        "ok": 1.0,
-        "n": 84,
-        "false_attribution": 0.0
-      },
-      "answerable_grounded_accuracy_ci95": [
-        0.8148,
-        0.8986
-      ]
-    },
-    "minutes": 18.9
-  },
-  "0.60": {
-    "threshold": 0.6,
-    "redaction": {
-      "overall": {
-        "precision": 0.9986697705354174,
-        "recall": 0.9987251261016573,
-        "f1": 0.9986974475514786,
-        "tp": 18018,
-        "fp": 24,
-        "fn": 23
-      },
-      "masking": {
-        "n": 18041,
-        "masked_recall": 0.9997782828002882,
-        "fully_masked_rate": 0.991353029211241,
-        "char_leakage": 0.0023606589107097184
-      },
-      "per_type_f1": {
-        "NAME": 0.998004655803126,
-        "PATIENT_ID": 1.0,
-        "DATE_OF_BIRTH": 1.0,
-        "EMAIL": 1.0,
-        "PHONE_NUMBER": 0.9995014126641183,
-        "ADDRESS": 0.9934167215273206
-      },
-      "over_redactions": 0
-    },
-    "leak_audit": {
-      "n": 18041,
-      "full_leak_rate": 0.0001,
-      "partial_leak_rate": 0.0004,
-      "per_type": {
-        "ADDRESS": {
-          "n": 1509,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "DATE_OF_BIRTH": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "EMAIL": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "NAME": {
-          "n": 6022,
-          "full_leak_rate": 0.0003,
-          "partial_leak_rate": 0.0012
-        },
-        "PATIENT_ID": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "PHONE_NUMBER": {
-          "n": 3010,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        }
-      }
-    },
-    "retrieval_test": {
-      "answerable": {
-        "recall@1": 0.7919,
-        "evidence@1": 0.5185,
-        "context_chars@1": 134.6614,
-        "recall@3": 0.9136,
-        "evidence@3": 0.8034,
-        "context_chars@3": 420.5979,
-        "recall@5": 0.9744,
-        "evidence@5": 0.9145,
-        "context_chars@5": 703.3598,
-        "recall@10": 0.9943,
-        "evidence@10": 0.9489,
-        "context_chars@10": 1166.9418,
-        "recall@auto": 0.9943,
-        "evidence@auto": 0.9489,
-        "context_chars@auto": 955.4709,
-        "mrr": 0.9965,
-        "n": 189
-      },
-      "clinical_fact": {
-        "recall@1": 1.0,
-        "evidence@1": 0.7778,
-        "context_chars@1": 140.9127,
-        "recall@3": 1.0,
-        "evidence@3": 0.9762,
-        "context_chars@3": 425.5079,
-        "recall@5": 1.0,
-        "evidence@5": 1.0,
-        "context_chars@5": 706.8651,
-        "recall@10": 1.0,
-        "evidence@10": 1.0,
-        "context_chars@10": 1024.0714,
-        "recall@auto": 1.0,
-        "evidence@auto": 1.0,
-        "context_chars@auto": 706.8651,
-        "mrr": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "recall@1": 0.3757,
-        "evidence@1": 0.0,
-        "context_chars@1": 122.1587,
-        "recall@3": 0.7407,
-        "evidence@3": 0.4577,
-        "context_chars@3": 410.7778,
-        "recall@5": 0.9233,
-        "evidence@5": 0.7434,
-        "context_chars@5": 696.3492,
-        "recall@10": 0.9828,
-        "evidence@10": 0.8466,
-        "context_chars@10": 1452.6825,
-        "recall@auto": 0.9828,
-        "evidence@auto": 0.8466,
-        "context_chars@auto": 1452.6825,
-        "mrr": 0.9894,
-        "n": 63
-      },
-      "identity": {
-        "recall@1": 0.0,
-        "evidence@1": 0.0,
-        "context_chars@1": 133.0476,
-        "recall@3": 0.0,
-        "evidence@3": 0.0,
-        "context_chars@3": 400.5833,
-        "recall@5": 0.0,
-        "evidence@5": 0.0,
-        "context_chars@5": 662.4405,
-        "recall@10": 0.0,
-        "evidence@10": 0.0,
-        "context_chars@10": 1311.6071,
-        "recall@auto": 0.0,
-        "evidence@auto": 0.0,
-        "context_chars@auto": 662.4405,
-        "mrr": 0.0,
-        "n": 84
-      },
-      "answerable_evidence@auto_ci95": [
-        0.9224,
-        0.9718
-      ]
-    },
-    "generation_test": {
-      "answerable": {
-        "abstained": 0.0,
-        "accuracy": 0.9189,
-        "all_correct": 0.836,
-        "cited_from_gold_note": 0.89,
-        "cited_support": 0.9704,
-        "claims_cited": 0.9947,
-        "grounded_accuracy": 0.858,
-        "json_first_try": 1.0,
-        "latency_ms": 3751.5,
-        "med_f1": 0.8548,
-        "med_precision": 0.926,
-        "med_recall": 0.8388,
-        "ok": 1.0,
-        "n": 189
-      },
-      "clinical_fact": {
-        "abstained": 0.0,
-        "accuracy": 1.0,
-        "all_correct": 1.0,
-        "cited_from_gold_note": 1.0,
-        "cited_support": 0.984,
-        "claims_cited": 0.9921,
-        "grounded_accuracy": 0.9762,
-        "json_first_try": 1.0,
-        "latency_ms": 2989.2,
-        "med_f1": 1.0,
-        "med_precision": 1.0,
-        "med_recall": 1.0,
-        "ok": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "abstained": 0.0,
-        "accuracy": 0.7566,
-        "all_correct": 0.5079,
-        "cited_from_gold_note": 0.6717,
-        "cited_support": 0.9426,
-        "claims_cited": 1.0,
-        "grounded_accuracy": 0.6217,
-        "json_first_try": 1.0,
-        "latency_ms": 5276.3,
-        "med_f1": 0.7949,
-        "med_precision": 0.8955,
-        "med_recall": 0.7722,
-        "ok": 1.0,
-        "n": 63
-      },
-      "identity": {
-        "abstained": 1.0,
-        "accuracy": 0.0,
-        "all_correct": 0.0,
-        "grounded_accuracy": 0.0,
-        "json_first_try": 0.0,
-        "latency_ms": 0.0,
-        "ok": 1.0,
-        "n": 84,
-        "false_attribution": 0.0
-      },
-      "answerable_grounded_accuracy_ci95": [
-        0.8148,
-        0.8986
-      ]
-    },
-    "minutes": 18.8
-  },
-  "0.70": {
-    "threshold": 0.7,
-    "redaction": {
-      "overall": {
-        "precision": 0.9986697705354174,
-        "recall": 0.9987251261016573,
-        "f1": 0.9986974475514786,
-        "tp": 18018,
-        "fp": 24,
-        "fn": 23
-      },
-      "masking": {
-        "n": 18041,
-        "masked_recall": 0.9997782828002882,
-        "fully_masked_rate": 0.991353029211241,
-        "char_leakage": 0.0023606589107097184
-      },
-      "per_type_f1": {
-        "PATIENT_ID": 1.0,
-        "EMAIL": 1.0,
-        "NAME": 0.998004655803126,
-        "PHONE_NUMBER": 0.9995014126641183,
-        "DATE_OF_BIRTH": 1.0,
-        "ADDRESS": 0.9934167215273206
-      },
-      "over_redactions": 0
-    },
-    "leak_audit": {
-      "n": 18041,
-      "full_leak_rate": 0.0001,
-      "partial_leak_rate": 0.0004,
-      "per_type": {
-        "ADDRESS": {
-          "n": 1509,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "DATE_OF_BIRTH": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "EMAIL": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "NAME": {
-          "n": 6022,
-          "full_leak_rate": 0.0003,
-          "partial_leak_rate": 0.0012
-        },
-        "PATIENT_ID": {
-          "n": 2500,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        },
-        "PHONE_NUMBER": {
-          "n": 3010,
-          "full_leak_rate": 0.0,
-          "partial_leak_rate": 0.0
-        }
-      }
-    },
-    "retrieval_test": {
-      "answerable": {
-        "recall@1": 0.7919,
-        "evidence@1": 0.5185,
-        "context_chars@1": 134.6614,
-        "recall@3": 0.9136,
-        "evidence@3": 0.8034,
-        "context_chars@3": 420.5979,
-        "recall@5": 0.9744,
-        "evidence@5": 0.9145,
-        "context_chars@5": 703.3598,
-        "recall@10": 0.9943,
-        "evidence@10": 0.9489,
-        "context_chars@10": 1166.9418,
-        "recall@auto": 0.9943,
-        "evidence@auto": 0.9489,
-        "context_chars@auto": 955.4709,
-        "mrr": 0.9965,
-        "n": 189
-      },
-      "clinical_fact": {
-        "recall@1": 1.0,
-        "evidence@1": 0.7778,
-        "context_chars@1": 140.9127,
-        "recall@3": 1.0,
-        "evidence@3": 0.9762,
-        "context_chars@3": 425.5079,
-        "recall@5": 1.0,
-        "evidence@5": 1.0,
-        "context_chars@5": 706.8651,
-        "recall@10": 1.0,
-        "evidence@10": 1.0,
-        "context_chars@10": 1024.0714,
-        "recall@auto": 1.0,
-        "evidence@auto": 1.0,
-        "context_chars@auto": 706.8651,
-        "mrr": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "recall@1": 0.3757,
-        "evidence@1": 0.0,
-        "context_chars@1": 122.1587,
-        "recall@3": 0.7407,
-        "evidence@3": 0.4577,
-        "context_chars@3": 410.7778,
-        "recall@5": 0.9233,
-        "evidence@5": 0.7434,
-        "context_chars@5": 696.3492,
-        "recall@10": 0.9828,
-        "evidence@10": 0.8466,
-        "context_chars@10": 1452.6825,
-        "recall@auto": 0.9828,
-        "evidence@auto": 0.8466,
-        "context_chars@auto": 1452.6825,
-        "mrr": 0.9894,
-        "n": 63
-      },
-      "identity": {
-        "recall@1": 0.0,
-        "evidence@1": 0.0,
-        "context_chars@1": 133.0476,
-        "recall@3": 0.0,
-        "evidence@3": 0.0,
-        "context_chars@3": 399.0238,
-        "recall@5": 0.0,
-        "evidence@5": 0.0,
-        "context_chars@5": 667.8571,
-        "recall@10": 0.0,
-        "evidence@10": 0.0,
-        "context_chars@10": 1324.7619,
-        "recall@auto": 0.0,
-        "evidence@auto": 0.0,
-        "context_chars@auto": 667.8571,
-        "mrr": 0.0,
-        "n": 84
-      },
-      "answerable_evidence@auto_ci95": [
-        0.9224,
-        0.9718
-      ]
-    },
-    "generation_test": {
-      "answerable": {
-        "abstained": 0.0,
-        "accuracy": 0.9189,
-        "all_correct": 0.836,
-        "cited_from_gold_note": 0.89,
-        "cited_support": 0.9704,
-        "claims_cited": 0.9947,
-        "grounded_accuracy": 0.858,
-        "json_first_try": 1.0,
-        "latency_ms": 3708.0,
-        "med_f1": 0.8548,
-        "med_precision": 0.926,
-        "med_recall": 0.8388,
-        "ok": 1.0,
-        "n": 189
-      },
-      "clinical_fact": {
-        "abstained": 0.0,
-        "accuracy": 1.0,
-        "all_correct": 1.0,
-        "cited_from_gold_note": 1.0,
-        "cited_support": 0.984,
-        "claims_cited": 0.9921,
-        "grounded_accuracy": 0.9762,
-        "json_first_try": 1.0,
-        "latency_ms": 2950.3,
-        "med_f1": 1.0,
-        "med_precision": 1.0,
-        "med_recall": 1.0,
-        "ok": 1.0,
-        "n": 126
-      },
-      "aggregate": {
-        "abstained": 0.0,
-        "accuracy": 0.7566,
-        "all_correct": 0.5079,
-        "cited_from_gold_note": 0.6717,
-        "cited_support": 0.9426,
-        "claims_cited": 1.0,
-        "grounded_accuracy": 0.6217,
-        "json_first_try": 1.0,
-        "latency_ms": 5223.5,
-        "med_f1": 0.7949,
-        "med_precision": 0.8955,
-        "med_recall": 0.7722,
-        "ok": 1.0,
-        "n": 63
-      },
-      "identity": {
-        "abstained": 1.0,
-        "accuracy": 0.0,
-        "all_correct": 0.0,
-        "grounded_accuracy": 0.0,
-        "json_first_try": 0.0,
-        "latency_ms": 0.0,
-        "ok": 1.0,
-        "n": 84,
-        "false_attribution": 0.0
-      },
-      "answerable_grounded_accuracy_ci95": [
-        0.8148,
-        0.8986
-      ]
-    },
-    "minutes": 18.6
+    "minutes": 18.3
   },
   "0.80": {
     "threshold": 0.8,
@@ -1082,11 +1082,11 @@
         "char_leakage": 0.018536184096831946
       },
       "per_type_f1": {
-        "PATIENT_ID": 1.0,
-        "EMAIL": 1.0,
-        "PHONE_NUMBER": 0.9151198414128672,
-        "DATE_OF_BIRTH": 1.0,
         "NAME": 0.998004655803126,
+        "EMAIL": 1.0,
+        "DATE_OF_BIRTH": 1.0,
+        "PATIENT_ID": 1.0,
+        "PHONE_NUMBER": 0.9151198414128672,
         "ADDRESS": 0.9934167215273206
       },
       "over_redactions": 0
@@ -1189,19 +1189,19 @@
       "identity": {
         "recall@1": 0.0,
         "evidence@1": 0.0,
-        "context_chars@1": 133.0476,
+        "context_chars@1": 135.0476,
         "recall@3": 0.0,
         "evidence@3": 0.0,
-        "context_chars@3": 400.5833,
+        "context_chars@3": 378.7738,
         "recall@5": 0.0,
         "evidence@5": 0.0,
-        "context_chars@5": 662.4405,
+        "context_chars@5": 643.1905,
         "recall@10": 0.0,
         "evidence@10": 0.0,
-        "context_chars@10": 1314.2262,
+        "context_chars@10": 1297.7024,
         "recall@auto": 0.0,
         "evidence@auto": 0.0,
-        "context_chars@auto": 662.4405,
+        "context_chars@auto": 643.1905,
         "mrr": 0.0,
         "n": 84
       },
@@ -1220,7 +1220,7 @@
         "claims_cited": 0.9947,
         "grounded_accuracy": 0.858,
         "json_first_try": 1.0,
-        "latency_ms": 3790.0,
+        "latency_ms": 3685.7,
         "med_f1": 0.8548,
         "med_precision": 0.926,
         "med_recall": 0.8388,
@@ -1236,7 +1236,7 @@
         "claims_cited": 0.9921,
         "grounded_accuracy": 0.9762,
         "json_first_try": 1.0,
-        "latency_ms": 3020.4,
+        "latency_ms": 2941.5,
         "med_f1": 1.0,
         "med_precision": 1.0,
         "med_recall": 1.0,
@@ -1252,7 +1252,7 @@
         "claims_cited": 1.0,
         "grounded_accuracy": 0.6217,
         "json_first_try": 1.0,
-        "latency_ms": 5329.1,
+        "latency_ms": 5174.2,
         "med_f1": 0.7949,
         "med_precision": 0.8955,
         "med_recall": 0.7722,
@@ -1275,6 +1275,6 @@
         0.8986
       ]
     },
-    "minutes": 18.9
+    "minutes": 18.3
   }
 }

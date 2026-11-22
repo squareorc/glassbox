@@ -121,6 +121,36 @@ def test_k_is_capped():
         retriever.retrieve("asthma", k=50)
 
 
+# Day 5 fix: dense search is exact. ChromaDB's HNSW top-50 shared as few as 23 of 50 chunks
+# with the exact top-50 on unfiltered (identity) questions, and could differ between processes.
+UNFILTERED = ["What is the diagnosis for patient P385683?", "What symptom did Tyler Juarez report?"]
+
+
+@pytest.mark.parametrize("question", UNFILTERED)
+def test_dense_search_is_exact(question):
+    import numpy as np
+    from glassbox.src.retrieval.index import embed_query
+    r = Retriever(_index("raw"), baseline=True)
+    stored = r.collection.get(include=["embeddings"])          # brute force, independent of the matrix order
+    sims = np.asarray(stored["embeddings"]) @ np.asarray(embed_query(question))
+    best = [stored["ids"][i] for i in np.argsort(-sims, kind="stable")[:20]]
+    got = [r.chunks[i]["chunk_id"] for i, _ in r._dense(question, 20, {})]
+    assert got == best
+
+
+def test_dense_search_is_reproducible_across_instances():
+    a, b = Retriever(_index("raw"), baseline=True), Retriever(_index("raw"), baseline=True)
+    for q in UNFILTERED:
+        assert [c["chunk_id"] for c in a.retrieve(q)] == [c["chunk_id"] for c in b.retrieve(q)]
+
+
+def test_filtered_dense_search_unchanged_from_chroma():
+    """With filters Chroma searches exhaustively, so exact and HNSW agree: the fix leaves filtered questions alone."""
+    ex, hn = Retriever(_index("redacted")), Retriever(_index("redacted"), dense_backend="hnsw")
+    q = "What medication was prescribed for the Essential hypertension patient whose note is dated 2024-11-10?"
+    assert [c["chunk_id"] for c in ex.retrieve(q)] == [c["chunk_id"] for c in hn.retrieve(q)]
+
+
 # ---------------------------------------------------------------- query analysis
 
 from glassbox.src.retrieval.query_analysis import analyze_query, chroma_where, matches  # noqa: E402

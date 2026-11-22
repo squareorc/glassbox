@@ -460,7 +460,7 @@
         }
       }
     },
-    "ms_per_item": 56.6
+    "ms_per_item": 26.3
   },
   "real_answers_test": {
     "claim_labels": {
@@ -489,12 +489,11 @@
   },
   "guard_off_identity_claims": {
     "without_rewriting": {
-      "SUPPORTED": 93,
-      "UNSUPPORTED": 1
+      "SUPPORTED": 118
     },
     "with_rewriting": {
-      "SUPPORTED": 57,
-      "UNSUPPORTED": 37
+      "SUPPORTED": 78,
+      "UNSUPPORTED": 40
     }
   }
 }
