@@ -935,6 +935,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Determinism checked: generation and verification were run twice from scratch with exact search; all 900 stored answers identical, summaries identical apart from timings.
 - Demo tooling (PLAN 6.3): Demo page in the dashboard (six one-click steps incl. "try to fool the verifier"), `python -m glassbox.verify` (re-runs 10 stored questions live: 10/10 identical in 34 s), `DEMO.md` script. Tests 161 → 170 (165 fast + 4 slow + 1 xfail).
 - Evening: headless real-model dry run of the dashboard (every button, no errors); live traces separated from the evaluation run; Stored traces open on the test split; figures E1–E8 (`experiments/figures.py`, §15) and an Experiments page; synthetic replication E9 run. Tests 167 + 4 slow + 1 xfail. E9: synthetic GlassBox 0.942 vs raw 0.916, identity 0 vs 25 of 35; the log scan caught one missed synthetic name that reached an answer (§14.3, §15.1); live dashboard traces now totalled separately in the scan.
+- With the owner's OK: stale docs moved to `docs/archive/` (with a note on what replaced them); `pipeline-build` merged into `main` (fast-forward) and both pushed.
 
 ---
 

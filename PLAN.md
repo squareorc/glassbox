@@ -173,7 +173,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 | 7.1 ✅ | `README.md` rewrite: purpose, architecture diagram, setup, quick start (`run.py`, dashboard), results summary with figures, limitations, reproduction commands | All numbers from `summary.json`; old numbers removed |
 | 7.2 ✅ | `report_draft.md` refresh: methods per stage, experiments E1–E9, limitations (held-out gap, name bias, verification vs misattribution, synthetic data) | Consistent with `PROGRESS.md` |
 | 7.3 | `PROGRESS.md` final pass: status, final numbers, daily log | Groupmate can write the report from it |
-| 7.4 | Remove or archive stale docs (`REALISTIC_DATASET_EVALUATION.md`, `demo_dashboard.html`) after checking with the owner | Owner approved |
+| 7.4 ✅ | Remove or archive stale docs (`REALISTIC_DATASET_EVALUATION.md`, `demo_dashboard.html`) after checking with the owner | Owner approved |
 
 ## Phase 8: Polish and buffer (Nov 27) ⬜
 
@@ -181,7 +181,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 |---|---|---|
 | 8.1 | Full clean-run check: fresh venv from `requirements.txt`, regenerate data → redaction → indexes → evaluations → figures; tests pass | ⬜ |
 | 8.2 | Demo rehearsal following `DEMO.md` (Demo page + `glassbox.verify`); backup screen recording (owner) | ⬜ |
-| 8.3 | Merge `pipeline-build` into `main` (with the owner's approval) | ⬜ |
+| 8.3 | Merge `pipeline-build` into `main` (with the owner's approval) | ✅ Nov 22 (fast-forward) |
 | 8.4 | ◻ Generation: prompt rule to cite every section a claim relies on (fixes incomplete citations, §7.5), tuned on dev | ◻ |
 | 8.5 | ◻ Robustness round 2: dash/day-first date formats, day/month ambiguity (try both readings when one matches no note), "w/" as condition marker, Title-Case question guard; evaluated on a **new** held-out set C | ◻ |
 | 8.6 | ◻ Redaction: PO boxes, multi-line addresses; name-origin bias mitigation | ◻ |
