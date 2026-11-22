@@ -3,7 +3,7 @@
 The plan from start to finish, kept current. Status: ✅ done · ⏳ in progress · ⬜ to do · ◻ optional.
 Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets built, in what order, and **when it counts as done**.
 
-**Deadline:** 2026-11-28 · **Branch:** `pipeline-build` · **Last updated:** 2026-11-22
+**Deadline:** 2026-11-28 · **Branch:** `pipeline-build` · **Last updated:** 2026-11-22 (Day 5)
 
 ---
 
@@ -89,7 +89,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 
 ---
 
-## Phase 5: Integration (Nov 23–24) ⏳
+## Phase 5: Integration (Nov 22, two days early) ✅
 
 ### 5.1 Redaction threshold sweep ✅
 - Thresholds 0.3–0.8; for each: redaction P/R/F1, masking, over-redactions, leak audit, retrieval evidence, grounded accuracy, identity answered. Script: `glassbox/src/experiments/threshold_sweep.py` → `results/experiments/threshold_sweep.json`.
@@ -97,7 +97,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 - Afterwards: confirm the sweep's t=0.50 point reproduces the main results (each threshold has its own `processed/t<thr>/` folder and index, so the 0.50 outputs are regenerated, not replaced by another threshold), and re-measure verifier speed on a free GPU.
 - **Result:** plateau from 0.4 to 0.7; 0.3 over-redacts (4,219); 0.8 leaks 15.6% of phones. 0.5 reproduces the main results exactly; verifier 28 ms per claim on an idle GPU. See PROGRESS §5.1.
 
-### 5.2 Orchestrator ⬜ (`glassbox/run.py` + `glassbox/src/pipeline.py`)
+### 5.2 Orchestrator ✅ (`glassbox/run.py` + `glassbox/src/pipeline.py`)
 - One function `answer(question, dataset="realistic", baseline=False) -> trace` and a CLI (`python -m glassbox.run "question"` and `--qa-id`, `--batch file`).
 - Stages: question redaction → query analysis → retrieval → abstain guard → generation → verification. Models are loaded once and reused.
 - **Trace JSON** (one file per question in `glassbox/logs/traces/`), schema:
@@ -109,13 +109,15 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
   - `verification`: per-claim label, probabilities, premise chunks; answer verdict
   - `timings` per stage
 - **Done when:** a trace for every QA question can be produced in batch; no original question text or PII value appears in any trace (tested); end-to-end test with real models (`GLASSBOX_SLOW=1`).
+- **Result:** 390 questions × 3 configs; reproduces the evaluation exactly (test grounded 0.858, identity 0/84, all 390 answers identical); 3.2 s median per question. PROGRESS §14.1–14.2.
 
-### 5.3 Housekeeping ⬜
+### 5.3 Housekeeping ✅
 - Regenerate stale logs: re-run `retrieval.evaluate` (fixes the pre-fix "Tiffany Price" logs and the 4 identity questions whose retrieval changed).
 - Make the per-question retrieval results match current code.
 - **Done when:** a PII scan of all redacted-system logs finds 0 identity names/IDs.
+- **Result:** `experiments/log_pii_scan.py`; found and scrubbed one pre-fix name in the v1/v2 prompt-dev files; now 0 in all privacy-side logs, traces and committed answers (raw baseline as positive control). Headline retrieval unchanged (0.949). PROGRESS §14.2–14.3.
 
-### 5.4 Dashboard skeleton ⬜ (`glassbox/src/dashboard/app.py`, Streamlit)
+### 5.4 Dashboard skeleton ✅ (`glassbox/src/dashboard/app.py`, Streamlit)
 - **Ask page:** a question box (or pick a QA question) → runs the orchestrator → shows the trace.
 - **Trace view (the audit), one panel per stage:**
   1. Question: original (shown only to the local user) vs redacted, identifiers found, guard decision.
@@ -125,6 +127,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
   5. Verification: label badge per claim with probabilities; answer verdict.
 - Reads traces only (no recomputation for stored traces).
 - **Done when:** the app launches locally and renders any stored trace.
+- **Result:** Ask + Stored traces pages, per-stage trace view; headless AppTest renders 6 trace kinds. Browser check on Day 6. PROGRESS §14.4.
 
 ## Phase 6: Experiments, figures, dashboard (Nov 25) ⬜
 

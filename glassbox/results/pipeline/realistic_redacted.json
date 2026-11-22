@@ -1,0 +1,165 @@
+{
+  "dataset": "realistic",
+  "config": {
+    "name": "redacted",
+    "dataset": "realistic",
+    "index": "redacted-t0.50-section",
+    "index_source": "redacted",
+    "baseline_mode": false,
+    "redaction_threshold": 0.5,
+    "question_redaction": true,
+    "abstain_guard": true,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "retrieval_method": "hybrid",
+    "fusion_weights": [
+      2.0,
+      1.0
+    ],
+    "per_note": 2,
+    "auto_k": {
+      "single_note": 5,
+      "multi_note": 10
+    },
+    "generator_model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "prompt_version": "v2",
+    "max_tokens": 400,
+    "verifier_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "verifier_margin": 0.0
+  },
+  "split": "all",
+  "types": null,
+  "limit": null,
+  "summary": {
+    "dev": {
+      "n": 117,
+      "n_answerable": 81,
+      "n_identity": 36,
+      "answerable_grounded_accuracy": 0.8961,
+      "answerable_grounded_accuracy_ci95": [
+        0.8457,
+        0.9434
+      ],
+      "clinical_fact_grounded_accuracy": 1.0,
+      "aggregate_grounded_accuracy": 0.6883,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 76,
+        "ABSTAINED": 36,
+        "NOT_VERIFIED": 5
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 76,
+          "grounded_accuracy": 0.9134
+        },
+        "NOT_VERIFIED": {
+          "n": 5,
+          "grounded_accuracy": 0.6333
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.7,
+        "retrieval": 28.2,
+        "generation": 2927.4,
+        "verification": 39.3,
+        "total": 3067.8
+      },
+      "latency_ms_median_when_model_called": 3453.1
+    },
+    "test": {
+      "n": 273,
+      "n_answerable": 189,
+      "n_identity": 84,
+      "answerable_grounded_accuracy": 0.858,
+      "answerable_grounded_accuracy_ci95": [
+        0.8148,
+        0.8986
+      ],
+      "clinical_fact_grounded_accuracy": 0.9762,
+      "aggregate_grounded_accuracy": 0.6217,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 165,
+        "NOT_VERIFIED": 21,
+        "ABSTAINED": 84,
+        "PARTLY_VERIFIED": 2,
+        "CONTRADICTED": 1
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 165,
+          "grounded_accuracy": 0.9061
+        },
+        "PARTLY_VERIFIED": {
+          "n": 2,
+          "grounded_accuracy": 1.0
+        },
+        "NOT_VERIFIED": {
+          "n": 21,
+          "grounded_accuracy": 0.4921
+        },
+        "CONTRADICTED": {
+          "n": 1,
+          "grounded_accuracy": 0.3333
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.9,
+        "retrieval": 29.1,
+        "generation": 3098.2,
+        "verification": 36.6,
+        "total": 3187.1
+      },
+      "latency_ms_median_when_model_called": 3515.0
+    },
+    "all": {
+      "n": 390,
+      "n_answerable": 270,
+      "n_identity": 120,
+      "answerable_grounded_accuracy": 0.8694,
+      "answerable_grounded_accuracy_ci95": [
+        0.8361,
+        0.9012
+      ],
+      "clinical_fact_grounded_accuracy": 0.9833,
+      "aggregate_grounded_accuracy": 0.6417,
+      "answerable_abstained": 0,
+      "identity_answered": 0,
+      "verdicts": {
+        "VERIFIED": 241,
+        "NOT_VERIFIED": 26,
+        "ABSTAINED": 120,
+        "PARTLY_VERIFIED": 2,
+        "CONTRADICTED": 1
+      },
+      "grounded_accuracy_by_verdict": {
+        "VERIFIED": {
+          "n": 241,
+          "grounded_accuracy": 0.9084
+        },
+        "PARTLY_VERIFIED": {
+          "n": 2,
+          "grounded_accuracy": 1.0
+        },
+        "NOT_VERIFIED": {
+          "n": 26,
+          "grounded_accuracy": 0.5192
+        },
+        "CONTRADICTED": {
+          "n": 1,
+          "grounded_accuracy": 0.3333
+        }
+      },
+      "latency_ms_median": {
+        "question_redaction": 4.9,
+        "retrieval": 28.8,
+        "generation": 3046.8,
+        "verification": 36.8,
+        "total": 3142.4
+      },
+      "latency_ms_median_when_model_called": 3487.9
+    }
+  }
+}

@@ -40,6 +40,9 @@ python -m glassbox.src.retrieval.evaluate --dataset realistic [--tune | --ablate
 python -m glassbox.src.generation.evaluate --dataset realistic [--split dev] [--rescore]
 python -m glassbox.src.verification.corruptions && python -m glassbox.src.verification.evaluate
 python -m glassbox.src.experiments.threshold_sweep               # ~2.5 h
+python -m glassbox.run "question" | --qa-id ID | --qa-set [--config raw|redacted_noguard]   # end-to-end, writes traces
+python -m glassbox.src.experiments.log_pii_scan                  # PII scan of all logs/traces (~4 s)
+streamlit run glassbox/src/dashboard/app.py                      # audit dashboard (reads traces)
 python glassbox/src/robustness/evaluate_paraphrases.py --set b [--generate]
 python -m glassbox.src.robustness.ood_notes --set b
 ```
@@ -55,4 +58,5 @@ Generation is ~4 s/question (a full 390-question run is ~20–30 min per configu
 - **Generation** (`src/generation/`): Qwen2.5-7B-Instruct 4-bit via mlx-lm, greedy. `abstain_reason` refuses *before* the model call when the question names a person on the redacted index, or when retrieval fell back to unfiltered search. Prompt v2 (`prompt.py`) numbers sources `[Cn] (Note k)`; the reply is JSON `{answer, claims[{text, citations}], insufficient}`, parsed and validated in `parse.py`. Headline metric: **grounded accuracy** (gold item in the answer *and* in a cited gold-note chunk), not plain keyword accuracy.
 - **Verification** (`src/verification/`): DeBERTa-v3-large NLI checks each claim against its cited chunk(s). Labels SUPPORTED / CONTRADICTED / UNSUPPORTED / UNCERTAIN (margin chosen on dev, currently 0). `corruptions.py` builds a frozen corrupted-claim test set from saved generation answers.
 - **Robustness** (`src/robustness/`): paraphrase and out-of-distribution-note sets. **Set A** = development; **set B** = held out, committed before fixes (commits `2f0bb6b`, `a0047eb`). Never tune on set B; a new fix round needs a new held-out set.
+- **Pipeline** (`src/pipeline.py`, `run.py`): `GlassBox(dataset, config).answer(q)` chains the stages with no logic of its own (a QA-set batch must reproduce `generation.evaluate` exactly) and writes one trace JSON per question to `logs/traces/<ds>/<config>/`. Traces on redacted configs never contain the original question. The dashboard (`src/dashboard/`) only reads traces.
 - **Results** (`glassbox/results/`, committed) vs regenerable outputs (`data/processed`, `data/indexes`, `logs`, gitignored). Shared helpers: `retrieval.evaluate.bootstrap_ci`, `qa.build_qa_set.answer_item_found` (answer matching used by retrieval, generation and verification).

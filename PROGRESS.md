@@ -8,7 +8,7 @@
 >
 > It's updated as work happens. `README.md` and `report_draft.md` get a full refresh on Day 7; until then, **trust this file over those two** for numbers and paths.
 
-**Last updated:** 2026-11-22 (Day 4: claim verification complete; threshold sweep complete, §5.1)
+**Last updated:** 2026-11-22 (Day 5: end-to-end pipeline with audit traces, log PII scan, dashboard skeleton, §14)
 **Branch:** `pipeline-build`
 **Deadline:** 2026-11-28
 
@@ -28,6 +28,7 @@
 11. [Key decisions log](#11-key-decisions-log)
 12. [Known issues / open items](#12-known-issues--open-items)
 13. [Daily log](#13-daily-log)
+14. [Stage: End-to-end pipeline, audit trace and dashboard](#14-stage-end-to-end-pipeline-audit-trace-and-dashboard)
 
 ---
 
@@ -44,8 +45,9 @@
 | Robustness / overfitting checks | ✅ Done (held-out results below) | `glassbox/src/robustness/` |
 | Claim verification (NLI, 4 labels) | ✅ Done | `glassbox/src/verification/` |
 | Redaction threshold sweep (privacy-utility curve) | ✅ Done (§5.1) | `glassbox/src/experiments/threshold_sweep.py` |
-| End-to-end orchestrator with traces | ⬜ Day 5 | (planned `glassbox/run.py`) |
-| Audit dashboard (Streamlit) | ⬜ Days 5–6 | `glassbox/src/dashboard/` |
+| End-to-end orchestrator with traces | ✅ Done (§14) | `glassbox/run.py`, `glassbox/src/pipeline.py` |
+| Log / trace PII scan | ✅ Done (§14.3) | `glassbox/src/experiments/log_pii_scan.py` |
+| Audit dashboard (Streamlit) | ⏳ Skeleton done (§14.4); experiments page Day 6 | `glassbox/src/dashboard/` |
 | Experiments (privacy / utility / faithfulness) | ⬜ Day 6 | `glassbox/results/` |
 | README + report refresh | ⬜ Day 7 | `README.md`, `report_draft.md` |
 
@@ -63,6 +65,8 @@
 | Identity questions answered by the system (§7) | **0** of 84 (guard off: 84 of 84, all from other people's notes) |
 | Corrupted claims caught by the verifier (§7.5) | **99.4%** [98.8, 99.9]; genuine claims wrongly flagged 1.2% (8.8% counting claims that cite incompletely) |
 | Answers the verifier marks VERIFIED vs not | grounded accuracy **0.906** vs 0.492 |
+| End-to-end time per question (§14) | **3.2 s** median (redaction 5 ms, retrieval 29 ms, generation 3.1 s, verification 37 ms) |
+| PII in the redacted system's logs and traces (§14.3) | **0** values of 17,603 searched (raw baseline traces: 2,999 hits) |
 
 **How far these numbers generalise (§8). Read before quoting anything above.**
 
@@ -86,7 +90,7 @@ The headline numbers hold for questions and notes shaped like the generators' te
 | 3a | Nov 20 | Audit fixes (§12.1): address recognizer, clinical-term guard, names in clinical context, question redaction, query-analysis ranges / "or" / invalid dates, low-information demotion, note-ordered and two-hop selection, QA set ×3, bootstrap CIs, `requirements.txt` | ✅ |
 | 3 | Nov 21–22 | Generation: Qwen2.5-7B-Instruct (4-bit, MLX), cited JSON output, parsing and validation, abstain guard (§7). Then robustness and overfitting checks, general fixes, held-out evaluation (§8) | ✅ |
 | 4 | Nov 22 | Verification: NLI verifier, 4 labels, corrupted-claim test set, model and margin chosen on dev (§7.4–7.5). Threshold sweep started overnight | ✅ (a day early) |
-| 5 | Nov 23–24 | Orchestrator with trace JSON (question → redaction → retrieval → generation → verification); regenerate stale logs; start the dashboard; write up the threshold sweep | ⬜ |
+| 5 | Nov 22 | Orchestrator with trace JSON (question → redaction → retrieval → generation → verification); regenerate stale logs; log PII scan; dashboard skeleton (§14) | ✅ (two days early) |
 | 6 | Nov 25 | Finish the dashboard; run the experiments and make the plots, with 95% confidence intervals; abstention and false-attribution rates as privacy metrics | ⬜ |
 | 7 | Nov 26 | README and report refresh | ⬜ |
 | 8 | Nov 27 | Polish, buffer, demo rehearsal, backup video | ⬜ |
@@ -400,8 +404,8 @@ Three steps, each measured in §6.8.
 
   - The plateau starts at 2.0, and 2.0 is also the best plateau point at k = 3, so it's the default.
   - Day 2's tuning (39 dev questions, old selection) had chosen (1.0, 1.0); with 3× the dev questions and the new selection, more dense weight is better.
-  - Dense-only ties on dev, but hybrid is kept: whenever query analysis can't filter, BM25 is what matches exact names, IDs and drug strings (raw-index identity recall: BM25 1.000, dense 0.309).
-  - Side effect: with dense weighted higher, the raw *hybrid* index finds fewer identity targets (0.845 at 1:1 → 0.345). This only concerns the no-privacy baseline. For the privacy comparison, use the strongest attacker on raw data, BM25, which finds 100%.
+  - Dense-only ties on dev, but hybrid is kept: whenever query analysis can't filter, BM25 is what matches exact names, IDs and drug strings (raw-index identity recall: BM25 1.000, dense 0.298).
+  - Side effect: with dense weighted higher, the raw *hybrid* index finds fewer identity targets (0.845 at 1:1 → 0.333 with the current code; 0.345 when tuned on Day 3a). This only concerns the no-privacy baseline. For the privacy comparison, use the strongest attacker on raw data, BM25, which finds 100%.
 
 ### 6.8 Results (realistic set, test split, 273 questions)
 
@@ -423,19 +427,19 @@ Three steps, each measured in §6.8.
 
 | | Answerable recall | Answerable evidence | Fact evidence | Aggregate recall | Aggregate evidence | Context (chars) |
 |---|---|---|---|---|---|---|
-| No query analysis (k = 5) | 0.314 | 0.077 | 0.111 | 0.163 | 0.008 | 618 |
+| No query analysis (k = 5) | 0.310 | 0.096 | 0.135 | 0.168 | 0.018 | 614 |
 | **With query analysis** | **0.994** | **0.949** | **1.000** | **0.983** | **0.847** | 955 |
 
 **Privacy vs. utility: redacted vs. raw index** (same configuration):
 
 | Index | Answerable recall | Answerable evidence (95% CI) | Identity recall: hybrid | Identity recall: BM25 (strongest attacker) |
 |---|---|---|---|---|
-| Raw (no privacy) | 0.994 | 0.907 [0.870, 0.940] | 0.345 | **1.000** |
+| Raw (no privacy) | 0.994 | 0.907 [0.870, 0.940] | 0.333 | **1.000** |
 | **Redacted (GlassBox)** | **0.994** | **0.949** [0.922, 0.972] | **0.000** | **0.000** |
 
 - **Redaction costs nothing measurable for clinical and aggregate questions, and completely blocks identity lookups.** That's the central privacy-utility result at the retrieval level.
 - The redacted index scores *higher* than raw. Redaction doesn't add information: the difference comes from the low-information demotion, which can only recognise header sections once their values are placeholders. In the raw index those sections hold real names and compete for slots. The report should present this as "redaction costs nothing", not "redaction helps".
-- One identity question (1/84) is found by BM25 on the redacted *whole-note* index: the redacted question "What symptom did Mrs. [NAME] report?" matched one of the few notes where the title "Mrs." survives in front of `[NAME]`. Titles are quasi-identifiers (§12).
+- One identity question (1/84) used to be found by BM25 on the redacted *whole-note* index: the redacted question "What symptom did Mrs. [NAME] report?" matched one of the few notes where the title "Mrs." survives in front of `[NAME]`. Since Day 3's single-name rule (a capitalised word after "did/is/for…" is a name), the question is redacted to "What symptom did [NAME]. [NAME] report?", the title is gone and the match no longer happens (identity recall 0.000 for every redacted configuration, re-measured Day 5). The underlying issue stays: titles left in the *notes* are quasi-identifiers (§12).
 
 **Chunking: data minimization vs. evidence** (redacted index, query analysis on, hybrid):
 
@@ -457,34 +461,34 @@ The gap was 0.840 vs 0.984 on Day 2; two-hop selection closed most of it. Whole 
 Dense and hybrid are statistically tied on test (CIs [0.919, 0.970] and [0.922, 0.972]); report them as tied. Hybrid was chosen on dev and handles exact strings when no filter applies.
 
 <details>
-<summary>Full table: all 24 configurations, realistic test split (@auto)</summary>
+<summary>Full table: all 24 configurations, realistic test split (@auto); regenerated Day 5 with the current code</summary>
 
 | Index | Chunking | Method | Query analysis | Answerable recall | Answerable evidence | Context (chars) | Fact evidence | Aggregate recall | Aggregate evidence | Identity recall |
 |---|---|---|---|---|---|---|---|---|---|---|
-| redacted | section | dense | off | 0.134 | 0.034 | 613 | 0.048 | 0.164 | 0.008 | 0.000 |
+| redacted | section | dense | off | 0.150 | 0.043 | 607 | 0.056 | 0.164 | 0.018 | 0.000 |
 | redacted | section | bm25 | off | 0.691 | 0.296 | 616 | 0.444 | 0.071 | 0.000 | 0.000 |
-| redacted | section | hybrid | off | 0.314 | 0.077 | 618 | 0.111 | 0.163 | 0.008 | 0.000 |
+| redacted | section | hybrid | off | 0.310 | 0.096 | 614 | 0.135 | 0.168 | 0.018 | 0.000 |
 | redacted | section | dense | on | 0.990 | 0.946 | 945 | 1.000 | 0.970 | 0.839 | 0.000 |
 | redacted | section | bm25 | on | 1.000 | 0.812 | 968 | 0.944 | 1.000 | 0.548 | 0.000 |
 | redacted | section | hybrid | on | 0.994 | 0.949 | 955 | 1.000 | 0.983 | 0.847 | 0.000 |
 | redacted | note | dense | off | 0.143 | 0.156 | 3233 | 0.151 | 0.128 | 0.167 | 0.000 |
-| redacted | note | bm25 | off | 0.684 | 0.689 | 3556 | 1.000 | 0.053 | 0.066 | 0.012 |
-| redacted | note | hybrid | off | 0.286 | 0.302 | 3299 | 0.365 | 0.127 | 0.175 | 0.000 |
+| redacted | note | bm25 | off | 0.684 | 0.689 | 3556 | 1.000 | 0.053 | 0.066 | 0.000 |
+| redacted | note | hybrid | off | 0.291 | 0.307 | 3298 | 0.373 | 0.127 | 0.175 | 0.000 |
 | redacted | note | dense | on | 0.994 | 0.996 | 2605 | 1.000 | 0.983 | 0.987 | 0.000 |
-| redacted | note | bm25 | on | 1.000 | 1.000 | 2578 | 1.000 | 1.000 | 1.000 | 0.012 |
+| redacted | note | bm25 | on | 1.000 | 1.000 | 2578 | 1.000 | 1.000 | 1.000 | 0.000 |
 | redacted | note | hybrid | on | 1.000 | 1.000 | 2598 | 1.000 | 1.000 | 1.000 | 0.000 |
-| raw | section | dense | off | 0.133 | 0.034 | 648 | 0.048 | 0.161 | 0.008 | 0.309 |
+| raw | section | dense | off | 0.133 | 0.034 | 648 | 0.048 | 0.161 | 0.008 | 0.298 |
 | raw | section | bm25 | off | 0.691 | 0.127 | 629 | 0.191 | 0.071 | 0.000 | 1.000 |
-| raw | section | hybrid | off | 0.324 | 0.108 | 642 | 0.159 | 0.161 | 0.008 | 0.345 |
-| raw | section | dense | on | 0.990 | 0.919 | 946 | 1.000 | 0.970 | 0.757 | 0.309 |
+| raw | section | hybrid | off | 0.324 | 0.108 | 644 | 0.159 | 0.161 | 0.008 | 0.333 |
+| raw | section | dense | on | 0.990 | 0.919 | 946 | 1.000 | 0.970 | 0.757 | 0.298 |
 | raw | section | bm25 | on | 1.000 | 0.802 | 964 | 0.929 | 1.000 | 0.548 | 1.000 |
-| raw | section | hybrid | on | 0.994 | 0.907 | 948 | 0.992 | 0.983 | 0.738 | 0.345 |
-| raw | note | dense | off | 0.063 | 0.079 | 3958 | 0.048 | 0.094 | 0.140 | 0.309 |
+| raw | section | hybrid | on | 0.994 | 0.907 | 948 | 0.992 | 0.983 | 0.738 | 0.333 |
+| raw | note | dense | off | 0.063 | 0.079 | 3959 | 0.048 | 0.094 | 0.140 | 0.333 |
 | raw | note | bm25 | off | 0.695 | 0.703 | 3777 | 1.000 | 0.085 | 0.108 | 1.000 |
-| raw | note | hybrid | off | 0.201 | 0.216 | 3862 | 0.246 | 0.111 | 0.156 | 0.381 |
-| raw | note | dense | on | 0.998 | 0.998 | 2785 | 1.000 | 0.995 | 0.995 | 0.309 |
+| raw | note | hybrid | off | 0.201 | 0.216 | 3863 | 0.246 | 0.111 | 0.156 | 0.405 |
+| raw | note | dense | on | 0.998 | 0.998 | 2785 | 1.000 | 0.995 | 0.995 | 0.333 |
 | raw | note | bm25 | on | 1.000 | 1.000 | 2756 | 1.000 | 1.000 | 1.000 | 1.000 |
-| raw | note | hybrid | on | 0.998 | 0.998 | 2774 | 1.000 | 0.995 | 0.995 | 0.381 |
+| raw | note | hybrid | on | 0.998 | 0.998 | 2774 | 1.000 | 0.995 | 0.995 | 0.405 |
 
 </details>
 
@@ -590,7 +594,7 @@ That analysis motivated §6.3 and §6.4. The full baseline numbers are in git hi
 - **Verification can't catch misattribution under redaction.** On the guard-off identity answers, 93 of 94 claims are SUPPORTED: the evidence does say what the claim says; it just isn't about the person asked about, and redaction removes the only thing that could show that. Subject rewriting lowers this to 57 of 94 (bare claims like "Acetaminophen 650mg PO Q6H PRN" stay entailed). And it can only trigger when question redaction found an identifier, which is exactly when the guard has already refused. **Conclusion for the report: identity protection must be enforced before generation (the guard); claim-level verification checks evidence, not identity.**
 
 ### 7.6 Not built yet
-- **Orchestrator, dashboard, experiments (Days 5–6).** See §2.
+- **Experiments and dashboard completion (Day 6).** See §2. The orchestrator and dashboard skeleton are in §14.
 
 ---
 
@@ -671,12 +675,14 @@ Share of PII values fully masked (for names: every personal-name word hidden; ti
 
 ## 9. Tests
 
-`python -m pytest glassbox/tests` → **137 passed, 3 skipped, 1 xfailed**. The skipped tests load the real 7B model or the NLI model; run them with `GLASSBOX_SLOW=1` (all pass).
+`python -m pytest glassbox/tests` → **155 passed, 4 skipped, 1 xfailed** (Day 5). The skipped tests load the real 7B model or the NLI model; run them with `GLASSBOX_SLOW=1` (all pass).
 
 | File | Covers |
 |---|---|
 | `tests/test_generalization.py` | Redaction on formats not in the data: dash IDs, MRN, numeric MRN after a label, US and written dates, 3 phone formats, full address. Day 3a: 5 address formats as single spans, street line only with context, case-sensitivity, clinical terms kept (drugs, SpO2, BP), field label "Email" kept, names before credentials / after labels / after "Dr.". Day 3 robustness: full state names and no-comma addresses, DOB variants, record numbers with/without context, accented names, "Pt"/dates/disease words kept. Plus regression tests for each Day 1 redaction fix. |
 | `tests/test_retrieval.py` | Chunk coverage (no text lost), section recognition per template, context line, BM25 against a hand-computed score, tokenizer, access control, end-to-end retrieval with log format, k cap. Query analysis: filters for ISO, US, month and year dates and aliases; ranges, several diagnoses, "May, 2025", invalid dates; no filters for identity questions; residual query; Chroma/Python filter agreement incl. `$in`. Selection: note grouping (both versions), filtered BM25 keeping zero-score chunks, auto-k, low-information classifier, ask/condition split, two-hop picks each gold note's answer section. Question redaction: names removed, clinical questions unchanged, the name never reaches the log. Day 3 robustness: written / day-first / ordinal / `M/YYYY` / `YYYY-MM` dates, standard abbreviations, condition split without "who", original-template analysis unchanged. |
+| `tests/test_pipeline.py` (Day 5) | Real question redaction + retrieval with a canned LLM reply: no PII from six PII-bearing questions (name, first name, MRN, address, phone, email) in the returned or saved trace; named person → guard refuses before the model; every trace section and timing present; raw index refused without baseline mode. With both models (`GLASSBOX_SLOW=1`): a QA question answered, grounded accuracy 1.0, VERIFIED, no gold answer copied into the trace. |
+| `tests/test_dashboard.py` (Day 5) | Headless Streamlit (AppTest): both pages load; the trace view renders verified, guard-refused, model-insufficient, unparseable, raw-baseline and guard-off traces without errors; the guard refusal is explained; trace table helpers (broken files skipped, citation anchors, source labels). |
 | `tests/test_verification.py` (Day 4) | Subject rewriting (incl. `[NAME]` as subject, bare claims), the label rule and UNCERTAIN margin, combined-evidence premises, genuine-claim detection, corruptions, the uncited-condition flag, the frozen set's consistency. With the model (`GLASSBOX_SLOW=1`): correct / changed-dose / uncited claims labelled SUPPORTED / CONTRADICTED / UNSUPPORTED, answer verdicts. |
 | `tests/test_generation.py` (Day 3) | Parser (fences, prose around JSON, truncated or malformed JSON, citation normalisation, invalid citations, uncited claims), the abstain guard (identifier / fallback / raw baseline), the guard never calling the model, prompt construction (note labels, no internal IDs in the prompt), question-name rules (spaCy misses, first name alone, possessives, diagnoses and drugs left alone), grounded accuracy (right drug from the wrong note scores 0). End-to-end test with the real model (`GLASSBOX_SLOW=1`). |
 
@@ -732,6 +738,13 @@ python -m glassbox.src.robustness.paraphrase                    # rebuild paraph
 python glassbox/src/robustness/evaluate_paraphrases.py --set b --generate
 python -m glassbox.src.robustness.ood_notes --set b              # OOD redaction (frozen notes)
 
+# End-to-end pipeline (question in, verified cited answer + trace out; §14)
+python -m glassbox.run "Which medications were prescribed to patients who presented with fatigue?"
+python -m glassbox.run --qa-id realistic-cf-000          # one QA question, scored
+python -m glassbox.run --qa-set                          # all 390 (~25 min); also --config raw / redacted_noguard
+python -m glassbox.src.experiments.log_pii_scan          # PII scan of every log and trace (~4 s)
+streamlit run glassbox/src/dashboard/app.py              # audit dashboard
+
 # Tests
 python -m pytest glassbox/tests
 GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-model test
@@ -767,6 +780,10 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 | Nov 20 (3a) | Fusion weights (2.0, 1.0) | Re-tuned on the 3× dev split with the final selection; plateau starts at 2.0 and it's best at k = 3 | (1.0, 1.0): 0.943 vs 0.968 dev |
 | Nov 22 (4) | NLI verifier DeBERTa-v3-large (MNLI/FEVER/ANLI/LingNLI/WANLI) | Dev balanced accuracy 0.967 vs 0.830 for DeBERTa-v3-base; same speed | Base model; using the generating LLM to self-check (not independent) |
 | Nov 22 (4) | UNCERTAIN = top-two probability margin, chosen on dev for >= 95% accuracy on confident labels -> 0 | Pre-stated rule; the large model's errors are confident, so a margin can't isolate them | A hand-picked margin |
+| Nov 22 (5) | Orchestrator only connects the existing stages; no new logic | A batch run must reproduce the evaluation numbers exactly, which proves the demo system *is* the evaluated system | A separate demo code path (could silently differ) |
+| Nov 22 (5) | One trace file per question; no original question on redacted configs | The trace is the audit record and is safe to share; the question's identifiers are recorded as types/offsets only | Store the original for convenience (would make every trace sensitive) |
+| Nov 22 (5) | Dashboard reads traces, never recomputes them | What's audited is exactly what happened; works without loading models | Re-run the pipeline on demand for every view |
+| Nov 22 (5) | Scrub the pre-fix name from the v1/v2 prompt-development logs instead of re-running them | Scores don't depend on it; a 25-min re-run would change nothing measured | Re-run prompt development; leave the name in place |
 | Nov 22 (4) | Corrupted-claim set from the system's own answers | Exact ground truth on realistic claims | Hand-written claims (few, less realistic) |
 | Nov 22 (4) | Report false alarms strict and on clean claims; flag, don't relabel | Most "false alarms" are incomplete citations by the generator; relabelling after seeing results would flatter the verifier | Relabel genuine claims |
 | Nov 21 (3) | Abstain guard in code, before the model | The model treats `[NAME]` as the person asked about; guard off it answers 84/84 identity questions from other people's notes | Prompt instruction only (can be ignored by the model) |
@@ -796,6 +813,8 @@ GLASSBOX_SLOW=1 python -m pytest glassbox/tests/test_generation.py   # + real-mo
 - **Remaining aggregate misses** (test aggregate evidence 0.847): the ask "Which medications were prescribed" sometimes ranks LAB ORDERS above a plan line that never says "medication".
 - **Query analysis is template-evaluated.** The QA questions come from templates; free-text handling is unit-tested only.
 - **The audit log stores raw PII values.** That's needed for the audit trail, but the log is itself a sensitive artifact. The report should say so. (Retrieval logs no longer contain PII from questions.)
+- **Identity-question records in `results/generation/realistic_t0.50_answers.jsonl` predate the Day 3 robustness fixes** (written Nov 22 00:14). For guard-off and raw, 49 identity answers differ in wording or retrieved chunks from what the current code produces, but every score is the same (guard-off 84/84 answered, raw 48/84). The Day 5 traces (`logs/traces/`) reflect the current code; quote those, or re-run `generation.evaluate` on Day 8 if time allows (§14.2).
+- **Git history still contains the one synthetic name** scrubbed from the v1/v2 prompt-development files on Day 5 (§14.3). The data is synthetic, so the fix is the scrub plus this note; rewriting history isn't worth the risk.
 - **The docs are stale.** The README and `report_draft.md` show old numbers (0.838 / 0.869 / 0.858, 62.5%, 8/8) and old data paths. Refresh on Day 7.
 
 ### 12.1 Audit of Days 1–2 (Nov 20)
@@ -897,3 +916,117 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Tests: 128 → 141 (137 passed, 3 slow skipped, all pass with `GLASSBOX_SLOW=1`; 1 documented xfail).
 - Threshold sweep finished overnight (§5.1): plateau from 0.4 to 0.7, over-redaction at 0.3 (4,219), phone leakage at 0.8 (15.6% of phones). 0.5 is justified, and its point reproduces the main results exactly. Verifier speed re-measured on an idle GPU: 28 ms per claim.
 
+### Day 5: Nov 22 (orchestrator, housekeeping, dashboard skeleton)
+- Built the end-to-end pipeline (`glassbox/src/pipeline.py`) and CLI (`glassbox/run.py`): one call goes question → redaction → retrieval → guard → generation → verification and writes one JSON trace per question (§14.1).
+- Batch runs over all 390 QA questions × 3 configurations reproduce the Day 3/4 evaluation exactly: test grounded accuracy 0.858 (raw 0.833); identity answered 0/84 (guard off 84/84, raw 48/84); all 390 redacted answers word-for-word identical (§14.2).
+- End-to-end time: 3.2 s median per question, 96% of it generation.
+- Regenerated the stale retrieval logs and results with the current code. The headline is unchanged (0.949); ablation and baseline rows moved slightly and the §6.8 full table was refreshed (§14.2).
+- New PII scan of every log, trace and committed answers file (§14.3). Found one real leak: a synthetic patient's name in the Nov 21 prompt-development runs v1/v2 (from before the name-rule fix). Scrubbed; now 0 hits on the privacy side, 2,999 in raw-baseline traces (the positive control).
+- Dashboard skeleton (§14.4): Ask page, stored-traces table, per-stage trace view with citation links and NLI badges.
+- Re-measured guard-off verification on current traces: 74/112 claims still SUPPORTED with subject rewriting (Day 4, older records: 57/94). Same conclusion.
+- Tests: 141 → 160 (155 passed, 4 slow skipped, 1 documented xfail).
+
+---
+
+## 14. Stage: End-to-end pipeline, audit trace and dashboard
+
+Built on Day 5 (Nov 22). This turns the separate stages (§5–7) into one system: **a question goes in; a verified, cited answer and a complete audit trace come out.**
+
+### 14.1 Orchestrator design (`glassbox/src/pipeline.py`, `glassbox/run.py`)
+
+**What it does.** `GlassBox(dataset, config).answer(question)` runs, in order:
+
+1. **Question redaction** (`redaction/query.py`). Names, IDs, phones etc. in the question become placeholders; `identifiers` records which *types* were found.
+2. **Query analysis + retrieval** (`retrieval/`). Diagnosis/date filters, auto-k, hybrid ranking, two-hop selection.
+3. **Abstain guard** (`generation/generator.py`). Refuses before the model if the question identifies a person or its conditions match no note.
+4. **Cited generation** (Qwen2.5-7B, prompt v2). JSON claims with citations.
+5. **Claim verification** (DeBERTa-v3-large NLI). One label per claim, and an answer verdict.
+6. **Trace.** Everything above, plus per-stage timings, written as one JSON file.
+
+The retriever, LLM and NLI model are loaded once and reused across questions.
+
+**Configurations** (the same three as the evaluation, so results are comparable):
+
+| Config | Index | Question redaction | Guard | Purpose |
+|---|---|---|---|---|
+| `redacted` | redacted | on | on | The GlassBox system |
+| `raw` | raw (needs baseline access) | off | on (fallback only) | No-privacy baseline |
+| `redacted_noguard` | redacted | on | **off** | What the model does on its own when asked about a person |
+
+**Why it is "only glue".** The orchestrator contains no new logic: it calls the same functions, with the same settings, as the evaluation scripts. This was deliberate. If a batch run reproduces the evaluation numbers exactly (§14.2), then the system shown in the demo and dashboard *is* the system that was measured. A separate demo code path could silently drift. The one structural change is that question redaction is called by the orchestrator instead of inside the retriever, so it can be timed and recorded as its own stage. The result is identical (same function, same text), which the reproduction check confirms.
+
+**The trace** (`glassbox/logs/traces/<dataset>/<config>/<qid or trace_id>.json`, about 9 KB each):
+
+| Section | Contents |
+|---|---|
+| `trace_id`, `timestamp`, `config` | Index, source, thresholds, fusion weights, k rules, model names, prompt version, verifier margin |
+| `question` | The **redacted** text, the types/offsets removed, `identifiers` |
+| `query_analysis` | Filters, matched phrases, scope, residual and ranking query, ask/condition split, fallback flag |
+| `retrieval` | Every chunk shown to the model: section, text (redacted), fused/dense/BM25 scores and ranks, `selected_by`, low-information flag; k and context size |
+| `generation` | Guard decision and reason, answer, claims with citations (and dropped invalid ones), source map C1→chunk, raw model output, retries, parse errors, token counts |
+| `verification` | Per claim: label, NLI probabilities, which chunk(s) were the premise, the hypothesis as checked (after subject rewriting); answer verdict |
+| `timings_ms` | question_redaction, retrieval, generation, verification, total |
+| `qa` (QA questions only) | qid, type, split, gold note ids and the scores. **Never** the question text or the gold answer. |
+
+**Privacy rule.** On a redacted configuration the original question is never written: not in the trace, not in a log. `tests/test_pipeline.py` checks this with six PII-bearing questions (full name, first name alone, MRN, street address, phone, email): none of the values appear in the returned or the saved trace. The raw baseline has no question redaction by definition, so its traces contain the question as typed and are marked `baseline_mode: true`.
+
+**Alternatives considered.** (a) Keep the original question in the trace for the dashboard's convenience. Rejected: every trace would become sensitive, and the dashboard can show the typed question from session memory instead. (b) Append to one big JSONL log per run (like the stage logs). Rejected for the dashboard use: one file per question is easy to open, link and diff.
+
+**CLI.** `python -m glassbox.run "<question>"`, `--qa-id <id>`, `--qa-set [--split] [--types] [--config]`, `--batch <file>`, `--no-verify`. A QA-set batch also writes `glassbox/results/pipeline/<dataset>_<config>[_<split>|_<types>].json` with grounded accuracy (bootstrap 95% CI), identity questions answered, verdict counts, grounded accuracy per verdict, and median stage latencies.
+
+### 14.2 Results: the pipeline reproduces the evaluation exactly
+
+All 390 realistic QA questions × the three configurations (`results/pipeline/realistic_redacted.json`, `realistic_raw.json`, `realistic_redacted_noguard_identity.json`). Test split:
+
+| | Redacted (GlassBox) | Raw (no privacy) | Guard off |
+|---|---|---|---|
+| Answerable grounded accuracy (95% CI) | **0.858** [0.815, 0.899] | 0.833 [0.788, 0.877] | n/a (identity only) |
+| Clinical fact / aggregate grounded accuracy | 0.976 / 0.622 | 0.980 / 0.540 | |
+| Identity questions answered | **0 / 84** | 48 / 84 | 84 / 84 |
+| Verdicts (273 questions) | VERIFIED 165, NOT_VERIFIED 21, PARTLY 2, CONTRADICTED 1, ABSTAINED 84 | VERIFIED 196, NOT_VERIFIED 34, PARTLY 3, CONTRADICTED 3, NO_CLAIMS 1, ABSTAINED 36 | VERIFIED 56, PARTLY 18, NOT_VERIFIED 10 |
+| Grounded accuracy: VERIFIED vs NOT_VERIFIED | **0.906** vs 0.492 | 0.887 vs 0.492 | |
+| Median time per question | **3.19 s** | 3.11 s | 3.75 s |
+
+- **Reproduction check.** Grounded accuracy, CIs and identity counts are identical to the Day 3/4 evaluation (§7.3, §7.5) on both splits (dev 0.896 too). Per question: all 390 redacted answers are word-for-word identical to the evaluation's, and no question's score differs in any configuration. Greedy decoding makes this possible; it also confirms that moving question redaction into the orchestrator changed nothing.
+- **Where the time goes** (redacted, test, median): question redaction 5 ms, retrieval (incl. query analysis) 29 ms, generation 3.1 s, verification 37 ms. Privacy (redaction) and verifiability (NLI) together cost about **2%** of the response time; the 7B model is 96%. Questions the guard refuses never call the model and finish in well under a second. Measured on an M-series Mac with nothing else running on the GPU; the first question of a session also pays ~15 s model loading, excluded by the median.
+- **Guard-off guard check, re-measured.** On the current guard-off traces, 74 of 112 test claims are still SUPPORTED by the NLI verifier with subject rewriting on (Day 4, older records: 57 of 94). The Day 4 conclusion stands: verification checks evidence, not identity; the guard is the protection.
+- **Stale records found.** For guard-off and raw, 49 identity-question answers in the committed `results/generation/realistic_t0.50_answers.jsonl` differ in wording or retrieved chunks from the current code's (that file was written before the Day 3 robustness fixes; e.g. "Mrs. [NAME]" is now redacted to "[NAME]. [NAME]"). Every score is the same. Recorded in §12.
+
+**Housekeeping: retrieval results regenerated.** `retrieval.evaluate` was re-run on both datasets so logs and committed results match the current code (they dated from Nov 20, before the Day 3 robustness fixes). The headline configuration (redacted, section, hybrid, query analysis on) is unchanged: answerable evidence 0.949, identity recall 0.000, leak audit 0.04%. What moved: the no-query-analysis ablation (evidence 0.077 → 0.096), raw-index hybrid identity recall (0.345 → 0.333 section, 0.381 → 0.405 note), and the redacted whole-note BM25 identity recall (0.012 → 0.000, because the question-name rule now also removes the "Mrs." title, §6.8). The §6.8 tables were refreshed from the new results. Synthetic: only raw-baseline rows moved (8 questions).
+
+### 14.3 Log and trace PII scan (`glassbox/src/experiments/log_pii_scan.py`)
+
+**Question.** Does any identifying value reach a file the redacted system writes? The audit trail is only trustworthy if it doesn't itself leak.
+
+**Method.** Every log, every trace, and the committed generation answers (which are public on GitHub) are scanned, record by record, with three checks:
+1. **Full values.** All 17,603 ground-truth PII values of 5+ characters in the realistic notes (836 synthetic), matched as word sequences, ignoring case and punctuation (so "(555) 867-5309" also matches "555 867 5309").
+2. **Question text.** The original wording of every identity question.
+3. **Name parts.** For an identity question's record, the first or last name of the person it asks about, as a capitalised word (catches a half-redacted "[NAME] Price"). Titles (Mr/Mrs/Ms/Dr) are excluded: they're kept by design and listed as a quasi-identifier in §12.
+
+Raw-baseline files are scanned separately as the **positive control**: they must contain PII, which shows the scan can find it. The scan stores counts and qids, never the values found. It runs in about 4 s.
+
+**Results** (`results/experiments/log_pii_scan.json`):
+
+| Group | Records | Full values | Question text | Name parts |
+|---|---|---|---|---|
+| Redacted system: retrieval logs, generation logs (incl. sweep, paraphrases), traces, committed answers | 9,441 (realistic) + 1,920 (synthetic) | **0** | **0** | **0** |
+| Raw baseline: retrieval logs, raw traces (positive control) | 5,460 (realistic) + 1,920 (synthetic) | 7,768 + 1,800 | 1,680 + 600 | 902 + 360 |
+
+**Problem found and fixed.** The first run found one real leak: the Nov 21 prompt-development runs v1 and v2 (`logs/generation/realistic/redacted_v{1,2}.jsonl` and the committed `results/generation/realistic_t0.50_dev_v{1,2}_answers.jsonl`) contained the full name from QA question `realistic-id-019` ("What symptom did … report?"). Those runs predate the question-only name rule (§7, "Tiffany Price"), which was added *because* of this question. The name was replaced by `[NAME]` in the four files (3 occurrences each); no score depends on it. Re-running prompt development (25 min of GPU) would have changed nothing measured. The name remains in git history (synthetic data; noted in §12). The first scan also produced three false positives (title "Mrs" counted as part of a name), which led to the title exclusion above.
+
+**What the leak-audit examples are.** `results/retrieval/*_t0.50.json` lists example values in its `leak_audit` section on purpose: it records *which* PII leaked into the index (§6.8). That file is a measurement, not a system log, and isn't part of this scan.
+
+### 14.4 Audit dashboard skeleton (`glassbox/src/dashboard/app.py`)
+
+Run with `streamlit run glassbox/src/dashboard/app.py`. The sidebar picks the dataset and configuration.
+
+- **Ask page.** Type a question, or pick a QA-set question by type; the pipeline runs (models loaded once and cached) and the trace is shown and saved.
+- **Stored traces page.** A table of every saved trace (id, type, split, redacted question, verdict, abstain reason, claims, grounded accuracy, chunks, time) with filters by verdict, type and split and summary metrics; selecting a row opens its audit view. It only reads trace files: what's shown is exactly what happened, and no model needs to load.
+- **Trace view (the audit), one panel per stage:**
+  1. Question: as typed (Ask page only, from session memory, never stored) next to the redacted text every later stage used; removed identifier types as badges; the guard decision with a plain-language reason.
+  2. Query analysis: filters as chips, scope, k, fallback, ranking query, two-hop ask/condition.
+  3. Retrieval: one card per chunk with rank, its `C` label, section, note, `selected_by`, *cited* and *low-information* badges, scores and ranks, and the redacted text.
+  4–5. Answer and verification: the answer verdict badge; each claim with links that jump to the cited chunk cards and its NLI label (green SUPPORTED, red CONTRADICTED, orange UNSUPPORTED, grey UNCERTAIN), probabilities, premise chunks and the hypothesis as checked; dropped invalid citations; the raw model output with token counts.
+  Plus per-stage timings and the full trace JSON.
+- **Privacy.** Only what the trace holds is shown: redacted text and placeholders. Raw-baseline traces carry a warning banner.
+- **Tested** headlessly with Streamlit's AppTest (`tests/test_dashboard.py`): both pages load and six kinds of trace render without errors. Still to do (Day 6, PLAN 6.2): the experiments page with figures, and a manual check in the browser.

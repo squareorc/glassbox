@@ -1,0 +1,96 @@
+{
+  "dataset": "realistic",
+  "config": {
+    "name": "redacted_noguard",
+    "dataset": "realistic",
+    "index": "redacted-t0.50-section",
+    "index_source": "redacted",
+    "baseline_mode": false,
+    "redaction_threshold": 0.5,
+    "question_redaction": true,
+    "abstain_guard": false,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "retrieval_method": "hybrid",
+    "fusion_weights": [
+      2.0,
+      1.0
+    ],
+    "per_note": 2,
+    "auto_k": {
+      "single_note": 5,
+      "multi_note": 10
+    },
+    "generator_model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+    "prompt_version": "v2",
+    "max_tokens": 400,
+    "verifier_model": "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
+    "verifier_margin": 0.0
+  },
+  "split": "all",
+  "types": [
+    "identity"
+  ],
+  "limit": null,
+  "summary": {
+    "dev": {
+      "n": 36,
+      "n_answerable": 0,
+      "n_identity": 36,
+      "identity_answered": 36,
+      "verdicts": {
+        "PARTLY_VERIFIED": 8,
+        "VERIFIED": 22,
+        "NOT_VERIFIED": 6
+      },
+      "grounded_accuracy_by_verdict": {},
+      "latency_ms_median": {
+        "question_redaction": 3.1,
+        "retrieval": 8.3,
+        "generation": 3461.3,
+        "verification": 300.1,
+        "total": 3697.6
+      },
+      "latency_ms_median_when_model_called": 3697.6
+    },
+    "test": {
+      "n": 84,
+      "n_answerable": 0,
+      "n_identity": 84,
+      "identity_answered": 84,
+      "verdicts": {
+        "VERIFIED": 56,
+        "PARTLY_VERIFIED": 18,
+        "NOT_VERIFIED": 10
+      },
+      "grounded_accuracy_by_verdict": {},
+      "latency_ms_median": {
+        "question_redaction": 3.0,
+        "retrieval": 4.7,
+        "generation": 3496.7,
+        "verification": 310.1,
+        "total": 3749.9
+      },
+      "latency_ms_median_when_model_called": 3749.9
+    },
+    "all": {
+      "n": 120,
+      "n_answerable": 0,
+      "n_identity": 120,
+      "identity_answered": 120,
+      "verdicts": {
+        "PARTLY_VERIFIED": 26,
+        "VERIFIED": 78,
+        "NOT_VERIFIED": 16
+      },
+      "grounded_accuracy_by_verdict": {},
+      "latency_ms_median": {
+        "question_redaction": 3.1,
+        "retrieval": 5.0,
+        "generation": 3484.7,
+        "verification": 306.2,
+        "total": 3742.7
+      },
+      "latency_ms_median_when_model_called": 3742.7
+    }
+  }
+}

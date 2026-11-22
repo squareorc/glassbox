@@ -1,0 +1,630 @@
+{
+  "files": {
+    "glassbox/logs/generation/realistic/paraphrases_b.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 189,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/raw.jsonl": {
+      "group": "baseline",
+      "files": 1,
+      "records": 390,
+      "full_value": 413,
+      "identity_question_text": 120,
+      "name_part": 64,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "realistic-cf-038",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-cf-038",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-cf-162",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-cf-162",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-003"
+          },
+          {
+            "qid": "realistic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-005"
+          },
+          {
+            "qid": "realistic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/generation/realistic/redacted.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/redacted_noguard.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 120,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/redacted_v1.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/redacted_v2.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/redacted_v3.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.30.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.40.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.50.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.60.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.70.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/generation/realistic/sweep_t0.80.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/retrieval/realistic/raw-note.jsonl": {
+      "group": "baseline",
+      "files": 1,
+      "records": 2340,
+      "full_value": 2178,
+      "identity_question_text": 720,
+      "name_part": 384,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-001",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-001",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-003"
+          },
+          {
+            "qid": "realistic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-005"
+          },
+          {
+            "qid": "realistic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/retrieval/realistic/raw-section.jsonl": {
+      "group": "baseline",
+      "files": 1,
+      "records": 2340,
+      "full_value": 2178,
+      "identity_question_text": 720,
+      "name_part": 384,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-001",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-id-001",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-003"
+          },
+          {
+            "qid": "realistic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-005"
+          },
+          {
+            "qid": "realistic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/retrieval/realistic/redacted-t0.50-note.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 2340,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/retrieval/realistic/redacted-t0.50-section.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 2340,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/traces/realistic/raw": {
+      "group": "baseline",
+      "files": 390,
+      "records": 390,
+      "full_value": 2999,
+      "identity_question_text": 120,
+      "name_part": 70,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "realistic-ag-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-ag-000",
+            "value_tokens": 1
+          },
+          {
+            "qid": "realistic-ag-000",
+            "value_tokens": 3
+          },
+          {
+            "qid": "realistic-ag-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "realistic-ag-000",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-003"
+          },
+          {
+            "qid": "realistic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "realistic-id-000"
+          },
+          {
+            "qid": "realistic-id-001"
+          },
+          {
+            "qid": "realistic-id-002"
+          },
+          {
+            "qid": "realistic-id-005"
+          },
+          {
+            "qid": "realistic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/traces/realistic/redacted": {
+      "group": "privacy",
+      "files": 390,
+      "records": 390,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/traces/realistic/redacted_noguard": {
+      "group": "privacy",
+      "files": 120,
+      "records": 120,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/results/generation/realistic_t0.50_answers.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 510,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/results/generation/realistic_t0.50_dev_v1_answers.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/results/generation/realistic_t0.50_dev_v2_answers.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/results/generation/realistic_t0.50_dev_v3_answers.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 117,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/retrieval/synthetic/raw-note.jsonl": {
+      "group": "baseline",
+      "files": 1,
+      "records": 960,
+      "full_value": 900,
+      "identity_question_text": 300,
+      "name_part": 180,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-001",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-001",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-003"
+          },
+          {
+            "qid": "synthetic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-005"
+          },
+          {
+            "qid": "synthetic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/retrieval/synthetic/raw-section.jsonl": {
+      "group": "baseline",
+      "files": 1,
+      "records": 960,
+      "full_value": 900,
+      "identity_question_text": 300,
+      "name_part": 180,
+      "examples": {
+        "full_value": [
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-000",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-001",
+            "value_tokens": 2
+          },
+          {
+            "qid": "synthetic-id-001",
+            "value_tokens": 2
+          }
+        ],
+        "identity_question_text": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-003"
+          },
+          {
+            "qid": "synthetic-id-004"
+          }
+        ],
+        "name_part": [
+          {
+            "qid": "synthetic-id-000"
+          },
+          {
+            "qid": "synthetic-id-001"
+          },
+          {
+            "qid": "synthetic-id-002"
+          },
+          {
+            "qid": "synthetic-id-005"
+          },
+          {
+            "qid": "synthetic-id-006"
+          }
+        ]
+      }
+    },
+    "glassbox/logs/retrieval/synthetic/redacted-t0.50-note.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 960,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    },
+    "glassbox/logs/retrieval/synthetic/redacted-t0.50-section.jsonl": {
+      "group": "privacy",
+      "files": 1,
+      "records": 960,
+      "full_value": 0,
+      "identity_question_text": 0,
+      "name_part": 0,
+      "examples": {}
+    }
+  },
+  "totals": {
+    "realistic": {
+      "pii_values_searched": 17603,
+      "privacy": {
+        "records": 9441,
+        "full_value": 0,
+        "identity_question_text": 0,
+        "name_part": 0
+      },
+      "baseline": {
+        "records": 5460,
+        "full_value": 7768,
+        "identity_question_text": 1680,
+        "name_part": 902
+      }
+    },
+    "synthetic": {
+      "pii_values_searched": 836,
+      "privacy": {
+        "records": 1920,
+        "full_value": 0,
+        "identity_question_text": 0,
+        "name_part": 0
+      },
+      "baseline": {
+        "records": 1920,
+        "full_value": 1800,
+        "identity_question_text": 600,
+        "name_part": 360
+      }
+    }
+  }
+}
