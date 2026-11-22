@@ -179,7 +179,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 
 | | Task | Status |
 |---|---|---|
-| 8.1 | Full clean-run check: fresh venv from `requirements.txt`, regenerate data → redaction → indexes → evaluations → figures; tests pass | ⬜ |
+| 8.1 | Full clean-run check: fresh venv from `requirements.txt`, regenerate data → redaction → indexes → evaluations → figures; tests pass | ✅ Nov 23 (PROGRESS §15.2) |
 | 8.2 | Demo rehearsal following `DEMO.md` (Demo page + `glassbox.verify`); backup screen recording (owner) | ⬜ |
 | 8.3 | Merge `pipeline-build` into `main` (with the owner's approval) | ✅ Nov 22 (fast-forward) |
 | 8.4 | ◻ Generation: prompt rule to cite every section a claim relies on (fixes incomplete citations, §7.5), tuned on dev | ◻ |

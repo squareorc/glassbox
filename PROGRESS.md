@@ -936,6 +936,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 - Demo tooling (PLAN 6.3): Demo page in the dashboard (six one-click steps incl. "try to fool the verifier"), `python -m glassbox.verify` (re-runs 10 stored questions live: 10/10 identical in 34 s), `DEMO.md` script. Tests 161 → 170 (165 fast + 4 slow + 1 xfail).
 - Evening: headless real-model dry run of the dashboard (every button, no errors); live traces separated from the evaluation run; Stored traces open on the test split; figures E1–E8 (`experiments/figures.py`, §15) and an Experiments page; synthetic replication E9 run. Tests 167 + 4 slow + 1 xfail. E9: synthetic GlassBox 0.942 vs raw 0.916, identity 0 vs 25 of 35; the log scan caught one missed synthetic name that reached an answer (§14.3, §15.1); live dashboard traces now totalled separately in the scan.
 - With the owner's OK: stale docs moved to `docs/archive/` (with a note on what replaced them); `pipeline-build` merged into `main` (fast-forward) and both pushed.
+- Nov 23: clean-run check from a fresh clone and environment (§15.2): data byte-identical, redaction and retrieval results identical, tests pass, `glassbox.verify` 10/10.
 
 ---
 
@@ -1163,3 +1164,20 @@ The full experiments take hours (390 questions × 3 configurations ≈ 1 h; thre
 - **The pattern replicates:** no measurable utility cost from privacy (CIs overlap), every identity question refused by GlassBox while the raw baseline answers most of them, and VERIFIED answers are the accurate ones.
 - **Absolute numbers are higher** because the synthetic notes are single short paragraphs (retrieval evidence 1.000 there, §6.8), so this is a replication of the *comparison*, not a harder test.
 - **PII:** the scan of these traces found the one name the redactor misses on this dataset, copied into one answer (§14.3).
+
+### 15.2 Clean-run check (Nov 23, PLAN 8.1)
+
+**Question:** does a fresh copy of the repository, with a fresh environment, rebuild the same results?
+
+**Method:** `main` (commit `8f424d6`) was cloned into an empty folder and a new Python 3.11 virtual environment was built from `requirements.txt` alone (2.1 GB; two attempts because of an unstable network). The spaCy model `en_core_web_lg` 3.8.0 was copied from the working environment instead of downloaded (the 400 MB download stalled); the embedding, LLM and NLI weights came from the local Hugging Face cache. Then, in the clone: both datasets regenerated, redaction and all indexes rebuilt, the retrieval evaluation re-run, the test suite, `glassbox.verify` and the figures. Script: about 5 minutes end to end.
+
+| Check | Result |
+|---|---|
+| Regenerated notes and QA sets (both datasets) | **byte-identical** to the committed files |
+| Redaction results (both datasets) | identical to the committed results (timings and paths ignored) |
+| Retrieval evaluation, all 24 configurations + leak audit | identical to the committed results |
+| Test suite | 167 passed, 4 skipped (slow), 1 xfailed |
+| `glassbox.verify` (10 stored questions through the full pipeline) | **10/10 identical**, 32 s |
+| Figures `summary.json` and `tables.md` | identical |
+
+Not repeated in the clone: generation, verification and the threshold sweep (hours of GPU time). They are covered by the determinism check in §14.6 (two full runs from scratch identical) and by `glassbox.verify`, which re-runs generation and verification live against the committed answers.
