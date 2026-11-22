@@ -1,0 +1,271 @@
+{
+  "E1": {
+    "source": "redaction/realistic_t0.50.json, robustness/ood_redaction_*.json",
+    "overall_f1": 0.9987,
+    "fully_masked_rate": 0.9914,
+    "char_leakage": 0.0024,
+    "per_type_f1": {
+      "NAME": 0.998,
+      "ADDRESS": 0.9934,
+      "PHONE_NUMBER": 0.9995,
+      "PATIENT_ID": 1.0,
+      "DATE_OF_BIRTH": 1.0,
+      "EMAIL": 1.0
+    },
+    "ood_fully_masked": {
+      "a_prefix": 0.8153,
+      "a_after_fixes": 0.9856,
+      "b_prefix": 0.6725,
+      "b": 0.8191
+    },
+    "name_origin_fully_masked_set_b": {
+      "Turkish": 0.5667,
+      "Vietnamese": 0.7,
+      "Spanish": 0.7333,
+      "Dutch": 0.8667,
+      "Danish": 0.9333,
+      "English (UK)": 0.9667,
+      "English (IE)": 0.9667,
+      "Swedish": 0.9667
+    }
+  },
+  "E2": {
+    "source": "retrieval/realistic_t0.50.json (leak_audit), experiments/log_pii_scan.json",
+    "index_full_leak_rate": 0.0001,
+    "index_partial_leak_rate": 0.0004,
+    "raw_index_partial_leak_rate": 1.0,
+    "log_scan_privacy_records": 9630,
+    "log_scan_privacy_hits": 0,
+    "log_scan_baseline_hits": 7952
+  },
+  "E3": {
+    "source": "retrieval/realistic_t0.50.json, generation/realistic_t0.50.json",
+    "redacted_evidence": {
+      "value": 0.9489,
+      "ci95": [
+        0.9224,
+        0.9718
+      ]
+    },
+    "redacted_accuracy": {
+      "value": 0.9189,
+      "ci95": [
+        0.8889,
+        0.9444
+      ]
+    },
+    "redacted_grounded": {
+      "value": 0.858,
+      "ci95": [
+        0.8148,
+        0.8986
+      ]
+    },
+    "raw_evidence": {
+      "value": 0.9074,
+      "ci95": [
+        0.8704,
+        0.94
+      ]
+    },
+    "raw_accuracy": {
+      "value": 0.8995,
+      "ci95": [
+        0.8668,
+        0.9295
+      ]
+    },
+    "raw_grounded": {
+      "value": 0.8333,
+      "ci95": [
+        0.7875,
+        0.8765
+      ]
+    }
+  },
+  "E4": {
+    "source": "experiments/threshold_sweep.json",
+    "by_threshold": {
+      "0.30": {
+        "char_leakage": 0.0024,
+        "over_redactions": 4219,
+        "grounded_accuracy": 0.8686,
+        "ci95": [
+          0.8272,
+          0.9065
+        ]
+      },
+      "0.40": {
+        "char_leakage": 0.0024,
+        "over_redactions": 0,
+        "grounded_accuracy": 0.858,
+        "ci95": [
+          0.8148,
+          0.8986
+        ]
+      },
+      "0.50": {
+        "char_leakage": 0.0024,
+        "over_redactions": 0,
+        "grounded_accuracy": 0.858,
+        "ci95": [
+          0.8148,
+          0.8986
+        ]
+      },
+      "0.60": {
+        "char_leakage": 0.0024,
+        "over_redactions": 0,
+        "grounded_accuracy": 0.858,
+        "ci95": [
+          0.8148,
+          0.8986
+        ]
+      },
+      "0.70": {
+        "char_leakage": 0.0024,
+        "over_redactions": 0,
+        "grounded_accuracy": 0.858,
+        "ci95": [
+          0.8148,
+          0.8986
+        ]
+      },
+      "0.80": {
+        "char_leakage": 0.0185,
+        "over_redactions": 0,
+        "grounded_accuracy": 0.858,
+        "ci95": [
+          0.8148,
+          0.8986
+        ]
+      }
+    }
+  },
+  "E5": {
+    "source": "generation/realistic_t0.50.json (test, identity)",
+    "GlassBox": {
+      "answered": 0,
+      "true_value_own_note": 0,
+      "n": 84
+    },
+    "Redacted, guard off": {
+      "answered": 84,
+      "true_value_own_note": 0,
+      "n": 84
+    },
+    "Raw baseline": {
+      "answered": 42,
+      "true_value_own_note": 16,
+      "n": 84
+    },
+    "note": "Guard off: every answer came from another patient's note (false attribution 1.0)."
+  },
+  "E6": {
+    "source": "retrieval/realistic_t0.50_selection_ablation.json",
+    "steps": {
+      "Day 2 selection": {
+        "evidence": 0.8404,
+        "ci95": [
+          0.7919,
+          0.8854
+        ]
+      },
+      "+ question redaction": {
+        "evidence": 0.8404,
+        "ci95": [
+          0.7919,
+          0.8854
+        ]
+      },
+      "+ demote low-information chunks": {
+        "evidence": 0.8536,
+        "ci95": [
+          0.8078,
+          0.8959
+        ]
+      },
+      "+ note-ordered grouping": {
+        "evidence": 0.9189,
+        "ci95": [
+          0.8862,
+          0.9489
+        ]
+      },
+      "+ two-hop answer sections (final)": {
+        "evidence": 0.9489,
+        "ci95": [
+          0.9224,
+          0.9718
+        ]
+      }
+    }
+  },
+  "E7": {
+    "source": "verification/verifier_eval.json",
+    "corruptions_caught": 0.994,
+    "ci95": [
+      0.9881,
+      0.9985
+    ],
+    "false_alarm_on_clean_genuine": 0.0119,
+    "false_alarm_on_genuine_strict": 0.0881,
+    "per_kind_caught": {
+      "dose_change": 1.0,
+      "drug_swap": 0.97,
+      "negation": 1.0,
+      "number_change": 1.0,
+      "symptom_swap": 1.0,
+      "unsupported_addition": 1.0,
+      "wrong_citation": 0.994
+    },
+    "grounded_accuracy_by_verdict": {
+      "VERIFIED": {
+        "n": 165,
+        "grounded_accuracy": 0.9061
+      },
+      "NOT_VERIFIED": {
+        "n": 21,
+        "grounded_accuracy": 0.4921
+      },
+      "PARTLY_VERIFIED": {
+        "n": 2,
+        "grounded_accuracy": 1.0
+      },
+      "CONTRADICTED": {
+        "n": 1,
+        "grounded_accuracy": 0.3333
+      }
+    },
+    "guard_off_identity_claims": {
+      "without_rewriting": {
+        "SUPPORTED": 118
+      },
+      "with_rewriting": {
+        "SUPPORTED": 78,
+        "UNSUPPORTED": 40
+      }
+    }
+  },
+  "E8": {
+    "source": "robustness/paraphrases_*.json",
+    "evidence": {
+      "template": 0.9489,
+      "a_prefix": 0.4497,
+      "a": 0.9321,
+      "b_prefix": 0.3236,
+      "b": 0.5785
+    },
+    "grounded_accuracy": {
+      "template": 0.858,
+      "set_b": 0.5022,
+      "set_b_ci95": [
+        0.4352,
+        0.5679
+      ]
+    }
+  },
+  "E9": {
+    "status": "not run"
+  }
+}

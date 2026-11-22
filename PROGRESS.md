@@ -675,7 +675,7 @@ Share of PII values fully masked (for names: every personal-name word hidden; ti
 
 ## 9. Tests
 
-`python -m pytest glassbox/tests` → **165 passed, 4 skipped, 1 xfailed** (Day 5, after the exact-search fix). The skipped tests load the real 7B model or the NLI model; with `GLASSBOX_SLOW=1`: **169 passed, 1 xfailed**.
+`python -m pytest glassbox/tests` → **167 passed, 4 skipped, 1 xfailed** (Day 5 evening). The skipped tests load the real 7B model or the NLI model; with `GLASSBOX_SLOW=1` they pass too (169 + 1 xfail before the last two dashboard tests were added).
 
 | File | Covers |
 |---|---|
@@ -931,6 +931,7 @@ An independent check of everything built so far, using throwaway scripts rather 
 - **Found that ChromaDB's approximate (HNSW) dense search was the cause of differing raw-baseline runs and "stale" identity answers** (§14.6). Switched to exact search, then re-ran retrieval, generation, verification, both paraphrase sets, all pipeline traces, the threshold sweep and the PII scan (~4 h in the background). GlassBox's own numbers didn't change (every filtered question is identical); the raw baseline now finds named people more often (hybrid identity recall 0.333 → 0.548) and answers 42/84 identity questions, 16 with the person's true value.
 - Determinism checked: generation and verification were run twice from scratch with exact search; all 900 stored answers identical, summaries identical apart from timings.
 - Demo tooling (PLAN 6.3): Demo page in the dashboard (six one-click steps incl. "try to fool the verifier"), `python -m glassbox.verify` (re-runs 10 stored questions live: 10/10 identical in 34 s), `DEMO.md` script. Tests 161 → 170 (165 fast + 4 slow + 1 xfail).
+- Evening: headless real-model dry run of the dashboard (every button, no errors); live traces separated from the evaluation run; Stored traces open on the test split; figures E1–E8 (`experiments/figures.py`, §15) and an Experiments page; synthetic replication E9 run. Tests 167 + 4 slow + 1 xfail.
 
 ---
 
@@ -1035,7 +1036,11 @@ Run with `streamlit run glassbox/src/dashboard/app.py`. The sidebar picks the da
   4–5. Answer and verification: the answer verdict badge; each claim with links that jump to the cited chunk cards and its NLI label (green SUPPORTED, red CONTRADICTED, orange UNSUPPORTED, grey UNCERTAIN), probabilities, premise chunks and the hypothesis as checked; dropped invalid citations; the raw model output with token counts.
   Plus per-stage timings and the full trace JSON.
 - **Privacy.** Only what the trace holds is shown: redacted text and placeholders. Raw-baseline traces carry a warning banner.
-- **Tested** headlessly with Streamlit's AppTest (`tests/test_dashboard.py`): both pages load and six kinds of trace render without errors. Still to do (Day 6, PLAN 6.2): the experiments page with figures, and a manual check in the browser.
+- **Tested** headlessly with Streamlit's AppTest (`tests/test_dashboard.py`): every page loads and six kinds of trace render without errors.
+- **Experiments page** (added Day 5 evening): four headline metrics from `results/figures/summary.json`, the eight figures (§15) with one-line captions, and the tables. It reads files only.
+- **Live traces kept apart** (found in the dry run below). Questions asked on the Demo or Ask page used to be saved next to the 390 evaluation traces, so after a demo the Stored traces table would no longer show exactly the evaluated run (and its accuracy would mix in ad-hoc questions). They now go to `logs/traces/live/<dataset>/<config>/`; the Stored traces page switches between "Evaluation run" and "Asked in this dashboard". The PII scan covers the live folder too.
+- **Stored traces open on the test split.** Unfiltered, the table showed grounded accuracy 0.869 (dev + test) while every document says 0.858 (test); a professor comparing the two would see a mismatch. The Split filter now defaults to `test`.
+- **Headless dry run with the real models** (Day 5 evening, AppTest pressing every button): Load models 16 s; steps 1–4 3.9 / 7.5 / 2.8 / 0.0 s; all full-trace toggles; verifier edits of the step-1 claim gave SUPPORTED (unchanged), CONTRADICTED (25mg → 50mg), CONTRADICTED (drug swapped), UNSUPPORTED ("referred to cardiology" added); three own questions (incl. a named person, refused); Ask page; Stored traces for all three configurations. No exceptions. A manual run in Safari by the owner follows (PLAN 6.3).
 - **Network exposure (found and fixed, Day 5 review).** Started as a real server, Streamlit listened on every network interface by default (it printed a LAN and a public "External URL") and sends usage statistics to its developer. For a page that shows the question as typed, that's a privacy hole: anyone on the same Wi-Fi could open it. `.streamlit/config.toml` now binds to `localhost` and disables telemetry; checked: the LAN address refuses connections.
 
 ### 14.5 Review fixes (Day 5, after the first commit)
@@ -1110,3 +1115,27 @@ The full experiments take hours (390 questions × 3 configurations ≈ 1 h; thre
 3. **`python -m glassbox.verify`** (~1 min). Re-runs a fixed, stratified sample (seed 0: 4 clinical fact, 3 aggregate, 3 identity) through the whole pipeline and compares retrieved chunks, answer text, citations, refusal reason and score with the committed evaluation file. It prints questions in redacted form only and exits with code 1 on any difference. This proves live that the stored numbers come from the code as it is. Result: 10/10 identical.
 
 `DEMO.md` is the 15-minute script: pre-meeting checklist, what to say at each step, likely questions with answers, and fallbacks if something fails.
+
+---
+
+## 15. Figures and the experiments summary (`glassbox/src/experiments/figures.py`)
+
+`python -m glassbox.src.experiments.figures` rebuilds everything below from committed results in a few seconds, with no model loaded. It writes `glassbox/results/figures/E*.png` (8 figures, 200 dpi), `summary.json` (every headline number, each with its source file) and `tables.md` (E1b, E2, E9). A test regenerates them into a temporary folder and checks the headline numbers against this file. All numbers are from the realistic test split unless a label says otherwise. Error bars are the bootstrap 95% CIs stored with each result; the name-origin rates (n = 30 each) use Wilson intervals.
+
+| Figure | Shows | Key numbers |
+|---|---|---|
+| E1a `E1a_redaction_per_type.png` | Detection F1 and "value fully masked" per PII type | F1 0.998 names, 0.993 addresses, 1.000 others; names fully masked 0.974 |
+| E1b `tables.md` | Out-of-distribution notes, sets A and B before/after fixes | all values fully masked: A 0.815 → 0.986; B (held out) 0.672 → 0.819 |
+| E1c `E1c_name_origin_bias.png` | Patient names fully masked by name origin (set B) | English/Swedish 0.97 vs Turkish 0.57, Vietnamese 0.70, Spanish 0.73 |
+| E2 `tables.md` | PII visible in the retrieval index; log/trace scan | 0.01% fully / 0.04% partly visible (raw index 100%); 0 values in 9,630 log records |
+| E3 `E3_utility_redacted_vs_raw.png` | Evidence, accuracy, grounded accuracy: GlassBox vs raw | 0.949 / 0.919 / 0.858 vs 0.907 / 0.899 / 0.833; CIs overlap |
+| E4 `E4_threshold_sweep.png` | Leakage, over-redaction and grounded accuracy across thresholds 0.3–0.8 (three panels, no dual axis) | 0.3: 4,219 over-redactions; 0.4–0.7 identical; 0.8: character leakage 0.24% → 1.85% |
+| E5 `E5_identity_protection.png` | Identity questions answered / true value leaked | GlassBox 0 / 0; guard off 84 / 0 (all from other people's notes); raw 42 / 16 |
+| E6 `E6_retrieval_ablation.png` | Retrieval design steps | evidence 0.840 → 0.854 → 0.919 → 0.949 |
+| E7 `E7_verification.png` | Corrupted claims caught per kind; grounded accuracy by verdict | 99.4% overall (drug swap 97.0%, wrong citation 99.4%, the rest 100%); VERIFIED 0.906 vs NOT_VERIFIED 0.492 |
+| E8 `E8_robustness.png` | Retrieval on reworded questions before/after fixes; end-to-end on set B | set A 0.450 → 0.932; set B 0.324 → 0.579; grounded 0.858 template vs 0.502 set B |
+| E9 `tables.md` | Replication on the 250-note synthetic dataset | see §15.1 |
+
+**Design choices.** One colour per system everywhere: blue = GlassBox, orange = raw baseline, green = guard off, grey = "before a fix". The palette was checked with a colour-vision-deficiency validator (it passes; green has low contrast on white, so every bar has a direct value label). Axes that don't start at zero say so in the axis label (E1a, E3). The threshold sweep uses three small panels rather than one chart with two y-axes.
+
+**Dashboard.** The Experiments page shows the same figures with one-line captions, ordered for a demo (utility, identity, verification, threshold first; limitations after).

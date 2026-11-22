@@ -9,6 +9,7 @@ Pages
                     verifier", and a free question box
     Ask             type a question (or pick a QA-set question); the pipeline runs and its
                     trace is shown and saved.
+    Experiments     figures and headline numbers from the evaluation runs (results/figures)
     Stored traces   table of saved traces (filter by verdict / type / abstention); pick
                     one to audit it. Reads trace files only, no recomputation.
 
@@ -372,10 +373,63 @@ def page_demo(dataset: str):
                 show_trace(trace, original)
 
 
+FIGURES = ROOT / "glassbox" / "results" / "figures"
+EXPERIMENTS = [
+    ("E3_utility_redacted_vs_raw.png", "Does privacy cost accuracy?",
+     "GlassBox (redacted) vs the same pipeline without privacy. The confidence intervals overlap: no measurable cost."),
+    ("E5_identity_protection.png", "Questions that name a person",
+     "GlassBox refuses all of them. Without the guard the model answers every one, from other patients' notes; "
+     "the raw baseline leaks the person's real value."),
+    ("E7_verification.png", "Does the verifier catch false claims?",
+     "Corrupted claims (changed dose, swapped drug, added fact…) built from the system's own answers."),
+    ("E4_threshold_sweep.png", "Choosing the redaction threshold",
+     "The whole pipeline re-run at six thresholds (about 2 hours). 0.3 removes clinical text; 0.8 lets phone numbers through."),
+    ("E1a_redaction_per_type.png", "Redaction quality", "On the 2,500 evaluation notes."),
+    ("E1c_name_origin_bias.png", "Limitation: names of some origins are missed more often",
+     "Held-out note formats, written before any fix."),
+    ("E8_robustness.png", "Limitation: reworded questions",
+     "Set B was held out and evaluated once, so this is the honest generalisation number."),
+    ("E6_retrieval_ablation.png", "How retrieval got there", "Each design step added on top of the previous one."),
+]
+
+
+def page_experiments():
+    st.header("Experiments")
+    st.caption("Results of the full evaluation runs (realistic dataset, test split, bootstrap 95% CIs). "
+               "Regenerate with `python -m glassbox.src.experiments.figures`; nothing here is computed live.")
+    summary_path = FIGURES / "summary.json"
+    if not summary_path.exists():
+        st.info("No figures yet. Run `python -m glassbox.src.experiments.figures`.")
+        return
+    s = json.loads(summary_path.read_text())
+    m = st.columns(4)
+    g = s["E3"]["redacted_grounded"]
+    m[0].metric("Grounded accuracy", f"{g['value']:.3f}", help=f"95% CI {g['ci95']}; raw baseline "
+                f"{s['E3']['raw_grounded']['value']:.3f}")
+    m[1].metric("Identity questions answered", f"{s['E5']['GlassBox']['answered']} / {s['E5']['GlassBox']['n']}",
+                help=f"Raw baseline: {s['E5']['Raw baseline']['answered']}")
+    m[2].metric("Corrupted claims caught", f"{s['E7']['corruptions_caught']:.1%}")
+    m[3].metric("PII values in logs and traces", f"{s['E2']['log_scan_privacy_hits']}",
+                help=f"{s['E2']['log_scan_privacy_records']:,} records scanned")
+    for fname, title, caption in EXPERIMENTS:
+        path = FIGURES / fname
+        if path.exists():
+            st.subheader(title)
+            st.caption(caption)
+            st.image(str(path))
+    tables = FIGURES / "tables.md"
+    if tables.exists():
+        with st.expander("Tables: out-of-distribution redaction, index leakage, synthetic replication"):
+            st.markdown(tables.read_text().split("\n", 3)[-1])
+
+
 def main():
     st.sidebar.title("🔍 GlassBox")
     st.sidebar.caption("Privacy-preserving, verifiable question answering over clinical notes")
-    page = st.sidebar.radio("Page", ["Demo", "Ask", "Stored traces"])
+    page = st.sidebar.radio("Page", ["Demo", "Ask", "Stored traces", "Experiments"])
+    if page == "Experiments":
+        page_experiments()
+        return
     dataset = st.sidebar.selectbox("Dataset", ["realistic", "synthetic"])
     if page == "Demo":
         page_demo(dataset)

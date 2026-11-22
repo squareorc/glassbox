@@ -42,6 +42,8 @@ python -m glassbox.src.verification.corruptions && python -m glassbox.src.verifi
 python -m glassbox.src.experiments.threshold_sweep               # ~2.5 h
 python -m glassbox.run "question" | --qa-id ID | --qa-set [--config raw|redacted_noguard]   # end-to-end, writes traces
 python -m glassbox.src.experiments.log_pii_scan                  # PII scan of all logs/traces (~4 s)
+python -m glassbox.src.experiments.figures                     # figures E1-E9 + summary.json from results/ (seconds)
+python -m glassbox.verify                                        # live check: 10 stored questions re-run, must be identical
 streamlit run glassbox/src/dashboard/app.py                      # audit dashboard (reads traces)
 python glassbox/src/robustness/evaluate_paraphrases.py --set b [--generate]
 python -m glassbox.src.robustness.ood_notes --set b

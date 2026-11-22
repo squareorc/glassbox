@@ -42,154 +42,102 @@ The contribution here isn't a new PII detector, a new RAG technique, or a new ex
 
 ---
 
-## 3. Planned System Architecture
+## 3. System Architecture
 
 ```
-                     User Query
-                         │
-                         ▼
-                  Query Analysis
-                         │
-                         ▼
-             Privacy & PII Detection
-                         │
-                         ▼
-           Redaction / Pseudonymization
-                         │
-                         ▼
-             Access-Controlled Retrieval
-                         │
-                         ▼
-             Relevant Sanitized Context
-                         │
-                         ▼
-                    Local LLM
-                         │
-                         ▼
-          Answer + Claims + Citations
-                         │
-                         ▼
-         Independent Evidence Verification
-                         │
-                         ▼
-             Final Verified Response
-                         │
-                         ▼
-                 Audit Dashboard
+question ──► question redaction ──► query analysis ──► hybrid retrieval ──► abstain guard ──► cited generation ──► claim verification ──► answer + audit trace
+            (Presidio + rules)     (diagnosis/date     (redacted index:     (refuse if the     (Qwen2.5-7B, local,   (DeBERTa-v3-large
+                                    filters, scope)     dense + BM25)        question names     JSON claims with      NLI, one label
+                                                                             a person)          citations)            per claim)
 ```
 
-### Component breakdown
+The notes are redacted once, before indexing; the model only ever sees redacted text. Each question produces one JSON **audit trace** (`glassbox/logs/traces/`) that records every stage: what was removed from the question, the filters, every retrieved chunk with its scores, the model's raw output, the claims and their citations, and each claim's verification label. A redacted-configuration trace never contains the original question.
 
-| Stage | Purpose | Planned tooling |
+| Stage | What it does | Code |
 |---|---|---|
-| PII detection & redaction | Identify and mask sensitive entities before anything downstream sees them | Presidio (NER + regex based) |
-| Retrieval | Embed sanitized documents, retrieve only what's relevant per query, log every retrieval decision | ChromaDB + a small local embedding model |
-| Generation | Produce an answer where every claim cites a specific retrieved chunk | Local open-weight LLM via MLX (Qwen2.5-7B-Instruct, 4-bit) |
-| Verification | Independently check each cited claim against its evidence; classify as Supported / Unsupported / Contradicted / Uncertain | Lightweight NLI/cross-encoder model |
-| Audit dashboard | Surface every stage's output — redactions, retrievals, claims, verification results — to the user | Streamlit |
+| Redaction | Presidio + spaCy with custom recognizers (patient IDs, DOB year range, phones, US addresses, names next to credentials and labels) and a clinical-term guard so drug names and vitals survive | `glassbox/src/redaction/` |
+| Retrieval | Section chunks; exact dense search (bge-small) + in-house BM25, fused 2:1; diagnosis/date filters from the question; two-hop selection for "which patients … " questions; the raw index needs explicit baseline access | `glassbox/src/retrieval/` |
+| Generation | Qwen2.5-7B-Instruct 4-bit via MLX, greedy (reproducible); answers as JSON claims citing sources; refuses *before* the model runs if the question identifies a person or matches no note | `glassbox/src/generation/` |
+| Verification | An independent NLI model checks each claim against the chunk(s) it cites: SUPPORTED / CONTRADICTED / UNSUPPORTED / UNCERTAIN | `glassbox/src/verification/` |
+| Pipeline + dashboard | `GlassBox(...).answer(q)` chains the stages with no logic of its own; Streamlit dashboard with a live demo, the trace audit view and the experiment figures | `glassbox/src/pipeline.py`, `glassbox/src/dashboard/` |
 
-### Evaluation plan
-
-The system will be evaluated along three axes, each with a small set of headline metrics (kept deliberately tight given the project timeline, rather than an exhaustive metric list):
-
-- **Privacy** — PII detection/redaction precision and recall against ground-truth entity spans.
-- **Utility** — answer accuracy and retrieval precision/recall, compared against a full-context RAG baseline (same pipeline, redaction toggled off) to measure what minimization costs in answer quality.
-- **Explainability / faithfulness** — claim verification accuracy, and the rate of unsupported/contradicted claims caught by the verifier.
+**Data:** 2,500 synthetic clinical notes in four EHR styles (SOAP, progress, discharge, consultation) with exact ground-truth PII spans, plus a 250-note second dataset from a different generator. 390 evaluation questions (clinical fact, multi-patient aggregate, and identity questions that must *not* be answerable), split 30% dev / 70% test. All data is synthetic; no real patients.
 
 ---
 
-## 4. What We Have Done So Far
+## 4. Results
 
-- **Scoped and finalized the proposal.** Domain locked to synthetic healthcare records; differential privacy and other formal privacy techniques deferred to future work; verification defined with four outcome categories; evaluation plan narrowed to a focused metric set per axis.
-- **Environment set up.** Python 3.11 virtual environment, project skeleton (`src/redaction`, `src/retrieval`, `src/generation`, `src/verification`, `src/dashboard`), core libraries installed (Presidio, spaCy, sentence-transformers, ChromaDB, Streamlit, MLX), and a local quantized LLM (Qwen2.5-7B-Instruct, 4-bit) pulled and smoke-tested via MLX. Git repository initialized.
-- **Synthetic dataset generator built and verified.** A script (`generate_synthetic_dataset.py`) that produces 250 synthetic clinical notes across 8 common conditions, using Faker-generated PII injected into note templates at tracked character offsets — giving exact ground-truth entity spans for redaction evaluation. It also produces a companion QA evaluation set (currently 8 diagnosis-based queries with known relevant documents and expected answers, to be expanded later with symptom-based and multi-condition queries for a more rigorous retrieval evaluation). Ground truth spans verified to match actual text offsets 100% (834/834 entities).
-- **Redaction module built and evaluated.** The full PII detection and redaction pipeline is implemented (`src/redaction/`):
-  - `detector.py`: Wraps Presidio's AnalyzerEngine with a custom PATIENT_ID recognizer (2 letters + 6 digits pattern from the synthetic data).
-  - `redactor.py`: Replaces detected PII with `[TYPE]` tags, handles overlapping spans, logs all redactions for the audit trail.
-  - `evaluate.py`: Compares detected spans against ground truth using IoU-based matching, computes precision/recall/F1 overall and per entity type.
-  - `pipeline.py`: Ties everything together — processes the raw dataset, outputs redacted documents to `data/processed/`, and generates evaluation metrics.
+Realistic dataset, **test split** (choices were tuned on dev only), bootstrap 95% confidence intervals. Figures: `glassbox/results/figures/`; every number below is in `glassbox/results/figures/summary.json`.
 
-### Redaction Evaluation Results
+| | GlassBox | No-privacy baseline |
+|---|---|---|
+| PII detection F1 / values left visible in the index | **0.999** / **0.04%** partly, 0.01% fully | n/a / 100% |
+| Answer is in the retrieved context (189 answerable questions) | **0.949** [0.922, 0.972] | 0.907 |
+| **Grounded accuracy** (answer correct *and* cited from the right patient's note) | **0.858** [0.815, 0.899] | 0.833 [0.788, 0.877] |
+| Questions naming a person (84): answered / gave the person's true value | **0 / 0** | 42 / 16 |
+| Corrupted claims caught by the verifier (670) | **99.4%**; 1.2% of clean genuine claims wrongly flagged | |
+| Grounded accuracy of answers marked VERIFIED vs NOT_VERIFIED | **0.906** vs 0.492 | |
+| PII values found in 9,630 log and trace records | **0** | (positive control: 7,952) |
+| Time per question (Apple-silicon laptop) | 3.2 s, ~98% of it the 7B model | 3.1 s |
 
-#### 1. Baseline Evaluation (250 Synthetic Notes)
-Evaluated at confidence threshold 0.5, IoU threshold 0.5:
+![Utility with and without privacy](glassbox/results/figures/E3_utility_redacted_vs_raw.png)
+![Identity protection](glassbox/results/figures/E5_identity_protection.png)
+![Verification](glassbox/results/figures/E7_verification.png)
 
-| Metric | Score |
-|---|---|
-| **Overall Precision** | 0.842 |
-| **Overall Recall** | 0.897 |
-| **Overall F1** | **0.869** |
+**Limitations, measured rather than assumed:**
+- **Template wording.** On reworded questions held out before any fix, retrieval evidence drops from 0.949 to 0.579 and grounded accuracy from 0.858 to 0.502 (`E8_robustness.png`).
+- **Unseen note formats.** On a held-out set of new note layouts, 0.819 of PII values are fully masked (0.999 in-distribution). PO boxes and multi-line addresses are missed, and names of Turkish (0.57), Vietnamese (0.70) and Spanish (0.73) origin are masked less often than English ones (0.97) (`E1c_name_origin_bias.png`).
+- **Verification checks evidence, not identity.** With the guard off, the verifier marks most claims about the wrong patient SUPPORTED. The guard is what protects identities.
+- **Redaction, not formal privacy.** No differential privacy; synthetic data only.
 
-**Per-entity-type breakdown:**
+Full design decisions, alternatives, numbers and problems found: [`PROGRESS.md`](PROGRESS.md). Build plan: [`PLAN.md`](PLAN.md). Demo script: [`DEMO.md`](DEMO.md).
 
-| Entity Type | Precision | Recall | F1 | TP | FP | FN |
-|---|---|---|---|---|---|---|
-| **EMAIL** | **1.000** | **1.000** | **1.000** | 84 | 0 | 0 |
-| **PATIENT_ID** | **1.000** | **1.000** | **1.000** | 250 | 0 | 0 |
-| **DATE_OF_BIRTH** | **1.000** | **1.000** | **1.000** | 84 | 0 | 0 |
-| **PHONE_NUMBER** | **1.000** | **1.000** | **1.000** | 81 | 0 | 0 |
-| NAME | 0.769 | 0.996 | 0.868 | 249 | 75 | 1 |
-| ADDRESS | 0.000 | 0.000 | 0.000 | 0 | 65 | 85 |
+---
 
-#### 2. Scaled Evaluation on Realistic Clinical Dataset (2,500 Notes)
-Evaluated on complex EHR-style documentation (progress notes, SOAP notes, discharge summaries, consultation notes) with multi-provider attribution:
+## 5. Quick start
 
-| Metric | Score |
-|---|---|
-| **Overall Precision** | 0.776 |
-| **Overall Recall** | **0.911** |
-| **Overall F1** | **0.838** |
+Requires an Apple-silicon Mac (MLX) and Python 3.11.
 
-**Per-entity-type breakdown (2,500 documents, 17,544 total PII entities):**
+```bash
+python3.11 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt && python -m spacy download en_core_web_lg
 
-| Entity Type | Precision | Recall | F1 | TP | FP | FN |
-|---|---|---|---|---|---|---|
-| **EMAIL** | **1.000** | **1.000** | **1.000** | 2,500 | 0 | 0 |
-| **DATE_OF_BIRTH** | **1.000** | **1.000** | **1.000** | 2,500 | 0 | 0 |
-| **PHONE_NUMBER** | **1.000** | **1.000** | **1.000** | 3,011 | 0 | 0 |
-| **PATIENT_ID** | **0.999** | **1.000** | **1.000** | 2,500 | 2 | 0 |
-| **NAME** | 0.834 | **0.988** | **0.904** | 5,930 | 1,179 | 75 |
-| ADDRESS | 0.001 | 0.001 | 0.001 | 2 | 3,337 | 1,526 |
+# Data, redaction, indexes (deterministic; a few minutes)
+python -m glassbox.src.generate_realistic_dataset --size large
+python -m glassbox.src.redaction.pipeline --dataset realistic
+python -m glassbox.src.retrieval.index --dataset realistic --all
 
-**What's working well:**
-- **Perfect detection (F1 1.000)** maintained at scale across 4 entity types: EMAIL, PATIENT_ID, DATE_OF_BIRTH, and PHONE_NUMBER.
-- **NAME F1 improved to 0.904** (98.8% recall across 6,005 patient, attending, referring, and emergency contact names).
-- Robust performance across diverse note structures (SOAP, progress, discharge, consultation) and clinical language (vitals, lab orders, ICD-10 codes).
-- DATE_OF_BIRTH uses a year-range regex (1936-2008) to distinguish actual DOB from recent visit dates, eliminating false positives.
-- PHONE_NUMBER uses a comprehensive custom recognizer with context gating for raw numbers, catching standard, parentheses, extension (`x272`, `ext. 402`), and international formats.
-- PATIENT_ID handles 1-2 letter alphanumeric, dash-separated, and MRN prefixes with 100% recall.
+# Ask a question (the 7B model downloads on first use)
+python -m glassbox.run "What medication was prescribed for the Essential hypertension patient whose note is dated 2024-11-10?"
 
-**Generalization beyond synthetic data:**
-To validate that the scores aren't artifacts of overfitting, the system was tested on 8 unseen format variations:
-- **Patient IDs**: Dash-separated (`P-123456`) and MRN-prefixed (`MRN0012345`) formats — both detected correctly.
-- **Dates**: US format (`03/20/1985`) and written format (`born March 20, 1985`) — both detected correctly.
-- **Phone numbers**: Parentheses format `(555) 123-4567`, extensions `555-123-4567 x272`, and international prefixes `+1-555-123-4567` — all detected correctly.
-- **Overall generalization**: **8/8 test cases passed (100.0%)**.
+# Dashboard: live demo, trace audit, experiment figures (http://localhost:8501, local only)
+streamlit run glassbox/src/dashboard/app.py
 
-The generalization test suite is available at `glassbox/tests/test_generalization.py`.
+# Check the stored results against the code, live (~1 minute)
+python -m glassbox.verify
+```
 
-**Known issues:**
-- **ADDRESS**: Presidio fragments addresses into separate NAME (street names) and LOCATION (cities) entities. With IoU ≥ 0.5 matching, none of these fragments overlap enough with the full ground-truth address span, resulting in 0% recall. Future work: merge adjacent NAME/LOCATION entities with address-specific context, or use a custom address recognizer.
-- **PHONE_NUMBER with formatting**: Presidio's built-in phone recognizer misses certain formats like `(555) 123-4567` (parentheses) and international prefixes. 10-digit unformatted numbers are detected correctly.
+**Reproducing the evaluation** (all outputs land in `glassbox/results/`):
 
-**Impact on pipeline:**
-- The redaction stage successfully processes all 250 documents and outputs sanitized versions with audit logs.
-- The overall F1 of 0.869 demonstrates strong privacy protection with minimal over-redaction. High recall (0.897) means most PII is caught, and high precision (0.842) means few false positives.
-- Four entity types achieve perfect detection (F1 1.000), and NAME detection is near-perfect (F1 0.868).
-- For downstream retrieval and generation stages, the redacted dataset in `data/processed/redacted_notes.jsonl` is ready to use.
-
-### Next up
-
-- Expand the QA evaluation set beyond diagnosis-only queries (add symptom-based and multi-condition queries).
-- Build the retrieval module: embed redacted documents, implement query-driven retrieval with ChromaDB, log retrieval decisions.
+```bash
+python -m glassbox.src.retrieval.evaluate --dataset realistic
+python -m glassbox.src.generation.evaluate --dataset realistic          # ~1 h, 3 configurations
+python -m glassbox.src.verification.corruptions && python -m glassbox.src.verification.evaluate
+python -m glassbox.src.experiments.threshold_sweep                      # ~2 h
+python -m glassbox.run --qa-set [--config raw|redacted_noguard]         # end-to-end traces
+python -m glassbox.src.experiments.log_pii_scan
+python -m glassbox.src.experiments.figures                              # figures + summary.json
+python -m pytest glassbox/tests                                         # ~30 s
+```
 
 ---
 
 ## Tech Stack
 
 - **Language:** Python 3.11
-- **PII detection:** Presidio, spaCy
-- **Embeddings / retrieval:** sentence-transformers, ChromaDB
-- **Local LLM inference:** MLX (Apple Silicon), Qwen2.5-7B-Instruct (4-bit)
-- **Dashboard:** Streamlit
+- **PII detection:** Presidio, spaCy (`en_core_web_lg`)
+- **Retrieval:** sentence-transformers (`BAAI/bge-small-en-v1.5`), ChromaDB (storage), NumPy exact search, in-house BM25
+- **Local LLM:** MLX, Qwen2.5-7B-Instruct (4-bit)
+- **Verification:** `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`
+- **Dashboard and figures:** Streamlit, matplotlib
 - **Synthetic data:** Faker

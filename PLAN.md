@@ -135,7 +135,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 - **Done when:** all re-runs finished, every changed number updated in `PROGRESS.md` with before/after, one commit.
 - **Result:** all re-runs done; GlassBox numbers unchanged (0/270 filtered questions changed), raw baseline identity recall 0.333 → 0.548, raw answered 42/84 (16 true values); two runs from scratch identical; 900/900 traces match the evaluation. PROGRESS §14.6.
 
-## Phase 6: Experiments, figures, dashboard (Nov 25) ⬜
+## Phase 6: Experiments, figures, dashboard (Nov 25) ⏳
 
 ### 6.1 Experiment set (all on realistic test unless noted; CIs everywhere)
 | # | Experiment | Source | Figure / table |
@@ -151,6 +151,7 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 | E9 | Synthetic (250-note) replication of headline numbers | run generation + verification on synthetic | Table |
 - Script: `glassbox/src/experiments/figures.py` → `glassbox/results/figures/*.png` and a `summary.json` of every headline number.
 - **Done when:** every figure regenerates from committed results with one command; numbers match `PROGRESS.md`.
+- **Result (Day 5 evening):** E1–E8 as 8 figures + `tables.md` + `summary.json`; a test regenerates them and checks headline numbers. E9 from `glassbox.run --qa-set --dataset synthetic`. PROGRESS §15.
 
 ### 6.3 Demo tooling ⏳ (built and checked; owner's browser dry run left)
 - **Demo page** in the dashboard (`glassbox/src/dashboard/demo_script.py`): 4 one-click live questions (fact, aggregate, named person GlassBox vs raw side by side, no-matching-record), "try to fool the verifier" (edit a claim, re-verify live), free question box; talking points; explicit "Load models" step. ✅ built, headless-tested
@@ -158,11 +159,12 @@ Numbers and design rationale live in `PROGRESS.md`. This file says **what** gets
 - **`DEMO.md`**: pre-meeting checklist, 15-minute script, likely questions with answers, failure fallbacks. ✅ numbers re-checked after the re-runs
 - **Done when:** a full dry run of DEMO.md works end to end in the browser (owner), `glassbox.verify` prints 10/10.
 
-### 6.2 Dashboard completion ⬜
+### 6.2 Dashboard completion ✅
 - **Experiments page:** headline numbers and figures from `results/figures`.
 - **Batch view:** a table of stored traces (filter by verdict / abstention / question type).
 - Privacy check: the dashboard never displays original PII from notes (only redacted text and placeholders).
 - **Done when:** the demo flow (ask → trace → experiments) works end to end without errors.
+- **Result:** Experiments page (metrics + figures + tables); stored traces open on the test split; live traces kept in `logs/traces/live/`; headless real-model dry run of every button with no errors. PROGRESS §14.4.
 
 ## Phase 7: Documentation (Nov 26) ⬜
 

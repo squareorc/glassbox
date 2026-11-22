@@ -97,9 +97,22 @@ def test_all_pages_load_without_loading_models():
     at = AppTest.from_file("../src/dashboard/app.py", default_timeout=60).run()   # relative to this file
     assert not at.exception
     assert any(b.label == "Load models" for b in at.button)        # Demo page waits for an explicit load
-    for page in ("Ask", "Stored traces"):
+    for page in ("Ask", "Stored traces", "Experiments"):
         at.sidebar.radio[0].set_value(page).run()
         assert not at.exception
+    assert len(at.metric) == 4                                      # Experiments: headline numbers
+
+
+def test_figures_regenerate_from_committed_results(tmp_path, monkeypatch):
+    """One command rebuilds every figure and the summary from glassbox/results (PLAN 6.1)."""
+    from glassbox.src.experiments import figures
+    monkeypatch.setattr(figures, "OUT", tmp_path)
+    figures.main()
+    s = json.loads((tmp_path / "summary.json").read_text())
+    assert len(list(tmp_path.glob("E*.png"))) == 8
+    assert s["E3"]["redacted_grounded"]["value"] == 0.858            # matches PROGRESS.md
+    assert s["E5"]["GlassBox"]["answered"] == 0
+    assert s["E2"]["log_scan_privacy_hits"] == 0
 
 
 SUMMARY = """
